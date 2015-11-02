@@ -229,11 +229,6 @@ return
 #Include %A_ScriptDir%\Library.ahk
 #Include %A_ScriptDir%\Message Server.ahk
 
-
-value := property("name.first")
-MsgBox,,, %value%
-
-
 ; This gets called whenever a window event occurs such as creation, activation, etc.
 ;~ The documented values for wParam are:
     ;~ HSHELL_WINDOWCREATED = 1
@@ -1211,7 +1206,7 @@ Button_ClockIn:
     WinActivate, Web Clock
     WinWaitActive, Web Clock
     
-	password = property("aplus.timeclock.password")
+	password := property("aplus.timeclock.password")
     Send janderson{Tab}
     Send %password%{Tab}
     Send {Space}
@@ -1245,7 +1240,7 @@ Button_ClockOut:
     WinActivate, Web Clock
     WinWaitActive, Web Clock
     
-	password = property("aplus.timeclock.password")
+	password := property("aplus.timeclock.password")
     Send janderson{Tab}
     Send %password%{Tab}
     Sleep 50
@@ -1287,7 +1282,7 @@ Button_TimeCard:
     
 	
     Sleep 1000
-	password = property("aplus.timeclock.password")
+	password := property("aplus.timeclock.password")
     Send janderson{Tab}
     Send %password%{Enter}
     
@@ -1314,7 +1309,7 @@ Button_PreviousTimeCard:
     WinActivate, Web Clock
     WinWaitActive, Web Clock
     
-	password = property("aplus.timeclock.password")
+	password := property("aplus.timeclock.password")
 	Send janderson{Tab}
     Send %password%{Tab}
     Sleep 200
