@@ -1,0 +1,105 @@
+- make a shortcut that opens a cheat sheet showing all shortcuts
+    - give it tabs for Windows, Firefox, and Eclipse (and each AHK mode)
+
+- storing your passwords in plaintext in your scripts isn't the best idea
+    - use at least a simple encryption
+
+- upgrade 't' so that it detects if to do list is already open in Notepad++ and just goes there 
+
+- create a text pasting mode
+    - it has like 26 slots on an always on top window
+	- each slot has a string and a triggering letter
+	- when you press the trigger letter, the text is pasted
+	- this is good if you have a finite set of values your assigning to a bunch of spreadsheet entries
+	- you can save preset lists
+
+
+-------------------------------------------------------------------------------------------
+AHK MODES
+-------------------------------------------------------------------------------------------
+
+typing mode (data entry)
+mouse and keyboard mode (one key commands)
+two key verb+noun mode (pure keyboard navigation)
+mouse keys mode
+
+
+A sort of ultra-terse overlay shell for a windowed environment.
+Every command is comprised of two letters:
+    <verb letter> <object letter>
+
+You perform and action on/using an object or group of objects.
+
+There is a default subject, like $_ in Perl.
+
+So,
+c => close active window (or tab if multitabbed)
+cw => close window (whether multiple tabs or not)
+ct => close tab
+ca => close everything
+cc => close Concise (suspend)
+
+ob => open (default browser)
+oe => open file explorer
+os => open selected URL or file
+on => open notepad
+oc => open command prompt
+
+ma => minimize all
+nw => activate next window
+pw => previous window
+
+
+
+fg => lookup selection using google
+fd => lookup selection using dictionary
+fw => lookup selection using wikipedia
+fc => find file on computer
+
+lc => lock computer
+
+hc => help on the 'close' verb
+hcw => what does 'cw' do?
+hh => help on help
+
+?g => ask google about selected text
+?d => ask dictionary
+?w => ask wikipedia
+?a => ask wolfram alpha
+
+
+The problem with two key commands is that it requires you to take your hand off the mouse.  Same problem with using
+shift, ctrl, alt, window.
+So, there is a way to switch to "one key mode".  All commands are now one key and assume $_ always.
+c => close selected
+g => google selected
+w => wikipedia selected
+h => help
+
+
+
+
+
+There should be a "browsing/surfing mode" that you can do all these things with one hand, one keystroke:
+- it assumes you are not inputting any information: just reading and browsing
+- right click and select "open link in new window"
+    - each keystroke emits a certain kind of click
+- close current window (or tab if multiple tabs)
+- look up the definition of this word in Wikipedia and a dictionary
+- pronounce whatever I've selected (if more than one word, read it out loud via bot)
+- copy whatever I've selected
+- minimize all
+- surf mode off
+- side by side tile this window with the last selected
+- next window; previous window
+- launch default browser
+- launch default file explorer
+[- launch command prompt and go into text entry mode]
+- increment URL and fetch; decrement URL and fetch (if it ends in a number)
+- close all windows
+- lock computer
+- an operation can be prompt guarded
+- it would be cool if it had an uberpane fading graphic that said like "x => close all windows" when you emit a command
+- one key might be the prefix for two key presses; they always start with that key
+
+
