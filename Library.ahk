@@ -561,3 +561,48 @@ dpiScaleFactor(options = "") {
     return scaleFactor
 }
 
+
+;===============================================================================
+; Display
+;===============================================================================
+
+; Switches screen on XPS15 to normal display profile.
+normalDisplayProfile() {
+	; Activate normal display profile.
+	Send #m
+	WinActivate Program Manager ahk_class Progman
+	WinActivate Program Manager ahk_class Progman
+	WinWaitActive Program Manager ahk_class Progman
+	Send {Escape 2} ; Clear any selected item.	
+	Send {AppsKey}
+	; BUG: Sometimes 'Graphics Options' is slot 10.	
+	Send {Down 11}
+	Send {vk27sc14D} ; {Right}
+	Send {Down 4}
+	Send {vk27sc14D} ; {Right}
+	Send {vk27sc14D} ; {Right}
+	Send {Down}
+	Send {Enter}
+} ; normalDisplayProfile()
+
+
+; Switches screen on XPS15 to bedtime display profile.
+bedtimeDisplayProfile() {
+	Send #m
+	WinActivate Program Manager ahk_class Progman
+	WinActivate Program Manager ahk_class Progman
+	WinWaitActive Program Manager ahk_class Progman
+	Send {Escape 2} ; Clear any selected item.	
+	Send {AppsKey}
+	; BUG: Sometimes 'Graphics Options' is slot 10.	
+	Send {Down 11}
+	Send {vk27sc14D} ; {Right}
+	Send {Down 4}
+	Send {vk27sc14D} ; {Right}
+	Send {vk27sc14D} ; {Right}
+	; Send {Enter}
+} ; bedtimeDisplayProfile()
+
+
+
+

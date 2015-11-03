@@ -133,6 +133,22 @@ WinClose, Error
 ; ahk_class #32770
 
 
+; Switch to normal display profile if started between 5 AM and 8 PM.
+hour := A_Hour + 0 ; Convert to int.  A_Hour seems to be zero-padded string.
+if (hour < 21) {
+    if (hour < 4) {
+		bedtimeDisplayProfile()
+	}
+	else { ; Between 5 AM and 9 PM.
+		; MsgBox,,, Normal	
+		normalDisplayProfile()
+	}
+}
+else { ; Later than 9 PM
+	bedtimeDisplayProfile()
+}
+
+
 ; Send a keystroke every five minutes to keep Tod's stupid admin settings from automatically locking the machine.
 Loop {
     Sleep 1000 * 60 * 5

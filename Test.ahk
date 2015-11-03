@@ -1,9 +1,11 @@
 #Include %A_ScriptDir%\Library.ahk
 
-value := property("name.first")
-MsgBox,,, %value%
+normalDisplayProfile()
 
 ExitApp
+
+value := property("name.first")
+MsgBox,,, %value%
 
 ; Loop through all windows.
 WinGet window_list, List 
