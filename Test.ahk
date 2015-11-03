@@ -1,6 +1,9 @@
 #Include %A_ScriptDir%\Library.ahk
 
-normalDisplayProfile()
+bedtimeDisplayProfile()
+; Sleep 1000
+; normalDisplayProfile()
+
 
 ExitApp
 

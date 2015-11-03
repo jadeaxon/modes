@@ -568,20 +568,32 @@ dpiScaleFactor(options = "") {
 
 ; Switches screen on XPS15 to normal display profile.
 normalDisplayProfile() {
-	; Activate normal display profile.
 	Send #m
 	WinActivate Program Manager ahk_class Progman
-	WinActivate Program Manager ahk_class Progman
+	Click 350, 0
 	WinWaitActive Program Manager ahk_class Progman
+	Send ^{Space}
+	Sleep 50
 	Send {Escape 2} ; Clear any selected item.	
+	Sleep 50
+	Send ^{Space}
+	Sleep 50
 	Send {AppsKey}
-	; BUG: Sometimes 'Graphics Options' is slot 10.	
-	Send {Down 11}
-	Send {vk27sc14D} ; {Right}
+	Sleep 50
+	; Click right 350, 0
+	; BUG: Sometimes 'Graphics Options' is slot 11.	
+	; Clicking on empty part of desktop (above) seems to fix this.	
+	Send {Down 10}
+	Sleep 100
+	Send {vk27sc14D} ; {Right}	
 	Send {Down 4}
+	Sleep 100
 	Send {vk27sc14D} ; {Right}
+	Sleep 50
 	Send {vk27sc14D} ; {Right}
+	Sleep 50
 	Send {Down}
+	Sleep 50	
 	Send {Enter}
 } ; normalDisplayProfile()
 
@@ -590,17 +602,29 @@ normalDisplayProfile() {
 bedtimeDisplayProfile() {
 	Send #m
 	WinActivate Program Manager ahk_class Progman
-	WinActivate Program Manager ahk_class Progman
+	Click 350, 0
 	WinWaitActive Program Manager ahk_class Progman
+	Send ^{Space}
+	Sleep 50
 	Send {Escape 2} ; Clear any selected item.	
+	Sleep 50
+	Send ^{Space}
+	Sleep 50
 	Send {AppsKey}
-	; BUG: Sometimes 'Graphics Options' is slot 10.	
-	Send {Down 11}
-	Send {vk27sc14D} ; {Right}
+	Sleep 50
+	; Click right 350, 0
+	; BUG: Sometimes 'Graphics Options' is slot 11.	
+	; Clicking on empty part of desktop (above) seems to fix this.	
+	Send {Down 10}
+	Sleep 100
+	Send {vk27sc14D} ; {Right}	
 	Send {Down 4}
+	Sleep 100
 	Send {vk27sc14D} ; {Right}
+	Sleep 50
 	Send {vk27sc14D} ; {Right}
-	; Send {Enter}
+	Sleep 50	
+	Send {Enter}
 } ; bedtimeDisplayProfile()
 
 
