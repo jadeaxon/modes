@@ -138,6 +138,7 @@ hour := A_Hour + 0 ; Convert to int.  A_Hour seems to be zero-padded string.
 if (hour < 21) {
     if (hour < 4) {
 		bedtimeDisplayProfile()
+		zeroBrightness()
 	}
 	else { ; Between 5 AM and 9 PM.
 		; MsgBox,,, Normal	
@@ -146,6 +147,7 @@ if (hour < 21) {
 }
 else { ; Later than 9 PM
 	bedtimeDisplayProfile()
+	zeroBrightness()
 }
 
 

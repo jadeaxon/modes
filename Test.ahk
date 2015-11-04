@@ -1,11 +1,14 @@
 #Include %A_ScriptDir%\Library.ahk
 
-bedtimeDisplayProfile()
-; Sleep 1000
-; normalDisplayProfile()
+
+zeroBrightness()
 
 
 ExitApp
+
+bedtimeDisplayProfile()
+; Sleep 1000
+; normalDisplayProfile()
 
 value := property("name.first")
 MsgBox,,, %value%

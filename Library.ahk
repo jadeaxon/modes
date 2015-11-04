@@ -628,5 +628,40 @@ bedtimeDisplayProfile() {
 } ; bedtimeDisplayProfile()
 
 
+; Sets the brightness to 0.
+; PRE: XPS15, Windows 10, default Action Center arrangement.
+zeroBrightness() {
+	CoordMode, Screen
+	Send #a
+	MouseMove 1315, 630
+	Sleep 50
+	Click right
+	Sleep 50
+	Send {Down}
+	Sleep 50
+	Send {Enter}
+	Sleep 50
+	WinActivate Settings
+	WinWaitActive Settings
+
+	; We are now in Settings|Display.
+	; Click on leftmost pixel of brightness slider.
+	MouseMove 352, 689
+	Sleep 50
+	MouseMove 353, 690
+	Sleep 50
+	Click
+	Sleep 50
+	; For some reason simply clicking does not work.
+	; So, we select the brightness slider using tabs.
+	Send {Tab 5}
+	Sleep 50
+	Click
+	Sleep 50
+	Send !{F4} ; Close the Settings window.
+
+	CoordMode, Relative
+} ; zeroBrightness()
+
 
 
