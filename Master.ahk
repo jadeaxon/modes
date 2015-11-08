@@ -133,21 +133,25 @@ WinClose, Error
 ; ahk_class #32770
 
 
-; Switch to normal display profile if started between 5 AM and 8 PM.
-hour := A_Hour + 0 ; Convert to int.  A_Hour seems to be zero-padded string.
-if (hour < 21) {
-    if (hour < 4) {
+
+EnvGet, host, COMPUTERNAME
+if (host = "XPS15") {
+	; Switch to normal display profile if started between 5 AM and 8 PM.
+	hour := A_Hour + 0 ; Convert to int.  A_Hour seems to be zero-padded string.
+	if (hour < 21) {
+		if (hour < 4) {
+			bedtimeDisplayProfile()
+			zeroBrightness()
+		}
+		else { ; Between 5 AM and 9 PM.
+			; MsgBox,,, Normal	
+			normalDisplayProfile()
+		}
+	}
+	else { ; Later than 9 PM
 		bedtimeDisplayProfile()
 		zeroBrightness()
 	}
-	else { ; Between 5 AM and 9 PM.
-		; MsgBox,,, Normal	
-		normalDisplayProfile()
-	}
-}
-else { ; Later than 9 PM
-	bedtimeDisplayProfile()
-	zeroBrightness()
 }
 
 
@@ -1192,11 +1196,190 @@ return
 
 
 ;-------------------------------------------------------------------------------
+; <Ctrl + Alt + J> => Popup GUI for common personal tasks.  J == Jeff.  
+
+$^!j::
+    Gui, Add, Button, gButton_HomeContexts w250 default, &Home Contexts  
+    Gui, Add, Button, gButton_WorkContexts w250, &Work Contexts    
+	Gui, Add, Button, gButton_Agendas w250, &Agendas
+	Gui, Add, Button, gButton_Recurring w250, &Recurring 
+	Gui, Show,, Personal
+    
+return  
+
+; TO DO: Factor button handlers into single "open all in given folder in single gVim" function.
+; TO DO: Verify works on XPS15.
+
+; Open all @ files in home contexts in a single gVim.
+Button_HomeContexts:
+	Gui, Destroy
+	Run C:\Users\jadeaxon\Dropbox\Organization\To Do\Contexts\Home
+	Sleep 1000
+	Send #{Up}
+	Sleep 100	
+	MouseMove 1450, 430
+	Click
+	Sleep 100
+	Send {PgUp}
+	Sleep 50
+	Send {PgUp}
+	Sleep 50
+	Send ^a
+	Sleep 500
+	Send +{F10}
+	Sleep 200
+
+	Send {Down}
+	Sleep 50
+	Send {Down}
+	Sleep 50
+	Send {Down}
+	Sleep 50
+	Send {Down}
+	Sleep 50
+	Send {Down}
+	Sleep 50
+	Send {Down}
+	Sleep 50
+
+	Send {Enter}
+	WinWait 500
+	WinActivate GVIM
+
+return
+
+
+; Open all @ files in work contexts in a single gVim.
+Button_WorkContexts:
+	Gui, Destroy
+	Run C:\Users\jadeaxon\Dropbox\Organization\To Do\Contexts\Work
+	Sleep 1000
+	Send #{Up}
+	Sleep 100	
+	MouseMove 1450, 430
+	Click
+	Sleep 100
+	Send {PgUp}
+	Sleep 50
+	Send {PgUp}
+	Sleep 50
+	Send ^a
+	Sleep 500
+	Send +{F10}
+	Sleep 200
+
+	Send {Down}
+	Sleep 50
+	Send {Down}
+	Sleep 50
+	Send {Down}
+	Sleep 50
+	Send {Down}
+	Sleep 50
+	Send {Down}
+	Sleep 50
+	Send {Down}
+	Sleep 50
+
+	Send {Enter}
+	WinWait 500
+	WinActivate GVIM
+
+return
+
+
+; Open all @ files in agendas in a single gVim.
+Button_Agendas:
+	Gui, Destroy
+	Run C:\Users\jadeaxon\Dropbox\Organization\To Do\Agendas
+	Sleep 1000
+	Send #{Up}
+	Sleep 100	
+	MouseMove 1450, 430
+	Click
+	Sleep 100
+	Send {PgUp}
+	Sleep 50
+	Send {PgUp}
+	Sleep 50
+	Send ^a
+	Sleep 500
+	Send +{F10}
+	Sleep 200
+
+	Send {Down}
+	Sleep 50
+	Send {Down}
+	Sleep 50
+	Send {Down}
+	Sleep 50
+	Send {Down}
+	Sleep 50
+	Send {Down}
+	Sleep 50
+	Send {Down}
+	Sleep 50
+
+	Send {Enter}
+	WinWait 500
+	WinActivate GVIM
+
+return
+
+
+; Open all recurring tasks files in a single gVim.
+Button_Recurring:
+	Gui, Destroy
+	Run C:\Users\jadeaxon\Dropbox\Organization\To Do\Recurring
+	Sleep 1000
+	Send #{Up}
+	Sleep 100	
+	MouseMove 1450, 430
+	Click
+	Sleep 100
+	Send {PgUp}
+	Sleep 50
+	Send {PgUp}
+	Sleep 50
+	Send ^a
+	Sleep 500
+	Send +{F10}
+	Sleep 200
+
+	Send {Down}
+	Sleep 50
+	Send {Down}
+	Sleep 50
+	Send {Down}
+	Sleep 50
+	Send {Down}
+	Sleep 50
+	Send {Down}
+	Sleep 50
+	Send {Down}
+	Sleep 50
+	; The context menu pops up different in this folder, so need to go down 2 more.	
+	Send {Down}
+	Sleep 50
+	Send {Down}
+	Sleep 50
+
+	Send {Enter}
+	WinWait 500
+	WinActivate GVIM
+
+return
+
+
+
+
+;-------------------------------------------------------------------------------
 ; <Ctrl + Alt + D> => Popup common tasks at digEcor.
 
 $^!d::
     Gui, Add, Button, gButton_ClockIn w150 default, Clock &In  
-    Gui, Add, Button, gButton_ClockOut w150, Clock &Out    
+
+Gui, Add, Button, gButton_ClockOut w150, Clock &Out    
     Gui, Add, Button, gButton_TimeCard w150, &Time Card
     Gui, Add, Button, gButton_PreviousTimeCard w150, &Previous Time Card
     Gui, Show,, digEcor
