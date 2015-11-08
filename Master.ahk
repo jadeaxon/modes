@@ -1849,9 +1849,14 @@ return
 ; <A n> => open next bookmark
 #IfWinActive Nature Pictures ahk_class MozillaWindowClass
 $!n::
-   Send ^l
-   Send https://www.hotmail.com
-   Send {Enter}
+	Send ^l
+	Send https://www.hotmail.com
+	Send {Enter}
+	; This assumes Roboform autofill pops up and mouse automoves to default dialog button.
+	Sleep 1000
+	WinActivate AutoFill - RoboForm ahk_class #32770
+	Sleep 100
+	Send {Enter}
 return
 #IfWinActive  
 
