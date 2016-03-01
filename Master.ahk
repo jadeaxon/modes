@@ -475,6 +475,11 @@ $^!l::
     Run taskmgr
 return
 
+; Before locking the screen, mute the volume.  This is so Slack alerts don't bother other people at work.
+$#l::
+    Send {Volume_Mute}
+    ; Windows will respond to the <W l> also.  This does not block Windows from seeing it.
+return
 
 
 ; Make it so I can launch Launchy from the VM.
