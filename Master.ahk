@@ -1077,11 +1077,26 @@ $!+n::
 return
 #IfWinActive
 
+
 ; Block whatever global handler is intercepting this.
 ; I think it was triggering my <W m> thing that keeps Outlook, etc. on a specific monitor.
 #IfWinActive Slack - digEcor
 $^+m::
 	Send ^+m
+return
+#IfWinActive
+
+
+; <C h> to jump to my "you" channel.
+#IfWinActive Slack - digEcor
+$^h::
+	; Open the quick channel switcher.	
+	Send ^t
+	Sleep 100
+	; Search for the "you" channel.
+	; Might not work if a strangely named channel exists.
+	Send you
+	Send {Enter}
 return
 #IfWinActive
 
