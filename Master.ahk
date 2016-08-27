@@ -1077,6 +1077,14 @@ $!+n::
 return
 #IfWinActive
 
+; Block whatever global handler is intercepting this.
+; I think it was triggering my <W m> thing that keeps Outlook, etc. on a specific monitor.
+#IfWinActive Slack - digEcor
+$^+m::
+	Send ^+m
+return
+#IfWinActive
+
 
 ;===============================================================================
 ; Submode Launching
