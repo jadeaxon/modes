@@ -827,6 +827,7 @@ return
 #IfWinActive
 
 
+
 ;-------------------------------------------------------------------------------
 ; Open command prompt at current folder in Explorer.
 ; <Ctrl + Alt + c> in Windows Explorer.
@@ -1059,11 +1060,26 @@ return
 #IfWinActive AutoFill - RoboForm
 $^w::
     Send !{F4}
+return
 #IfWinActive
 
 
 ;===============================================================================
-; SUBMODE LAUNCHING
+; Slack
+
+; Map <A S Down> to <A S n>.  <A S Down> is too hard to reach.  It is the Slack
+; keyboard shortcut to change to the next channel with an unread message in it.
+#IfWinActive Slack - digEcor
+$!+n::
+	; <A S Down>
+	; For some reason {Down} doesn't work on this machine.
+	Send !+{vk28sc150}
+return
+#IfWinActive
+
+
+;===============================================================================
+; Submode Launching
 
 
 ;-------------------------------------------------------------------------------
