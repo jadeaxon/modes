@@ -1105,6 +1105,9 @@ $^h::
 	; Search for the "you" channel.
 	; Might not work if a strangely named channel exists.
 	Send you
+	; Give time for word to show up on slower Windows VM.	
+	; Partial search for "yo" yielded chris.young.
+	Sleep 50 
 	Send {Enter}
 return
 #IfWinActive
