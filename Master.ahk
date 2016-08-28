@@ -140,17 +140,17 @@ if (host = "XPS15") {
 	hour := A_Hour + 0 ; Convert to int.  A_Hour seems to be zero-padded string.
 	if (hour < 21) {
 		if (hour < 4) {
-			bedtimeDisplayProfile()
-			zeroBrightness()
+			; bedtimeDisplayProfile()
+			; zeroBrightness()
 		}
 		else { ; Between 5 AM and 9 PM.
 			; MsgBox,,, Normal	
-			normalDisplayProfile()
+			; normalDisplayProfile()
 		}
 	}
 	else { ; Later than 9 PM
-		bedtimeDisplayProfile()
-		zeroBrightness()
+		; bedtimeDisplayProfile()
+		; zeroBrightness()
 	}
 }
 
@@ -1069,10 +1069,19 @@ return
 
 ; Map <A S Down> to <A S n>.  <A S Down> is too hard to reach.  It is the Slack
 ; keyboard shortcut to change to the next channel with an unread message in it.
+;
+; Of course, of course, this keystroke triggered a touchpad diagnostic log dump (!),
+; so I had to disable that with this:
+; reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\SynTP\Parameters\Debug /v DumpKernel /d 00000000 /t REG_DWORD /f
 #IfWinActive Slack - digEcor
 $!+n::
 	; <A S Down>
 	; For some reason {Down} doesn't work on this machine.
+	Send !+{vk28sc150}
+return
+
+; Use <C n> as alternate.  Since I have <C h> for my "you" channel.
+$^n::
 	Send !+{vk28sc150}
 return
 #IfWinActive
