@@ -532,7 +532,33 @@ $^a::
     MouseClick
     
 return
+
+
 #IfWinActive  
+
+; A2  01D	 	d	2.83	LControl       	
+; 31  002	 	d	0.28	1              	
+; 31  002	 	u	0.09	1              	
+; A2  01D	 	u	0.08	LControl       	
+; A2  01D	 	d	0.64	LControl       	
+; 32  003	 	d	0.34	2              	
+; 32  003	 	u	0.11	2              	
+; A2  01D	 	u	0.06	LControl 
+
+; DB  002	 	u	0.13	&              	
+; 37  003	 	d	0.55	[
+; Remap <C 1> and <C 2> to switch between mail and calendar.  These get messed up since Programmer
+; Dvorak uses symbols on the number key row.
+^SC002::
+	; <C &> => <C 1>
+	Send {vkA2sc01D Down}{vk31sc002 Down}{vk31sc002 Up}{vkA2sc01D Up}
+return
+
+^SC003::
+	; <C [> => <C 2>
+	Send {vkA2sc01D Down}{vk32sc003 Down}{vk32sc003 Up}{vkA2sc01D Up}
+return
+
 
 
 ; FAIL: Keyboard shortcuts in Chrome don't work when using Programmer Dvorak!
