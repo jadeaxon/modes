@@ -1866,6 +1866,15 @@ return
 ; Bookmark Transitions
 
 ; <A n> => open next bookmark
+#IfWinActive Google ahk_class MozillaWindowClass
+$!n::
+   Send ^l
+   Send https://slashdot.org/
+   Send {Enter}
+return
+#IfWinActive  
+
+; <A n> => open next bookmark
 #IfWinActive Slashdot ahk_class MozillaWindowClass
 $!n::
    Send ^l
@@ -1921,15 +1930,6 @@ return
 
 ; <A n> => open next bookmark
 #IfWinActive Random Quotes ahk_class MozillaWindowClass
-$!n::
-   Send ^l
-   Send https://www.facebook.com/naturepicturesoftheday
-   Send {Enter}
-return
-#IfWinActive  
-
-; <A n> => open next bookmark
-#IfWinActive Nature Pictures ahk_class MozillaWindowClass
 $!n::
 	Send ^l
 	Send https://www.hotmail.com
