@@ -1475,8 +1475,8 @@ return
 ; Clocks into digEcor (APlus) time clock.
 Button_ClockIn:
     Gui, Destroy
-    Run https://www.swipeclock.com/sc/clock/webclock.asp
-    WinWait, Web Clock
+	Run https://www.payrollservers.us/webclock/default.aspx
+	WinWait, Web Clock
     WinActivate, Web Clock
     
     ; Close RoboForm.
@@ -1511,8 +1511,8 @@ return
 ; Clock out of digEcor (APlus) time clock.
 Button_ClockOut:
     Gui, Destroy
-    Run https://www.swipeclock.com/sc/clock/webclock.asp
-    
+	Run https://www.payrollservers.us/webclock/default.aspx
+
     ; Close RoboForm.
     WinWait, AutoFill - RoboForm
     WinActivate, AutoFill - RoboForm
@@ -1524,7 +1524,8 @@ Button_ClockOut:
     WinWaitActive, Web Clock
     
 	password := property("aplus.timeclock.password")
-    Send janderson{Tab}
+    ; Send {Tab}
+	Send janderson{Tab}
     Send %password%{Tab}
     Sleep 50
     Send {Space}
@@ -1547,9 +1548,10 @@ return
 
 
 ; Show the digEcor (APlus) time card for the current week.
+; TO DO: Fix.  New system broke this.
 Button_TimeCard:
     Gui, Destroy
-    Run https://www.swipeclock.com/sc/clock/timecard.asp
+    Run https://www.payrollservers.us/pg/Ess/TimeCard.aspx
     WinWait, Web Clock - Mozilla Firefox
     WinActivate, Web Clock - Mozilla Firefox
     
@@ -1576,9 +1578,10 @@ return
 
 
 ; Show the digEcor (APlus) time card for the previous week.
+; TO DO: Fix.  New system broke this.
 Button_PreviousTimeCard:
     Gui, Destroy
-    Run https://www.swipeclock.com/sc/clock/timecard.asp
+    Run https://www.payrollservers.us/pg/Ess/TimeCard.aspx
     WinWait, Web Clock - Mozilla Firefox
     WinActivate, Web Clock - Mozilla Firefox
     
