@@ -1463,7 +1463,6 @@ $^!d::
 
 Gui, Add, Button, gButton_ClockOut w150, Clock &Out    
     Gui, Add, Button, gButton_TimeCard w150, &Time Card
-    Gui, Add, Button, gButton_PreviousTimeCard w150, &Previous Time Card
     Gui, Show,, digEcor
     
 return  
@@ -1549,64 +1548,23 @@ return
 
 ; Show the digEcor (APlus) time card for the current week.
 ; TO DO: Fix.  New system broke this.
+; PRE: You are logged out of the "Employee Self Service Portal".
 Button_TimeCard:
     Gui, Destroy
     Run https://www.payrollservers.us/pg/Ess/TimeCard.aspx
-    WinWait, Web Clock - Mozilla Firefox
-    WinActivate, Web Clock - Mozilla Firefox
-    
-    ; Close RoboForm.
-    WinWait, AutoFill - RoboForm
-    WinActivate, AutoFill - RoboForm
-    WinWaitActive, AutoFill - RoboForm
-    Send !{F4}
-    Sleep 250
-    ; Reactivate because RoboForm steals focus.
-    WinActivate, Web Clock
-    WinWaitActive, Web Clock
-    
+    ; TO DO: If already logged into portal, this alone will do the trick.
 	
+	WinWait, Online Time and Attendance
+    WinActivate, Online Time and Attendance
+    
     Sleep 1000
 	password := property("aplus.timeclock.password")
-    Send janderson{Tab}
+    Send {Tab}janderson{Tab}
     Send %password%{Enter}
     
-    ; In case another one pops back up.
-    WinClose, AutoFill - RoboForm
-    
-return
-
-
-; Show the digEcor (APlus) time card for the previous week.
-; TO DO: Fix.  New system broke this.
-Button_PreviousTimeCard:
-    Gui, Destroy
-    Run https://www.payrollservers.us/pg/Ess/TimeCard.aspx
-    WinWait, Web Clock - Mozilla Firefox
-    WinActivate, Web Clock - Mozilla Firefox
-    
-    ; Close RoboForm.
-    WinWait, AutoFill - RoboForm
-    WinActivate, AutoFill - RoboForm
-    WinWaitActive, AutoFill - RoboForm
-    Send !{F4}
-    Sleep 250
-    ; Reactivate because RoboForm steals focus.
-    WinActivate, Web Clock
-    WinWaitActive, Web Clock
-    
-	password := property("aplus.timeclock.password")
-	Send janderson{Tab}
-    Send %password%{Tab}
-    Sleep 200
-    Send {vk27sc14D} ; Send {Right}
-    Sleep 50
-    Send {Tab}
-    Sleep 50
-    Send {Enter}
-    
-    ; In case another one pops back up.
-    WinClose, AutoFill - RoboForm
+	Sleep 1000
+	Send ^w	
+	Run https://www.payrollservers.us/pg/Ess/TimeCard.aspx
     
 return
 
