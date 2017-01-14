@@ -1139,6 +1139,14 @@ return
 #IfWinActive
 
 
+#IfWinActive Slack - digEcor
+$^r::
+	Send /remind me to stop in 59m
+	Send {Enter}
+return
+#IfWinActive
+
+
 ;===============================================================================
 ; Submode Launching
 
