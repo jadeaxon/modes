@@ -507,34 +507,34 @@ return
 ; <C-a> => archive.
 ; Also note that in Hotmail, <C-.> moves to next message and <C-,> moves to previous message.
 ; So, using these three shortcuts is great for processing your @Waiting folder during a weekly review.
-; PRE: <C-0> to return Firefox to default zoom level.
-; PRE: Firefox.  Hotmail.  Dell XPS 15.  1366x768.
 #IfWinActive Outlook ahk_class MozillaWindowClass
 $^a::
-    ; Zoom back to default and scroll to top of page.
-    Send ^0
-    Send {Home}
-    ; Open 'Move to Folder' menu.
-    ; The new Outlook.com UI has a dedicated archive button (like Google) now.
-    ; MouseMove 600, 170
-    ; MouseClick
-    ; Select 'Archive' folder.
-    
-    ; Clickj the new Archive button.
-    Sleep 100
-    ; MouseMove 435, 115
-    MouseMove 470, 130
-    MouseClick
-    Sleep 100
-    ; Click so that arrow keys will scroll the new current message.
-    MouseMove 480, 155
-    MouseClick
-    MouseClick
-    
+	; Select the message pane so built-in shortcuts work.
+	Send {Tab}
+	; Archive the message. 
+	Send e
+
 return
 
+$^.::
+	; Select the message pane so built-in shortcuts work.
+	Send {Tab}
+	; Move to next message. 
+	Send ^.
 
+return
+
+$^,::
+	; Select the message pane so built-in shortcuts work.
+	Send {Tab}
+	; Move to previous message. 
+	Send ^,
+
+return
 #IfWinActive  
+
+
+
 
 ; A2  01D	 	d	2.83	LControl       	
 ; 31  002	 	d	0.28	1              	
