@@ -1482,9 +1482,9 @@ return
 ; Clocks into digEcor (APlus) time clock.
 Button_ClockIn:
     Gui, Destroy
-	Run https://www.payrollservers.us/webclock/default.aspx
-	WinWait, Web Clock
-    WinActivate, Web Clock
+	Run https://clock.payrollservers.us/?wl=aplusbenefits.payrollservers.us#/clock/web/login
+	WinWait, WM Clock
+    WinActivate, WM Clock
     
     ; Close RoboForm.
     WinWait, AutoFill - RoboForm
@@ -1493,33 +1493,39 @@ Button_ClockIn:
     Send !{F4}
     Sleep 250
     ; Reactivate because RoboForm steals focus.
-    WinActivate, Web Clock
-    WinWaitActive, Web Clock
+    WinActivate, WM Clock
+    WinWaitActive, WM Clock
     
 	password := property("aplus.timeclock.password")
-    Send janderson{Tab}
-    Send %password%{Tab}
-    Send {Space}
-    Sleep 50
     Send {Tab}
-    Sleep 50
-    Send {Enter}
+	Send janderson{Tab}
+    Send %password%{Tab}
+	Send {Enter}
     
     ; In case another one pops back up.
-	sleep 1000 
+	Sleep 7000 
     IfWinActive, AutoFill - RoboForm
     {
         Send !{F4}
     }
-    
+
+	; 770, 524 -- clock out
+
+	; 600, 522
+	MouseMove 600, 522
+	Sleep 1000
+	Click
+
 return
 
 
 ; Clock out of digEcor (APlus) time clock.
 Button_ClockOut:
     Gui, Destroy
-	Run https://www.payrollservers.us/webclock/default.aspx
-
+	Run https://clock.payrollservers.us/?wl=aplusbenefits.payrollservers.us#/clock/web/login
+	WinWait, WM Clock
+    WinActivate, WM Clock
+    
     ; Close RoboForm.
     WinWait, AutoFill - RoboForm
     WinActivate, AutoFill - RoboForm
@@ -1527,29 +1533,25 @@ Button_ClockOut:
     Send !{F4}
     Sleep 250
     ; Reactivate because RoboForm steals focus.
-    WinActivate, Web Clock
-    WinWaitActive, Web Clock
+    WinActivate, WM Clock
+    WinWaitActive, WM Clock
     
 	password := property("aplus.timeclock.password")
-    ; Send {Tab}
+    Send {Tab}
 	Send janderson{Tab}
     Send %password%{Tab}
-    Sleep 50
-    Send {Space}
-    Sleep 200
-    Send {vk27sc14D} ; Send {Right}
-    Sleep 100
-    Send {Tab}
-    Sleep 100
-    Send {Enter}
-   
+	Send {Enter}
+    
     ; In case another one pops back up.
-	sleep 1000 
+	Sleep 7000 
     IfWinActive, AutoFill - RoboForm
     {
         Send !{F4}
     }
-    
+
+	MouseMove 770, 522
+	Sleep 1000
+	Click
 	
 return
 
