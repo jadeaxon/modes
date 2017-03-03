@@ -1509,10 +1509,15 @@ Button_ClockIn:
         Send !{F4}
     }
 
-	; 770, 524 -- clock out
+	x := 600
+	y := 552
+	EnvGet, host, COMPUTERNAME
+	if (host = "JANDERSON-DT") {
+		x := 886
+		y := 616
+	}
 
-	; 600, 522
-	MouseMove 600, 522
+	MouseMove x, y
 	Sleep 1000
 	Click
 
@@ -1549,7 +1554,14 @@ Button_ClockOut:
         Send !{F4}
     }
 
-	MouseMove 770, 522
+	x := 770
+	y := 552
+	EnvGet, host, COMPUTERNAME
+	if (host = "JANDERSON-DT") {
+		x := 1045
+		y := 611
+	}
+	MouseMove x, y
 	Sleep 1000
 	Click
 	
