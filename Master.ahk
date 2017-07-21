@@ -455,6 +455,14 @@ isDayTime(hour) {
 } ; isDayTime(hour)
 
 
+;=============================================================================== 
+; Abbreviations
+;=============================================================================== 
+
+; These abbreviations expand in most Windows programs.
+; They do not expand in Cygwin.
+::xUSA::United States of America
+
 
 ;=============================================================================== 
 ; Hotkeys
