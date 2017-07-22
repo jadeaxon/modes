@@ -492,6 +492,12 @@ $^!g::
 	Clipboard := ""
 	Send, ^c
 	Sleep, 200
+	; Remove the citation cruft Kindle adds.
+	loop, Parse, Clipboard, `n, `r 
+	{
+		Clipboard := A_LoopField
+		break
+	}
 	Run, http://www.google.com/search?hl=en&q=%Clipboard%
 return
 
