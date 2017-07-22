@@ -463,6 +463,14 @@ isDayTime(hour) {
 ; They do not expand in Cygwin.
 ::xUSA::United States of America
 
+; Insert a Unicode bullet symbol immediately.
+; Use Windows Charater Map advanced view to search for these (or google them).
+:*:uBullet::{U+2022}
+
+:*:uDegrees::{U+00B0}
+:*:uEuros::{U+20AC}
+:*:uPlusOrMinus::{U+00B1}
+
 
 ;=============================================================================== 
 ; Hotkeys
