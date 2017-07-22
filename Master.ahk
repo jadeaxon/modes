@@ -485,6 +485,17 @@ isDayTime(hour) {
 #space::return
 
 
+; Makes <C-A g> search selected text in Google.
+; This kind of thing is also in Navigation mode.
+$^!g::
+	; Beware that <C-S c> opens Inspector in Firefox.
+	Clipboard := ""
+	Send, ^c
+	Sleep, 200
+	Run, http://www.google.com/search?hl=en&q=%Clipboard%
+return
+
+
 $^!l::
     ; Send ^!{Delete}
     ; Send ^!{vk2Esc153} ; This lets you lock the screen.
