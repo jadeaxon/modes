@@ -1349,7 +1349,37 @@ return
 
 
 ;-------------------------------------------------------------------------------
-; <Ctrl + Alt + J> => Popup GUI for common personal tasks.  J == Jeff.  <C-A j>.  
+; <C-A d> => Put laptop into day (normal) mode.
+$^!d::
+	; I had to create this control panel shortcut.
+	Run "C:\Users\jadeaxon\Desktop\System\Graphics\Intel Graphics and Media.lnk"
+	WinActivate, Intel(R) Graphics and Media Control Panel
+	WinWaitActive, Intel(R) Graphics and Media Control Panel
+	MouseMove, 315, 80 ; Display profiles dropdown.
+	; Sleep 1000
+	Click
+	Sleep 100
+	MouseMove, 300, 150 ; Normal profile.
+	; Sleep 1000
+	Click
+	Sleep 100
+	MouseMove, 339, 561 ; Main OK button.
+	; Sleep 1000
+	Click
+	Sleep 100
+	; The confirmation dialog should now be active.
+	; Mouse coordinates are now relative to it.
+	MouseMove, 185, 86 ; Do you really mean it dialog OK button.
+	; Sleep 1000
+	Click
+
+	; TO DO: Use nircmd.exe to set brightness to minimum.
+
+return
+
+
+;-------------------------------------------------------------------------------
+; <Ctrl + Alt + j> => Popup GUI for common personal tasks.  J == Jeff.  <C-A j>.  
 
 $^!j::
     Gui, Add, Button, gButton_HomeContexts w250 default, &Home Contexts  
@@ -1527,9 +1557,11 @@ return
 
 
 ;-------------------------------------------------------------------------------
-; <Ctrl + Alt + D> => Popup common tasks at digEcor.
+; <Ctrl + Alt + d> => Popup common tasks at digEcor.
+; I've disabled this so <C-A d> can be used for day mode (since no longer work at digEcor).
 
-$^!d::
+; $^!d::
+Disabled:
     Gui, Add, Button, gButton_ClockIn w150 default, Clock &In  
 
 Gui, Add, Button, gButton_ClockOut w150, Clock &Out    
