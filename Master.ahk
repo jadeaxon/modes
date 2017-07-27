@@ -1321,27 +1321,26 @@ return
 ;-------------------------------------------------------------------------------
 ; <C-A n> => Put laptop into night mode.
 $^!n::
+	click_delay := 500
 	; I had to create this control panel shortcut.
 	Run "C:\Users\jadeaxon\Desktop\System\Graphics\Intel Graphics and Media.lnk"
 	WinActivate, Intel(R) Graphics and Media Control Panel
 	WinWaitActive, Intel(R) Graphics and Media Control Panel
+	Sleep 500	
 	MouseMove, 315, 80 ; Display profiles dropdown.
-	; Sleep 1000
 	Click
-	Sleep 100
+	Sleep %click_delay%
 	MouseMove, 315, 130 ; Bedtime profile.
-	; Sleep 1000
 	Click
-	Sleep 100
+	Sleep %click_delay%
 	MouseMove, 339, 561 ; Main OK button.
-	; Sleep 1000
 	Click
-	Sleep 100
+	Sleep %click_delay%
 	; The confirmation dialog should now be active.
 	; Mouse coordinates are now relative to it.
 	MouseMove, 185, 86 ; Do you really mean it dialog OK button.
-	; Sleep 1000
 	Click
+	; Sleep %click_delay%
 
 	; TO DO: Use nircmd.exe to set brightness to minimum.
 
@@ -1349,29 +1348,29 @@ return
 
 
 ;-------------------------------------------------------------------------------
-; <C-A d> => Put laptop into day (normal) mode.
+; <C-A d> => Put laptop into day mode.
 $^!d::
+	; This initially worked with a 100 ms delay.  Why does my machine suddenly suck?
+	click_delay := 500
 	; I had to create this control panel shortcut.
 	Run "C:\Users\jadeaxon\Desktop\System\Graphics\Intel Graphics and Media.lnk"
 	WinActivate, Intel(R) Graphics and Media Control Panel
 	WinWaitActive, Intel(R) Graphics and Media Control Panel
+	Sleep 500
 	MouseMove, 315, 80 ; Display profiles dropdown.
-	; Sleep 1000
 	Click
-	Sleep 100
+	Sleep %click_delay%
 	MouseMove, 300, 150 ; Normal profile.
-	; Sleep 1000
 	Click
-	Sleep 100
+	Sleep %click_delay%
 	MouseMove, 339, 561 ; Main OK button.
-	; Sleep 1000
 	Click
-	Sleep 100
+	Sleep %click_delay%
 	; The confirmation dialog should now be active.
 	; Mouse coordinates are now relative to it.
 	MouseMove, 185, 86 ; Do you really mean it dialog OK button.
-	; Sleep 1000
 	Click
+	; Sleep %click_delay%
 
 	; TO DO: Use nircmd.exe to set brightness to minimum.
 
