@@ -1172,10 +1172,11 @@ return
 #IfWinActive
 
 
+; <C r> => set timer to stop running on elliptcal and list all reminders.
 #IfWinActive Slack - digEcor
 $^r::
-	Send /remind me to stop in 59m
-	Send {Enter}
+	Send /remind me to stop in 59m{Enter}
+	Send /remind list{Enter}
 return
 #IfWinActive
 
