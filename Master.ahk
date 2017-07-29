@@ -456,7 +456,7 @@ isDayTime(hour) {
 
 
 ;=============================================================================== 
-; Abbreviations
+; Abbreviations, Hotstrings
 ;=============================================================================== 
 
 ; These abbreviations expand in most Windows programs.
@@ -470,6 +470,12 @@ isDayTime(hour) {
 :*:uDegrees::{U+00B0}
 :*:uEuros::{U+20AC}
 :*:uPlusOrMinus::{U+00B1}
+:*:uIntersection::{U+2229}
+:*:uUnion::{U+222A}
+
+:*:j@h::jadeaxon@hotmail.com
+:*:j@g::jadeaxon@gmail.com
+:*:je@g::java.emitter@gmail.com
 
 
 ;=============================================================================== 
