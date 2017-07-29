@@ -1021,6 +1021,12 @@ return
 #IfWinActive
 
 
+#IfWinActive Jeff's Kindle
+; Makes <C w> close Kindle app.
+^w::
+	Send !{F4}
+return
+#IfWinActive
 
 
 ;-------------------------------------------------------------------------------
