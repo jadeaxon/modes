@@ -474,8 +474,10 @@ isDayTime(hour) {
 :*:uDegrees::{U+00B0}
 :*:uEuros::{U+20AC}
 :*:uPlusOrMinus::{U+00B1}
+:*:uInfinity::{U+221E}
 :*:uIntersection::{U+2229}
 :*:uUnion::{U+222A}
+
 
 :*:j@h::jadeaxon@hotmail.com
 :*:j@g::jadeaxon@gmail.com
