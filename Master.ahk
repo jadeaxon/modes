@@ -1968,6 +1968,21 @@ return
 
 ;==============================================================================
 ; Bookmark Transitions
+; JRoutine Workflow
+
+
+; <A n> => Move to next workflow stage in daily routine (or other current multiapp workflow).
+#IfWinActive Slack - digEcor
+$!n::
+	Run http://www.google.com
+	WinWait Google
+	WinActivate Google
+	WinWaitActive Google
+	; I don't think sending <A n> here will work since $ blocks retriggering.
+	Send ^l
+	Send https://slashdot.org/
+	Send {Enter}
+return
 
 ; <A n> => open next bookmark
 #IfWinActive Google ahk_class MozillaWindowClass
@@ -1977,6 +1992,7 @@ $!n::
    Send {Enter}
 return
 #IfWinActive  
+
 
 ; <A n> => open next bookmark
 #IfWinActive Slashdot ahk_class MozillaWindowClass
