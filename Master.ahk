@@ -96,6 +96,10 @@ dayMode := false
 ;    _checkGraphicsScheme()
 ;return
 
+; Group all Explorer windows.  Used by a shortcut to close them all.
+GroupAdd,ExplorerGroup, ahk_class CabinetWClass
+GroupAdd,ExplorerGroup, ahk_class ExploreWClass
+
 
 ; Load this timer after the icon or else the icon won't load.
 ; Poll the status of Vim every ??? ms to see if we should enable/disable ShortKeys.
@@ -914,6 +918,13 @@ $^!c::
     ClipSaved =
 return
 #IfWinActive
+
+
+; Closes all Explorer windows when <A-S F4> pressed.
+!+F4::
+	if ( WinExist("ahk_group ExplorerGroup") )
+	WinClose,ahk_group ExplorerGroup
+return
 
 
 ;-------------------------------------------------------------------------------
