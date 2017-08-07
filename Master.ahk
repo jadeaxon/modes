@@ -1200,6 +1200,9 @@ return
 $^r::
 	Send /remind me to stop in 59m{Enter}
 	Send /remind list{Enter}
+	Sleep 300
+	SetNumLockState Off	
+	Send {PgDn}
 return
 #IfWinActive
 
