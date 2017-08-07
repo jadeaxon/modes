@@ -2012,7 +2012,7 @@ return
 #IfWinActive  
 
 ; <A n> => open next bookmark
-#IfWinActiveach Dilbert ahk_class MozillaWindowClass
+#IfWinActive Dilbert ahk_class MozillaWindowClass
 $!n::
    Send ^l
    Send http://www.merriam-webster.com/word-of-the-day/
@@ -2035,13 +2035,23 @@ $!n::
 	Send ^l
 	Send https://www.hotmail.com
 	Send {Enter}
-	; This assumes Roboform autofill pops up and mouse automoves to default dialog button.
-	Sleep 1000
-	WinActivate AutoFill - RoboForm ahk_class #32770
-	Sleep 100
-	Send {Enter}
 return
 #IfWinActive  
+
+; <A n> => open next bookmark.  @Now GTD context and personal kanban.
+#IfWinActive Mail - jadeaxon@hotmail.com - Mozilla Firefox ahk_class MozillaWindowClass
+$!n::
+	Run "C:\Users\jadeaxon\Dropbox\Organization\To Do\Contexts\Home\@Now.txt"
+	; For some reason, this does not work.
+	; WinActivate Mail - jadeaxon@hotmail.com - Mozilla Firefox
+	Sleep 500
+	Send !{Tab}
+	WinWaitActive Mail - jadeaxon@hotmail.com - Mozilla Firefox	
+	Send ^l
+	Send https://docs.google.com/spreadsheets/d/1zXpRv6WFdb9eX9YDerTTCE7L3N6InYxJ-FYec9ok79I/edit{#}gid=0
+	Send {Enter}
+return
+#IfWinActive
 
 
 ;-------------------------------------------------------------------------------
