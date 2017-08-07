@@ -849,6 +849,15 @@ return
 #IfWinActive
 
 
+; Adds current URL to Bookmarks Toolbar|Now bookmarks.
+#IfWinActive ahk_class MozillaWindowClass
+$^d::
+	Send ^d
+	Sleep 500
+	Send {Tab}N{Enter}
+return
+
+
 ; We're not mapping the Dvorak keys back to Qwerty when <Ctrl> is pressed. 
 ; Though it seems like a good idea at first, it just causes much grief.
 ; Pass through raw to mintty.
