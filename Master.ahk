@@ -579,6 +579,15 @@ return
 #IfWinActive  
 
 
+; Make <C @> move selected/current message to @Waiting in Hotmail.
+#IfWinActive Mail - jadeaxon@hotmail.com ahk_class MozillaWindowClass
+$^@::
+	Send v ; This shortcut is built into Hotmail for moving messages.  Pops up dialog.
+	Sleep 200
+	Send @Waiting{Enter}
+return
+#IfWinActive
+
 
 
 ; A2  01D	 	d	2.83	LControl       	
