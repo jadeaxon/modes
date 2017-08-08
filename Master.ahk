@@ -548,32 +548,27 @@ return
 
 ;-------------------------------------------------------------------------------
 ; Make it easy to archive message being viewed in Hotmail.
-; <A-a> => archive.  Can't use this.  Roboform pops up some damn add new passcard dialog each time.
-; <C-a> => archive.
-; Also note that in Hotmail, <C-.> moves to next message and <C-,> moves to previous message.
-; So, using these three shortcuts is great for processing your @Waiting folder during a weekly review.
-#IfWinActive Outlook ahk_class MozillaWindowClass
-$^a::
-	; Select the message pane so built-in shortcuts work.
-	Send {Tab}
-	; Archive the message. 
-	Send e
-
-return
+; Note that in Hotmail, <C .> moves to next message and <C ,> moves to previous message.
+; These are both close to the 'e' key in Programmer Dvorak.  So, using these three shortcuts
+; is great for processing your @Waiting folder during a GTD weekly review.
+#IfWinActive Mail - jadeaxon@hotmail.com ahk_class MozillaWindowClass
+; Use 'e' to archive.  This is built into Hotmail.
 
 $^.::
-	; Select the message pane so built-in shortcuts work.
-	Send {Tab}
 	; Move to next message. 
 	Send ^.
+	Sleep 300
+	; Select the message pane so you can scroll the (usu Amazon shipping) message.
+	Send {Tab}
 
 return
 
 $^,::
-	; Select the message pane so built-in shortcuts work.
-	Send {Tab}
 	; Move to previous message. 
 	Send ^,
+	Sleep 300
+	; Select the message pane so you can scroll the (usu Amazon shipping) message.
+	Send {Tab}
 
 return
 #IfWinActive  
