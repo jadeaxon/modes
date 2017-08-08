@@ -2072,15 +2072,23 @@ $!n::
 return
 #IfWinActive  
 
-; <A n> => open next bookmark.  @Now GTD context and personal kanban.
 #IfWinActive Mail - jadeaxon@hotmail.com - Mozilla Firefox ahk_class MozillaWindowClass
+$!n::
+	Send ^l
+	Send https://jobs.utah.gov
+	Send {Enter}
+return
+#IfWinActive
+
+; <A n> => open next bookmark.  @Now GTD context and personal kanban.
+#IfWinActive jobs.utah.gov ahk_class MozillaWindowClass
 $!n::
 	Run "C:\Users\jadeaxon\Dropbox\Organization\To Do\Contexts\Home\@Now.txt"
 	; For some reason, this does not work.
 	; WinActivate Mail - jadeaxon@hotmail.com - Mozilla Firefox
 	Sleep 500
 	Send !{Tab}
-	WinWaitActive Mail - jadeaxon@hotmail.com - Mozilla Firefox	
+	WinWaitActive jobs.utah.gov	
 	Send ^l
 	Send https://docs.google.com/spreadsheets/d/1zXpRv6WFdb9eX9YDerTTCE7L3N6InYxJ-FYec9ok79I/edit{#}gid=0
 	Send {Enter}
