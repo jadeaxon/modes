@@ -22,6 +22,7 @@ OpenKindleBook(book)
 	Click 2
 }
 
-OpenKindleBook("Agile Project Management for Dummies")
+; OpenKindleBook("Agile Project Management for Dummies")
+OpenKindleBook("Merriam-Webster's Dictionary")
 
 
