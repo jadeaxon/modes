@@ -254,6 +254,7 @@ return
 
 #Include %A_ScriptDir%\Library.ahk
 #Include %A_ScriptDir%\Message Server.ahk
+#Include %A_ScriptDir%\Kindle.ahk
 
 ; This gets called whenever a window event occurs such as creation, activation, etc.
 ;~ The documented values for wParam are:
@@ -2000,7 +2001,7 @@ $!n::
 return
 
 ; <A n> => open next bookmark
-#IfWinActive Google ahk_class MozillaWindowClass
+#IfWinActive Google - Mozilla Firefox ahk_class MozillaWindowClass
 $!n::
    Send ^l
    Send https://slashdot.org/
@@ -2093,6 +2094,14 @@ $!n::
 	Send https://docs.google.com/spreadsheets/d/1zXpRv6WFdb9eX9YDerTTCE7L3N6InYxJ-FYec9ok79I/edit{#}gid=0
 	Send {Enter}
 return
+#IfWinActive
+
+; Done with kanban => read dictionary for a while.
+#IfWinActive Personal Kanban ahk_class MozillaWindowClass
+$!n::
+	OpenKindleBook("Merriam-Webster's Dictionary")
+return
+
 #IfWinActive
 
 
