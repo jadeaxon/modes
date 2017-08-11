@@ -2087,7 +2087,9 @@ $!n::
 	Run "C:\Users\jadeaxon\Dropbox\Organization\To Do\Contexts\Home\@Now.txt"
 	; For some reason, this does not work.
 	; WinActivate Mail - jadeaxon@hotmail.com - Mozilla Firefox
-	Sleep 500
+	WinWait @Now
+	WinActivate @Now
+	WinWaitActive @Now
 	Send !{Tab}
 	WinWaitActive jobs.utah.gov	
 	Send ^l
