@@ -499,6 +499,33 @@ isDayTime(hour) {
 #space::return
 
 
+; Converts a Wikipedia page to readable/printable view.
+; I: https://en.wikipedia.org/wiki/Kauai
+; O: http://en.wikipedia.org/w/index.php?title=Kauai&printable=yes
+SetTitleMatchMode 2 ; Match window title internally.
+#IfWinActive Wikipedia - Mozilla Firefox ahk_class MozillaWindowClass
+$!r::
+    Send ^l ; Select URL in Firefox.
+    Clipboard := "" ; Clear the clipboard.
+    Sleep 200
+    Send ^c ; Copy selection.
+    ClipWait ; Wait for clipboard to settle.
+
+	; Get the article's subject.
+    pos := RegExMatch(Clipboard, "/wiki/")
+    pos += 6
+    subject := SubStr(Clipboard, pos)
+    url = http://en.wikipedia.org/w/index.php?title=%subject%&printable=yes
+    Clipboard := url
+    ClipWait
+    Send ^l
+    Send ^v
+    Send {Enter}
+return
+#IfWinActive
+SetTitleMatchMode 1
+
+
 ; Makes <C-A g> search selected text in Google.
 ; This kind of thing is also in Navigation mode.
 $^!g::
