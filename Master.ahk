@@ -471,7 +471,6 @@ isDayTime(hour) {
 ; Insert a Unicode bullet symbol immediately.
 ; Use Windows Charater Map advanced view to search for these (or google them).
 :*:uBullet::{U+2022}
-
 :*:uDegrees::{U+00B0}
 :*:uEuros::{U+20AC}
 :*:uPlusOrMinus::{U+00B1}
@@ -479,10 +478,12 @@ isDayTime(hour) {
 :*:uIntersection::{U+2229}
 :*:uUnion::{U+222A}
 
-
 :*:j@h::jadeaxon@hotmail.com
 :*:j@g::jadeaxon@gmail.com
 :*:je@g::java.emitter@gmail.com
+
+; Misspellings.
+:*:plateu::plateau
 
 
 ;=============================================================================== 
