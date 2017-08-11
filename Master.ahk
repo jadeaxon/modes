@@ -2076,7 +2076,7 @@ return
 #IfWinActive Mail - jadeaxon@hotmail.com - Mozilla Firefox ahk_class MozillaWindowClass
 $!n::
 	Send ^l
-	Send https://jobs.utah.gov
+	Send https://jobs.utah.gov/jsp/utahjobs/seeker/home/viewHome.do
 	Send {Enter}
 return
 #IfWinActive
