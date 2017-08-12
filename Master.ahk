@@ -486,6 +486,24 @@ isDayTime(hour) {
 ::comrad::comrade
 :*:plateu::plateau
 
+; Date and time.
+; 9:30 AM
+:*:<time>::
+    FormatTime, output,, h:mm tt
+    SendInput %output%
+return
+
+; 8/11/2011 9:30 AM
+:*:<ts>::
+    FormatTime, output,, M/d/yyyy h:mm tt
+    SendInput %output%
+return
+
+; 02/22/2O12
+:*:<mdy>::
+    FormatTime, output,, MM/dd/yyyy
+    SendInput %output%
+return
 
 
 ;=============================================================================== 
@@ -1988,23 +2006,6 @@ return
     
 return
 
-; 9:30 AM
-::<time>::
-    FormatTime, output,, h:mm tt
-    SendInput %output%
-return
-
-; 8/11/2011 9:30 AM
-::<ts>::
-    FormatTime, output,, M/d/yyyy h:mm tt
-    SendInput %output%
-return
-
-; 02/22/2O12
-::<mdy>::
-    FormatTime, output,, MM/dd/yyyy
-    SendInput %output%
-return
 
 #Include %A_ScriptDir%\JRoutine.ahk
 
