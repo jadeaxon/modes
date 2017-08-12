@@ -483,7 +483,9 @@ isDayTime(hour) {
 :*:je@g::java.emitter@gmail.com
 
 ; Misspellings.
+::comrad::comrade
 :*:plateu::plateau
+
 
 
 ;=============================================================================== 
