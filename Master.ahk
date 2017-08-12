@@ -505,6 +505,12 @@ return
     SendInput %output%
 return
 
+; 2017-08-12
+:*:<ymd->::
+	FormatTime, output,, yyyy-MM-dd
+	SendInput %output%
+return
+
 
 ;=============================================================================== 
 ; Hotkeys
