@@ -485,6 +485,7 @@ isDayTime(hour) {
 ; Misspellings.
 ::comrad::comrade
 :*:plateu::plateau
+:*:persuassion::persuasion
 
 ; Date and time.
 ; 9:30 AM
