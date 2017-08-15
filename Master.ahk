@@ -1271,6 +1271,7 @@ return
 #IfWinActive Slack - digEcor
 $^r::
 	Send /remind me to stop in 59m{Enter}
+	Send /remind me to check recurrences at 1 PM{Enter}
 	Send /remind list{Enter}
 	Sleep 300
 	SetNumLockState Off	
