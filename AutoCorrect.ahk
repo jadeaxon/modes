@@ -59,6 +59,9 @@
 #NoEnv ; For security
 #SingleInstance force
 
+; Icons made by Freepik (http://www.freepik.com).
+Menu, Tray, Icon, %A_ScriptDir%\Icons\magic-wand.ico
+
 ;------------------------------------------------------------------------------
 ; AUto-COrrect TWo COnsecutive CApitals.
 ; Disabled by default to prevent unwanted corrections such as IfEqual->Ifequal.
