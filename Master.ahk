@@ -112,6 +112,7 @@ GroupAdd,ExplorerGroup, ahk_class ExploreWClass
 
 ; SetTimer, ReadMessageQueue, 1000
 
+Run %A_ScriptDir%\AutoCorrect.ahk
 
 ; Start ShortKeys disabled.
 ; <Ctrl + Alt + s> - this is set inside ShortKeys to toggle being enabled/disabled.
