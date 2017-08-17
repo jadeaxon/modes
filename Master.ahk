@@ -2025,6 +2025,7 @@ return
 ;
 ; Reload this AutoHotKey script.
 ; This is like sending a restart signal to a veb server so it can reload its configuration file.
+#UseHook off
 LControl & Escape::
     ; *64 is one of the system sounds.
     SoundPlay *64
