@@ -488,6 +488,7 @@ isDayTime(hour) {
 :*:digestable::digestible
 :*:plateu::plateau
 :*:persuassion::persuasion
+:*:colocation::collocation
 
 ; Date and time.
 ; 9:30 AM
