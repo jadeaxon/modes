@@ -486,6 +486,7 @@ isDayTime(hour) {
 ; Misspellings.
 ::comrad::comrade
 :*:digestable::digestible
+::hazzard::hazard
 :*:plateu::plateau
 :*:persuassion::persuasion
 :*:colocation::collocation
