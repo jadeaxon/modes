@@ -524,11 +524,20 @@ return
 ; # => Win; ^ => Ctrl;  + => Shift; ! => Alt
 ; $ => Don't allow "Send" output to trigger.  Don't let hotkeys trigger other hotkeys.  
 
-
 ; Make is so that <Window + Space> does not switch input languages.  This is causing me to nearly die
 ; in Path of Exile.
 #space::return
 
+; By default, <C Down> sends End.  This is not what I want in Firefox.
+#IfWinActive ahk_class MozillaWindowClass
+$^Down::
+	Send {PgDn}
+return
+
+$^Up::
+	Send {PgUp}
+return
+#IfWinActive
 
 ; Converts a Wikipedia page to readable/printable view.
 ; I: https://en.wikipedia.org/wiki/Kauai
