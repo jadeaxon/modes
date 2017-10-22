@@ -41,13 +41,13 @@ return
 #IfWinActive Hacker News ahk_class MozillaWindowClass
 $!n::
    Send ^l
-   Send https://www.reddit.com/
+   Send https://www.reddit.com/r/popular/?geo_filter=US
    Send {Enter}
 return
 #IfWinActive  
 
 ; <A n> => open next bookmark
-#IfWinActive reddit: ahk_class MozillaWindowClass
+#IfWinActive popular links ahk_class MozillaWindowClass
 $!n::
    Send ^l
    Send http://lifehacker.com/
