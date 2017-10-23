@@ -1125,6 +1125,13 @@ return
 #IfWinActive
 
 
+#IfWinActive ahk_exe Discord.exe
+; Makes <C w> close Discord.
+^w::
+	Send !{F4}
+return
+#IfWinActive
+
 ;-------------------------------------------------------------------------------
 ; Opens Cygwin command prompt at current folder in Windows Explorer.
 ; PRE: You have not hidden the address bar.
