@@ -1116,7 +1116,7 @@ $!p::
 return
 #IfWinActive
 
-
+; TO DO: Can we factor all these <C w> things down?
 #IfWinActive Jeff's Kindle
 ; Makes <C w> close Kindle app.
 ^w::
@@ -1124,13 +1124,21 @@ return
 return
 #IfWinActive
 
-
 #IfWinActive ahk_exe Discord.exe
 ; Makes <C w> close Discord.
 ^w::
 	Send !{F4}
 return
 #IfWinActive
+
+#IfWinActive Weather
+; Make <C w> close the Windows Weather app.
+^w::
+	Send !{F4}
+return
+#IfWinActive
+
+
 
 ;-------------------------------------------------------------------------------
 ; Opens Cygwin command prompt at current folder in Windows Explorer.
