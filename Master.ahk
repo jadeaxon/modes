@@ -717,7 +717,24 @@ $^a::
 return
 #IfWinActive
 
+#IfWinActive Inbox - jadeaxon@gmail.com
+$^`::
+	Send ^l
+	Sleep 300
+	SendRaw https://mail.google.com/mail/u/1/#inbox
+	Send {enter}
+return
 
+#IfWinActive
+
+#IfWinActive Inbox - java.emitter@gmail.com
+$^`::
+	Send ^l
+	Sleep 300
+	SendRaw https://mail.google.com/mail/u/0/#inbox
+	Send {enter}
+return
+#IfWinActive
 
 
 ;-------------------------------------------------------------------------------
