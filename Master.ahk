@@ -705,17 +705,19 @@ $^a::
 return
 #IfWinActive
 
-#ifWinActive @Test - Jeffrey.Anderson@uvu.edu - Outlook ahk_class rctrl_renwnd32
+#ifWinActive Inbox - 10845493@uvu.edu - Outlook ahk_class rctrl_renwnd32
 $^a::
     Send ^+1    
 return
 #IfWinActive
 
-#ifWinActive @Release Plan - Jeffrey.Anderson@uvu.edu - Outlook ahk_class rctrl_renwnd32
+#IfWinActive @Waiting - 10845493@uvu.edu - Outlook ahk_class rctrl_renwnd32
 $^a::
-    Send ^+1    
+    Send ^+1
 return
 #IfWinActive
+
+
 
 #IfWinActive Inbox - jadeaxon@gmail.com
 $^`::
