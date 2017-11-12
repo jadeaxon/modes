@@ -12,10 +12,10 @@
 ; The common escape from any context could be <Control + ESC>.  That is, pop the context stack.
 
 ; # => Win; ^ => Ctrl;  + => Shift; ! => Alt
-; $ => Don't allow "Send" output to trigger.  Don't let hotkeys trigger other hotkeys.  
+; $ => Don't allow "Send" output to trigger.  Don't let hotkeys trigger other hotkeys.
 
 ; `% is literal percent (backtick)
-; `, is literal comma 
+; `, is literal comma
 
 ; The problem with using ALT is that programs use it to activate their menu bar.
 ; <ALT + n> => Navigation mode.
@@ -29,7 +29,7 @@
 ; When an AHK scripn exits, the older running scripts get their hooks (hotkeys) back.
 
 
-;=============================================================================== 
+;===============================================================================
 ; Main
 ;===============================================================================
 
@@ -86,7 +86,7 @@ CoordMode, Mouse, Relative
 
 ; Periodically runs the code at the given label.
 now := A_Hour
-;dayMode := not isDayTime(now) ; Force 
+;dayMode := not isDayTime(now) ; Force
 dayMode := false
 ;SetTimer, CheckGraphicsScheme, 60000 ; 60 seconds
 
@@ -107,7 +107,7 @@ GroupAdd,ExplorerGroup, ahk_class ExploreWClass
 ; 200 ms feels a tad bit too slow.
 ;
 ; PRE: RAM disk R:\ must exist and be writable.
-; PRE: For this to work, ShortKeys.vim must have been sourced in Vim.  This enables autocommands which update the vim_status.txt file.  
+; PRE: For this to work, ShortKeys.vim must have been sourced in Vim.  This enables autocommands which update the vim_status.txt file.
 ; SetTimer, CheckVimStatus, 100
 
 ; SetTimer, ReadMessageQueue, 1000
@@ -125,7 +125,7 @@ Send ^!s
 
 ; On my ShortKeys installation at work, the option to not show editor on startup is grayed out for unknown reasons.
 ; So, I hack it with this.
-IfWinExist, ShortKeys 
+IfWinExist, ShortKeys
 {
     WinActivate, ShortKeys
     Send !f
@@ -134,7 +134,7 @@ IfWinExist, ShortKeys
 }
 
 ; Close the error window from 7+ Taskbar Tweaker.
-WinClose, Error 
+WinClose, Error
 ; ahk_class #32770
 
 
@@ -149,7 +149,7 @@ if (host = "XPS15") {
 			; zeroBrightness()
 		}
 		else { ; Between 5 AM and 9 PM.
-			; MsgBox,,, Normal	
+			; MsgBox,,, Normal
 			; normalDisplayProfile()
 		}
 	}
@@ -171,7 +171,7 @@ return
 
 
 
-;=============================================================================== 
+;===============================================================================
 ; TIMER GOSUB LABELS
 ;===============================================================================
 
@@ -185,16 +185,16 @@ CheckVimStatus:
     ; If so, and 'normal mode', and ShortKeysIsEnabled() => disable ShortKeys via <Ctrl + Alt + S>
     statusFile := "R:\vim_status.txt"
     currentModTime := 0
-    
+
     ; Get the file's modification time.
-    FileGetTime, currentModTime, %statusFile%, M  
-    
+    FileGetTime, currentModTime, %statusFile%, M
+
     ; See EnvSub function.  AHK is psychotic.
     timeDiff := currentModTime
     timeDiff -= previousModTime, Seconds
-    
+
     ; MsgBox,,, Mod times and delta: %currentModTime% %previousModTime% %timeDiff%, 1
-    
+
     ; NOTE: Since modification times are in seconds, toggling ShortKeys will fail if a mode switch is made within the same second.
     ; Usually, this will not happen.
     if (timeDiff > 0) {
@@ -203,15 +203,15 @@ CheckVimStatus:
             ; See AutoTrim.
             vim_status = %vim_status% ; This trims leading and trailing whitespace.  But not newlines, I guess.
             StringReplace, vim_status, vim_status, `n, , All
-            
+
             ; MsgBox,,, "%vim_status%"
-            
+
             ; PRE: ShortKeys is running.
             if (vim_status == "insert mode") {
                 if ( not ShortKeysIsEnabled() ) {
                     ; <Ctrl + Alt + s> - this is set inside ShortKeys to toggle being enabled/disabled.
                     Send ^!s
-                } 
+                }
             }
             else if (vim_status == "normal mode") {
                 if ( ShortKeysIsEnabled() ) {
@@ -222,18 +222,18 @@ CheckVimStatus:
             else { ; Unknown status.
                 ; Do nothing.
             } ; else
-            
+
             vim_status =  ; Free the memory.
         } ; if not ErrorLevel
-            
+
         ; MsgBox,,, Vim status changed: %currentModTime% %previousModTime% %timeDiff%
     }
     else { ; The file has not changed.
         ; Do nothing.
     }
-    
+
     previousModTime := currentModTime
-    
+
 return ; from CheckVimStatus:
 
 
@@ -242,14 +242,14 @@ return ; from CheckVimStatus:
 
 ReadMessageQueue:
     ProcessNextMessage()
-	
+
 return
 
 
 
 
 
-;=============================================================================== 
+;===============================================================================
 ; Functions
 ;===============================================================================
 
@@ -279,19 +279,19 @@ return
 ShellMessage(wParam, lParam) {
     ; Disabled.
     return
-    
+
 	HSHELL_WINDOWACTIVATED = 4
-	
+
 	; Execute a command based on wParam and lParam
 	; MsgBox,,, wParam = %wParam%`nlParam = %lParam%
-	
+
 	if (wparam = HSHELL_WINDOWACTIVATED) {
 		hWnd := lParam
 		WinGetTitle, title, ahk_id %hWnd%
 		WinGetClass, class, ahk_id %hWnd%
 
 		; MsgBox,,, %title% (class %class%) was activated.
-		
+
 		if (class = "mintty") {
 			; MsgBox,,, minnty (Cygwin) was activated.
 			; Need a way to check to see if ShortKeys is enabled.
@@ -311,8 +311,8 @@ ShellMessage(wParam, lParam) {
 			else { ; ShortKeys is not running.
 				; MsgBox,,, ShortKeys is not running.
 			}
-			
-		} 
+
+		}
         else { ; In all other cases, resume ShortKeys if it is suspended.
             if ( ShortKeysIsRunning() ) {
 				if ( ShortKeysIsEnabled() ) {
@@ -328,37 +328,37 @@ ShellMessage(wParam, lParam) {
 				; MsgBox,,, ShortKeys is not running.
                 ; TODO: Start ShortKeys?
 			}
-        
+
         } ; else (class =)
-			
+
 	} ; if a window was activated
-		
+
 } ; ShellMessage(...)
 
 
 
 _checkGraphicsScheme() {
     global ; Allows this funtion to use global variables.
-    
+
     secondsSinceBoot := A_TickCount / 1000
     if (secondsSinceBoot < 300) {
         return
     }
-    
+
     now := A_Hour
-    
+
     ; MsgBox %A_Hour%
     nowDay := isDayTime(now)
-    ; thenDay := isDayTime(then)   
+    ; thenDay := isDayTime(then)
     ; MsgBox %thenDay% %nowDay%
-    
+
     ; MsgBox, dayMode %dayMode%
-    ; MsgBox, nowDay %nowDay% 
-    
+    ; MsgBox, nowDay %nowDay%
+
     ; Transition to bedtime graphics scheme.
     if (dayMode and (not nowDay)) {
         SetKeyDelay 200
-        
+
         Send, #m ; Minimize all.
         MouseMove 1250, 15 ; Top right corner of the screen--somewhere where there won't be an icon.
         Sleep 200
@@ -370,13 +370,13 @@ _checkGraphicsScheme() {
         Sleep 1000 ; Without this delay, the context submenu doesn't have time to form.
         Send, {vk0Dsc01C} ; Enter
         Send, {vk0Dsc01C} ; Just in case.
-     
+
         SetKeyDelay 0
-        
+
         dayMode := false
-        
+
     } ; if bedtime
-    
+
     ; Transition to normal (daytime) graphics scheme.
     if ((not dayMode) and nowDay) {
         SetKeyDelay 200
@@ -394,20 +394,20 @@ _checkGraphicsScheme() {
         Send, {vk0Dsc01C} ; Just in case.
         ; Send, {Enter} ;  {vk0Dsc01C}
         SetKeyDelay 0
-    
+
         dayMode := true
-    } ; if daytime 
-    
+    } ; if daytime
+
     return
-    
+
 } ; _checkGraphicsScheme()
 
 
 ; Is it close enough to bedtime to switch the screen to no blue spectrum?
 isDayTime(hour) {
-    
+
     if (false) {
-    
+
     }
     else if (hour = 05) { ; 5 AM
         return true
@@ -433,37 +433,37 @@ isDayTime(hour) {
     else if (hour = 12) { ; noon
         return true
     }
-    else if (hour = 13) { 
+    else if (hour = 13) {
         return true
     }
-    else if (hour = 14) { 
+    else if (hour = 14) {
         return true
     }
-    else if (hour = 15) { 
+    else if (hour = 15) {
         return true
     }
-    else if (hour = 16) { 
+    else if (hour = 16) {
         return true
     }
-    else if (hour = 17) { 
+    else if (hour = 17) {
         return true
     }
-    else if (hour = 18) { 
+    else if (hour = 18) {
         return true
     }
     else if (hour = 19) { ; 7 PM
         return true
     }
-    
+
     return false
-    
- 
+
+
 } ; isDayTime(hour)
 
 
-;=============================================================================== 
+;===============================================================================
 ; Abbreviations, Hotstrings
-;=============================================================================== 
+;===============================================================================
 
 ; These abbreviations expand in most Windows programs.
 ; They do not expand in Cygwin.
@@ -522,12 +522,12 @@ return
 return
 
 
-;=============================================================================== 
+;===============================================================================
 ; Hotkeys
-;=============================================================================== 
+;===============================================================================
 
 ; # => Win; ^ => Ctrl;  + => Shift; ! => Alt
-; $ => Don't allow "Send" output to trigger.  Don't let hotkeys trigger other hotkeys.  
+; $ => Don't allow "Send" output to trigger.  Don't let hotkeys trigger other hotkeys.
 
 ; Make is so that <Window + Space> does not switch input languages.  This is causing me to nearly die
 ; in Path of Exile.
@@ -579,7 +579,7 @@ $^!g::
 	Send, ^c
 	Sleep, 200
 	; Remove the citation cruft Kindle adds.
-	loop, Parse, Clipboard, `n, `r 
+	loop, Parse, Clipboard, `n, `r
 	{
 		Clipboard := A_LoopField
 		break
@@ -607,7 +607,7 @@ return
 $!space::
     Send {Ctrl Right}{Alt Right}
     Send !{Space}
-    
+
 return
 #IfWinActive
 
@@ -629,7 +629,7 @@ return
 ; Use 'e' to archive.  This is built into Hotmail.
 
 $^.::
-	; Move to next message. 
+	; Move to next message.
 	Send ^.
 	Sleep 300
 	; Select the message pane so you can scroll the (usu Amazon shipping) message.
@@ -638,14 +638,14 @@ $^.::
 return
 
 $^,::
-	; Move to previous message. 
+	; Move to previous message.
 	Send ^,
 	Sleep 300
 	; Select the message pane so you can scroll the (usu Amazon shipping) message.
 	Send {Tab}
 
 return
-#IfWinActive  
+#IfWinActive
 
 
 ; Make <C @> move selected/current message to @Waiting in Hotmail.
@@ -659,16 +659,16 @@ return
 
 
 
-; A2  01D	 	d	2.83	LControl       	
-; 31  002	 	d	0.28	1              	
-; 31  002	 	u	0.09	1              	
-; A2  01D	 	u	0.08	LControl       	
-; A2  01D	 	d	0.64	LControl       	
-; 32  003	 	d	0.34	2              	
-; 32  003	 	u	0.11	2              	
-; A2  01D	 	u	0.06	LControl 
+; A2  01D	 	d	2.83	LControl
+; 31  002	 	d	0.28	1
+; 31  002	 	u	0.09	1
+; A2  01D	 	u	0.08	LControl
+; A2  01D	 	d	0.64	LControl
+; 32  003	 	d	0.34	2
+; 32  003	 	u	0.11	2
+; A2  01D	 	u	0.06	LControl
 
-; DB  002	 	u	0.13	&              	
+; DB  002	 	u	0.13	&
 ; 37  003	 	d	0.55	[
 ; Remap <C 1> and <C 2> to switch between mail and calendar.  These get messed up since Programmer
 ; Dvorak uses symbols on the number key row.
@@ -699,7 +699,7 @@ return
 ; WIN: Set up a "Quick Step" in Outlook with shortcut key of <C-S 1>.  You can't set <C a> as shortcut there, so you remap it here.
 #ifWinActive Inbox - Jeffrey.Anderson@uvu.edu - Outlook ahk_class rctrl_renwnd32
 $^a::
-    Send ^+1    
+    Send ^+1
 return
 #IfWinActive
 
@@ -711,7 +711,7 @@ return
 
 #ifWinActive Inbox - 10845493@uvu.edu - Outlook ahk_class rctrl_renwnd32
 $^a::
-    Send ^+1    
+    Send ^+1
 return
 #IfWinActive
 
@@ -721,6 +721,17 @@ $^a::
 return
 #IfWinActive
 
+#ifWinActive Inbox - Jeff.Anderson@uvu.edu - Outlook ahk_class rctrl_renwnd32
+$^a::
+    Send ^+1
+return
+#IfWinActive
+
+#IfWinActive @Waiting - Jeff.Anderson@uvu.edu - Outlook ahk_class rctrl_renwnd32
+$^a::
+    Send ^+1
+return
+#IfWinActive
 
 
 #IfWinActive Inbox - jadeaxon@gmail.com
@@ -751,16 +762,16 @@ $^n::
     ; MsgBox,,, Opening new window., 1
     ; {LAlt}
     ; Send {vkA4sc038}
-    ; However, this SendEvent somehow does work.  
+    ; However, this SendEvent somehow does work.
     ; Menu Bar|File|New Window.
     SendEvent !F
     Sleep 200
     Send N
-    
+
 return
 #IfWinActive
 
-    
+
 
 ;-------------------------------------------------------------------------------
 ; <C-w> in Sumatra PDF Reader closes the app.
@@ -773,10 +784,10 @@ $^w::
 
 
 ; Vaio Laptop and Dell XPS 410.
-; A0  02A	 	d	0.03	Left Shift     	
-; 2D  152	 	d	0.02	Insert         	
-; 2D  152	 	u	0.09	Insert         	
-; A0  02A	 	u	0.14	Left Shift     
+; A0  02A	 	d	0.03	Left Shift
+; 2D  152	 	d	0.02	Insert
+; 2D  152	 	u	0.09	Insert
+; A0  02A	 	u	0.14	Left Shift
 $^k::
     ; TO DO: This does not work on my Windows 7 64-bit workstation.
     WinGetClass, class, A
@@ -788,10 +799,10 @@ $^k::
     else { ; Not mintty.
         Send ^v
     }
-    
-    
-return    
-    
+
+
+return
+
 
 
 ;-------------------------------------------------------------------------------
@@ -831,13 +842,13 @@ return
     ;~ Send {vkA3sc11D Down}
     ;~ Send {vk09sc00F}
     ;~ Send {vkA3sc11D Up}
-    
-    ;~ ; A3  11D	 	d	14.98	RControl       	
-    ;~ ; 09  00F	 	d	0.25	Tab            	
+
+    ;~ ; A3  11D	 	d	14.98	RControl
+    ;~ ; 09  00F	 	d	0.25	Tab
     ;~ ; 09  00F	 	u	0.11	Tab            	jdev (172.16.40.108) - PuTTY
-    ;~ ; A3  11D	 	u	0.19	RControl  
-    
-;~ return 
+    ;~ ; A3  11D	 	u	0.19	RControl
+
+;~ return
 
 ;~ #IfWinActive
 
@@ -873,7 +884,7 @@ return
 
 
 #IfWinActive
-   
+
 
 
 ;-------------------------------------------------------------------------------
@@ -881,7 +892,7 @@ return
 #IfWinActive ahk_class mintty
 $^w::
     WinClose A
-    
+
 return
 #IfWinActive
 
@@ -891,7 +902,7 @@ return
 #IfWinActive ahk_class HH Parent
 $^w::
     WinClose A
-    
+
 return
 #IfWinActive
 
@@ -901,7 +912,7 @@ return
 #IfWinActive ahk_class gdkWindowToplevel
 $^w::
     WinClose A
-    
+
 return
 #IfWinActive
 
@@ -911,7 +922,7 @@ return
 #IfWinActive ahk_class Photo_Lightweight_Viewer
 $^w::
     WinClose A
-    
+
 return
 #IfWinActive
 
@@ -924,7 +935,7 @@ return
 ; $^v::
     ; Send +{Insert}
 ;    Send +{vk2Dsc152}
-    
+
 ;return
 ;#IfWinActive
 
@@ -943,7 +954,7 @@ $^t::
     Send ^l
     ; Type in Google address.
     Send www.google.com{Enter}
-    
+
 return
 #IfWinActive
 
@@ -957,7 +968,7 @@ $^d::
 return
 
 
-; We're not mapping the Dvorak keys back to Qwerty when <Ctrl> is pressed. 
+; We're not mapping the Dvorak keys back to Qwerty when <Ctrl> is pressed.
 ; Though it seems like a good idea at first, it just causes much grief.
 ; Pass through raw to mintty.
 ; $^u::
@@ -968,11 +979,11 @@ return
 ;    else { ; Not mintty.
 ;        Send ^f
 ;    }
-;    
-; return    
+;
+; return
 
 
-;------------------------------------------------------------------------------- 
+;-------------------------------------------------------------------------------
 ; Remap {Left} to my keyboard's left arrow.
 ; {Left} => Numpad4 on this laptop for some reason.
 ;
@@ -1042,13 +1053,13 @@ return
 ; <C-c> in Kindle.
 #IfWinActive ahk_class QWidget
 $^c::
-    Send ^c 
+    Send ^c
     ClipWait, 2
     contents := Clipboard
-    
-    fixed = 
+
+    fixed =
     count = 0
-    Loop, parse, contents, `n 
+    Loop, parse, contents, `n
     {
         ; MsgBox,,,%A_LoopField% %count% %contents%
         ; MsgBox,,,%A_LoopField%
@@ -1056,9 +1067,9 @@ $^c::
         if (count == 1) {
             fixed = %A_LoopField%
         }
-    
+
     }
-    
+
     StringReplace, fixed, fixed, `n, , All
     StringReplace, fixed, fixed, `r, , All
     Clipboard := fixed
@@ -1083,7 +1094,7 @@ $!p::
         y := 280
     }
     else if (host = "INSPIRON") {
-        ; Something is wrong.  Coordinates displayed by Window Spy do not match. 
+        ; Something is wrong.  Coordinates displayed by Window Spy do not match.
         ; Is it a Windows DPI thing?
         ; Yes, I have Control Panel | Display | Change size of all items | 150%.
         ; AHK reports the now translated coordinates, but Windows expects the translated coordinates.
@@ -1096,13 +1107,13 @@ $!p::
         return
     }
 
-    Send ^c 
+    Send ^c
     ClipWait, 2
     contents := Clipboard
-    
-    fixed = 
+
+    fixed =
     count = 0
-    Loop, parse, contents, `n 
+    Loop, parse, contents, `n
     {
         ; MsgBox,,,%A_LoopField% %count% %contents%
         ; MsgBox,,,%A_LoopField%
@@ -1110,9 +1121,9 @@ $!p::
         if (count == 1) {
             fixed = %A_LoopField%
         }
-    
+
     }
-    
+
     StringReplace, fixed, fixed, `n, , All
     StringReplace, fixed, fixed, `r, , All
     StringReplace, fixed, fixed, "·", , All
@@ -1134,7 +1145,7 @@ $!p::
     Click 2
     Send {Tab}
     Send {Enter}
-    
+
 
 return
 #IfWinActive
@@ -1190,7 +1201,7 @@ $!c::
     ; Go to the path from Windows Explorer.
     ; Have to use cygpath to translate Windows path into a Cygwin path.
     Send cd "$(cygpath '%clipboard%')"{Enter}
-    
+
     ; Restore clipboard.
     Clipboard := saved
     saved =
@@ -1208,18 +1219,18 @@ return
 ;-------------------------------------------------------------------------------
 ; Allow normal pasting in Command Prompt.
 ; Checks for Command Prompt.  <Ctrl + v> => Send the raw clipboard data.
-#IfWinActive ahk_class ConsoleWindowClass 
-$^v::                                      
-    SendInput {Raw}%clipboard%                
+#IfWinActive ahk_class ConsoleWindowClass
+$^v::
+    SendInput {Raw}%clipboard%
 return
 
 ; Dvorak.  The automapping fails here.
-$^k::                                      
-    SendInput {Raw}%clipboard%                
+$^k::
+    SendInput {Raw}%clipboard%
 return
 
 
-#IfWinActive                              
+#IfWinActive
 
 
 
@@ -1228,7 +1239,7 @@ return
 $#p::
     MouseGetPos, x, y
     Clipboard = MouseMove %x%, %y%
-    
+
 return
 
 
@@ -1304,15 +1315,15 @@ return
 ; <C h> to jump to my "you" channel.
 #IfWinActive Slack - digEcor
 $^h::
-	; Open the quick channel switcher.	
+	; Open the quick channel switcher.
 	Send ^t
 	Sleep 100
 	; Search for the "you" channel.
 	; Might not work if a strangely named channel exists.
 	Send you
-	; Give time for word to show up on slower Windows VM.	
+	; Give time for word to show up on slower Windows VM.
 	; Partial search for "yo" yielded chris.young.
-	Sleep 50 
+	Sleep 50
 	Send {Enter}
 return
 #IfWinActive
@@ -1325,7 +1336,7 @@ $^r::
 	Send /remind me to check recurrences at 1 PM{Enter}
 	Send /remind list{Enter}
 	Sleep 300
-	SetNumLockState Off	
+	SetNumLockState Off
 	Send {PgDn}
 return
 #IfWinActive
@@ -1339,7 +1350,7 @@ return
 ; <Window + n> => Navigation mode.
 $#n::
     SoundPlay %A_ScriptDir%\Sounds\Navigation_Start.wav
-    
+
     ; NOTE: The Windows file assosciation for Open on .ahk files must be set to AutoHotKey.exe.
     Run %A_ScriptDir%\Navigation.ahk
 return
@@ -1406,23 +1417,23 @@ return
 ; <Window + M> => Do normal Window + M, but maximize Pidgin development chat if it exists.
 $#m::
     EnvGet, host, COMPUTERNAME
-    
+
 
     Send #m
-    
+
     Sleep 150
     ; WinMaximize, swdev, Pidgin
     ; WinMaximize, (swdev), Pidgin
-    
+
     ; Mainly on my desktop at digEcor should this happen.
     if (host != "XPS15") {
         x := 380
-        y := 280    
-    
+        y := 280
+
         ; This is a hack until I put in code which detects which monitor each window is in.
         ; WinMaximize, Ubuntu 13 64-bit - VMware Player
         ; WinMaximize, XChat
-        
+
         ; For Outlook 2013.
         ; WinMaximize, Inbox
         ; WinMaximize, Calendar - Jeffrey.Anderson@uvu.edu - Outlook
@@ -1449,7 +1460,7 @@ $^+m::
     Sleep 150
     ; WinMaximize, swdev, Pidgin
     ; WinMaximize, (swdev), Pidgin
-    
+
     ; This is a hack until I put in code which detects which monitor each window is in.
     ; Need to disable these in Brisbane since only have 1 monitor here.
     WinMaximize, Ubuntu 13 64-bit - VMware Player
@@ -1457,16 +1468,16 @@ $^+m::
     ; For Outlook 2013.
     WinMaximize, Inbox
     WinMaximize, Calendar - Jeffrey.Anderson@uvu.edu - Outlook
-    
+
 return
 
 
 ;-------------------------------------------------------------------------------
 ; <Ctrl + Alt + M> => <Window + M>
 ; Doing this for Razer Synapse since I can't enter <Window + M> into their edit screen.
-$^!m::    
+$^!m::
     Send #m
-return    
+return
 
 
 ;-------------------------------------------------------------------------------
@@ -1477,7 +1488,7 @@ $^!n::
 	Run "C:\Users\jadeaxon\Desktop\System\Graphics\Intel Graphics and Media.lnk"
 	WinActivate, Intel(R) Graphics and Media Control Panel
 	WinWaitActive, Intel(R) Graphics and Media Control Panel
-	Sleep 500	
+	Sleep 500
 	MouseMove, 315, 80 ; Display profiles dropdown.
 	Click
 	Sleep %click_delay%
@@ -1529,16 +1540,16 @@ return
 
 
 ;-------------------------------------------------------------------------------
-; <Ctrl + Alt + j> => Popup GUI for common personal tasks.  J == Jeff.  <C-A j>.  
+; <Ctrl + Alt + j> => Popup GUI for common personal tasks.  J == Jeff.  <C-A j>.
 
 $^!j::
-    Gui, Add, Button, gButton_HomeContexts w250 default, &Home Contexts  
-    Gui, Add, Button, gButton_WorkContexts w250, &Work Contexts    
+    Gui, Add, Button, gButton_HomeContexts w250 default, &Home Contexts
+    Gui, Add, Button, gButton_WorkContexts w250, &Work Contexts
 	Gui, Add, Button, gButton_Agendas w250, &Agendas
-	Gui, Add, Button, gButton_Recurring w250, &Recurring 
+	Gui, Add, Button, gButton_Recurring w250, &Recurring
 	Gui, Show,, Personal
-    
-return  
+
+return
 
 ; TO DO: Factor button handlers into single "open all in given folder in single gVim" function.
 ; TO DO: Verify works on XPS15.
@@ -1549,7 +1560,7 @@ Button_HomeContexts:
 	Run C:\Users\jadeaxon\Dropbox\Organization\To Do\Contexts\Home
 	Sleep 1000
 	Send #{Up}
-	Sleep 100	
+	Sleep 100
 	MouseMove 1450, 430
 	Click
 	Sleep 100
@@ -1588,7 +1599,7 @@ Button_WorkContexts:
 	Run C:\Users\jadeaxon\Dropbox\Organization\To Do\Contexts\Work
 	Sleep 1000
 	Send #{Up}
-	Sleep 100	
+	Sleep 100
 	MouseMove 1450, 430
 	Click
 	Sleep 100
@@ -1627,7 +1638,7 @@ Button_Agendas:
 	Run C:\Users\jadeaxon\Dropbox\Organization\To Do\Agendas
 	Sleep 1000
 	Send #{Up}
-	Sleep 100	
+	Sleep 100
 	MouseMove 1450, 430
 	Click
 	Sleep 100
@@ -1666,7 +1677,7 @@ Button_Recurring:
 	Run C:\Users\jadeaxon\Dropbox\Organization\To Do\Recurring
 	Sleep 1000
 	Send #{Up}
-	Sleep 100	
+	Sleep 100
 	MouseMove 1450, 430
 	Click
 	Sleep 100
@@ -1691,7 +1702,7 @@ Button_Recurring:
 	Sleep 50
 	Send {Down}
 	Sleep 50
-	; The context menu pops up different in this folder, so need to go down 2 more.	
+	; The context menu pops up different in this folder, so need to go down 2 more.
 	Send {Down}
 	Sleep 50
 	Send {Down}
@@ -1712,13 +1723,13 @@ return
 
 ; $^!d::
 Disabled:
-    Gui, Add, Button, gButton_ClockIn w150 default, Clock &In  
+    Gui, Add, Button, gButton_ClockIn w150 default, Clock &In
 
-Gui, Add, Button, gButton_ClockOut w150, Clock &Out    
+Gui, Add, Button, gButton_ClockOut w150, Clock &Out
     Gui, Add, Button, gButton_TimeCard w150, &Time Card
     Gui, Show,, digEcor
-    
-return  
+
+return
 
 ; TO DO: Modify these to wait for symbols.
 
@@ -1730,7 +1741,7 @@ Button_ClockIn:
 	Run https://clock.payrollservers.us/?wl=aplusbenefits.payrollservers.us#/clock/web/login
 	WinWait, WM Clock
     WinActivate, WM Clock
-    
+
     ; Close RoboForm.
     WinWait, AutoFill - RoboForm
     WinActivate, AutoFill - RoboForm
@@ -1740,15 +1751,15 @@ Button_ClockIn:
     ; Reactivate because RoboForm steals focus.
     WinActivate, WM Clock
     WinWaitActive, WM Clock
-    
+
 	password := property("aplus.timeclock.password")
     Send {Tab}
 	Send janderson{Tab}
     Send %password%{Tab}
 	Send {Enter}
-    
+
     ; In case another one pops back up.
-	Sleep 7000 
+	Sleep 7000
     IfWinActive, AutoFill - RoboForm
     {
         Send !{F4}
@@ -1775,7 +1786,7 @@ Button_ClockOut:
 	Run https://clock.payrollservers.us/?wl=aplusbenefits.payrollservers.us#/clock/web/login
 	WinWait, WM Clock
     WinActivate, WM Clock
-    
+
     ; Close RoboForm.
     WinWait, AutoFill - RoboForm
     WinActivate, AutoFill - RoboForm
@@ -1785,15 +1796,15 @@ Button_ClockOut:
     ; Reactivate because RoboForm steals focus.
     WinActivate, WM Clock
     WinWaitActive, WM Clock
-    
+
 	password := property("aplus.timeclock.password")
     Send {Tab}
 	Send janderson{Tab}
     Send %password%{Tab}
 	Send {Enter}
-    
+
     ; In case another one pops back up.
-	Sleep 7000 
+	Sleep 7000
     IfWinActive, AutoFill - RoboForm
     {
         Send !{F4}
@@ -1809,7 +1820,7 @@ Button_ClockOut:
 	MouseMove x, y
 	Sleep 1000
 	Click
-	
+
 return
 
 
@@ -1820,19 +1831,19 @@ Button_TimeCard:
     Gui, Destroy
     Run https://www.payrollservers.us/pg/Ess/TimeCard.aspx
     ; TO DO: If already logged into portal, this alone will do the trick.
-	
+
 	WinWait, Online Time and Attendance
     WinActivate, Online Time and Attendance
-    
+
     Sleep 1000
 	password := property("aplus.timeclock.password")
     Send {Tab}janderson{Tab}
     Send %password%{Enter}
-    
+
 	Sleep 1000
-	Send ^w	
+	Send ^w
 	Run https://www.payrollservers.us/pg/Ess/TimeCard.aspx
-    
+
 return
 
 
@@ -1862,7 +1873,7 @@ $#s::
     ; toggleShortKeys()
     ; <Ctrl + Alt + s> - this is set inside ShortKeys to toggle being active
     Send ^!s
-    
+
 return
 
 
@@ -1879,7 +1890,7 @@ return
     ;~ Send {Space}
     ;~ Sleep 1000
     ;~ Send {Backspace}
-    
+
 ;~ return
 
 ;~ ; This fails too.
@@ -1897,7 +1908,7 @@ return
 ;     Send {Space}
 ;     Sleep 300 ; Give time for ShortKeys to expand abbreviation.
 ;     Send {Backspace}
-; 
+;
 ; return
 
 
@@ -1906,7 +1917,7 @@ return
 ;===============================================================================
 ; SCREEN CAPTURE
 
-;------------------------------------------------------------------------------- 
+;-------------------------------------------------------------------------------
 ; Use the Windovs snippnig tool.
 $^PRINTSCREEN::
     Run snippingtool
@@ -1937,9 +1948,9 @@ dateBars(barChar) {
     FormatTime, month,, MMMM
     FormatTime, weekDay,, dddd
     FormatTime, year,, yyyy
-    
+
     monthDay := ordinal(monthDay)
-    
+
     minus := "-"
     equals := "="
     longBar := "uninitialized"
@@ -1951,10 +1962,10 @@ dateBars(barChar) {
     {
         longBar := "========================================================================================================================="
     }
-    
+
 
     dateString = %weekday%`, %month% %monthDay%`, %year%
-    
+
     ; FormatTime, output,, dddd`, MMMM` d`, yyyy
     SendInput %longBar%
     SendInput {Enter}
@@ -1963,22 +1974,22 @@ dateBars(barChar) {
     SendInput %longBar%
     SendInput {Enter}
     SendInput {Enter}
-    
+
     return
 } ; dateBars(barChar)
 
 
 ; This hotstring replaces "<date>" with the current date and time via the commands below.
-::<date>::  
+::<date>::
     FormatTime, monthDay,, d
     FormatTime, month,, MMMM
     FormatTime, weekDay,, dddd
     FormatTime, year,, yyyy
-    
+
     monthDay := ordinal(monthDay)
-    
+
     output = %weekday%`, %month% %monthDay%`, %year%
-    
+
     ; FormatTime, output,, dddd`, MMMM` d`, yyyy
     SendInput %output%
 return
@@ -1988,8 +1999,8 @@ return
 ::<ymd>::
     FormatTime, year,, yyyy
     FormatTime, month,, MM
-    FormatTime, day,, dd 
-    
+    FormatTime, day,, dd
+
     output = %year%/%month%/%day%
     SendInput %output%
 return
@@ -1999,8 +2010,8 @@ return
 ::<ymd->::
     FormatTime, year,, yyyy
     FormatTime, month,, MM
-    FormatTime, day,, dd 
-    
+    FormatTime, day,, dd
+
     output = %year%-%month%-%day%
     SendInput %output%
 return
@@ -2010,7 +2021,7 @@ return
 ; ::<date--bars>::
 ;    dateBars(-)
 ; return
-    
+
 
 ::<date-->::
     ; dateBars(-)
@@ -2018,16 +2029,16 @@ return
     FormatTime, month,, MMMM
     FormatTime, weekDay,, dddd
     FormatTime, year,, yyyy
-    
+
     monthDay := ordinal(monthDay)
-    
+
     minus := "-"
     equals := "="
     longBar := "-------------------------------------------------------------------------------------------------------------------------"
-    
+
 
     dateString = %weekday%`, %month% %monthDay%`, %year%
-    
+
     ; FormatTime, output,, dddd`, MMMM` d`, yyyy
     SendInput %longBar%
     SendInput {Enter}
@@ -2036,7 +2047,7 @@ return
     SendInput %longBar%
     SendInput {Enter}
     SendInput {Enter}
-    
+
 return
 
 
@@ -2046,15 +2057,15 @@ return
     FormatTime, month,, MMMM
     FormatTime, weekDay,, dddd
     FormatTime, year,, yyyy
-    
+
     monthDay := ordinal(monthDay)
-    
+
     minus := "-"
     equals := "="
     longBar := "========================================================================================================================="
-    
+
     dateString = %weekday%`, %month% %monthDay%`, %year%
-    
+
     ; FormatTime, output,, dddd`, MMMM` d`, yyyy
     SendInput %longBar%
     SendInput {Enter}
@@ -2063,7 +2074,7 @@ return
     SendInput %longBar%
     SendInput {Enter}
     SendInput {Enter}
-    
+
 return
 
 
