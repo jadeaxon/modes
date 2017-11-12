@@ -483,6 +483,10 @@ isDayTime(hour) {
 :*:j@h::jadeaxon@hotmail.com
 :*:j@g::jadeaxon@gmail.com
 :*:je@g::java.emitter@gmail.com
+:*:jr@u::jeffrey.anderson@uvu.edu
+:*:1@u::10845493@uvu.edu
+:*:j@u::jeff.anderson@uvu.edu
+:*:uvid::10845493
 
 ; Misspellings.
 ::comrad::comrade
