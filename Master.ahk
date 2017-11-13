@@ -1036,14 +1036,18 @@ $^!c::
     Clipboard := ClipSaved
     ClipSaved =
 return
-#IfWinActive
-
 
 ; Closes all Explorer windows when <A-S F4> pressed.
 !+F4::
 	if ( WinExist("ahk_group ExplorerGroup") )
 	WinClose,ahk_group ExplorerGroup
 return
+
+; <A d> => new directory in Windows Explorer.
+$!d::
+	Send +{F10}wf
+return
+#IfWinActive
 
 
 ;-------------------------------------------------------------------------------
