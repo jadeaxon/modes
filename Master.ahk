@@ -1047,6 +1047,11 @@ return
 $!d::
 	Send +{F10}wf
 return
+
+; <A t> => new text file in Windows Explorer.
+$!t::
+	Send +{F10}wt
+return
 #IfWinActive
 
 
