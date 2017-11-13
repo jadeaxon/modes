@@ -1055,6 +1055,14 @@ return
 #IfWinActive
 
 
+; <C w> => minimize window in KeePaas.
+; By default, it closes the open file which is never what I want to do.
+#IfWinActive ahk_exe KeePass.exe
+$^w::
+	WinMinimize
+return
+
+
 ;-------------------------------------------------------------------------------
 ; Gets rid of citation crap when copying from Kindle.
 ; BUG: Only works if copying a single line.
