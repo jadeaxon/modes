@@ -465,6 +465,9 @@ isDayTime(hour) {
 ; Abbreviations, Hotstrings
 ;===============================================================================
 
+; Make the hotstrings case-sensitive.
+#Hotstring c
+
 ; These abbreviations expand in most Windows programs.
 ; They do not expand in Cygwin.
 ::xUSA::United States of America
