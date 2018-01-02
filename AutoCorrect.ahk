@@ -2494,7 +2494,9 @@ return  ; This makes the above hotstrings do nothing so that they override the i
 ::harrasments::harassments
 ::harrassments::harassments
 ::hace::hare
-::hsa::has
+; Because HSA is a Health Saving Account.
+:C:hsa::has
+:C:Hsa::Has
 ::hasbeen::has been
 ::hasnt::hasn't
 ::ahev::have
