@@ -2434,7 +2434,8 @@ return  ; This makes the above hotstrings do nothing so that they override the i
 ::gratuitious::gratuitous
 ::gerat::great
 ::graet::great
-::grat::great
+; This interacts badly with Launchy for me.
+:C:grat::great
 ::gridles::griddles
 ::greif::grief
 ::gropu::group
