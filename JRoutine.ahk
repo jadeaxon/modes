@@ -14,6 +14,7 @@ $!n::
 	WinWaitActive Google
 	; I don't think sending <A n> here will work since $ blocks retriggering.
 	Send ^l
+	Sleep 200
 	Send https://slashdot.org/
 	Send {Enter}
 return
@@ -21,9 +22,10 @@ return
 ; <A n> => open next bookmark
 #IfWinActive Google - Mozilla Firefox ahk_class MozillaWindowClass
 $!n::
-   Send ^l
-   Send https://slashdot.org/
-   Send {Enter}
+	Send ^l
+	Sleep 200
+	Send https://slashdot.org/
+	Send {Enter}
 return
 #IfWinActive  
 
@@ -31,54 +33,60 @@ return
 ; <A n> => open next bookmark
 #IfWinActive Slashdot ahk_class MozillaWindowClass
 $!n::
-   Send ^l
-   Send https://news.ycombinator.com/
-   Send {Enter}
+	Send ^l
+	Sleep 200
+	Send https://news.ycombinator.com/
+	Send {Enter}
 return
 #IfWinActive  
 
 ; <A n> => open next bookmark
 #IfWinActive Hacker News ahk_class MozillaWindowClass
 $!n::
-   Send ^l
-   Send https://www.reddit.com/r/popular/?geo_filter=US
-   Send {Enter}
+	Send ^l
+	Sleep 200
+	Send https://www.reddit.com/r/popular/?geo_filter=US
+	Send {Enter}
 return
 #IfWinActive  
 
 ; <A n> => open next bookmark
 #IfWinActive popular links ahk_class MozillaWindowClass
 $!n::
-   Send ^l
-   Send http://lifehacker.com/
-   Send {Enter}
+	Send ^l
+	Sleep 200
+	Send http://lifehacker.com/
+	Send {Enter}
 return
 #IfWinActive  
 
 ; <A n> => open next bookmark
 #IfWinActive Lifehacker ahk_class MozillaWindowClass
 $!n::
-   Send ^l
-   Send http://dilbert.com/
-   Send {Enter}
+	Send ^l
+	Sleep 200
+	Send http://dilbert.com/
+	Send {Enter}
 return
 #IfWinActive  
 
 ; <A n> => open next bookmark
 #IfWinActive Dilbert ahk_class MozillaWindowClass
 $!n::
-   Send ^l
-   Send http://www.merriam-webster.com/word-of-the-day/
-   Send {Enter}
+	Send ^l
+	Sleep 200
+	Send http://www.merriam-webster.com/word-of-the-day/
+	Send {Enter}
 return
 #IfWinActive  
 
 ; <A n> => open next bookmark
 #IfWinActive Word of the Day ahk_class MozillaWindowClass
 $!n::
-   Send ^l
-   Send http://www.quotationspage.com/random.php3
-   Send {Enter}
+	Send ^l
+	Sleep 200
+	Send http://www.quotationspage.com/random.php3
+	Send {Enter}
 return
 #IfWinActive  
 
@@ -86,6 +94,7 @@ return
 #IfWinActive Random Quotes ahk_class MozillaWindowClass
 $!n::
 	Send ^l
+	Sleep 200
 	Send https://www.hotmail.com
 	Send {Enter}
 return
@@ -103,6 +112,7 @@ $!n::
 	Send !{Tab}
 	WinWaitActive Mail
 	Send ^l
+	Sleep 200
 	Send https://docs.google.com/spreadsheets/d/1zXpRv6WFdb9eX9YDerTTCE7L3N6InYxJ-FYec9ok79I/edit{#}gid=0
 	Send {Enter}
 return
