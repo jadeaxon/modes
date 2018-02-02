@@ -597,7 +597,7 @@ return  ; This makes the above hotstrings do nothing so that they override the i
 ;------------------------------------------------------------------------------
 ; Common Misspellings - the main list
 ;------------------------------------------------------------------------------
-::htp:::http:
+; ::htp:::http: -- This conflicts with contant use of htp.p() in UVU's PL/SQL code.
 ::http:\\::http://
 ::httpL::http:
 ::herf::href
