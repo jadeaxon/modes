@@ -1367,6 +1367,13 @@ return
 
 
 ;-------------------------------------------------------------------------------
+; <W u> => UVU mode.
+$#u::
+	; SoundPlay %A_ScriptDir%\Sounds\UVU_Start.wav
+	Run %A_ScriptDir%\UVU.ahk
+return
+
+;-------------------------------------------------------------------------------
 ; <Window + n> => Navigation mode.
 $#n::
     SoundPlay %A_ScriptDir%\Sounds\Navigation_Start.wav
