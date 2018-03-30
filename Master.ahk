@@ -1309,7 +1309,7 @@ return
 ; Of course, of course, this keystroke triggered a touchpad diagnostic log dump (!),
 ; so I had to disable that with this:
 ; reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\SynTP\Parameters\Debug /v DumpKernel /d 00000000 /t REG_DWORD /f
-#IfWinActive Slack - digEcor
+#IfWinActive Slack - UVU IT
 $!+n::
 	; <A S Down>
 	; For some reason {Down} doesn't work on this machine.
@@ -1325,7 +1325,7 @@ return
 
 ; Block whatever global handler is intercepting this.
 ; I think it was triggering my <W m> thing that keeps Outlook, etc. on a specific monitor.
-#IfWinActive Slack - digEcor
+#IfWinActive Slack - UVU IT
 $^+m::
 	Send ^+m
 return
@@ -1333,7 +1333,7 @@ return
 
 
 ; <C h> to jump to my "you" channel.
-#IfWinActive Slack - digEcor
+#IfWinActive Slack - UVU IT
 $^h::
 	; Open the quick channel switcher.
 	Send ^t
@@ -1350,7 +1350,7 @@ return
 
 
 ; <C r> => set timer to stop running on elliptcal and list all reminders.
-#IfWinActive Slack - digEcor
+#IfWinActive Slack - UVU IT
 $^r::
 	Send /remind me to stop and take phone in 59m{Enter}
 	Send /remind me to check recurrences at 1 PM{Enter}
