@@ -1319,6 +1319,11 @@ return
 ; Use <C n> as alternate.  Since I have <C h> for my "you" channel.
 $^n::
 	Send !+{vk28sc150}
+	; If the channel has gotten a bunch of traffic, it won't be scrolled to the end.
+	; This might induce you to respond to an older message (which might confuse people).
+	Sleep 200
+	Send {PgDn}
+	Send {PgDn}
 return
 #IfWinActive
 
