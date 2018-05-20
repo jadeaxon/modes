@@ -45,16 +45,6 @@ return
 $!n::
 	Send ^l
 	Sleep 200
-	Send https://www.reddit.com/r/popular/?geo_filter=US
-	Send {Enter}
-return
-#IfWinActive  
-
-; <A n> => open next bookmark
-#IfWinActive popular links ahk_class MozillaWindowClass
-$!n::
-	Send ^l
-	Sleep 200
 	Send http://lifehacker.com/
 	Send {Enter}
 return
