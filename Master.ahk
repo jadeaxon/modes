@@ -489,7 +489,9 @@ isDayTime(hour) {
 :*:jr@u::jeffrey.anderson@uvu.edu
 :*:1@u::10845493@uvu.edu
 :*:j@u::jeff.anderson@uvu.edu
-:*:uvid::10845493
+:*:my.uvid::10845493
+:*:my.pidm::658225
+
 
 ; Misspellings.
 ::comrad::comrade
