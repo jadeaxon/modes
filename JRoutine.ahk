@@ -75,7 +75,8 @@ return
 $!n::
 	Send ^l
 	Sleep 200
-	Send http://www.quotationspage.com/random.php3
+	; Somehow they botched their site such that you can't directly link to random quotes.
+	Send http://www.quotationspage.com/qotd.html
 	Send {Enter}
 return
 #IfWinActive  

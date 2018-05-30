@@ -783,9 +783,8 @@ return
 #IfWinActive ahk_class SUMATRA_PDF_FRAME
 $^w::
     WinClose, A
+return
 #IfWinActive
-
-
 
 
 ; Vaio Laptop and Dell XPS 410.
@@ -807,8 +806,6 @@ $^k::
 
 
 return
-
-
 
 ;-------------------------------------------------------------------------------
 ; Make <Ctrl + V> paste into PuTTY windows.
@@ -837,46 +834,6 @@ return
 #IfWinActive
 
 
-
-;~ ;-------------------------------------------------------------------------------
-;~ ; <Ctrl + Tab> => activate next PuTTY window.
-
-;~ #IfWinActive ahk_class PuTTY
-;~ LCtrl & Tab::
-    ;~ ; Send {Right Ctrl Down}{Tab}{Right Ctrl Up}
-    ;~ Send {vkA3sc11D Down}
-    ;~ Send {vk09sc00F}
-    ;~ Send {vkA3sc11D Up}
-
-    ;~ ; A3  11D	 	d	14.98	RControl
-    ;~ ; 09  00F	 	d	0.25	Tab
-    ;~ ; 09  00F	 	u	0.11	Tab            	jdev (172.16.40.108) - PuTTY
-    ;~ ; A3  11D	 	u	0.19	RControl
-
-;~ return
-
-;~ #IfWinActive
-
-
-
-;-------------------------------------------------------------------------------
-; <Ctrl + V> => <Shift + Insert> => paste from clipboard in mintty (Cygwin).
-; Make <Ctrl + V> paste into Cygwin/mintty windows.
-; Usually <Ctrl + V> lets you insert literal characters (like control characters).
-; You'll have to disable Master.ahk to get that back in the rare cases that you need it.
-; TO DO: You might only want this when typing commands into Bash.
-#IfWinActive ahk_class mintty
-$^v::
-    ; Apparently, {Insert} does not map to the insert key on my Vaio laptop.
-    ; Send {vkA0sc02A Down}{vk2Dsc152}{vkA0sc02A Up}
-    ; Send +{Insert}
-    Send +{vk2Dsc152}
-return
-#IfWinActive
-
-
-
-
 ;-------------------------------------------------------------------------------
 ; Make <Ctrl + W> close PuTTY windows (so your tabbed-browsing moves work everywhere).
 #IfWinActive ahk_class PuTTY
@@ -889,7 +846,6 @@ return
 
 
 #IfWinActive
-
 
 
 ;-------------------------------------------------------------------------------
