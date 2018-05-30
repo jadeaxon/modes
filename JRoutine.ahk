@@ -94,7 +94,10 @@ return
 ; <A n> => open next bookmark.  @Now GTD context and personal kanban.
 #IfWinActive Mail - jadeaxon@hotmail.com - Mozilla Firefox ahk_class MozillaWindowClass
 $!n::
-	Run "C:\Users\jadeaxon\Dropbox\Organization\To Do\Contexts\Home\@Now.txt"
+	EnvGet, home, USERPROFILE
+	file := home . "\Dropbox\Organization\To Do\Contexts\Home\@Now.txt"
+	Run %file%
+	; Run "C:\Users\jadeaxon\Dropbox\Organization\To Do\Contexts\Home\@Now.txt"
 	; For some reason, this does not work.
 	; WinActivate Mail - jadeaxon@hotmail.com - Mozilla Firefox
 	WinWait @Now
