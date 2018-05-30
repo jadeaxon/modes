@@ -82,7 +82,7 @@ return
 #IfWinActive  
 
 ; <A n> => open next bookmark
-#IfWinActive Random Quotes ahk_class MozillaWindowClass
+#IfWinActive Quotes of the Day ahk_class MozillaWindowClass
 $!n::
 	Send ^l
 	Sleep 200
