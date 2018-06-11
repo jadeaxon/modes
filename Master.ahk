@@ -658,7 +658,11 @@ return
 $^@::
 	Send v ; This shortcut is built into Hotmail for moving messages.  Pops up dialog.
 	Sleep 200
-	Send @Waiting{Enter}
+	; Adding my new @Dropped folder broke this.
+	; Once again, the Outlook webapp is brain dead.  It only sees the first letter typed into the
+	; search box when activated via v!  	
+	; Send @Waiting{Enter}
+	Send @{down}{enter}
 return
 #IfWinActive
 
