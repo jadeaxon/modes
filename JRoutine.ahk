@@ -107,8 +107,19 @@ $!n::
 	WinWaitActive Mail
 	Send ^l
 	Sleep 200
+	; Personal Kanban
 	Send https://docs.google.com/spreadsheets/d/1zXpRv6WFdb9eX9YDerTTCE7L3N6InYxJ-FYec9ok79I/edit{#}gid=0
 	Send {Enter}
+	Send ^t
+	Sleep 1000
+	Send ^l
+	Sleep 200
+	; Work Kanban
+	Send https://docs.google.com/spreadsheets/d/1mA2Xi0Vzr-Ax9ejSXg8_kV1CoYwDt-a_c4Q6Eah16Z0/edit{#}gid=0
+	Sleep 200	
+	Send {Enter}
+	Sleep 200
+	Send ^{Tab}
 return
 #IfWinActive
 
