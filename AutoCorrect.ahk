@@ -255,6 +255,7 @@ return  ; This makes the above hotstrings do nothing so that they override the i
 :*:guidlin::guidelin
 :*:girat::gyrat
 :*:harasm::harassm
+:*:hiijack::hijack
 :*:immitat::imitat
 :*:imigra::immigra
 :*:impliment::implement
