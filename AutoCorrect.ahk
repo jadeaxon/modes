@@ -288,6 +288,7 @@ return  ; This makes the above hotstrings do nothing so that they override the i
 :*:seperat::separat
 :*:sevic::servic
 :*:smoe::some
+:*:sprit::spirit
 :*:supercede::supersede
 :*:superceed::supersede
 :*:weild::wield
