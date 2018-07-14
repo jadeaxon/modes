@@ -275,6 +275,7 @@ return  ; This makes the above hotstrings do nothing so that they override the i
 :*:ocasion::occasion
 :*:occuranc::occurrence
 :*:priveledg::privileg
+:*:pivotol::pivotal
 :*:recie::recei
 :*:recived::received
 :*:reciver::receiver
