@@ -475,6 +475,7 @@ isDayTime(hour) {
 ; Insert a Unicode bullet symbol immediately.
 ; Use Windows Charater Map advanced view to search for these (or google them).
 :*:uBullet::{U+2022}
+:*:uDot::{U+2022}
 :*:uDegrees::{U+00B0}
 :*:uAry::{U+00BA} ; Ordinal indicator: primary, secondary, etc.
 :*:uEuros::{U+20AC}
