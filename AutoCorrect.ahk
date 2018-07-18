@@ -2141,6 +2141,9 @@ return  ; This makes the above hotstrings do nothing so that they override the i
 ::esitmated::estimated
 ::ect::etc
 ::ethnocentricm::ethnocentrism
+::ettiquette::etiquette
+::ettiquete::etiquette
+::etiquete::etiquette
 ::europian::European
 ::eurpean::European
 ::eurpoean::European
