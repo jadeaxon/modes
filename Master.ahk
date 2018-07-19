@@ -2073,6 +2073,39 @@ return
 return
 
 
+;==============================================================================
+; Toad
+;==============================================================================
+
+; Adds some extra password-enterting power to the Toad F5 shortcut key.
+; This deals with the table setup scripts that need the password twice.
+#IfWinActive ahk_class TfrmMain ahk_exe Toad.exe
+$F5::
+    ;; MsgBox, 1,, Doing enhanced Toad F5., 1
+    EnvGet, home, USERPROFILE
+	FileRead, password, %home%\.ssh\toad_password.txt
+	password := Trim(password)
+	StringReplace, password, password, `n, , All
+	;; MsgBox,, %password%
+	Send {F5}
+	; This will time out in 3 seconds in which case ErrorLevel gets set to 1.
+	WinWaitActive, ahk_class TToadLogOnForm ahk_exe Toad.exe,,3
+	if ErrorLevel
+	{
+		;; MsgBox,, Timed out.
+		return
+	}
+	Send %password%
+	Send {enter}
+	Sleep 1000	
+	WinWaitActive, ahk_class TToadLogOnForm ahk_exe Toad.exe
+	Send %password%
+	Send {enter}
+
+return
+#IfWinActive
+
+
 #Include %A_ScriptDir%\JRoutine.ahk
 
 
