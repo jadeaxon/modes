@@ -2540,7 +2540,6 @@ return  ; This makes the above hotstrings do nothing so that they override the i
 ::here;s::here's
 ::heridity::heredity
 ::heroe::hero
-::heros::heroes
 ::hertzs::hertz
 ::hesistant::hesitant
 ::heterogenous::heterogeneous
@@ -3609,7 +3608,6 @@ return  ; This makes the above hotstrings do nothing so that they override the i
 ::possably::possibly
 ::posthomous::posthumous
 ::potatoe::potato
-::potatos::potatoes
 ::potentialy::potentially
 ::postdam::Potsdam
 ::pwoer::power
@@ -3813,7 +3811,6 @@ return  ; This makes the above hotstrings do nothing so that they override the i
 ::quicklyu::quickly
 ::quinessential::quintessential
 ::quitted::quit
-::quizes::quizzes
 ::rabinnical::rabbinical
 ::radiactive::radioactive
 ::rancourous::rancorous
@@ -4616,7 +4613,6 @@ return  ; This makes the above hotstrings do nothing so that they override the i
 ::toldt he::told the
 ::tolerence::tolerance
 ::tolkein::Tolkien
-::tomatos::tomatoes
 ::tommorow::tomorrow
 ::tommorrow::tomorrow
 ::tomorow::tomorrow
@@ -5008,6 +5004,15 @@ return  ; This makes the above hotstrings do nothing so that they override the i
 ::zeebra::zebra
 ::sionist::Zionist
 ::sionists::Zionists
+
+; Plurals.
+::echos::echoes
+::heros::heroes
+::potatos::potatoes
+::quizes::quizzes
+::tomatos::tomatoes
+::vetos::vetoes
+
 
 ;------------------------------------------------------------------------------
 ; Ambiguous entries.  Where desired, pick the one that's best for you, edit,
