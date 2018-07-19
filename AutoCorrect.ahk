@@ -1676,7 +1676,10 @@ return  ; This makes the above hotstrings do nothing so that they override the i
 ::crockodiles::crocodiles
 ::crucifiction::crucifixion
 ::crusies::cruises
-::crystalisation::crystallisation
+::crystalisation::crystallization
+::crystalization::crystallization
+::crystalize::crystallize
+::crystalized::crystallized
 ::culiminating::culminating
 ::cumulatative::cumulative
 ::currenly::currently
@@ -2341,6 +2344,9 @@ return  ; This makes the above hotstrings do nothing so that they override the i
 ::formelly::formerly
 ::fourties::forties
 ::fourty::forty
+::formated::formatted
+::formater::formatter
+::formating::formatting
 ::forwrd::forward
 ::foward::forward
 ::forwrds::forwards
@@ -3724,6 +3730,9 @@ return  ; This makes the above hotstrings do nothing so that they override the i
 ::professer::professor
 ::proffesor::professor
 ::programable::programmable
+::programer::programmer
+::programing::programming
+::programed::programmed
 ::ptogress::progress
 ::progessed::progressed
 ::prohabition::prohibition
