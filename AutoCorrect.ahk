@@ -229,6 +229,7 @@ return  ; This makes the above hotstrings do nothing so that they override the i
 :*:atempt::attempt
 :*:atribut::attribut
 :*:avaialb::availab
+:*:boostrap::bootstrap
 :*:comision::commission
 :*:contien::conscien
 :*:critisi::critici
@@ -5022,6 +5023,7 @@ return  ; This makes the above hotstrings do nothing so that they override the i
 ::tomatos::tomatoes
 ::vetos::vetoes
 
+::alot::a lot
 
 ;------------------------------------------------------------------------------
 ; Ambiguous entries.  Where desired, pick the one that's best for you, edit,
@@ -5047,7 +5049,6 @@ return  ; This makes the above hotstrings do nothing so that they override the i
 ::agina::again, angina
 ::ago-go::àgo-go
 ::aledge::allege, a ledge
-::alot::a lot, allot
 ::alusion::allusion, illusion
 ::amature::armature, amateur
 ::anu::añu
