@@ -4923,6 +4923,7 @@ return  ; This makes the above hotstrings do nothing so that they override the i
 ::who;s::who's
 ::hwole::whole
 ::wohle::whole
+::wohel::whole
 ::wholey::wholly
 ::widesread::widespread
 ::weilded::wielded
