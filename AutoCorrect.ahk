@@ -4140,6 +4140,8 @@ return  ; This makes the above hotstrings do nothing so that they override the i
 ::seh::she
 ::shesaid::she said
 ::sherif::sheriff
+::sherrif::sheriff
+::sherriff::sheriff
 ::sheild::shield
 ::shineing::shining
 ::shiped::shipped
