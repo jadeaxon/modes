@@ -60,8 +60,31 @@ $!n::
 return
 #IfWinActive  
 
+
 ; <A n> => open next bookmark
 #IfWinActive Dilbert ahk_class MozillaWindowClass
+$!n::
+	Send ^l
+	Sleep 200
+	Send https://www.history.com/this-day-in-history
+	Send {Enter}
+return
+#IfWinActive  
+
+
+; <A n> => open next bookmark
+#IfWinActive This Day in History ahk_class MozillaWindowClass
+$!n::
+	Send ^l
+	Sleep 200
+	Send https://nationaldaycalendar.com/latest-posts/
+	Send {Enter}
+return
+#IfWinActive  
+
+
+; <A n> => open next bookmark
+#IfWinActive Today - National Day Calendar ahk_class MozillaWindowClass
 $!n::
 	Send ^l
 	Sleep 200
@@ -69,6 +92,7 @@ $!n::
 	Send {Enter}
 return
 #IfWinActive  
+
 
 ; <A n> => open next bookmark
 #IfWinActive Word of the Day ahk_class MozillaWindowClass
