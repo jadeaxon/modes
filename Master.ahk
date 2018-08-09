@@ -1329,6 +1329,15 @@ $^r::
 return
 #IfWinActive
 
+; /rl => /remind list
+#IfWinActive Slack - UVU IT
+:*:/rl::
+(
+/remind list
+
+)
+#IfWinActive
+
 
 ;===============================================================================
 ; Submode Launching
