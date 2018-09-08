@@ -742,6 +742,39 @@ return
 #IfWinActive
 
 
+; Make Steam Discovery Queue not suck.
+; PRE: Fullscreen Firefox with no zoom factor on 4K XPS15-9570 4K.
+#IfWinActive on Steam ahk_class MozillaWindowClass
+$^n::
+	; Ignore.  The button is not consistently in the same place.
+	; I don't want to resort to computer vision or figuring out user scripts fOr Greasemonkey yet.
+	; I guess really I just need to read a single pixel color and only click if it matches.
+	MouseMove, 1466, 1878
+	Click
+    MouseMove, 1462, 1777
+	Click
+	Sleep 750
+	MouseMove, 2924, 1873
+	Click
+	MouseMove, 2927, 1769
+	Click
+return
+
+#IfWinActive
+
+; FAIL: For some reason, this does not work in the Steam client.
+#IfWinActive ahk_exe Steam.exe
+$^n::
+	; Ignore.
+    MouseMove, 1470, 1879
+	Click
+	Sleep 750
+	MouseMove, 2927, 1871
+	Click
+return
+#IfWinActive
+
+
 ;-------------------------------------------------------------------------------
 ; Hotmail <C-n> opens new Firefox window as it should.  Stupid Hotmail overrode browser default shortcut.
 #IfWinActive Hotmail ahk_class MozillaWindowClass
