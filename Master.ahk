@@ -744,6 +744,14 @@ return
 #IfWinActive
 
 
+; Makes <C w> close Outlook.
+#ifWinActive ahk_exe OUTLOOK.EXE
+^w::
+	Send !{F4}
+return
+#IfWinActive
+
+
 #IfWinActive Inbox - jadeaxon@gmail.com
 $^`::
 	Send ^l
