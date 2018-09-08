@@ -707,37 +707,7 @@ return
 ; Archive the message your mouse is hovered over.  In Outlook's Inbox.
 ; FAIL: It changes last moved-to folder to top of list, so can't use fixed position!
 ; WIN: Set up a "Quick Step" in Outlook with shortcut key of <C-S 1>.  You can't set <C a> as shortcut there, so you remap it here.
-#ifWinActive Inbox - Jeffrey.Anderson@uvu.edu - Outlook ahk_class rctrl_renwnd32
-$^a::
-    Send ^+1
-return
-#IfWinActive
-
-#IfWinActive @Waiting - Jeffrey.Anderson@uvu.edu - Outlook ahk_class rctrl_renwnd32
-$^a::
-    Send ^+1
-return
-#IfWinActive
-
-#ifWinActive Inbox - 10845493@uvu.edu - Outlook ahk_class rctrl_renwnd32
-$^a::
-    Send ^+1
-return
-#IfWinActive
-
-#IfWinActive @Waiting - 10845493@uvu.edu - Outlook ahk_class rctrl_renwnd32
-$^a::
-    Send ^+1
-return
-#IfWinActive
-
-#ifWinActive Inbox - Jeff.Anderson@uvu.edu - Outlook ahk_class rctrl_renwnd32
-$^a::
-    Send ^+1
-return
-#IfWinActive
-
-#IfWinActive @Waiting - Jeff.Anderson@uvu.edu - Outlook ahk_class rctrl_renwnd32
+#ifWinActive ahk_exe OUTLOOK.EXE
 $^a::
     Send ^+1
 return
