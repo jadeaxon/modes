@@ -800,6 +800,17 @@ return
 ::Td::Dishes [rD1]
 ::Tg::Guitar [rRK1]
 ::TEl::Elliptical [rH1]
+
+; Never paste formatting.  Otherwise column background colors get screwed up.
+$^v::
+	Send ^+v
+return
+
+$^x::
+	Send ^x
+	Send {backspace}
+return
+
 #IfWinActive
 
 
