@@ -793,6 +793,15 @@ return
 #IfWinActive
 
 
+; Define hotstrings for common person tasks.
+#IfWinActive Personal Kanban ahk_class MozillaWindowClass
+::Tt::Trash [rD1]
+::Tl::Laundry [rD1]
+::Td::Dishes [rD1]
+::Tg::Guitar [rRK1]
+::TEl::Elliptical [rH1]
+#IfWinActive
+
 
 ;-------------------------------------------------------------------------------
 ; <C-w> in Sumatra PDF Reader closes the app.
