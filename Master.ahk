@@ -814,6 +814,19 @@ return
 #IfWinActive
 
 
+; Make cut and paste work right in work kanban.
+#IfWinActive Work Kanban ahk_class MozillaWindowClass
+$^v::
+	Send ^+v
+return
+
+$^x::
+	Send ^x
+	Send {backspace}
+return
+#IfWinActive
+
+
 ;-------------------------------------------------------------------------------
 ; <C-w> in Sumatra PDF Reader closes the app.
 #IfWinActive ahk_class SUMATRA_PDF_FRAME
