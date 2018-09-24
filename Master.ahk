@@ -827,6 +827,20 @@ return
 #IfWinActive
 
 
+#IfWinActive Inoreader ahk_class MozillaWindowClass
+$+Down::
+	; <S down> => mark as read.
+	Send m
+return
+
+$+Up::
+	; <S up> => star.
+	Send f
+return
+#IfWinActive
+
+
+
 ;-------------------------------------------------------------------------------
 ; <C-w> in Sumatra PDF Reader closes the app.
 #IfWinActive ahk_class SUMATRA_PDF_FRAME
