@@ -1385,15 +1385,15 @@ $^r::
 	SetNumLockState Off
 	Send {PgDn}
 return
-#IfWinActive
 
 ; /rl => /remind list
-#IfWinActive Slack - UVU IT
 :*:/rl::
 (
 /remind list
 
 )
+
+:*:/r2::/remind me to
 #IfWinActive
 
 
