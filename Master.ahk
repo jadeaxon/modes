@@ -483,6 +483,9 @@ isDayTime(hour) {
 :*:uInfinity::{U+221E}
 :*:uIntersection::{U+2229}
 :*:uUnion::{U+222A}
+:*:uEnDash::{U+2013}
+:*:uEmDash::{U+2014}
+
 
 :*:j@h::jadeaxon@hotmail.com
 :*:j@g::jadeaxon@gmail.com
