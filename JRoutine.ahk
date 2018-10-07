@@ -116,7 +116,7 @@ return
 #IfWinActive  
 
 ; <A n> => open next bookmark.  @Now GTD context and personal kanban.
-#IfWinActive Mail - jadeaxon@hotmail.com - Mozilla Firefox ahk_class MozillaWindowClass
+#IfWinActive  Mail - Jeffrey Anderson ahk_class MozillaWindowClass
 $!n::
 	EnvGet, home, USERPROFILE
 	file := home . "\Dropbox\Organization\To Do\Contexts\Home\@Now.txt"
