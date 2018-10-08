@@ -486,8 +486,12 @@ isDayTime(hour) {
 :*:uEnDash::{U+2013}
 :*:uEmDash::{U+2014}
 
-
+; In Cygwin, I use j@h as a command 99% of the time.
+; How would I do ~ or / in case using absolute path?
+#IfWinNotActive ~
 :*:j@h::jadeaxon@hotmail.com
+#IfWinNotActive
+
 :*:j@g::jadeaxon@gmail.com
 :*:je@g::java.emitter@gmail.com
 :*:jr@u::jeffrey.anderson@uvu.edu
