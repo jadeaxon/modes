@@ -807,6 +807,10 @@ return
 :*:Td::Dishes [rD1]{enter}
 :*:Tg::Guitar [rRK1]{enter}
 :*:TEl::Elliptical [rH1]{enter}
+:*:Tw::Walmart [rD1]{enter}
+:*:Tc::Cleaning [rDM1]{enter}
+:*:T7::GTD 7 [rK1]{enter}
+
 
 ; Never paste formatting.  Otherwise column background colors get screwed up.
 $^v::
