@@ -1796,6 +1796,10 @@ return  ; This makes the above hotstrings do nothing so that they override the i
 ::dispair::despair
 ::desparate::desperate
 ::despiration::desperation
+::dismissable::dismissible
+::dissmissable::dismissible
+::dissmissible::dismissible
+::dismisable::dismissible
 ::dispicable::despicable
 ::dispite::despite
 ::destablised::destabilised
