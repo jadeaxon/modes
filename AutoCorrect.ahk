@@ -1383,6 +1383,7 @@ return  ; This makes the above hotstrings do nothing so that they override the i
 ::collonies::colonies
 ::colonisators::colonisers
 ::colonizators::colonizers
+::collapsable::collapsible
 ::collonade::colonnade
 ::collony::colony
 ::collosal::colossal
