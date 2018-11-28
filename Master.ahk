@@ -2159,12 +2159,17 @@ return
 ; This deals with the table setup scripts that need the password twice.
 #IfWinActive ahk_class TfrmMain ahk_exe Toad.exe
 $F5::
-    ;; MsgBox, 1,, Doing enhanced Toad F5., 1
     EnvGet, home, USERPROFILE
+	
+	; Goddamn DBAs can't set the paswords consistently.
+	FileRead, old_password, %home%\.ssh\old_toad_password.txt
+	old_password := Trim(old_password)
+	StringReplace, old_password, old_password, `n, , All
+	
 	FileRead, password, %home%\.ssh\toad_password.txt
 	password := Trim(password)
 	StringReplace, password, password, `n, , All
-	;; MsgBox,, %password%
+	
 	Send {F5}
 	; This will time out in 3 seconds in which case ErrorLevel gets set to 1.
 	WinWaitActive, ahk_class TToadLogOnForm ahk_exe Toad.exe,,3
@@ -2173,11 +2178,13 @@ $F5::
 		;; MsgBox,, Timed out.
 		return
 	}
-	Send %password%
+	SendRaw %old_password%
 	Send {enter}
 	Sleep 1000	
+	
 	WinWaitActive, ahk_class TToadLogOnForm ahk_exe Toad.exe
-	Send %password%
+	; Goddamn password has a # in it!
+	SendRaw %password%
 	Send {enter}
 
 return
