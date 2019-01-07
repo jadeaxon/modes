@@ -317,7 +317,8 @@ return  ; This makes the above hotstrings do nothing so that they override the i
 ::ancien regime::Ancien Régime
 ::angstrom::Ångström
 ::angstroms::Ångströms
-::anime::animé
+; For some reason this corrects to animo in Windows even though it looks right here.
+; ::anime::animé
 ::animes::animés
 ::ao dai::ào dái
 ::apertif::apértif
