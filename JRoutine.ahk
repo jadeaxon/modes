@@ -84,7 +84,7 @@ return
 
 
 ; <A n> => open next bookmark
-#IfWinActive Today - National Day Calendar ahk_class MozillaWindowClass
+#IfWinActive Today | National Day Calendar ahk_class MozillaWindowClass
 $!n::
 	Send ^l
 	Sleep 200
