@@ -2983,6 +2983,7 @@ return  ; This makes the above hotstrings do nothing so that they override the i
 ::lveo::love
 ::lvoe::love
 ::lieing::lying
+::machien::machine
 ::mackeral::mackerel
 ::amde::made
 ::magasine::magazine
