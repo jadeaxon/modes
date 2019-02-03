@@ -6,7 +6,7 @@
 ;==============================================================================
 
 ; <A n> => Move to next workflow stage in daily routine (or other current multiapp workflow).
-#IfWinActive Slack - digEcor
+#IfWinActive Slack - UVU IT
 $!n::
 	Run http://www.google.com
 	WinWait Google
@@ -66,54 +66,11 @@ return
 $!n::
 	Send ^l
 	Sleep 200
-	Send https://www.history.com/this-day-in-history
-	Send {Enter}
-return
-#IfWinActive  
-
-
-; <A n> => open next bookmark
-#IfWinActive This Day in History ahk_class MozillaWindowClass
-$!n::
-	Send ^l
-	Sleep 200
-	Send https://nationaldaycalendar.com/latest-posts/
-	Send {Enter}
-return
-#IfWinActive  
-
-
-; <A n> => open next bookmark
-#IfWinActive Today | National Day Calendar ahk_class MozillaWindowClass
-$!n::
-	Send ^l
-	Sleep 200
-	Send http://www.merriam-webster.com/word-of-the-day/
-	Send {Enter}
-return
-#IfWinActive  
-
-
-; <A n> => open next bookmark
-#IfWinActive Word of the Day ahk_class MozillaWindowClass
-$!n::
-	Send ^l
-	Sleep 200
-	; Somehow they botched their site such that you can't directly link to random quotes.
-	Send http://www.quotationspage.com/qotd.html
-	Send {Enter}
-return
-#IfWinActive  
-
-; <A n> => open next bookmark
-#IfWinActive Quotes of the Day ahk_class MozillaWindowClass
-$!n::
-	Send ^l
-	Sleep 200
 	Send https://www.hotmail.com
 	Send {Enter}
 return
 #IfWinActive  
+
 
 ; <A n> => open next bookmark.  @Now GTD context and personal kanban.
 #IfWinActive  Mail - Jeffrey Anderson ahk_class MozillaWindowClass
