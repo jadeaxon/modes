@@ -882,6 +882,28 @@ $^k::
 return
 
 ;-------------------------------------------------------------------------------
+; PyCharm
+#IfWinActive ahk_exe pycharm64.exe
+
+; Compensate for Programmer Dvorak weirdness.
+; What AHK sees as <A [>, PyCharm sees as <A 7>.  What I'm trying to press is <A 2>.
+; You'd need to press shift to get 2 in Programmer Dvorak, but that messes it up somehow.
+; ![:: -- Nope, AHK can't see this.
+$!sc003::
+	; The problem is, AHK has to use an alternate method of sending <A 2> since that combination
+	; actually is not possible in Programmer Dvorak.
+	; Since what it sends is not a key event, it can't trigger shortcut behavior.
+	; Send !2
+
+	; Watching its Keymap, PyCharm thinks you've hit <A 2> when you hit <A )> and emit that virtual key.
+	; WORKS!
+	Send !{vk32sc009}
+
+return
+
+#IfWinActive
+
+;-------------------------------------------------------------------------------
 ; Make <Ctrl + V> paste into PuTTY windows.
 ; Usually, <Ctrl + V> lets you insert the next character literally.  This is rarely used.
 ; I've used it to define keymappings for bash via bind mainly.
