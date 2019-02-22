@@ -861,25 +861,28 @@ return
 #IfWinActive
 
 
+; Trying to remap <C k> to <C v> for Programmer Dvorak causes problems
+; with PyCharm/WebStorm commit and pull shortcuts.
 ; Vaio Laptop and Dell XPS 410.
 ; A0  02A	 	d	0.03	Left Shift
 ; 2D  152	 	d	0.02	Insert
 ; 2D  152	 	u	0.09	Insert
 ; A0  02A	 	u	0.14	Left Shift
-$^k::
-    ; TO DO: This does not work on my Windows 7 64-bit workstation.
-    WinGetClass, class, A
-    if (class = "mintty") {
-        ; Apparently, {Insert} does not map to the insert key on my Vaio laptop.
-        ; Send {vkA0sc02A Down}{vk2Dsc152}{vkA0sc02A Up}
-        Send +{vk2Dsc152}
-    }
-    else { ; Not mintty.
-        Send ^v
-    }
+; $^k::
+    ; ; TO DO: This does not work on my Windows 7 64-bit workstation.
+    ; WinGetClass, class, A
+    ; if (class = "mintty") {
+        ; ; Apparently, {Insert} does not map to the insert key on my Vaio laptop.
+        ; ; Send {vkA0sc02A Down}{vk2Dsc152}{vkA0sc02A Up}
+        ; Send +{vk2Dsc152}
+    ; }
+    ; else { ; Not mintty.
+        ; Send ^v
+    ; }
+; 
+; 
+; return
 
-
-return
 
 ;-------------------------------------------------------------------------------
 ; PyCharm
