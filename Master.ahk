@@ -534,6 +534,12 @@ return
 	SendInput %output%
 return
 
+; ymd => 2019-03-11: 
+::ymd::
+	FormatTime, output,, yyyy-MM-dd
+	SendInput %output%:{space}  
+return
+
 
 ;===============================================================================
 ; Hotkeys
