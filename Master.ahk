@@ -2245,6 +2245,47 @@ return
 #IfWinActive
 
 
+#IfWinActive fzjebt_table_setup.sql ahk_class TfrmMain ahk_exe Toad.exe
+$F5::
+    EnvGet, home, USERPROFILE
+	
+	FileRead, old_password, %home%\.ssh\old_toad_password.txt
+	old_password := Trim(old_password)
+	StringReplace, old_password, old_password, `n, , All
+
+	FileRead, password, %home%\.ssh\toad_password.txt
+	password := Trim(password)
+	StringReplace, password, password, `n, , All
+
+	Send {F5}
+	; This will time out in 3 seconds in which case ErrorLevel gets set to 1.
+	WinWaitActive, ahk_class TToadLogOnForm ahk_exe Toad.exe,,3
+	if ErrorLevel
+	{
+		;; MsgBox,, Timed out.
+		return
+	}
+
+	SendRaw %old_password%
+	Send {enter}
+	
+	Sleep 4000
+	
+	; This will time out in 3 seconds in which case ErrorLevel gets set to 1.
+	WinWaitActive, ahk_class TToadLogOnForm ahk_exe Toad.exe,,3
+	if ErrorLevel
+	{
+		;; MsgBox,, Timed out.
+		return
+	}
+	SendRaw %password%
+	Send {enter}
+	
+return
+#IfWinActive
+
+
+
 
 #Include %A_ScriptDir%\JRoutine.ahk
 
