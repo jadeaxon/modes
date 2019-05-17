@@ -535,11 +535,39 @@ return
 return
 
 ; ymd => 2019-03-11: 
+; For some reason, this never triggers on the first use in gVim.
+; Ah, it's because without the *, it sees the i/I/o/O transition to insert mode as part of the word!
+; But, I don't want a star to get the right behavior with : (which can't be used as a hotstring
+; character).
+::iymd::
+	FormatTime, output,, yyyy-MM-dd
+	SendInput %output%:{space}  
+return
+
+; This still doesn't work.
+::Iymd::
+	FormatTime, output,, yyyy-MM-dd
+	SendInput %output%:{space}  
+return
+
+; This still doesn't work.
+::Oymd::
+	FormatTime, output,, yyyy-MM-dd
+	SendInput {enter}%output%:{space}  
+return
+
+; For some strange reason, we lose an enter keystroke here.
+::oymd::
+	FormatTime, output,, yyyy-MM-dd
+	SendInput {enter}%output%:{space}  
+return
+
 ::ymd::
 	FormatTime, output,, yyyy-MM-dd
 	SendInput %output%:{space}  
 return
 
+	
 
 ;===============================================================================
 ; Hotkeys
