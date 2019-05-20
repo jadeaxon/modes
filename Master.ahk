@@ -1471,6 +1471,7 @@ return
 (
 /remind me to water plants at 5 AM on Monday
 /remind me to check @Waiting .txt/email/bookmarks/Jira at 6 AM on Monday
+/remind me to charge tablet at 7 AM on Monday
 /remind me to IF at 5 AM on Tuesday
 /remind me to take magnesium at 9 AM on Wednesday
 /remind me to check mail at 3 PM on Wednesday
@@ -1482,7 +1483,7 @@ return
 /remind me to start next week's meeting agenda at 1 PM on Thursday
 /remind me to IF at 5 AM on Saturday
 /remind me to epsom bath at 5 AM on Saturday
-/remind me to LC at 5 AM on Saturday
+/remind me to LC at 5 AM on Sunday
 /remind me to clean laptop monitors at 5 AM on Saturday
 /remind me to check mail at 5 AM on Sunday
 /remind me to do hbands at 5 AM on Sunday
