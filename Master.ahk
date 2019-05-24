@@ -839,9 +839,11 @@ return
 :*:Tt::Trash [rD1]{enter}
 :*:Tl::Laundry [rD1]{enter}
 :*:Td::Dishes [rD1]{enter}
+:*:Trb::Reset buffers [rD1]{enter}
 :*:Tg::Guitar [rRK1]{enter}
 :*:TEl::Elliptical [rH1]{enter}
 :*:Tw::Walmart [rD1]{enter}
+:*:Tfm::Fresh Market [rD1]{enter}
 :*:Tc::Cleaning [rDM1]{enter}
 :*:T7::GTD 7 [rK1]{enter}
 
