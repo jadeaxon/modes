@@ -1486,6 +1486,7 @@ return
 /remind me to IF at 5 AM on Saturday
 /remind me to epsom bath at 5 AM on Saturday
 /remind me to clean laptop monitors at 5 AM on Saturday
+/remind me to check air filters running at 5 AM on Saturday
 /remind me to floss at 3 PM on Saturday
 /remind me to respawn weekly reminders via /rrw on Sunday at 5 AM
 /remind me to check mail at 5 AM on Sunday
