@@ -1486,11 +1486,12 @@ return
 /remind me to IF at 5 AM on Saturday
 /remind me to epsom bath at 5 AM on Saturday
 /remind me to clean laptop monitors at 5 AM on Saturday
+/remind me to floss at 3 PM on Saturday
 /remind me to respawn weekly reminders via /rrw on Sunday at 5 AM
 /remind me to check mail at 5 AM on Sunday
 /remind me to do hbands at 5 AM on Sunday
 /remind me to take out big trash at 5 AM on Sunday
-/remind me to floss at 3 PM on Sunday
+/remind me to peppermint garage window at 5 AM on Sunday
 )
 
 :*:/r2::/remind me to
