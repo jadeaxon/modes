@@ -1483,6 +1483,7 @@ return
 /remind me to prep for APS leadership meeting at 9:30 AM on Friday
 /remind me to run water through Keurig at 6 AM on Friday
 /remind me to start next week's meeting agenda at 1 PM on Thursday
+/remind me to switch elliptical water bottle at 5 AM on Saturday
 /remind me to IF at 5 AM on Saturday
 /remind me to epsom bath at 5 AM on Saturday
 /remind me to clean laptop monitors at 5 AM on Saturday
