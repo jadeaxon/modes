@@ -180,8 +180,9 @@ return
 ::verisign::
 return  ; This makes the above hotstrings do nothing so that they override the ign->ing rule below.
 
+; Do NOT correct ign to ing.  This screws up too much.
+; :?:ign::ing
 #Hotstring B  ; Turn back on automatic backspacing for all subsequent hotstrings.
-:?:ign::ing
 
 
 ;------------------------------------------------------------------------------
