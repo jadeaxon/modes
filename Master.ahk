@@ -782,6 +782,8 @@ $^`::
 return
 #IfWinActive
 
+;-------------------------------------------------------------------------------
+; Steam
 
 ; Make Steam Discovery Queue not suck.
 ; PRE: Fullscreen Firefox with no zoom factor on 4K XPS15-9570 4K.
@@ -812,6 +814,17 @@ $^n::
 	Sleep 750
 	MouseMove, 2927, 1871
 	Click
+return
+#IfWinActive
+
+
+;-------------------------------------------------------------------------------
+; Thunderbird
+
+; Make d act like delete key.
+#IfWinActive Junk - Mozilla Thunderbird
+$d::
+	Send {delete}
 return
 #IfWinActive
 
