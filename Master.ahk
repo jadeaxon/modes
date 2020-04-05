@@ -1479,31 +1479,30 @@ return
 :*:/rrw::
 (
 /remind me to water plants at 5 AM on Monday
-/remind me to check @Waiting .txt/email/bookmarks/Jira at 6 AM on Monday
+/remind me to check @Waiting/blocked .txt/email/bookmarks/kanban/Jira/Planner at 6 AM on Monday
 /remind me to check @Active Projects.txt at 6 AM on Monday
-/remind me to read next policy at 6 AM on Monday
+/remind me to read next UVU policy at 6 AM on Monday
 /remind me to check https://itops.uvu.edu/secure/change_calendar/index.php at 6 AM on Monday
-/remind me to charge tablet at 7 AM on Monday
-/remind me to not eat out at 5 AM on Tuesday
 /remind me to take magnesium at 9 AM on Wednesday
 /remind me to check mail at 3 PM on Wednesday
 /remind me to begin GTD7 at 5 AM on Thursday
 /remind me to prep for ESS meeting at 8:30 AM on Thursday
+/remind me to start next week's meeting agenda at 1 PM on Thursday
 /remind me to do hbands at 6 AM on Friday
 /remind me to prep for ESS leadership meeting at 9:30 AM on Friday
 /remind me to run water through Keurig at 6 AM on Friday
-/remind me to start next week's meeting agenda at 1 PM on Thursday
 /remind me to switch elliptical water bottle at 5 AM on Saturday
 /remind me to IF at 5 AM on Saturday
 /remind me to epsom bath at 5 AM on Saturday
 /remind me to clean laptop monitors at 5 AM on Saturday
 /remind me to check air filters running at 5 AM on Saturday
 /remind me to floss at 3 PM on Saturday
-/remind me to respawn weekly reminders via /rrw on Sunday at 5 AM
-/remind me to check mail at 5 AM on Sunday
-/remind me to do hbands at 5 AM on Sunday
-/remind me to take out big trash at 5 AM on Sunday
-/remind me to peppermint garage window at 5 AM on Sunday
+/remind me to respawn weekly reminders via /rrw next Sunday at 5 AM
+/remind me to check mail next Sunday at 5 AM
+/remind me to do hbands next Sunday at 5 AM
+/remind me to do 100 kbs next Sunday at 5 AM
+/remind me to take out big trash next Sunday at 5 AM
+/remind me to peppermint garage window next Sunday at 5 AM
 )
 
 :*:/r2::/remind me to
