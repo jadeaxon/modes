@@ -1479,10 +1479,12 @@ return
 :*:/rrw::
 (
 /remind me to water plants at 5 AM on Monday
-/remind me to check @Waiting/blocked .txt/email/bookmarks/kanban/Jira/Planner at 6 AM on Monday
+/remind me to waiting/blocked on @Waiting.txt/email/bookmarks/kanban/Jira/Planner at 6 AM on Monday
 /remind me to check @Active Projects.txt at 6 AM on Monday
+/remind me to update all project boards at 6 AM on Monday
 /remind me to read next UVU policy at 6 AM on Monday
 /remind me to check https://itops.uvu.edu/secure/change_calendar/index.php at 6 AM on Monday
+/remind me to update ESS items on https://uvu-it.atlassian.net/projects/CA/board at 2 PM on Tuesday
 /remind me to take magnesium at 9 AM on Wednesday
 /remind me to check mail at 3 PM on Wednesday
 /remind me to begin GTD7 at 5 AM on Thursday
@@ -1491,13 +1493,17 @@ return
 /remind me to do hbands at 6 AM on Friday
 /remind me to prep for ESS leadership meeting at 9:30 AM on Friday
 /remind me to run water through Keurig at 6 AM on Friday
+/remind me to do weekly status report at 3 PM on Friday
+/remind me to start next Progress (UVU).txt weekly header at 3 PM on Friday
+/remind me to sync calendars at 5 AM on Saturday
 /remind me to switch elliptical water bottle at 5 AM on Saturday
-/remind me to IF at 5 AM on Saturday
+/remind me to conditionally IFL at 5 AM on Saturday
 /remind me to epsom bath at 5 AM on Saturday
 /remind me to clean laptop monitors at 5 AM on Saturday
 /remind me to check air filters running at 5 AM on Saturday
 /remind me to floss at 3 PM on Saturday
 /remind me to respawn weekly reminders via /rrw next Sunday at 5 AM
+/remind me to reset buffers next Sunday at 5 AM
 /remind me to check mail next Sunday at 5 AM
 /remind me to do hbands next Sunday at 5 AM
 /remind me to do 100 kbs next Sunday at 5 AM
