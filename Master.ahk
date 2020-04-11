@@ -1479,11 +1479,15 @@ return
 :*:/rrw::
 (
 /remind me to water plants at 5 AM on Monday
-/remind me to waiting/blocked on @Waiting.txt/email/bookmarks/kanban/Jira/Planner at 6 AM on Monday
-/remind me to check @Active Projects.txt at 6 AM on Monday
-/remind me to update all project boards at 6 AM on Monday
-/remind me to read next UVU policy at 6 AM on Monday
-/remind me to check https://itops.uvu.edu/secure/change_calendar/index.php at 6 AM on Monday
+/remind me to waiting/blocked on @Waiting.txt/email/bookmarks/kanban/Jira/Planner at 5 AM on Monday
+/remind me to check work email @Later at 5 AM on Monday
+/remind me to check saved Teams messages at 5 AM on Monday
+/remind me to check @Active Projects.txt at 5 AM on Monday
+/remind me to update and sync all project boards at 5 AM on Monday
+/remind me to review all work contexts and agendas at 5 AM on Monday
+/remind me to update all project boards at 5 AM on Monday
+/remind me to read next UVU policy at 5 AM on Monday
+/remind me to check https://itops.uvu.edu/secure/change_calendar/index.php at 5 AM on Monday
 /remind me to update ESS items on https://uvu-it.atlassian.net/projects/CA/board at 2 PM on Tuesday
 /remind me to take magnesium at 9 AM on Wednesday
 /remind me to check mail at 3 PM on Wednesday
