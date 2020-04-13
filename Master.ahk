@@ -1406,6 +1406,26 @@ return
 #IfWinActive
 
 
+
+;===============================================================================
+; Teams
+
+; <C-S s> => open saved messages
+#IfWinActive ahk_exe Teams.exe 
+$^+s::
+	; Open command bar.
+	Send ^e
+	Sleep 100
+	; Open saved messages.
+	Send /
+	; If you don't pause here, Teams thinks you are searching for '/saved'.
+	Sleep 200
+	Send saved
+	Sleep 100
+	Send {enter}
+return
+
+
 ;===============================================================================
 ; Slack
 
