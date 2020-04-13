@@ -1505,10 +1505,11 @@ return
 /remind me to check @Active Projects.txt at 5 AM on Monday
 /remind me to update and sync all project boards at 5 AM on Monday
 /remind me to review all work contexts and agendas at 5 AM on Monday
-/remind me to update all project boards at 5 AM on Monday
 /remind me to read next UVU policy at 5 AM on Monday
 /remind me to check https://itops.uvu.edu/secure/change_calendar/index.php at 5 AM on Monday
 /remind me to update ESS items on https://uvu-it.atlassian.net/projects/CA/board at 2 PM on Tuesday
+/remind me to conditionally IFL at 5 AM on Wednesday
+/remind me to do 100 kbs at 5 AM on Wednesday
 /remind me to take magnesium at 9 AM on Wednesday
 /remind me to check mail at 3 PM on Wednesday
 /remind me to begin GTD7 at 5 AM on Thursday
