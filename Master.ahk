@@ -576,6 +576,13 @@ return
 ; # => Win; ^ => Ctrl;  + => Shift; ! => Alt
 ; $ => Don't allow "Send" output to trigger.  Don't let hotkeys trigger other hotkeys.
 
+; The right click button on my laptop is not working correctly.
+; Making it so that Ctrl left click does a right click.
+; For some reason, if you try to map Alt left click, the context menu just closes instantly.
+^LButton::
+	Click, Right
+return
+
 ; Make is so that <Window + Space> does not switch input languages.  This is causing me to nearly die
 ; in Path of Exile.
 #space::return
