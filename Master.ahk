@@ -2306,6 +2306,23 @@ return
 return
 
 
+; Do a date header for ymd=.
+::ymd=::
+	bar80 := "==============================================================================="
+	FormatTime, dateString,, yyyy-MM-dd
+
+    SendInput %bar80%
+    SendInput {Enter}
+    SendInput %dateString%
+    SendInput {Enter}
+    SendInput %bar80%
+    SendInput {Enter}
+    SendInput {Enter}
+
+return
+
+
+
 ;==============================================================================
 ; Toad
 ;==============================================================================
