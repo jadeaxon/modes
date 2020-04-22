@@ -1537,6 +1537,7 @@ return
 /remind me to begin GTD7 at 5 AM on Thursday
 /remind me to prep for ESS meeting at 8:30 AM on Thursday
 /remind me to start next week's meeting agenda at 1 PM on Thursday
+/remind me to update Banner releases master spreadsheet at 5AM on Friday
 /remind me to do hbands at 6 AM on Friday
 /remind me to run water through Keurig at 6 AM on Friday
 /remind me to do weekly status report at 3 PM on Friday
