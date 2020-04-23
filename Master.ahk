@@ -866,6 +866,7 @@ return
 
 ; Define hotstrings for common person tasks.
 #IfWinActive Personal Kanban ahk_class MozillaWindowClass
+:*:Ta::Air out house [H1]{enter}
 :*:Tt::Trash [rD1]{enter}
 :*:Tbt::Big trash [rD1]{enter}
 :*:Tld::Laundry (darks) [rD1]{enter}
@@ -881,6 +882,7 @@ return
 :*:Tfm::Fresh Market [rD1]{enter}
 :*:Tc::Cleaning [rDM1]{enter}
 :*:T7::GTD7 [rK1]{enter}
+:*:Tk::kbs 100 [rH1]^{enter}0{enter}
 
 
 ; Never paste formatting.  Otherwise column background colors get screwed up.
