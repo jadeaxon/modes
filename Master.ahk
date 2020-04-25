@@ -580,18 +580,24 @@ return
 ; The right click button on my laptop is not working correctly.
 ; Making it so that Ctrl left click does a right click.
 ; For some reason, if you try to map Alt left click, the context menu just closes instantly.
-^LButton::
-	Click, Right
-return
+;
+; Mostly this is okay, but it ruins the browser Ctrl click to open link in another tab.
+;
+; The reason it's not working is because the battery in my Dell XPS 9570 had expanded.  Fail Dell
+; engineering.  I took the battery out, and now the trackpad works fine.  I just don't have a
+; battery now, so I have to be careful about the laptop becoming unplugged!
+; ^LButton::
+;	Click, Right
+; return
 
 ; Make a three-finger trackpad tap start dragging.
 ; PRE: Three finger tap mapped to custom shortcut <C-A-S d>.
 ; PRE: ClickLock is enabled in mouse settings.
-^!+d::
-	Click down
-	Sleep 1000
-	Click up
-return
+; ^!+d::
+;	Click down
+;	Sleep 1000
+;	Click up
+; return
 
 ; Make is so that <Window + Space> does not switch input languages.  This is causing me to nearly die
 ; in Path of Exile.
