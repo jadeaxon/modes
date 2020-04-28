@@ -851,6 +851,13 @@ $d::
 return
 #IfWinActive
 
+; Make d act like delete key.
+#IfWinActive Inbox - Mozilla Thunderbird
+$d::
+	Send {delete}
+return
+#IfWinActive
+
 
 ;-------------------------------------------------------------------------------
 ; Hotmail <C-n> opens new Firefox window as it should.  Stupid Hotmail overrode browser default shortcut.
@@ -1524,7 +1531,7 @@ return
 
 ; /rrw => set weekly recurring reminders
 ; Slack has recurring reminders, but they are implemented badly.
-; I want them to spawn individual reminder instances that I can snooze
+; I want them to spawn as individual reminder instances that I can snooze
 ; and mark as complete.
 :*:/rrw::
 (
@@ -1566,6 +1573,35 @@ return
 /remind me to take out big trash next Sunday at 5 AM
 /remind me to peppermint garage window next Sunday at 5 AM
 )
+
+
+; /rrm => set monthly recurring reminders
+; Slack has recurring reminders, but they are implemented badly.
+; I want them to spawn as individual reminder instances that I can snooze
+; and mark as complete.
+:*:/rrm::
+(
+/remind me to pay Jason on the 1st of next month at 5 AM
+/remind me to update POB on the 1st of next month at 5 AM
+/remind me to save/invest on the 1st of next month at 5 AM
+/remind me to change furnace filter on the 1st of next month at 5 AM
+/remind me to change fridge baking soda on the 1st of next month at 5 AM
+/remind me to change dishwasher rinse solution on the 1st of next month at 5 AM
+/remind me to deep clean Norelco on the 8th of next month at 5 AM
+/remind me to cycle food delivery on the 8th of next month at 5 AM
+/remind me to do car checklist on the 8th of next month at 5 AM
+/remind me to wash bedding on the 15th of next month at 5 AM
+/remind me to empty Dyson bin, wash brush head, and swap filter on the 15th of next month at 5 AM
+/remind me to touch up kitchen on the 15th of next month at 5 AM
+/remind me to update POB on the 15th of next month at 5 AM
+/remind me to touch up vac garage on the 22nd of next month at 5 AM
+/remind me to replace peppermint on the 22nd of next month at 5 AM
+/remind me to clean toilets on the 22nd of next month at 5 AM
+/remind me to wash backpack on the 2nd of next month at 5 AM
+/remind me to respawn monthly reminders via /rrm on the 25th of next month at 5 AM
+/remind me to do monthly status report on the 28th of next month at 5 AM
+)
+
 
 :*:/r2::/remind me to
 #IfWinActive
