@@ -1617,6 +1617,44 @@ return
 
 
 ;===============================================================================
+; Numberpad
+
+; The bluetooth numberpad I got don't work right in Programmer Dvorak.
+; Need to remap some of the keys.
+
+; 62  048	 	d	5.56	Numpad2 
+; 63  049	 	d	2.03	Numpad3        	
+; 64  04B	 	d	0.23	Numpad4        	
+; 65  04C	 	d	3.72	Numpad5
+; 66  04D	 	d	5.05	Numpad6        	
+; 69  051	 	d	0.94	Numpad9        	
+
+SC048::
+	Send {up}
+return
+
+SC049::
+	Send {PgUp}
+return
+
+SC04D::
+	Send {right}
+return
+
+SC04B::
+	Send {left}
+return
+
+SC04C::
+	Send {space}
+return
+
+SC051::
+	Send {PgDn}
+return
+
+
+;===============================================================================
 ; Submode Launching
 
 
