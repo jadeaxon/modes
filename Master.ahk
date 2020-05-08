@@ -858,6 +858,49 @@ $d::
 return
 #IfWinActive
 
+; Make d act like delete key.
+#IfWinActive @Waiting - Mozilla Thunderbird
+$d::
+	Send {delete}
+return
+#IfWinActive
+
+
+; w => Move message to @Waiting.
+#IfWinActive Inbox - Mozilla Thunderbird
+$w::
+	Send {alt down}{alt up}
+	Sleep 50
+	Send mmj@{down}{down}{down}{down}
+	Sleep 50
+	Send {enter}
+return
+
+; w => Move message to @Waiting.
+#IfWinActive Junk - Mozilla Thunderbird
+$w::
+	Send {alt down}{alt up}
+	Sleep 50
+	Send mmj@{down}{down}{down}{down}
+	Sleep 50
+	Send {enter}
+	
+return
+
+
+; i => Move message to Inbox.
+#IfWinActive Junk - Mozilla Thunderbird
+$i::
+	Send {alt down}{alt up}
+	Sleep 50
+	Send mmji
+	Sleep 50
+	Send {enter}
+	
+return
+
+
+
 
 ;-------------------------------------------------------------------------------
 ; Hotmail <C-n> opens new Firefox window as it should.  Stupid Hotmail overrode browser default shortcut.
