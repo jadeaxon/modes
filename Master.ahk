@@ -869,9 +869,13 @@ return
 ; w => Move message to @Waiting.
 #IfWinActive Inbox - Mozilla Thunderbird
 $w::
-	Send {alt down}{alt up}
+	Send {alt down}
+	Sleep 20
+	Send {alt up}
+	Sleep 100
+	Send mmj@
 	Sleep 50
-	Send mmj@{down}{down}{down}{down}
+	Send {down}{down}{down}{down}
 	Sleep 50
 	Send {enter}
 return
@@ -879,9 +883,13 @@ return
 ; w => Move message to @Waiting.
 #IfWinActive Junk - Mozilla Thunderbird
 $w::
-	Send {alt down}{alt up}
+	Send {alt down}
+	Sleep 20
+	Send {alt up}
+	Sleep 100
+	Send mmj@
 	Sleep 50
-	Send mmj@{down}{down}{down}{down}
+	Send {down}{down}{down}{down}
 	Sleep 50
 	Send {enter}
 	
@@ -891,9 +899,13 @@ return
 ; i => Move message to Inbox.
 #IfWinActive Junk - Mozilla Thunderbird
 $i::
-	Send {alt down}{alt up}
+	Send {alt down}
+	Sleep 20
+	Send {alt up}
+	Sleep 100
+	Send mmj@
 	Sleep 50
-	Send mmji
+	Send i
 	Sleep 50
 	Send {enter}
 	
