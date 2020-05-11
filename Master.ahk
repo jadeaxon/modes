@@ -934,7 +934,7 @@ return
 
 ; Define hotstrings for common person tasks.
 #IfWinActive Personal Kanban ahk_class MozillaWindowClass
-:*:Ta::Air out house [H1]{enter}
+:*:TAh::Air out house [H1]{enter}
 :*:Tt::Trash [rD1]{enter}
 :*:Tbt::Big trash [rD1]{enter}
 :*:Tld::Laundry (darks) [rD1]{enter}
