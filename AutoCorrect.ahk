@@ -2552,6 +2552,7 @@ return  ; This makes the above hotstrings do nothing so that they override the i
 ::hemmorhage::hemorrhage
 ::ehr::her
 ::ehre::here
+::her's::hers
 ::here;s::here's
 ::heridity::heredity
 ::heroe::hero
