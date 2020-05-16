@@ -1641,6 +1641,7 @@ return
 /remind me to do 100 kbs next Sunday at 5 AM
 /remind me to take out big trash next Sunday at 5 AM
 /remind me to peppermint garage window next Sunday at 5 AM
+/remind me to update Weight.xlsx next Sunday at 5 AM
 )
 
 
