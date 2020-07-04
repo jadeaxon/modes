@@ -233,6 +233,7 @@ return  ; This makes the above hotstrings do nothing so that they override the i
 :*:boostrap::bootstrap
 :*:comision::commission
 :*:contien::conscien
+:*:contigent::contingent
 :*:critisi::critici
 :*:crticis::criticis
 :*:critiz::criticiz
