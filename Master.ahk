@@ -485,6 +485,7 @@ isDayTime(hour) {
 :*:uUnion::{U+222A}
 :*:uEnDash::{U+2013}
 :*:uEmDash::{U+2014}
+:*:uCheck::{U+2713}
 
 ; In Cygwin, I use j@h as a command 99% of the time.
 ; How would I do ~ or / in case using absolute path?
