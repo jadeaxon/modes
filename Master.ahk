@@ -878,7 +878,7 @@ $w::
 	Sleep 100
 	Send mmj@
 	Sleep 50
-	Send {down}{down}{down}{down}
+	Send {down}{down}{down}
 	Sleep 50
 	Send {enter}
 return
@@ -892,7 +892,7 @@ $w::
 	Sleep 100
 	Send mmj@
 	Sleep 50
-	Send {down}{down}{down}{down}
+	Send {down}{down}{down}
 	Sleep 50
 	Send {enter}
 	
@@ -913,8 +913,6 @@ $i::
 	Send {enter}
 	
 return
-
-
 
 
 ;-------------------------------------------------------------------------------
