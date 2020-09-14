@@ -1592,6 +1592,7 @@ return
 :*:/rrw::
 (
 /remind me to follow R1 Daily.txt at 5 AM on Monday
+/remind me to check calendar, set alarms, @<Day> -> Inbox at 5 AM on Monday
 /remind me to check recurring tasks spreadsheet at 5 AM on Monday
 /remind me to water plants at 5 AM on Monday
 /remind me to waiting/blocked on @Waiting.txt/email/bookmarks/kanban/Jira/Planner at 5 AM on Monday
@@ -1603,20 +1604,24 @@ return
 /remind me to read next UVU policy at 5 AM on Monday
 /remind me to check https://itops.uvu.edu/secure/change_calendar/index.php at 5 AM on Monday
 /remind me to follow R1 Daily.txt at 5 AM on Tuesday
+/remind me to check calendar, set alarms, @<Day> -> Inbox at 5 AM on Tuesday
 /remind me to check recurring tasks spreadsheet at 5 AM on Tuesday
 /remind me to update ESS items on https://uvu-it.atlassian.net/projects/CA/board at 2 PM on Tuesday
 /remind me to follow R1 Daily.txt at 5 AM on Wednesday
+/remind me to check calendar, set alarms, @<Day> -> Inbox at 5 AM on Wednesday
 /remind me to check recurring tasks spreadsheet at 5 AM on Wednesday
 /remind me to conditionally IFL at 5 AM on Wednesday
 /remind me to do 100 kbs at 5 AM on Wednesday
 /remind me to take magnesium at 9 AM on Wednesday
 /remind me to check mail at 3 PM on Wednesday
 /remind me to follow R1 Daily.txt at 5 AM on Thursday
+/remind me to check calendar, set alarms, @<Day> -> Inbox at 5 AM on Thursday
 /remind me to check recurring tasks spreadsheet at 5 AM on Thursday
 /remind me to begin GTD7 at 5 AM on Thursday
 /remind me to prep for ESS meeting at 8:30 AM on Thursday
 /remind me to start next week's meeting agenda at 1 PM on Thursday
 /remind me to follow R1 Daily.txt at 5 AM on Friday
+/remind me to check calendar, set alarms, @<Day> -> Inbox at 5 AM on Friday
 /remind me to check recurring tasks spreadsheet at 5 AM on Friday
 /remind me to update Banner releases master spreadsheet at 5 AM on Friday
 /remind me to do hbands at 6 AM on Friday
