@@ -34,6 +34,9 @@ RegExHotstrings:
 ; Jira ticket id to link.  AIS-1560 => https://uvu-it.atlassian.net/browse/AIS-1560 
 RegExHotstrings("(AIS|ORCL|BUS|B9SA)-(\d+)l", "JiraLink")
 
+; Ag(query) => Google the query.
+RegExHotstrings("Ag\((.*)\)", "Google")
+
 /*
 ; swap the last two words typed (including commas and connectors) (Try: that and this<)
 RegExHotstrings("([\w'-]+)([,;]?\s(?:and\s|or\s)?)([\w'-]+)<", "%$3%%$2%%$1%")
@@ -67,6 +70,14 @@ Return
 JiraLink:
 	output := "https://uvu-it.atlassian.net/browse/" . $1 . "-" . $2
 	SendInput, {raw}%output%
+return
+
+
+Google:
+	query := $1
+	Run, http://www.google.com/search?q=%query%
+	Sleep 500
+	WinActivate ahk_exe firefox.exe
 return
 
 
