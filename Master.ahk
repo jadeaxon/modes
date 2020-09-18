@@ -493,6 +493,12 @@ Hotstrings
 :*:uSquared::{U+00B2}
 :*:uCubed::{U+00B3}
 
+; Some common symbols.  Copyright, registered trademark, and trademark.
+::(c)::{U+00A9}
+::(r)::{U+00AE}
+::(tm)::{U+2122}
+
+
 ; In Cygwin, I use j@h as a command 99% of the time.
 ; How would I do ~ or / in case using absolute path?
 #IfWinNotActive ~
