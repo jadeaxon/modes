@@ -581,6 +581,16 @@ return
 	Run, %vUSERPROFILE%\Downloads
 return
 
+; Open a website: YouTube.
+:*:Aowyt::
+	Run, https://www.youtube.com
+return
+
+; Open an app: Thunderbird.
+:*:Aoatb::
+	Run, C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Mozilla Thunderbird.lnk
+return
+
 
 ; This does not work.
 ; Has to be run as its own app.
