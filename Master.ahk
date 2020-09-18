@@ -529,6 +529,12 @@ Hotstrings
     SendInput %output%
 return
 
+; 9:36 PM
+:*:<t>::
+    FormatTime, output,, h:mm tt
+    SendInput %output%
+return
+
 ; 8/11/2011 9:30 AM
 :*:<ts>::
     FormatTime, output,, M/d/yyyy h:mm tt
