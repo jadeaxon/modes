@@ -465,6 +465,10 @@ isDayTime(hour) {
 ; Abbreviations, Hotstrings
 ;===============================================================================
 
+/*
+Hotstrings
+*/
+
 ; Make the hotstrings case-sensitive.
 #Hotstring c
 
@@ -570,10 +574,19 @@ return
 	SendInput %output%:{space}  
 return
 
+
+; Directory abbreviation for Downloads directory.
+:*:Acddl::
+	EnvGet, vUserProfile, USERPROFILE
+	Run, %vUSERPROFILE%\Downloads
+return
+
+
 ; This does not work.
 ; Has to be run as its own app.
 ; I can't figure out how to load it as part of this one.
 ; #Include %A_ScriptDir%\RegExHotstrings.ahk
+; Probably because nothing autoexecutes after the first hotkey/hotstring is defined.
 
 
 ;===============================================================================
