@@ -1968,12 +1968,14 @@ return
 
 ;-------------------------------------------------------------------------------
 ; <Ctrl + Alt + j> => Popup GUI for common personal tasks.  J == Jeff.  <C-A j>.
+; jmenu
 
 $^!j::
-    Gui, Add, Button, gButton_HomeContexts w250 default, &Home Contexts
-    Gui, Add, Button, gButton_WorkContexts w250, &Work Contexts
-	Gui, Add, Button, gButton_Agendas w250, &Agendas
-	Gui, Add, Button, gButton_Recurring w250, &Recurring
+    ; Gui, Add, Button, gButton_HomeContexts w250 default, &Home Contexts
+    ; Gui, Add, Button, gButton_WorkContexts w250, &Work Contexts
+	; Gui, Add, Button, gButton_Agendas w250, &Agendas
+	; Gui, Add, Button, gButton_Recurring w250, &Recurring
+	Gui, Add, Button, gButton_Budget w250, &Budget
 	Gui, Show,, Personal
 
 return
@@ -2142,6 +2144,62 @@ Button_Recurring:
 return
 
 
+; Updates current budget file.
+; PRE: You've copied the expense amount to the clipboard.
+; PRE: gVim is the default app for .txt files.
+; PRE: NEXT is on a line by itself in the budget file where the next entry should go.
+Button_Budget:
+	Gui, Destroy
+	
+	remainingBudget := ""
+	amount := 0
+
+	amount := Clipboard
+	StringReplace amount, amount, $,
+	amount := abs(amount)
+
+	if (amount <= 0) {
+		MsgBox,, Error, You did not copy an amount to the clipboard.
+		return
+	}
+
+	Clipboard := ""
+
+	; Open budget file in gVim.
+	Run, C:\Users\jadeaxon\Dropbox\Organization\Financial\Budget\%A_YYYY% Budget.txt
+	Sleep 500
+	WinActivate ahk_exe gvim.exe
+	WinWaitActive ahk_exe gvim.exe
+
+	; Vim commands.
+	SendInput, {esc}{esc}
+	SendInput, gg
+	SendInput, /NEXT{enter}
+	SendInput, {up}
+	SendInput, "{+}yW
+
+	; Get remaining budget amount from the clipboard.
+	ClipWait 0
+	remainingBudget := Clipboard
+
+	; Remove leading $.
+	StringReplace remainingBudget, remainingBudget, $,
+
+	remainingBudget := abs(remainingBudget)
+
+	; Get the new remaining budget rounded to two decimal points.
+	newRemainingBudget := remainingBudget - amount
+	newRemainingBudget := round(newRemainingBudget, 2)
+
+	; MsgBox,,, orb: %remainingBudget%`namt: %amount%`nnrb: %newRemainingBudget%
+	
+	out := "$" . newRemainingBudget
+
+	SendInput, o
+	SendInput, %out%{space}
+	; You should now type in the purchase description.
+
+return
 
 
 ;-------------------------------------------------------------------------------
