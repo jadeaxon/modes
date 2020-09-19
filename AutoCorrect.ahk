@@ -1726,6 +1726,7 @@ return  ; This makes the above hotstrings do nothing so that they override the i
 ::decompositing::decomposing
 ::decress::decrees
 ::deafult::default
+::defalut::default
 ::defendent::defendant
 ::defendents::defendants
 ::defencive::defensive
