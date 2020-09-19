@@ -596,11 +596,15 @@ return
 ; Open a website: YouTube.
 :*:Aowyt::
 	Run, https://www.youtube.com
+	WinWaitActive, YouTube,, 1
+	WinActivate, YouTube
 return
 
 ; Open an app: Thunderbird.
 :*:Aoatb::
 	Run, C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Mozilla Thunderbird.lnk
+	WinWaitActive, Thunderbird,, 1
+	WinActivate, Thunderbird
 return
 
 
