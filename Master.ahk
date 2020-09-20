@@ -890,6 +890,30 @@ return
 ;-------------------------------------------------------------------------------
 ; Thunderbird
 
+; Make r mark folder read for Deleted folder.
+#IfWinActive Deleted - Mozilla Thunderbird
+$r::
+	; Open the context menu.
+	SendInput {AppsKey}
+	Sleep 200
+	; Mark folder as read.
+	SendInput k
+return
+
+#IfWinActive
+
+; Make r mark folder read for @Waiting folder.
+#IfWinActive @Waiting - Mozilla Thunderbird
+$r::
+	; Open the context menu.
+	SendInput {AppsKey}
+	Sleep 200
+	; Mark folder as read.
+	SendInput k
+return
+
+#IfWinActive
+
 ; Make d act like delete key.
 #IfWinActive Junk - Mozilla Thunderbird
 $d::
