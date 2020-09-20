@@ -619,6 +619,11 @@ return
 ; Hotkeys
 ;===============================================================================
 
+/*
+Hotkeys
+*/
+
+
 ; # => Win; ^ => Ctrl;  + => Shift; ! => Alt
 ; $ => Don't allow "Send" output to trigger.  Don't let hotkeys trigger other hotkeys.
 
@@ -644,6 +649,18 @@ return
 ;	Sleep 1000
 ;	Click up
 ; return
+
+; Make page navigation easier in Adobe Digital Editions.
+#IfWinActive ahk_exe DigitalEditions.exe
+Down::
+	Send {PgDn}
+return
+
+Up::
+	Send {PgUp}
+return
+#IfWinActive
+
 
 ; Make is so that <Window + Space> does not switch input languages.  This is causing me to nearly die
 ; in Path of Exile.
