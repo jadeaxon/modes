@@ -85,9 +85,10 @@ Return
 
 
 ;------------------------------------------------------------------------------
-; Win+H to enter misspelling correction.  It will be added to this script.
+; Hotstring Aac to enter misspelling correction.  It will be added to this script.
 ;------------------------------------------------------------------------------
-#h::
+
+:*:Aac::
 ; Get the selected text. The clipboard is used instead of "ControlGet Selected"
 ; as it works in more editors and word processors, java apps, etc. Save the
 ; current clipboard contents to be restored later.
@@ -5341,3 +5342,5 @@ return  ; This makes the above hotstrings do nothing so that they override the i
 ::mwunged::munged
 ::cahin::chain
 
+
+::turnap::turnip
