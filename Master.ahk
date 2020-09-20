@@ -2711,9 +2711,20 @@ return
 #IfWinActive
 
 
-
-
 #Include %A_ScriptDir%\JRoutine.ahk
+
+
+; <W-A w> => AHK Window Spy
+$#!w::
+	Run, "C:\Program Files\AutoHotkey\AU3_Spy.exe"
+return
+
+; <C w> => close AHK Window Spy
+#IfWinActive ahk_exe AU3_Spy.exe
+$^w::
+	Send !{F4}
+return
+#IfWinActive
 
 
 ;-------------------------------------------------------------------------------
