@@ -2716,7 +2716,12 @@ return
 
 ; <W-A w> => AHK Window Spy
 $#!w::
-	Run, "C:\Program Files\AutoHotkey\AU3_Spy.exe"
+	if (FileExist("C:\Program Files\AutoHotkey\AU3_Spy.exe")) {
+		Run, C:\Program Files\AutoHotkey\AU3_Spy.exe
+	}
+	else if(FileExist("C:\Program Files\AutoHotkey\WindowSpy.ahk")) {
+		Run, C:\Program Files\AutoHotkey\WindowSpy.ahk
+	}
 return
 
 ; <C w> => close AHK Window Spy
