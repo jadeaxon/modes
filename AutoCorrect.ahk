@@ -5311,26 +5311,27 @@ return  ; This makes the above hotstrings do nothing so that they override the i
 ;-------------------------------------------------------------------------------
 ;  Capitalise dates
 ;-------------------------------------------------------------------------------
-::monday::Monday
-::tuesday::Tuesday
-::wednesday::Wednesday
-::thursday::Thursday
-::friday::Friday
-::saturday::Saturday
-::sunday::Sunday 
 
-::january::January
-::february::February
+:C:monday::Monday
+:C:tuesday::Tuesday
+:C:wednesday::Wednesday
+:C:thursday::Thursday
+:C:friday::Friday
+:C:saturday::Saturday
+:C:sunday::Sunday 
+
+:C:january::January
+:C:february::February
 ; ::march::March  ; Commented out because it matches the common word "march".
-::april::April
+:C:april::April
 ; ::may::May  ; Commented out because it matches the common word "may".
-::june::June
-::july::July
-::august::August
-::september::September
-::october::October
-::november::November
-::december::December
+:C:june::June
+:C:july::July
+:C:august::August
+:C:september::September
+:C:october::October
+:C:november::November
+:C:december::December
 
 
 ;-------------------------------------------------------------------------------
@@ -5338,3 +5339,5 @@ return  ; This makes the above hotstrings do nothing so that they override the i
 ;-------------------------------------------------------------------------------
 
 ::mwunged::munged
+::cahin::chain
+
