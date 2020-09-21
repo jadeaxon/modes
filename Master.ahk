@@ -588,14 +588,17 @@ return
 
 
 ; Directory abbreviation for Downloads directory.
+:*:Aoddl::
 :*:Acddl::
 	EnvGet, vUserProfile, USERPROFILE
 	Run, %vUSERPROFILE%\Downloads
+	ComObjCreate("SAPI.SpVoice").Speak("Opening downloads folder")	
 return
 
 ; Open a website: YouTube.
 :*:Aowyt::
 	Run, https://www.youtube.com
+	ComObjCreate("SAPI.SpVoice").Speak("Opening YouTube")	
 	WinWaitActive, YouTube,, 1
 	WinActivate, YouTube
 return
@@ -603,6 +606,7 @@ return
 ; Open an app: Thunderbird.
 :*:Aoatb::
 	Run, C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Mozilla Thunderbird.lnk
+	ComObjCreate("SAPI.SpVoice").Speak("Opening Thunderbird")	
 	WinWaitActive, Thunderbird,, 1
 	WinActivate, Thunderbird
 return
