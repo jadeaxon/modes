@@ -37,6 +37,11 @@ RegExHotstrings("(AIS|ORCL|BUS|B9SA)-(\d+)l", "JiraLink")
 ; Ag(query) => Google the query.
 RegExHotstrings("Ag\((.*)\)", "Google")
 
+
+; Set a voice reminder n minutes from now.
+; Ar2(<reminder to speak>, <minutes>)
+RegExHotstrings("Ar2\((.*),(.*)\)", "VoiceReminder")
+
 /*
 ; swap the last two words typed (including commas and connectors) (Try: that and this<)
 RegExHotstrings("([\w'-]+)([,;]?\s(?:and\s|or\s)?)([\w'-]+)<", "%$3%%$2%%$1%")
@@ -79,6 +84,30 @@ Google:
 	Sleep 500
 	WinActivate ahk_exe firefox.exe
 return
+
+
+; BUG: This can only handle one reminder at a time.
+VoiceReminder:
+	reminder := trim($1)
+	minutes := trim($2)
+	minutes := round(abs(minutes), 0)
+	millis := minutes * 60 * 1000
+	millis := -millis ; Make it a one-shot timer.
+
+	confirmation := "I will remind you to " . reminder . " in " . minutes . " "
+	confirmation := confirmation . ((minutes = 1) ? "minute" : "minutes")
+	COMObjCreate("SAPI.SpVoice").Speak(confirmation)
+	SetTimer, VoiceReminderTimer, %millis%
+
+return
+
+
+VoiceReminderTimer:
+	COMObjCreate("SAPI.SpVoice").Speak(reminder)
+return
+	
+
+	
 
 
 /*
