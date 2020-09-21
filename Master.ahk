@@ -484,6 +484,7 @@ Hotstrings
 :*:uAry::{U+00BA} ; Ordinal indicator: primary, secondary, etc.
 :*:uEuros::{U+20AC}
 :*:uPlusOrMinus::{U+00B1}
+:*:uPlusMinus::{U+00B1}
 :*:uInfinity::{U+221E}
 :*:uIntersection::{U+2229}
 :*:uUnion::{U+222A}
@@ -970,6 +971,7 @@ $w::
 	Sleep 50
 	Send {enter}
 return
+#IfWinActive
 
 ; w => Move message to @Waiting.
 #IfWinActive Junk - Mozilla Thunderbird
@@ -985,6 +987,7 @@ $w::
 	Send {enter}
 	
 return
+#IfWinActive
 
 
 ; i => Move message to Inbox.
@@ -1001,6 +1004,23 @@ $i::
 	Send {enter}
 	
 return
+#IfWinActive
+
+
+;-------------------------------------------------------------------------------
+; Outlook
+
+; Make r mark folder read for Deleted folder.
+#IfWinActive Deleted Items - Jeff.Anderson@uvu.edu - Outlook
+$r::
+	; Open the context menu.
+	; SendInput {AppsKey}
+	SendInput, +{F10}
+	Sleep 300
+	; Mark folder as read.
+	SendInput e
+return
+#IfWinActive
 
 
 ;-------------------------------------------------------------------------------
