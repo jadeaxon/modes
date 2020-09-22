@@ -1129,8 +1129,11 @@ $^v::
 return
 
 $^x::
-	Send ^x
-	Send {backspace}
+	SendInput ^c
+	Sleep 50
+	SendInput {delete}
+	Sleep 50
+	SendInput {backspace}
 return
 
 #IfWinActive
@@ -1143,8 +1146,11 @@ $^v::
 return
 
 $^x::
-	Send ^x
-	Send {backspace}
+	SendInput ^c
+	Sleep 50
+	SendInput {delete}
+	Sleep 50
+	SendInput {backspace}
 return
 #IfWinActive
 
