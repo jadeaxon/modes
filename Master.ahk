@@ -1745,12 +1745,12 @@ return
 /remind me to check recurring tasks spreadsheet at 5 AM on Thursday
 /remind me to begin GTD7 at 5 AM on Thursday
 /remind me to prep for ESS meeting at 8:30 AM on Thursday
-/remind me to start next week's meeting agenda at 1 PM on Thursday
 /remind me to follow R1 Daily.txt at 5 AM on Friday
 /remind me to check calendar, set alarms, @<Day> -> Inbox at 5 AM on Friday
 /remind me to check recurring tasks spreadsheet at 5 AM on Friday
 /remind me to update Banner releases master spreadsheet at 5 AM on Friday
 /remind me to do hbands at 6 AM on Friday
+/remind me to use up existing food at 9 AM on Friday
 /remind me to run water through Keurig at 2 PM on Friday
 /remind me to dump @Quick Cases.txt to POB at 2 PM on Friday
 /remind me to do weekly status report at 3 PM on Friday
@@ -1759,8 +1759,7 @@ return
 /remind me to check recurring tasks spreadsheet at 5 AM on Saturday
 /remind me to sync calendars at 5 AM on Saturday
 /remind me to switch elliptical water bottle at 5 AM on Saturday
-/remind me to conditionally IFL at 5 AM on Saturday
-/remind me to epsom bath at 5 AM on Saturday
+/remind me to take Epsom or ACV bath at 5 AM on Saturday
 /remind me to clean laptop monitors at 5 AM on Saturday
 /remind me to check air filters running at 5 AM on Saturday
 /remind me to floss at 3 PM on Saturday
@@ -1772,7 +1771,6 @@ return
 /remind me to do hbands next Sunday at 5 AM
 /remind me to do 100 kbs next Sunday at 5 AM
 /remind me to take out big trash next Sunday at 5 AM
-/remind me to peppermint garage window next Sunday at 5 AM
 /remind me to update Weight.xlsx next Sunday at 5 AM
 )
 
