@@ -655,6 +655,13 @@ Hotkeys
 ;	Click up
 ; return
 
+; <S Numpad0> => <S Insert> on Inspiron.
+; Since the Inspiron doesn't have an Insert key, and ^C doesn't work consistently everywhere,
+; this is useful.
++Numpad0::
+	Send +{Insert}
+return
+
 ; Make page navigation easier in Adobe Digital Editions.
 #IfWinActive ahk_exe DigitalEditions.exe
 Down::
