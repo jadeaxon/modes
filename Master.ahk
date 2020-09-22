@@ -56,6 +56,9 @@ SetTitleMatchMode, 2
 Gui +LastFound
 hWnd := WinExist()
 
+; Is mouse click locked down via CapsLock hotkey?
+mouseDownLock := false
+
 ; Well, autotoggling ShortKeys is a nice idea, but the tray icon detection and activation doesn't always work and
 ; it's not smart enough to let you toggle it back from what itss thinks it should be for a given window.  So, it ends
 ; up being more annoying than useful as currently implemented.
@@ -654,6 +657,49 @@ Hotkeys
 ;	Sleep 1000
 ;	Click up
 ; return
+
+
+; Make CapsLock click the mouse.
+$CapsLock::
+	Click
+return
+
+; Make <S CapsLock> double click.
+$+CapsLock::
+	Click
+	Sleep 20
+	Click
+return
+
+; Make <C CapsLock> right click.
+$^CapsLock::
+	Click, Right
+return
+
+; Make <C-A CapsLock> right drag.
+$^!CapsLock::
+	if (!mouseDownLock) {
+		Click, Right, Down
+		mouseDownLock := true
+	}
+	else {
+		Click, Right, Up
+		mouseDownLock := false
+	}
+return
+
+
+; Make <A Capslock> hold the mouse down or release it.
+$!CapsLock::
+	if (!mouseDownLock) {
+		Click, Down
+		mouseDownLock := true
+	}
+	else {
+		Click, Up
+		mouseDownLock := false
+	}
+return
 
 ; <S Numpad0> => <S Insert> on Inspiron.
 ; Since the Inspiron doesn't have an Insert key, and ^C doesn't work consistently everywhere,
