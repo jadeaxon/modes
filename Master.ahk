@@ -615,6 +615,36 @@ return
 	WinActivate, Thunderbird
 return
 
+; Open all your comms apps.
+:*:Aoa*c::
+	Run, C:\Users\%A_UserName%\Desktop\Comms\Outlook.lnk
+	Run, C:\Users\%A_UserName%\Desktop\Comms\Mozilla Thunderbird.lnk
+	Run, C:\Users\%A_UserName%\Desktop\Comms\Microsoft Teams.lnk
+	Run, C:\Users\%A_UserName%\Desktop\Comms\Slack.lnk
+	Sleep, 3000
+	
+	WinMaximize, ahk_exe thunderbird.exe
+	Sleep, 500
+	WinActivate, ahk_exe thunderbird.exe
+
+	WinMaximize, ahk_exe Teams.exe
+	Sleep, 500
+	WinActivate, ahk_exe Teams.exe
+	; Teams does this weird overmaximization.
+	Sleep, 200
+	Send #{Up}
+	WinMinimize, ahk_exe Teams.exe
+	
+	WinMaximize, ahk_exe slack.exe
+	Sleep, 500
+	WinActivate, ahk_exe slack.exe
+	
+	Sleep, 3000 
+	WinMaximize, ahk_exe OUTLOOK.EXE
+	Sleep, 500
+	WinActivate, ahk_exe OUTLOOK.EXE
+	; Unless you end on Outlook, its tray bar lights up with alert status.
+return
 
 ; This does not work.
 ; Has to be run as its own app.
