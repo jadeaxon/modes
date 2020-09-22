@@ -839,7 +839,8 @@ return
 ; Archive the message your mouse is hovered over.  In Outlook's Inbox.
 ; FAIL: It changes last moved-to folder to top of list, so can't use fixed position!
 ; WIN: Set up a "Quick Step" in Outlook with shortcut key of <C-S 1>.  You can't set <C a> as shortcut there, so you remap it here.
-#ifWinActive ahk_exe OUTLOOK.EXE
+#IfWinActive Inbox - Jeff.Anderson@uvu.edu - Outlook
+$a::
 $^a::
     Send ^+1
 return
@@ -847,9 +848,16 @@ return
 
 
 ; Makes <C w> close Outlook.
-#ifWinActive ahk_exe OUTLOOK.EXE
+#IfWinActive ahk_exe OUTLOOK.EXE
 ^w::
 	Send !{F4}
+return
+#IfWinActive
+
+; Make d delete messages in Outlook inbox.
+#IfWinActive Inbox - Jeff.Anderson@uvu.edu - Outlook
+$d::
+	Send {delete}
 return
 #IfWinActive
 
