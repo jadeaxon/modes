@@ -1807,6 +1807,14 @@ return
 /remind list
 
 )
+return
+
+; <C click> => /remind list
+^LButton::
+	Send /remind list
+	Sleep 300
+	Send {Enter}
+return
 
 ; /rrw => set weekly recurring reminders
 ; Slack has recurring reminders, but they are implemented badly.
@@ -1870,7 +1878,7 @@ return
 /remind me to take out big trash next Sunday at 5 AM
 /remind me to update Weight.xlsx next Sunday at 5 AM
 )
-
+return
 
 ; /rrm => set monthly recurring reminders
 ; Slack has recurring reminders, but they are implemented badly.
@@ -1898,6 +1906,7 @@ return
 /remind me to respawn monthly reminders via /rrm on the 25th of next month at 5 AM
 /remind me to do monthly status report on the 28th of next month at 5 AM
 )
+return
 
 
 :*:/r2::/remind me to
