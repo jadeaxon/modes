@@ -48,7 +48,7 @@ isValidIPAddress(alleged) {
 
 ; Validates an email address.
 isValidEmailAddress(alleged) {
-	regex := "^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$"
+	regex := "^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$"
 	pos := RegExMatch(alleged, regex)
 	return (pos > 0) ? true : false
 }
