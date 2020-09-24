@@ -791,6 +791,19 @@ return
 #IfWinActive
 SetTitleMatchMode 1
 
+; Alternate scrolling keys so you're not always using your right hand.
+; TO DO: Make this a toggle it <C-A j> GUI.  Actions section.  Config section.
+/*
+#IfWinActive Firefox ahk_class MozillaWindowClass
+LShift::
+	Send {Up 4}
+return
+
+LControl::
+	Send {Down 4}
+return
+#IfWinActive
+*/
 
 ; Makes <C-A g> search selected text in Google.
 ; This kind of thing is also in Navigation mode.
