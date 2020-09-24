@@ -16,6 +16,7 @@ Send, % isValidNumber("foo") . "`n"
 Send, % isValidNumber("-15.72") . "`n"
 Send, % isValidIPAddress("no way") . "`n"
 Send, % isValidIPAddress("127.0.0.1") . "`n"
+Send, % isValidIPAddress("256.256.256.256") . "`n"
 return
 
 
@@ -36,7 +37,8 @@ isValidNumber(alleged) {
 
 ; Validates an IP address.
 isValidIPAddress(alleged) {
-	pos := RegExMatch(alleged, "^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$")
+	regex := "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"
+	pos := RegExMatch(alleged, regex)
 	if (pos > 0) {
 		return true
 	}
