@@ -59,6 +59,9 @@ hWnd := WinExist()
 ; Is mouse click locked down via CapsLock hotkey?
 mouseDownLock := false
 
+; Have we cut a kanban item to the clipboard?
+kanbanCut := false
+
 ; Well, autotoggling ShortKeys is a nice idea, but the tray icon detection and activation doesn't always work and
 ; it's not smart enough to let you toggle it back from what itss thinks it should be for a given window.  So, it ends
 ; up being more annoying than useful as currently implemented.
@@ -122,8 +125,6 @@ Run %A_ScriptDir%\AutoCorrect.ahk
 ; This relies on Master.ahk starting up *after* ShortKeys at boot.
 Sleep 5000
 Send ^!s
-
-
 
 
 ; On my ShortKeys installation at work, the option to not show editor on startup is grayed out for unknown reasons.
@@ -1179,6 +1180,24 @@ $^x::
 	SendInput {backspace}
 return
 
+; <A click> toggles between cut and paste.
+; All the normal modifier keys cause unwanted side behavior.
+Esc & LButton::
+	Click
+	Sleep 20
+	if (!kanbanCut) {
+		SendInput ^c
+		Sleep 50
+		SendInput {delete}
+		Sleep 50
+		SendInput {backspace}
+	}
+	else {
+		Send ^+v
+	}
+	kanbanCut := !kanbanCut
+return
+
 #IfWinActive
 
 
@@ -1194,6 +1213,24 @@ $^x::
 	SendInput {delete}
 	Sleep 50
 	SendInput {backspace}
+return
+
+; <A click> toggles between cut and paste.
+; All the normal modifier keys cause unwanted side behavior.
+Esc & LButton::
+	Click
+	Sleep 20
+	if (!kanbanCut) {
+		SendInput ^c
+		Sleep 50
+		SendInput {delete}
+		Sleep 50
+		SendInput {backspace}
+	}
+	else {
+		Send ^+v
+	}
+	kanbanCut := !kanbanCut
 return
 #IfWinActive
 
