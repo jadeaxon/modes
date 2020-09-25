@@ -803,7 +803,13 @@ Esc & LButton::
 	kanbanCut := !kanbanCut
 return
 
+; <A p> => Transition to progress file from kanban.
+$!p::
+	file = C:\Users\%A_UserName%\Dropbox\Organization\Progress\Home\Progress (Home).txt
+	Run %file%
+return
 #IfWinActive
+
 
 
 ; Make cut and paste work right in work kanban.
@@ -836,6 +842,12 @@ Esc & LButton::
 		Send ^+v
 	}
 	kanbanCut := !kanbanCut
+return
+
+; <A p> => Transition to progress file from kanban.
+$!p::
+	file = C:\Users\%A_UserName%\Dropbox\Organization\Progress\UVU\%A_YYYY%\Progress (UVU).txt
+	Run %file%
 return
 #IfWinActive
 

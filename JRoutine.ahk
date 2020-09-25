@@ -104,25 +104,5 @@ $!n::
 return
 #IfWinActive
 
-; Done with kanban => read dictionary for a while.
-#IfWinActive Personal Kanban ahk_class MozillaWindowClass
-$!n::
-	OpenKindleBook("Merriam-Webster's Dictionary")
-return
-
-$!p::
-	file = C:\Users\%A_UserName%\Dropbox\Organization\Progress\Home\Progress (Home).txt
-	Run %file%
-return
-
-#IfWinActive
-
-#IfWinActive Work Kanban ahk_class MozillaWindowClass
-$!p::
-	file = C:\Users\%A_UserName%\Dropbox\Organization\Progress\UVU\%A_YYYY%\Progress (UVU).txt
-	Run %file%
-return
-
-#IfWinActive
 
 
