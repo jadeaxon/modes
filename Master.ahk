@@ -1137,7 +1137,8 @@ return
 
 ; <A d> => new directory in Windows Explorer.
 $!d::
-	Send +{F10}wf
+	Send ^+n
+	; Send +{F10}wf
 return
 
 ; <A t> => new text file in Windows Explorer.
