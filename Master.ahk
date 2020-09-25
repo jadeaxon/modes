@@ -996,13 +996,13 @@ return
 
 ;-------------------------------------------------------------------------------
 ; <Alt + F1> => look up AutoHotkey docs (when we're editing .ahk files in Cygwin)
+; <A-W h> => ditto
 
-#IfWinActive ahk_class mintty
+!#h::
 !F1::
-	MsgBox,,, Triggered
+	; MsgBox,,, Triggered
 	GoSub, GetAutoHotkeyHelp
 return
-#IfWinActive
 
 GetAutoHotkeyHelp:
 	topic := Clipboard
