@@ -543,8 +543,17 @@ return
 ; WIN: Set up a "Quick Step" in Outlook with shortcut key of <C-S 1>.  You can't set <C a> as shortcut there, so you remap it here.
 #IfWinActive Inbox - Jeff.Anderson@uvu.edu - Outlook
 $a::
+	ControlGetFocus, widget, A
+	if (widget = "OutlookGrid1") {
+		Send ^+1
+	}
+	else {
+		Send a
+	}
+return
+
 $^a::
-    Send ^+1
+	Send ^+1
 return
 #IfWinActive
 
@@ -559,7 +568,15 @@ return
 ; Make d delete messages in Outlook inbox.
 #IfWinActive Inbox - Jeff.Anderson@uvu.edu - Outlook
 $d::
-	Send {delete}
+	; This is the value of ClassNN in Window Spy.
+	ControlGetFocus, widget, A
+	; MsgBox,,, %widget%
+	if (widget = "OutlookGrid1") {
+		Send {delete}
+	}
+	else {
+		Send d
+	}
 return
 #IfWinActive
 
@@ -723,12 +740,18 @@ return
 ; Make r mark folder read for Deleted folder.
 #IfWinActive Deleted Items - Jeff.Anderson@uvu.edu - Outlook
 $r::
-	; Open the context menu.
-	; SendInput {AppsKey}
-	SendInput, +{F10}
-	Sleep 300
-	; Mark folder as read.
-	SendInput e
+	ControlGetFocus, widget, A
+	if (widget = "NetUIHWND4") {
+		; Open the context menu.
+		; SendInput {AppsKey}
+		SendInput, +{F10}
+		Sleep 300
+		; Mark folder as read.
+		SendInput e
+	}
+	else {
+		Send r
+	}
 return
 #IfWinActive
 
