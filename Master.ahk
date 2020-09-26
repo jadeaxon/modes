@@ -36,6 +36,9 @@
 ; Persistent scripts keep running forever until explicitly closed.
 #Persistent
 
+; Only allow one instance of this script to run at a time.
+#SingleInstance Force
+
 ; Allow match anywhere within title.
 SetTitleMatchMode, 2
 
