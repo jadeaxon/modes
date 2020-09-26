@@ -33,6 +33,13 @@
 ; Main
 ;===============================================================================
 
+; Warn about using uninitialized variables.
+; Too many to deal with today.
+; #Warn
+
+; Do not automatically load environment variables.
+#NoEnv
+
 ; Persistent scripts keep running forever until explicitly closed.
 #Persistent
 
