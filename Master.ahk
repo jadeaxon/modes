@@ -1813,6 +1813,14 @@ return
 
 $!#m::
 $^!j::
+	; Check if GUI already exists.
+	Gui, +LastFoundExist
+	if WinExist() {
+		WinActivate ; Activate last found given no args.		
+		speak("Modes window")
+		return
+	}
+
     ; Gui, Add, Button, gButton_HomeContexts w250 default, &Home Contexts
     ; Gui, Add, Button, gButton_WorkContexts w250, &Work Contexts
 	; Gui, Add, Button, gButton_Agendas w250, &Agendas
@@ -1821,11 +1829,16 @@ $^!j::
 	; WARNING; The checkbox does not sync with the value of its out var on creation!
 	; Also, it seems like you need to put "checked" first in the options arg.
 	isChecked := (OPT_LEFT_SCROLL) ? "checked" : ""
+	
+	; Mark this GUI as being the "last found" window.
+	Gui, +LastFound	
 	Gui, Add, Checkbox, %isChecked% vOPT_LEFT_SCROLL gOPT_LEFT_SCROLL, Enable &scrolling with left control and shift?
 	isChecked := (OPT_SPEAK) ? "checked" : ""
 	Gui, Add, Checkbox, %isChecked% vOPT_SPEAK gOPT_SPEAK, Spea&k when hotkeys and hotstrings are triggered?
 	Gui, Add, Button, gButton_Budget w250, &Budget
 	Gui, Show,, Modes
+	
+	speak("Modes window")
 
 return
 
