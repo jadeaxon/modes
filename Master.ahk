@@ -2576,6 +2576,12 @@ $^w::
 return
 #IfWinActive
 
+#IfWinActive Window Spy
+$^w::
+	Send !{F4}
+return
+#IfWinActive
+
 ; Make the Windows 10 settings window close via <C w>.
 #IfWinActive Settings ahk_class ApplicationFrameWindow ahk_exe ApplicationFrameHost.exe
 $^w::
