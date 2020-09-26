@@ -58,6 +58,9 @@ kanbanCut := false
 ; Controlled by a checkbox in the Modes GUI (<A-W m>).
 OPT_LEFT_SCROLL := 0
 
+; Speak when hotkeys/hotstrings are triggered?
+OPT_SPEAK := 0
+
 ; This shell window receives events whenever other main windows are created, activated, resized, or destroyed.
 ; Gui +LastFound
 ; hWnd := WinExist()
@@ -115,7 +118,7 @@ Hotstrings
 
 ; In Cygwin, I use j@h as a command 99% of the time.
 ; How would I do ~ or / in case using absolute path?
-#IfWinNotActive ~
+#IfWinNotActive ahk_exe mintty.exe
 :*:j@h::jadeaxon@hotmail.com
 #IfWinNotActive
 
@@ -206,13 +209,13 @@ return
 :*:Acddl::
 	EnvGet, vUserProfile, USERPROFILE
 	Run, %vUSERPROFILE%\Downloads
-	ComObjCreate("SAPI.SpVoice").Speak("Opening downloads folder")	
+	speak("Opening downloads folder")	
 return
 
 ; Open a website: YouTube.
 :*:Aowyt::
 	Run, https://www.youtube.com
-	ComObjCreate("SAPI.SpVoice").Speak("Opening YouTube")	
+	speak("Opening YouTube")
 	WinWaitActive, YouTube,, 1
 	WinActivate, YouTube
 return
@@ -220,7 +223,7 @@ return
 ; Open an app: Thunderbird.
 :*:Aoatb::
 	Run, C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Mozilla Thunderbird.lnk
-	ComObjCreate("SAPI.SpVoice").Speak("Opening Thunderbird")	
+	speak("Opening Thunderbird")
 	WinWaitActive, Thunderbird,, 1
 	WinActivate, Thunderbird
 return
@@ -231,6 +234,7 @@ return
 	Run, C:\Users\%A_UserName%\Desktop\Comms\Mozilla Thunderbird.lnk
 	Run, C:\Users\%A_UserName%\Desktop\Comms\Microsoft Teams.lnk
 	Run, C:\Users\%A_UserName%\Desktop\Comms\Slack.lnk
+	speak("Opening communications apps")
 	Sleep, 3000
 	
 	WinMaximize, ahk_exe thunderbird.exe
@@ -1009,6 +1013,7 @@ return
 GetAutoHotkeyHelp:
 	topic := Clipboard
 	Run, https://www.autohotkey.com/docs/%topic%
+	speak("Autohotkey help")
 	Sleep 500
 	WinActivate, ahk_exe firefox.exe
 return
@@ -1211,6 +1216,17 @@ $^c::
 
 return
 #IfWinActive
+
+
+; Speak (pronounce) what's on the clipboard.
+$!^p::
+	global OPT_SPEAK
+	saved := OPT_SPEAK
+	OPT_SPEAK := 1
+	speak(clipboard)
+	OPT_SPEAK := saved
+return
+
 
 ;-------------------------------------------------------------------------------
 ; Pronounces highlighted word in Kindle (using a Google search).
@@ -1805,15 +1821,23 @@ $^!j::
 	; WARNING; The checkbox does not sync with the value of its out var on creation!
 	; Also, it seems like you need to put "checked" first in the options arg.
 	isChecked := (OPT_LEFT_SCROLL) ? "checked" : ""
-	Gui, Add, Checkbox, %isChecked% vOPT_LEFT_SCROLL gOPT_LEFT_SCROLL, Enable scrolling with left control and shift?
+	Gui, Add, Checkbox, %isChecked% vOPT_LEFT_SCROLL gOPT_LEFT_SCROLL, Enable &scrolling with left control and shift?
+	isChecked := (OPT_SPEAK) ? "checked" : ""
+	Gui, Add, Checkbox, %isChecked% vOPT_SPEAK gOPT_SPEAK, Spea&k when hotkeys and hotstrings are triggered?
 	Gui, Add, Button, gButton_Budget w250, &Budget
 	Gui, Show,, Modes
 
 return
 
 OPT_LEFT_SCROLL:
+	; The value of the checkbox doesn't save to the linked variable until the GUI is submitted.
 	Gui, Submit, NoHide
 	; MsgBox,,, %OPT_LEFT_SCROLL%
+return
+
+OPT_SPEAK:
+	Gui, Submit, NoHide
+	; MsgBox,,, %OPT_SPEAK%
 return
 
 
@@ -2549,6 +2573,7 @@ return
 LControl & Escape::
     ; *64 is one of the system sounds.
     SoundPlay *64
+	speak("Reloading Modes")
     Reload
     ; This code can only be reached if reloading fails.
     Sleep 1000
@@ -2557,4 +2582,15 @@ LControl & Escape::
 return
 
 
+
+;==============================================================================
+; Functions
+
+; Speaks given message using computer-generated voice.
+speak(message) {
+	Global OPT_SPEAK	
+	if (OPT_SPEAK) {
+		ComObjCreate("SAPI.SpVoice").Speak(message)	
+	}
+}
 
