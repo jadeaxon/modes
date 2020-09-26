@@ -54,6 +54,10 @@ mouseDownLock := false
 ; Have we cut a kanban item to the clipboard?
 kanbanCut := false
 
+; Are the left Control and Shift keys mapped to sending down/up keystrokes?
+; Controlled by a checkbox in the Modes GUI (<A-W m>).
+OPT_LEFT_SCROLL := 0
+
 ; This shell window receives events whenever other main windows are created, activated, resized, or destroyed.
 ; Gui +LastFound
 ; hWnd := WinExist()
@@ -398,18 +402,16 @@ return
 SetTitleMatchMode 1
 
 ; Alternate scrolling keys so you're not always using your right hand.
-; TO DO: Make this a toggle it <C-A j> GUI.  Actions section.  Config section.
-/*
-#IfWinActive Firefox ahk_class MozillaWindowClass
-LShift::
+; Only enabled when OPT_LEFT_SCROLL = 1.
+#If (OPT_LEFT_SCROLL = 1)
+$LShift::
 	Send {Up 4}
 return
 
-LControl::
+$LControl::
 	Send {Down 4}
 return
-#IfWinActive
-*/
+#If
 
 ; Makes <C-A g> search selected text in Google.
 ; This kind of thing is also in Navigation mode.
@@ -1790,77 +1792,30 @@ return
 
 
 ;-------------------------------------------------------------------------------
-; <C-A n> => Put laptop into night mode.
-$^!n::
-	click_delay := 500
-	; I had to create this control panel shortcut.
-	Run "C:\Users\jadeaxon\Desktop\System\Graphics\Intel Graphics and Media.lnk"
-	WinActivate, Intel(R) Graphics and Media Control Panel
-	WinWaitActive, Intel(R) Graphics and Media Control Panel
-	Sleep 500
-	MouseMove, 315, 80 ; Display profiles dropdown.
-	Click
-	Sleep %click_delay%
-	MouseMove, 315, 130 ; Bedtime profile.
-	Click
-	Sleep %click_delay%
-	MouseMove, 339, 561 ; Main OK button.
-	Click
-	Sleep %click_delay%
-	; The confirmation dialog should now be active.
-	; Mouse coordinates are now relative to it.
-	MouseMove, 185, 86 ; Do you really mean it dialog OK button.
-	Click
-	; Sleep %click_delay%
+; <C-A j> => Jeff's GUI.
+; <A-W m> => Modes GUI.
 
-	; TO DO: Use nircmd.exe to set brightness to minimum.
-
-return
-
-
-;-------------------------------------------------------------------------------
-; <C-A d> => Put laptop into day mode.
-$^!d::
-	; This initially worked with a 100 ms delay.  Why does my machine suddenly suck?
-	click_delay := 500
-	; I had to create this control panel shortcut.
-	Run "C:\Users\jadeaxon\Desktop\System\Graphics\Intel Graphics and Media.lnk"
-	WinActivate, Intel(R) Graphics and Media Control Panel
-	WinWaitActive, Intel(R) Graphics and Media Control Panel
-	Sleep 500
-	MouseMove, 315, 80 ; Display profiles dropdown.
-	Click
-	Sleep %click_delay%
-	MouseMove, 300, 150 ; Normal profile.
-	Click
-	Sleep %click_delay%
-	MouseMove, 339, 561 ; Main OK button.
-	Click
-	Sleep %click_delay%
-	; The confirmation dialog should now be active.
-	; Mouse coordinates are now relative to it.
-	MouseMove, 185, 86 ; Do you really mean it dialog OK button.
-	Click
-	; Sleep %click_delay%
-
-	; TO DO: Use nircmd.exe to set brightness to minimum.
-
-return
-
-
-;-------------------------------------------------------------------------------
-; <Ctrl + Alt + j> => Popup GUI for common personal tasks.  J == Jeff.  <C-A j>.
-; jmenu
-
+$!#m::
 $^!j::
     ; Gui, Add, Button, gButton_HomeContexts w250 default, &Home Contexts
     ; Gui, Add, Button, gButton_WorkContexts w250, &Work Contexts
 	; Gui, Add, Button, gButton_Agendas w250, &Agendas
 	; Gui, Add, Button, gButton_Recurring w250, &Recurring
+
+	; WARNING; The checkbox does not sync with the value of its out var on creation!
+	; Also, it seems like you need to put "checked" first in the options arg.
+	isChecked := (OPT_LEFT_SCROLL) ? "checked" : ""
+	Gui, Add, Checkbox, %isChecked% vOPT_LEFT_SCROLL gOPT_LEFT_SCROLL, Enable scrolling with left control and shift?
 	Gui, Add, Button, gButton_Budget w250, &Budget
-	Gui, Show,, Personal
+	Gui, Show,, Modes
 
 return
+
+OPT_LEFT_SCROLL:
+	Gui, Submit, NoHide
+	; MsgBox,,, %OPT_LEFT_SCROLL%
+return
+
 
 ; TO DO: Factor button handlers into single "open all in given folder in single gVim" function.
 ; TO DO: Verify works on XPS15.
