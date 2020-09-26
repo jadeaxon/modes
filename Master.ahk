@@ -2576,6 +2576,13 @@ $^w::
 return
 #IfWinActive
 
+; Make the Windows 10 settings window close via <C w>.
+#IfWinActive Settings ahk_class ApplicationFrameWindow ahk_exe ApplicationFrameHost.exe
+$^w::
+	Send !{F4}
+return
+#IfWinActive
+
 
 ;-------------------------------------------------------------------------------
 ; <Ctrl + ESC> => Reload this script.
