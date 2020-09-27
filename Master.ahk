@@ -46,6 +46,10 @@
 ; Only allow one instance of this script to run at a time.
 #SingleInstance Force
 
+; Make all mouse and keyboard input show up in the KeyHistory window.
+; #InstallKeybdHook
+; #InstallMouseHook
+
 ; Allow match anywhere within title.
 SetTitleMatchMode, 2
 
@@ -74,6 +78,9 @@ OPT_SPEAK := 0
 ; This shell window receives events whenever other main windows are created, activated, resized, or destroyed.
 ; Gui +LastFound
 ; hWnd := WinExist()
+
+; The hotkey for pressing w.
+W_HOTKEY := "not set"
 
 
 ;===============================================================================
@@ -1081,7 +1088,7 @@ return
 ; Bloody brilliant.  This works like a charm.
 ;
 ; TIP: <Ctrl + Shift + T> resurrects the last tab you (accidentally) closed.
-#IfWinActive ahk_class MozillaWindowClass
+#IfWinActive ahk_exe firefox.exe
 $^t::
     ; Create the new tab.
     Send ^t
@@ -1105,7 +1112,38 @@ return
 $#LButton::
 	Send, {AppsKey}d
 return
-	
+
+;------------------------------------------------------------------------------
+; Make <click + w> close tabs in Firefox.
+
+; Make w a hotkey that sends itself so we can use A_PriorHotkey.
+$w::
+	W_HOTKEY := A_ThisHotKey
+	Send w
+return
+
+; With w defined as a hotkey, we can now use this to trigger a specific action if
+; we click the mouse shortly after pressing w.
+; It's like having a LButton & w hotkey (which I couldn't get to work directly).
+; PRE: This might not work tapping the laptop mousepad (vs. clicking the actual left button)
+; unless using #InstallMouseHook.
+; But, this seems to stop working after a few times if I use those directives.
+$LButton::
+	; Set this time too long, and triggering in inconsistent.
+	; Set it too high, and you risk accidentally closing the window when not intended.
+	if (A_PriorHotkey = W_HOTKEY) && (A_TimeSincePriorHotkey <= 500) {
+		Send ^w
+	}
+	else { ; Do a normal left click.
+		; Without this left button drags fails.
+		Send {LButton down}
+		KeyWait, LButton
+		Send {LButton up}
+		; MsgBox,,, clicked
+	}
+return
+
+
 #IfWinActive
 
 
