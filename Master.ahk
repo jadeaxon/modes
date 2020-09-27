@@ -567,7 +567,7 @@ return
 #IfWinActive Inbox - Jeff.Anderson@uvu.edu - Outlook
 $a::
 	ControlGetFocus, widget, A
-	if (widget = "OutlookGrid1") {
+	if (RegExMatch(widget, "^OutlookGrid\d$")) {
 		Send ^+1
 	}
 	else {
@@ -594,7 +594,7 @@ $d::
 	; This is the value of ClassNN in Window Spy.
 	ControlGetFocus, widget, A
 	; MsgBox,,, %widget%
-	if (widget = "OutlookGrid1") {
+	if (RegExMatch(widget, "^OutlookGrid\d$")) {
 		Send {delete}
 	}
 	else {
