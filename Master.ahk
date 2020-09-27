@@ -1071,6 +1071,9 @@ return
 ;return
 ;#IfWinActive
 
+;==============================================================================
+; Firefox
+;==============================================================================
 
 ;-------------------------------------------------------------------------------
 ; Make <Ctrl + T> open a new Google tab in Firefox (instead of a blank).
@@ -1088,11 +1091,9 @@ $^t::
     Send www.google.com{Enter}
 
 return
-#IfWinActive
 
 
 ; Adds current URL to Bookmarks Toolbar|Now bookmarks.
-#IfWinActive ahk_class MozillaWindowClass
 $^d::
 	Send ^d
 	Sleep 500
@@ -1100,19 +1101,17 @@ $^d::
 return
 
 
-; We're not mapping the Dvorak keys back to Qwerty when <Ctrl> is pressed.
-; Though it seems like a good idea at first, it just causes much grief.
-; Pass through raw to mintty.
-; $^u::
-;    WinGetClass, class, A
-;    if (class = "mintty") {
-;        Send ^u
-;    }
-;    else { ; Not mintty.
-;        Send ^f
-;    }
-;
-; return
+; Delete the bookmark you are hovering over.
+$#LButton::
+	Send, {AppsKey}d
+return
+	
+#IfWinActive
+
+
+;==============================================================================
+; Keyboard
+;==============================================================================
 
 
 ;-------------------------------------------------------------------------------
@@ -1147,6 +1146,9 @@ return
 #IfWinActive
 
 
+;==============================================================================
+; Windows Explorer
+;==============================================================================
 
 ;-------------------------------------------------------------------------------
 ; Open command prompt at current folder in Explorer.
