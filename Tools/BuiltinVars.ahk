@@ -1,9 +1,13 @@
 ; https://www.autohotkey.com/docs/commands/ListView.htm
 ; https://www.autohotkey.com/docs/Variables.htm#BuiltIn
 
-Gui +Resize
-Gui, Font, s14
-Gui, Add, ListView, r40 w1000, Category|Variable|Value|Description
+Gui +Resize ; Allow resizing of the GUI.
+Gui, Font, s14 ; Set the font to a size I can actually read.
+
+; Add a ListView control to the GUI.
+Gui, Add, ListView, vTheListView r40 w1000, Category|Variable|Value|Description
+
+; Populate the list view with all of AHK's default variables.
 LV_Add("", "OS", "A_OSVersion", A_OSVersion, "The version of your operating system.")
 LV_Add("", "OS", "A_ComSpec", A_ComSpec, "The path to your OS command interpreter.")
 LV_Add("", "OS", "A_Temp", A_Temp, "The directory where temp files are stored.")
@@ -12,21 +16,21 @@ LV_Add("", "OS", "A_Is64bitOS", A_Is64bitOS, "Are you running a 64-bit OS?")
 LV_Add("", "OS", "A_PtrSize", A_PtrSize, "Pointer size in bytes.")
 LV_Add("", "OS", "A_Language", A_Language, "The default language setting for the OS as a 4-digit code.")
 LV_Add("", "OS", "A_ComputerName", A_ComputerName, "The name of this computer.")
-LV_Add("", "OS", "A_UserName", A_UserName, "The user name of the current user.")
+LV_Add("", "User", "A_UserName", A_UserName, "The user name of the current user.")
 LV_Add("", "OS", "A_WinDir", A_WinDir, "The Windows directory.")
 LV_Add("", "OS", "A_ProgramFiles", A_ProgramFiles, "The Windows program files directory.")
-LV_Add("", "OS", "A_AppData", A_AppData, "The current user's application data directory.")
+LV_Add("", "User", "A_AppData", A_AppData, "The current user's application data directory.")
 LV_Add("", "OS", "A_AppDataCommon", A_AppDataCommon, "Folder for application data common to all users.")
-LV_Add("", "OS", "A_Desktop", A_Desktop, "Current user's desktop folder.")
+LV_Add("", "User", "A_Desktop", A_Desktop, "Current user's desktop folder.")
 LV_Add("", "OS", "A_DesktopCommon", A_DesktopCommon, "Folder when items common to all users' desktops are stored.")
-LV_Add("", "OS", "A_StartMenu", A_StartMenu, "Current user's start menu folder.")
+LV_Add("", "User", "A_StartMenu", A_StartMenu, "Current user's start menu folder.")
 LV_Add("", "OS", "A_StartMenuCommon", A_StartMenuCommon, "Start menu items for all users.")
-LV_Add("", "OS", "A_Programs", A_Programs, "Start menu programs for current user.")
+LV_Add("", "User", "A_Programs", A_Programs, "Start menu programs for current user.")
 LV_Add("", "OS", "A_ProgramsCommon", A_ProgramsCommon, "Start menu programs for all users.")
-LV_Add("", "OS", "A_Startup", A_Startup, "Folder of stuff to run at startup for current user.")
+LV_Add("", "User", "A_Startup", A_Startup, "Folder of stuff to run at startup for current user.")
 LV_Add("", "OS", "A_StartupCommon", A_StartupCommon, "Folder of stuff to run at startup for all users.")
-LV_Add("", "OS", "A_MyDocuments", A_MyDocuments, "Current user's documents folder.")
-LV_Add("", "OS", "A_IsAdmin", A_IsAdmin, "Is the current user an administrator?")
+LV_Add("", "User", "A_MyDocuments", A_MyDocuments, "Current user's documents folder.")
+LV_Add("", "User", "A_IsAdmin", A_IsAdmin, "Is the current user an administrator?")
 LV_Add("", "OS", "A_ScreenWidth", A_ScreenWidth, "Width of the screen.")
 LV_Add("", "OS", "A_ScreenHeight", A_ScreenHeight, "Height of the screen.")
 LV_Add("", "OS", "A_ScreenDPI", A_ScreenDPI, "Pixels per logical inch.")
@@ -50,6 +54,9 @@ LV_Add("", "Menu", "A_ThisMenu", A_ThisMenu, "The menu which A_ThisMenuItem belo
 LV_Add("", "Menu", "A_ThisMenuItemPos", A_ThisMenuItemPos, "The 1-based position of A_ThisMenuItem within A_ThisMenu.")
 LV_Add("", "Hotkey", "A_ThisHotkey", A_ThisHotkey, "The triggering string for currently activated hotkey.")
 LV_Add("", "Hotkey", "A_PriorHotkey", A_PriorHotkey, "The triggering string for the previous activated hotkey.")
+LV_Add("", "Hotkey", "A_TimeSinceThisHotkey", A_TimeSinceThisHotkey, "Milliseconds since this hotkey was triggered.")
+LV_Add("", "Hotkey", "A_TimeSincePriorHotkey", A_TimeSincePriorHotkey, "Milliseconds since prior hotkey was triggered.")
+LV_Add("", "Hotkey", "A_EndChar", A_EndChar, "The ending character used to trigger this hotstring.")
 LV_Add("", "Keyboard", "A_PriorKey", A_PriorKey, "The last key that was pressed.")
 LV_Add("", "AHK", "A_Space", A_Space, "A space character.") 
 LV_Add("", "AHK", "A_Tab", A_Tab, "A tab character.") 
@@ -117,23 +124,33 @@ LV_Add("", "Coordinates", "A_CoordModeMenu", A_CoordModeMenu, "Not sure.")
 LV_Add("", "Registry", "A_RegView", A_RegView, "The current registry view (set by SetRegView).") 
 LV_Add("", "Script", "A_IconHidden", A_IconHidden, "Is this script's tray icon hidden?") 
 LV_Add("", "Script", "A_IconTip", A_IconTip, "Tooltip for this script's tray icon.")
-LV_Add("", "", "", , "")
-LV_Add("", "", "", , "")
-LV_Add("", "", "", , "")
-LV_Add("", "", "", , "")
-LV_Add("", "", "", , "")
-LV_Add("", "", "", , "")
-LV_Add("", "", "", , "")
-LV_Add("", "", "", , "")
-LV_Add("", "", "", , "")
-LV_Add("", "", "", , "")
-LV_Add("", "", "", , "")
-LV_Add("", "", "", , "")
-LV_Add("", "", "", , "")
-LV_Add("", "", "", , "")
+LV_Add("", "Script", "A_IconFile", A_IconFile, "Path of custom tray icon file.")
+LV_Add("", "Script", "A_IconNumber", A_IconNumber, "Number of icon in A_IconFile used for custom tray icon.")
+LV_Add("", "User", "A_TimeIdle", A_TimeIdle, "Number of milliseconds user has been idle.")
+LV_Add("", "User", "A_TimeIdlePhysical", A_TimeIdlePhysical, "Number of milliseconds user has been idle (ignoring automated input).")
+LV_Add("", "User", "A_TimeIdleKeyboard", A_TimeIdleKeyboard, "Milliseconds since last keyboard input.")
+LV_Add("", "User", "A_TimeIdleMouse", A_TimeIdleMouse, "Milliseconds since last mouse input.")
+LV_Add("", "GUI", "A_DefaultGui", A_DefaultGui, "Name of current thread's default GUI.")
+LV_Add("", "GUI", "A_DefaultListView", A_DefaultListView, "ListView name or hwnd that LV_* commands operate on by default.")
+LV_Add("", "GUI", "A_Gui", A_Gui, "Name of the GUI that launched the current thread.")
+LV_Add("", "GUI", "A_GuiControl", A_GuiControl, "Name of the GUI control that launched the current thread.")
+LV_Add("", "GUI", "A_GuiWidth", A_GuiWidth, "Width of this GUI in pixels.")
+LV_Add("", "GUI", "A_GuiHeight", A_GuiHeight, "Height of this GUI in pixels.")
+LV_Add("", "GUI", "A_GuiX", A_GuiX, "The GUI x coordinate of a context menu or drag/drop event.")
+LV_Add("", "GUI", "A_GuiY", A_GuiY, "The GUI y coordinate of a context menu or drag/drop event.")
+LV_Add("", "GUI", "A_GuiEvent", A_GuiEvent, "The type of event that launched the current thread.")
+LV_Add("", "GUI", "A_GuiControlEvent", A_GuiControlEvent, "The type of event that launched the current thread.")
+LV_Add("", "GUI", "A_EventInfo", A_EventInfo, "Extra info about a GUI event (or Windows message).")
 LV_ModifyCol() ; Autosize all columns to fit data.
 
-Gui, Show
+Gui, Show 
 
+
+; This gets called when the GUI is resized.
+GuiSize:
+	width := A_GuiWidth - 15
+	height := A_GuiHeight - 15
+	GuiControl, Move, theListView, w%width% h%height%
+return
 
 
