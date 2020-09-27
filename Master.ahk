@@ -1102,16 +1102,21 @@ return
 
 ; Adds current URL to Bookmarks Toolbar|Now bookmarks.
 $^d::
-	Send ^d
+	Send ^d ; Open save new bookmark dialog.
 	Sleep 500
-	Send {Tab}N{Enter}
+	Send {Tab}{Tab}{Enter} ; Open dialog to choose folder.
+	Sleep 200
+	Send n ; Choose bookmarks toolbar N folder.
+	Sleep 200
+	Send !{Enter} ; Submit dialog.
 return
 
 
-; Delete the bookmark you are hovering over.
+; <W click> => Delete the bookmark you are hovering over.
 $#LButton::
 	Send, {AppsKey}d
 return
+
 
 ;------------------------------------------------------------------------------
 ; Make <click + w> close tabs in Firefox.
