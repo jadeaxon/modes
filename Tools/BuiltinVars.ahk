@@ -2,6 +2,7 @@
 ; https://www.autohotkey.com/docs/Variables.htm#BuiltIn
 
 Gui +Resize
+Gui, Font, s14
 Gui, Add, ListView, r40 w1000, Category|Variable|Value|Description
 LV_Add("", "OS", "A_OSVersion", A_OSVersion, "The version of your operating system.")
 LV_Add("", "OS", "A_ComSpec", A_ComSpec, "The path to your OS command interpreter.")
@@ -67,6 +68,25 @@ LV_Add("", "AHK", "A_AhkPath", A_AhkPath, "Path to the AHK interpreter executabl
 LV_Add("", "AHK", "A_IsUnicode", A_IsUnicode, "Was AHK compiled to use Unicode?") 
 LV_Add("", "AHK", "A_IsCompiled", A_IsCompiled, "Is this a compiled (standalone) script?") 
 LV_Add("", "AHK", "A_ExitReason", A_ExitReason, "Why the script was asked to terminate.") 
+LV_Add("", "Date/Time", "A_YYYY", A_YYYY, "Four-digit year.") 
+LV_Add("", "Date/Time", "A_MM", A_MM, "Two-digit month, zero-padded.  Same as A_Mon") 
+LV_Add("", "Date/Time", "A_DD", A_DD, "Two-digit day, zero-padded.  Same as A_MDay") 
+LV_Add("", "Date/Time", "A_MMMM", A_MMMM, "Full name of the month.") 
+LV_Add("", "Date/Time", "A_MMM", A_MMM, "Abbreviated name of the month.") 
+LV_Add("", "Date/Time", "A_DDDD", A_DDDD, "Full name of the week day.") 
+LV_Add("", "Date/Time", "A_DDD", A_DDD, "Abbreviated name of the week day.")
+LV_Add("", "Date/Time", "A_WDay", A_WDay, "Numeric week day.  1-based; 1 is Sunday.") 
+LV_Add("", "Date/Time", "A_YWeek", A_YWeek, "Year and week number combined (like 202050).") 
+LV_Add("", "Date/Time", "A_Hour", A_Hour, "Two-digit hour, 0-24, zero-padded.") 
+LV_Add("", "Date/Time", "A_Min", A_Min, "Two-digit minute, 0-59, zero-padded.") 
+LV_Add("", "Date/Time", "A_Sec", A_Sec, "Two-digit second, 0-59, zero-padded.") 
+LV_Add("", "Date/Time", "A_MSec", A_MSec, "Three-digit millisecond, 0-999, zero-padded.") 
+LV_Add("", "Date/Time", "A_Now", A_Now, "Current time as timestamp.") 
+LV_Add("", "Date/Time", "A_NowUTC", A_NowUTC, "Current time in UTC time zone as timestamp.") 
+LV_Add("", "Date/Time", "A_TickCount", A_TickCount, "Number of milliseconds since this computer started.") 
+LV_Add("", "", "", , "") 
+LV_Add("", "", "", , "") 
+LV_Add("", "", "", , "") 
 LV_Add("", "", "", , "") 
 LV_Add("", "", "", , "") 
 LV_Add("", "", "", , "") 
