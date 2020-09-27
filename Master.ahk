@@ -245,6 +245,22 @@ return
 	WinActivate, Thunderbird
 return
 
+; Open Firefox.
+:*:Aoaff::
+	Run, "C:\Program Files\Mozilla Firefox\firefox.exe"
+	speak("Opening Firefox")
+	WinWaitActive, ahk_exe firefox.exe,, 1
+	WinActivate, ahk_exe firefox.exe
+return
+
+; Open Chrome.
+:*:Aoagc::
+	Run, "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+	speak("Opening Chrome")
+	WinWaitActive, ahk_exe chrome.exe,, 1
+	WinActivate, ahk_exe chrome.exe
+return
+
 ; Open all your comms apps.
 :*:Aoa*c::
 	Run, C:\Users\%A_UserName%\Desktop\Comms\Outlook.lnk
