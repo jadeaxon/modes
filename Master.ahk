@@ -1608,6 +1608,7 @@ return
 
 ;===============================================================================
 ; Slack
+;===============================================================================
 
 ; Map <A S Down> to <A S n>.  <A S Down> is too hard to reach.  It is the Slack
 ; keyboard shortcut to change to the next channel with an unread message in it.
@@ -1774,9 +1775,11 @@ return
 
 
 :*:/r2::/remind me to
-#IfWinActive
 
-; SetTitleMatchMode 1
+; Remind me to do something at 5 AM tomorrow.
+; Uses left key to put the cursor back at the right spot.
+:*:/r5t::/remind me to  at 5 AM tomorrow{left 17}
+#IfWinActive
 
 
 ;===============================================================================
