@@ -263,10 +263,22 @@ return
 
 ; Open all your comms apps.
 :*:Aoa*c::
-	Run, C:\Users\%A_UserName%\Desktop\Comms\Outlook.lnk
-	Run, C:\Users\%A_UserName%\Desktop\Comms\Mozilla Thunderbird.lnk
-	Run, C:\Users\%A_UserName%\Desktop\Comms\Microsoft Teams.lnk
-	Run, C:\Users\%A_UserName%\Desktop\Comms\Slack.lnk
+	if (not WinExist("ahk_exe OUTLOOK.EXE")) {	
+		Run, C:\Users\%A_UserName%\Desktop\Comms\Outlook.lnk
+	}
+	
+	if (not WinExist("ahk_exe thunderbird.exe")) {
+		Run, C:\Users\%A_UserName%\Desktop\Comms\Mozilla Thunderbird.lnk
+	}
+	
+	; if (not WinExist("ahk_exe Teams.exe")) {
+		Run, C:\Users\%A_UserName%\Desktop\Comms\Microsoft Teams.lnk
+	; }
+
+	; if (not WinExist("ahk_exe slack.exe")) {
+		Run, C:\Users\%A_UserName%\Desktop\Comms\Slack.lnk
+	; }
+
 	speak("Opening communications apps")
 	Sleep, 3000
 	
