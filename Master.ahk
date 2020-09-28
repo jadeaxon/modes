@@ -589,10 +589,14 @@ return
 #IfWinActive
 
 
+;==============================================================================
+; Outlook
+;==============================================================================
+
 ; Archive the message your mouse is hovered over.  In Outlook's Inbox.
 ; FAIL: It changes last moved-to folder to top of list, so can't use fixed position!
 ; WIN: Set up a "Quick Step" in Outlook with shortcut key of <C-S 1>.  You can't set <C a> as shortcut there, so you remap it here.
-#IfWinActive Inbox - Jeff.Anderson@uvu.edu - Outlook
+#IfWinActive - Jeff.Anderson@uvu.edu - Outlook
 $a::
 	ControlGetFocus, widget, A
 	if (RegExMatch(widget, "^OutlookGrid\d$")) {
@@ -603,10 +607,30 @@ $a::
 	}
 return
 
-$^a::
-	Send ^+1
+
+; b => quick action #2 => move to latest Banner upgrade folder and mark read
+$b::
+	ControlGetFocus, widget, A
+	if (RegExMatch(widget, "^OutlookGrid\d$")) {
+		Send ^+2
+	}
+	else {
+		Send b
+	}
 return
 #IfWinActive
+
+
+; w => quick action #3 => move to @Waiting and mark read
+$w::
+	ControlGetFocus, widget, A
+	if (RegExMatch(widget, "^OutlookGrid\d$")) {
+		Send ^+3
+	}
+	else {
+		Send w
+	}
+return
 
 
 ; Makes <C w> close Outlook.
@@ -617,7 +641,7 @@ return
 #IfWinActive
 
 ; Make d delete messages in Outlook inbox.
-#IfWinActive Inbox - Jeff.Anderson@uvu.edu - Outlook
+#IfWinActive - Jeff.Anderson@uvu.edu - Outlook
 $d::
 	; This is the value of ClassNN in Window Spy.
 	ControlGetFocus, widget, A
@@ -630,6 +654,85 @@ $d::
 	}
 return
 #IfWinActive
+
+
+; Make r mark folder read for any folder.
+; Make r mark selected message read.
+#IfWinActive - Jeff.Anderson@uvu.edu - Outlook
+$r::
+	ControlGetFocus, widget, A
+	if (widget = "NetUIHWND4") {
+		; Open the context menu.
+		; SendInput {AppsKey}
+		SendInput, +{F10}
+		Sleep 300
+		; Mark folder as read.
+		SendInput e
+	}
+	else if (RegExMatch(widget, "^OutlookGrid\d$")) {
+		SendInput, +{F10} ; Open the context menu.
+		Sleep 300
+		SendInput k ; Mark message as read.
+	}
+	else {
+		Send r
+	}
+return
+
+; Make R reply to all.
+$+r::
+	ControlGetFocus, widget, A
+	if (RegExMatch(widget, "^OutlookGrid\d$")) {
+		SendInput, +{F10}
+		Sleep 100
+		; Two context menu items have the same accelerator key, so you have to hit enter.
+		SendInput A{Enter} ; Reply all.
+	}
+	else {
+		SendInput R
+	}
+return
+#IfWinActive
+
+
+; Make f flag messages in Outlook.
+; Make F clear the flag.
+#IfWinActive - Jeff.Anderson@uvu.edu - Outlook
+$f::
+	; This is the value of ClassNN in Window Spy.
+	ControlGetFocus, widget, A
+	; MsgBox,,, %widget%
+	if (RegExMatch(widget, "^OutlookGrid\d$")) {
+		SendInput, +{F10}
+		Sleep 100
+		SendInput u ; Follow up.
+		Sleep 100
+		SendInput t ; Today.
+	}
+	else {
+		Send f
+	}
+return
+
+$+f::
+	ControlGetFocus, widget, A
+	if (RegExMatch(widget, "^OutlookGrid\d$")) {
+		SendInput, +{F10}
+		Sleep 100
+		SendInput u ; Follow up.
+		Sleep 100
+		SendInput e ; Clear flag.
+	}
+	else {
+		Send +f
+	}
+return
+#IfWinActive
+
+
+;==============================================================================
+; Gmail
+;==============================================================================
 
 
 #IfWinActive Inbox - jadeaxon@gmail.com
@@ -774,27 +877,6 @@ $i::
 return
 #IfWinActive
 
-
-;-------------------------------------------------------------------------------
-; Outlook
-
-; Make r mark folder read for Deleted folder.
-#IfWinActive Deleted Items - Jeff.Anderson@uvu.edu - Outlook
-$r::
-	ControlGetFocus, widget, A
-	if (widget = "NetUIHWND4") {
-		; Open the context menu.
-		; SendInput {AppsKey}
-		SendInput, +{F10}
-		Sleep 300
-		; Mark folder as read.
-		SendInput e
-	}
-	else {
-		Send r
-	}
-return
-#IfWinActive
 
 
 ;-------------------------------------------------------------------------------
