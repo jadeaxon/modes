@@ -690,20 +690,10 @@ return
 ;-------------------------------------------------------------------------------
 ; Thunderbird
 
-; Make r mark folder read for Deleted folder.
-#IfWinActive Deleted - Mozilla Thunderbird
-$r::
-	; Open the context menu.
-	SendInput {AppsKey}
-	Sleep 200
-	; Mark folder as read.
-	SendInput k
-return
-
-#IfWinActive
-
-; Make r mark folder read for @Waiting folder.
-#IfWinActive @Waiting - Mozilla Thunderbird
+; Make r mark folder read for any folder.
+; Note that email composition windows only contain "Thunderbird" in their title, not "Mozilla Thunderbird".
+; If you press this over a message instead of a folder, it just brings up the Mark context menu.
+#IfWinActive - Mozilla Thunderbird ahk_exe thunderbird.exe
 $r::
 	; Open the context menu.
 	SendInput {AppsKey}
