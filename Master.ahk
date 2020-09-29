@@ -1723,7 +1723,7 @@ return
 /remind me to use up existing food at 9 AM on Friday
 /remind me to run water through Keurig at 2 PM on Friday
 /remind me to dump @Quick Cases.txt to POB at 2 PM on Friday
-/remind me to do weekly status report at 3 PM on Friday
+/remind me to do weekly status report https://bit.ly/3kQrJku at 3 PM on Friday
 /remind me to start next Progress (UVU).txt weekly header at 3 PM on Friday
 /remind me to follow R1 Daily.txt at 5 AM on Saturday
 /remind me to check recurring tasks spreadsheet at 5 AM on Saturday
