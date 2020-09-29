@@ -1689,7 +1689,7 @@ return
 (
 /remind me to follow R1 Daily.txt at 5 AM on Monday
 /remind me to check calendar, set alarms, @<Day> -> Inbox at 5 AM on Monday
-/remind me to check recurring tasks spreadsheet at 5 AM on Monday
+/remind me to check recurring tasks spreadsheet https://bit.ly/2EIVc0v at 5 AM on Monday
 /remind me to water plants at 5 AM on Monday
 /remind me to waiting/blocked on @Waiting.txt/email/bookmarks/kanban/Jira/Planner at 5 AM on Monday
 /remind me to check work email @Later at 5 AM on Monday
