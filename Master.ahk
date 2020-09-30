@@ -660,6 +660,13 @@ return
 ; Make r mark selected message read.
 #IfWinActive - Jeff.Anderson@uvu.edu - Outlook
 $r::
+	; Get the control under the mouse.  It may not have the focus yet.
+	MouseGetPos,,,, widget
+	if (widget = "NetUIHWND4") {
+		Click
+		Sleep 200
+	}
+	
 	ControlGetFocus, widget, A
 	if (widget = "NetUIHWND4") {
 		; Open the context menu.
