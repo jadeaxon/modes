@@ -659,6 +659,18 @@ $w::
 return
 
 
+; s => quick action #4 => move to @Parent Child Sync and mark read
+$s::
+	ControlGetFocus, widget, A
+	if (RegExMatch(widget, "^OutlookGrid\d$")) {
+		Send ^+4
+	}
+	else {
+		Send s
+	}
+return
+
+
 ; Makes <C w> close Outlook.
 #IfWinActive ahk_exe OUTLOOK.EXE
 ^w::
