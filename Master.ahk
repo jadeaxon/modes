@@ -2246,6 +2246,7 @@ Button_Budget:
 
 	amount := Clipboard
 	StringReplace amount, amount, $,
+	StringReplace amount, amount, `,, ; In case we're over $1,000.	
 	amount := abs(amount)
 
 	if (amount <= 0) {
@@ -2274,6 +2275,8 @@ Button_Budget:
 
 	; Remove leading $.
 	StringReplace remainingBudget, remainingBudget, $,
+	StringReplace remainingBudget, remainingBudget,  `,, ; In case we're over $1,000.	
+	; MsgBox % remainingBudget
 
 	remainingBudget := abs(remainingBudget)
 
@@ -2284,6 +2287,7 @@ Button_Budget:
 	; MsgBox,,, orb: %remainingBudget%`namt: %amount%`nnrb: %newRemainingBudget%
 	
 	out := "$" . newRemainingBudget
+	out := RegExReplace(out, "(\d)(?=(?:\d{3})+(?:\.|$))", "$1,") ; Commify number.
 
 	SendInput, o
 	SendInput, %out%{space}
