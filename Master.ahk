@@ -1748,23 +1748,23 @@ WeeklyReminders:
 		/remind me to check https://itops.uvu.edu/secure/change_calendar/index.php at 5 AM on Monday
 		/remind me to follow R1 Daily.txt at 5 AM on Tuesday
 		/remind me to check calendar, set alarms, @<Day> -> Inbox at 5 AM on Tuesday
-		/remind me to check recurring tasks spreadsheet at 5 AM on Tuesday
+		/remind me to check recurring tasks spreadsheet https://bit.ly/2EIVc0v at 5 AM on Tuesday
 		/remind me to update ESS items on https://uvu-it.atlassian.net/projects/CA/board at 2 PM on Tuesday
 		/remind me to follow R1 Daily.txt at 5 AM on Wednesday
 		/remind me to check calendar, set alarms, @<Day> -> Inbox at 5 AM on Wednesday
-		/remind me to check recurring tasks spreadsheet at 5 AM on Wednesday
+		/remind me to check recurring tasks spreadsheet https://bit.ly/2EIVc0v at 5 AM on Wednesday
 		/remind me to conditionally IFL at 5 AM on Wednesday
 		/remind me to do 100 kbs at 5 AM on Wednesday
 		/remind me to take magnesium at 9 AM on Wednesday
 		/remind me to check mail at 3 PM on Wednesday
 		/remind me to follow R1 Daily.txt at 5 AM on Thursday
 		/remind me to check calendar, set alarms, @<Day> -> Inbox at 5 AM on Thursday
-		/remind me to check recurring tasks spreadsheet at 5 AM on Thursday
+		/remind me to check recurring tasks spreadsheet https://bit.ly/2EIVc0v at 5 AM on Thursday
 		/remind me to begin GTD7 at 5 AM on Thursday
 		/remind me to prep for ESS meeting at 8:30 AM on Thursday
 		/remind me to follow R1 Daily.txt at 5 AM on Friday
 		/remind me to check calendar, set alarms, @<Day> -> Inbox at 5 AM on Friday
-		/remind me to check recurring tasks spreadsheet at 5 AM on Friday
+		/remind me to check recurring tasks spreadsheet https://bit.ly/2EIVc0v at 5 AM on Friday
 		/remind me to update Banner releases master spreadsheet at 5 AM on Friday
 		/remind me to do hbands at 6 AM on Friday
 		/remind me to use up existing food at 9 AM on Friday
@@ -1773,7 +1773,7 @@ WeeklyReminders:
 		/remind me to do weekly status report https://bit.ly/3kQrJku at 3 PM on Friday
 		/remind me to start next Progress (UVU).txt weekly header at 3 PM on Friday
 		/remind me to follow R1 Daily.txt at 5 AM on Saturday
-		/remind me to check recurring tasks spreadsheet at 5 AM on Saturday
+		/remind me to check recurring tasks spreadsheet https://bit.ly/2EIVc0v at 5 AM on Saturday
 		/remind me to sync calendars at 5 AM on Saturday
 		/remind me to switch elliptical water bottle at 5 AM on Saturday
 		/remind me to take Epsom or ACV bath at 5 AM on Saturday
@@ -1781,7 +1781,7 @@ WeeklyReminders:
 		/remind me to check air filters running at 5 AM on Saturday
 		/remind me to floss at 3 PM on Saturday
 		/remind me to follow R1 Daily.txt next Sunday at 5 AM
-		/remind me to check recurring tasks spreadsheet next Sunday at 5 AM
+		/remind me to check recurring tasks spreadsheet https://bit.ly/2EIVc0v next Sunday at 5 AM
 		/remind me to respawn weekly reminders via r7 next Sunday at 5 AM
 		/remind me to reset buffers next Sunday at 5 AM
 		/remind me to check mail next Sunday at 5 AM
