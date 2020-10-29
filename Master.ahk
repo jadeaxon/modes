@@ -1822,8 +1822,10 @@ return
 )
 return
 
-
-:*:/r2::/remind me to
+; Damn Slack and their new search shortcuts popup that can't be disabled.
+:*:Ar2::
+	Send _r{left}{backspace}/{right}{right}emind me to{space}
+return
 
 ; Remind me to do something at 5 AM tomorrow.
 ; Uses left key to put the cursor back at the right spot.
@@ -1832,8 +1834,8 @@ return
 
 ; <C click> => /remind list
 ^LButton::
-	Send /remind list
-	Sleep 300
+	Send _r{left}{backspace}/{right}{right}emind list
+	Sleep 200
 	Send {Enter}
 return
 
