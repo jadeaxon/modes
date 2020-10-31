@@ -1701,126 +1701,95 @@ $^h::
 return
 
 
-/*
-; <C r> => set timer to stop running on elliptcal and list all reminders.
-$^r::
-	Send /remind me to stop and take phone in 59m{Enter}
-	Send /remind me to check recurrences at 1 PM{Enter}
-	Send /remind list{Enter}
-	Sleep 300
-	SetNumLockState Off
-	Send {PgDn}
-return
-*/
-
-; /rl => /remind list
-:*:/rl::
-(
-/remind list
-
-)
-return
-
-; For some bizarre reason, the hotstring /rrw will simply not work in Slack anymore.
-; /rrw => set weekly recurring reminders
+; Ar7 => set weekly recurring reminders
 ; Slack has recurring reminders, but they are implemented badly.
 ; I want them to spawn as individual reminder instances that I can snooze
 ; and mark as complete.
-:*:/r7::
-	; MsgBox rrw triggered
-	Gosub WeeklyReminders
-return
-
-WeeklyReminders:
-	weekly_reminders =
-	( LTRim
-		/remind me to follow R1 Daily.txt at 5 AM on Monday
-		/remind me to check calendar, set alarms, @<Day> -> Inbox at 5 AM on Monday
-		/remind me to check recurring tasks spreadsheet https://bit.ly/2EIVc0v at 5 AM on Monday
-		/remind me to water plants at 5 AM on Monday
-		/remind me to waiting/blocked on @Waiting.txt/email/bookmarks/kanban/Jira/Planner at 5 AM on Monday
-		/remind me to check work email @Later at 5 AM on Monday
-		/remind me to check saved Teams messages at 5 AM on Monday
-		/remind me to check @Active Projects.txt at 5 AM on Monday
-		/remind me to update and sync all project boards at 5 AM on Monday
-		/remind me to review all work contexts and agendas at 5 AM on Monday
-		/remind me to read next UVU policy at 5 AM on Monday
-		/remind me to check https://itops.uvu.edu/secure/change_calendar/index.php at 5 AM on Monday
-		/remind me to follow R1 Daily.txt at 5 AM on Tuesday
-		/remind me to check calendar, set alarms, @<Day> -> Inbox at 5 AM on Tuesday
-		/remind me to check recurring tasks spreadsheet https://bit.ly/2EIVc0v at 5 AM on Tuesday
-		/remind me to update ESS items on https://uvu-it.atlassian.net/projects/CA/board at 2 PM on Tuesday
-		/remind me to follow R1 Daily.txt at 5 AM on Wednesday
-		/remind me to check calendar, set alarms, @<Day> -> Inbox at 5 AM on Wednesday
-		/remind me to check recurring tasks spreadsheet https://bit.ly/2EIVc0v at 5 AM on Wednesday
-		/remind me to conditionally IFL at 5 AM on Wednesday
-		/remind me to do 100 kbs at 5 AM on Wednesday
-		/remind me to take magnesium at 9 AM on Wednesday
-		/remind me to check mail at 3 PM on Wednesday
-		/remind me to follow R1 Daily.txt at 5 AM on Thursday
-		/remind me to check calendar, set alarms, @<Day> -> Inbox at 5 AM on Thursday
-		/remind me to check recurring tasks spreadsheet https://bit.ly/2EIVc0v at 5 AM on Thursday
-		/remind me to begin GTD7 at 5 AM on Thursday
-		/remind me to prep for ESS meeting at 8:30 AM on Thursday
-		/remind me to follow R1 Daily.txt at 5 AM on Friday
-		/remind me to check calendar, set alarms, @<Day> -> Inbox at 5 AM on Friday
-		/remind me to check recurring tasks spreadsheet https://bit.ly/2EIVc0v at 5 AM on Friday
-		/remind me to update Banner releases master spreadsheet at 5 AM on Friday
-		/remind me to do hbands at 6 AM on Friday
-		/remind me to use up existing food at 9 AM on Friday
-		/remind me to run water through Keurig at 2 PM on Friday
-		/remind me to dump @Quick Cases.txt to POB at 2 PM on Friday
-		/remind me to do weekly status report https://bit.ly/3kQrJku at 3 PM on Friday
-		/remind me to start next Progress (UVU).txt weekly header at 3 PM on Friday
-		/remind me to follow R1 Daily.txt at 5 AM on Saturday
-		/remind me to check recurring tasks spreadsheet https://bit.ly/2EIVc0v at 5 AM on Saturday
-		/remind me to sync calendars at 5 AM on Saturday
-		/remind me to switch elliptical water bottle at 5 AM on Saturday
-		/remind me to take Epsom or ACV bath at 5 AM on Saturday
-		/remind me to clean laptop monitors at 5 AM on Saturday
-		/remind me to check air filters running at 5 AM on Saturday
-		/remind me to floss at 3 PM on Saturday
-		/remind me to follow R1 Daily.txt next Sunday at 5 AM
-		/remind me to check recurring tasks spreadsheet https://bit.ly/2EIVc0v next Sunday at 5 AM
-		/remind me to respawn weekly reminders via r7 next Sunday at 5 AM
-		/remind me to reset buffers next Sunday at 5 AM
-		/remind me to check mail next Sunday at 5 AM
-		/remind me to do hbands next Sunday at 5 AM
-		/remind me to do 100 kbs next Sunday at 5 AM
-		/remind me to take out big trash next Sunday at 5 AM
-		/remind me to update Weight.xlsx next Sunday at 5 AM
-	)
-	Send %weekly_reminders%
+:*:Ar7::
+	remind("follow R1 Daily.txt at 5 AM on Monday")
+	remind("check calendar, set alarms, @<Day> -> Inbox at 5 AM on Monday")
+	remind("check recurring tasks spreadsheet https://bit.ly/2EIVc0v at 5 AM on Monday")
+	remind("water plants at 5 AM on Monday")
+	remind("waiting/blocked on @Waiting.txt/email/bookmarks/kanban/Jira/Planner at 5 AM on Monday")
+	remind("check work email @Later at 5 AM on Monday")
+	remind("check saved Teams messages at 5 AM on Monday")
+	remind("check @Active Projects.txt at 5 AM on Monday")
+	remind("update and sync all project boards at 5 AM on Monday")
+	remind("review all work contexts and agendas at 5 AM on Monday")
+	remind("read next UVU policy at 5 AM on Monday")
+	remind("check https://itops.uvu.edu/secure/change_calendar/index.php at 5 AM on Monday")
+	remind("follow R1 Daily.txt at 5 AM on Tuesday")
+	remind("check calendar, set alarms, @<Day> -> Inbox at 5 AM on Tuesday")
+	remind("check recurring tasks spreadsheet https://bit.ly/2EIVc0v at 5 AM on Tuesday")
+	remind("update ESS items on https://uvu-it.atlassian.net/projects/CA/board at 2 PM on Tuesday")
+	remind("follow R1 Daily.txt at 5 AM on Wednesday")
+	remind("check calendar, set alarms, @<Day> -> Inbox at 5 AM on Wednesday")
+	remind("check recurring tasks spreadsheet https://bit.ly/2EIVc0v at 5 AM on Wednesday")
+	remind("conditionally IFL at 5 AM on Wednesday")
+	remind("do 100 kbs at 5 AM on Wednesday")
+	remind("take magnesium at 9 AM on Wednesday")
+	remind("check mail at 3 PM on Wednesday")
+	remind("follow R1 Daily.txt at 5 AM on Thursday")
+	remind("check calendar, set alarms, @<Day> -> Inbox at 5 AM on Thursday")
+	remind("check recurring tasks spreadsheet https://bit.ly/2EIVc0v at 5 AM on Thursday")
+	remind("begin GTD7 at 5 AM on Thursday")
+	remind("prep for ESS meeting at 8:30 AM on Thursday")
+	remind("follow R1 Daily.txt at 5 AM on Friday")
+	remind("check calendar, set alarms, @<Day> -> Inbox at 5 AM on Friday")
+	remind("check recurring tasks spreadsheet https://bit.ly/2EIVc0v at 5 AM on Friday")
+	remind("update Banner releases master spreadsheet at 5 AM on Friday")
+	remind("do hbands at 6 AM on Friday")
+	remind("use up existing food at 9 AM on Friday")
+	remind("run water through Keurig at 2 PM on Friday")
+	remind("dump @Quick Cases.txt to POB at 2 PM on Friday")
+	remind("do weekly status report https://bit.ly/3kQrJku at 3 PM on Friday")
+	remind("start next Progress (UVU).txt weekly header at 3 PM on Friday")
+	remind("follow R1 Daily.txt at 5 AM on Saturday")
+	remind("check recurring tasks spreadsheet https://bit.ly/2EIVc0v at 5 AM on Saturday")
+	remind("sync calendars at 5 AM on Saturday")
+	remind("switch elliptical water bottle at 5 AM on Saturday")
+	remind("take Epsom or ACV bath at 5 AM on Saturday")
+	remind("clean laptop monitors at 5 AM on Saturday")
+	remind("check air filters running at 5 AM on Saturday")
+	remind("floss at 3 PM on Saturday")
+	remind("follow R1 Daily.txt next Sunday at 5 AM")
+	remind("check recurring tasks spreadsheet https://bit.ly/2EIVc0v next Sunday at 5 AM")
+	remind("respawn weekly reminders via r7 next Sunday at 5 AM")
+	remind("reset buffers next Sunday at 5 AM")
+	remind("check mail next Sunday at 5 AM")
+	remind("do hbands next Sunday at 5 AM")
+	remind("do 100 kbs next Sunday at 5 AM")
+	remind("take out big trash next Sunday at 5 AM")
+	remind("update Weight.xlsx next Sunday at 5 AM")
 return
 
 
-; /rrm => set monthly recurring reminders
+; Ar31 => set monthly recurring reminders
 ; Slack has recurring reminders, but they are implemented badly.
 ; I want them to spawn as individual reminder instances that I can snooze
 ; and mark as complete.
-:*:/rrm::
-(
-/remind me to pay Jason on the 1st of next month at 5 AM
-/remind me to update POB on the 1st of next month at 5 AM
-/remind me to save/invest on the 1st of next month at 5 AM
-/remind me to change furnace filter on the 1st of next month at 5 AM
-/remind me to change fridge baking soda on the 1st of next month at 5 AM
-/remind me to change dishwasher rinse solution on the 1st of next month at 5 AM
-/remind me to deep clean Norelco on the 8th of next month at 5 AM
-/remind me to cycle food delivery on the 8th of next month at 5 AM
-/remind me to do car checklist on the 8th of next month at 5 AM
-/remind me to wash bedding on the 15th of next month at 5 AM
-/remind me to empty Dyson bin, wash brush head, and swap filter on the 15th of next month at 5 AM
-/remind me to touch up kitchen on the 15th of next month at 5 AM
-/remind me to update POB on the 15th of next month at 5 AM
-/remind me to touch up vac garage on the 22nd of next month at 5 AM
-/remind me to replace peppermint on the 22nd of next month at 5 AM
-/remind me to clean toilets on the 22nd of next month at 5 AM
-/remind me to wash backpack on the 2nd of next month at 5 AM
-/remind me to respawn monthly reminders via /rrm on the 25th of next month at 5 AM
-/remind me to do monthly status report on the 28th of next month at 5 AM
-)
+:*:Ar31::
+	remind("pay Jason on the 1st of next month at 5 AM")
+	remind("update POB on the 1st of next month at 5 AM")
+	remind("save/invest on the 1st of next month at 5 AM")
+	remind("change furnace filter on the 1st of next month at 5 AM")
+	remind("change fridge baking soda on the 1st of next month at 5 AM")
+	remind("change dishwasher rinse solution on the 1st of next month at 5 AM")
+	remind("deep clean Norelco on the 8th of next month at 5 AM")
+	remind("cycle food delivery on the 8th of next month at 5 AM")
+	remind("do car checklist on the 8th of next month at 5 AM")
+	remind("wash bedding on the 15th of next month at 5 AM")
+	remind("empty Dyson bin, wash brush head, and swap filter on the 15th of next month at 5 AM")
+	remind("touch up kitchen on the 15th of next month at 5 AM")
+	remind("update POB on the 15th of next month at 5 AM")
+	remind("touch up vac garage on the 22nd of next month at 5 AM")
+	remind("replace peppermint on the 22nd of next month at 5 AM")
+	remind("clean toilets on the 22nd of next month at 5 AM")
+	remind("wash backpack on the 2nd of next month at 5 AM")
+	remind("respawn monthly reminders via /rrm on the 25th of next month at 5 AM")
+	remind("do monthly status report on the 28th of next month at 5 AM")
 return
+
 
 ; Damn Slack and their new search shortcuts popup that can't be disabled.
 :*:Ar2::
@@ -1829,7 +1798,16 @@ return
 
 ; Remind me to do something at 5 AM tomorrow.
 ; Uses left key to put the cursor back at the right spot.
-:*:/r5t::/remind me to  at 5 AM tomorrow{left 17}
+:*:Ar5t::
+	Send _r{left}{backspace}/{right}{right}emind me to  at 5 AM tomorrow{left 17}
+return
+
+; Arl => /remind list
+:*:Arl::
+	Send _r{left}{backspace}/{right}{right}emind list
+	Sleep 200
+	Send {Enter}
+return
 
 
 ; <C click> => /remind list
@@ -2841,4 +2819,15 @@ speak(message) {
 		ComObjCreate("SAPI.SpVoice").Speak(message)	
 	}
 }
+
+
+; Emits a Slack reminder request.
+remind(what) {
+	; The prefix keeps Slack's annoying new shortcuts "helper" from popping up.
+	prefix := "_r{left}{backspace}/{right}{right}emind me to"
+	Send %prefix% %what%
+	Sleep 200
+	Send {enter}
+}
+
 
