@@ -1266,11 +1266,16 @@ return
 ;------------------------------------------------------------------------------
 ; Make <click + w> close tabs in Firefox.
 
+/*
 ; Make w a hotkey that sends itself so we can use A_PriorHotkey.
 $w::
 	W_HOTKEY := A_ThisHotKey
 	Send w
 return
+*/
+
+/*
+This causes touchscreen scrolling to not work.
 
 ; With w defined as a hotkey, we can now use this to trigger a specific action if
 ; we click the mouse shortly after pressing w.
@@ -1292,7 +1297,7 @@ $LButton::
 		; MsgBox,,, clicked
 	}
 return
-
+*/
 
 #IfWinActive
 
