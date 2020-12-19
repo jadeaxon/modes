@@ -943,24 +943,25 @@ return
 
 
 ; Define hotstrings for common person tasks.
+; BUG: For some reason, any hotstring with s or w in it is not working.
+; I moved some of the hotstrings into RegExHostrings.ahk as a workaround.
 #IfWinActive Personal Kanban ahk_class MozillaWindowClass
-:*:TAh::Air out house [H1]{enter}
-:*:Tt::Trash [rD1]{enter}
-:*:Tbt::Big trash [rD1]{enter}
-:*:Tld::Laundry (darks) [rD1]{enter}
-:*:Tlw::Laundry (whites) [rD1]{enter}
-:*:Tlm::Laundry (mfcs) [rD1]{enter}
-:*:Tlo::Laundry (other) [rD1]{enter}
-:*:Td::Dishes [rD1]{enter}
-:*:Trb::Reset buffers [rD1]{enter}
-:*:Tg::Guitar [rRK1]{enter}
-:*:TEl::Elliptical [rH1]{enter}
-:*:Ts::Shopping [rD1]{enter}
-:*:Tw::Walmart [rD1]{enter}
-:*:Tfm::Fresh Market [rD1]{enter}
-:*:Tc::Cleaning [rDM1]{enter}
-:*:T7::GTD7 [rK1]{enter}
-:*:Tk::kbs 100 [rH1]^{enter}0{enter}
+:*c:Tlt::Laundry (whites) [rD1] {enter}
+:*c:Tlw::Laundry (whites) [rD1] {enter}
+:*c:TAh::Air out house [H1]{enter}
+:*c:Tt::Trash [rD1]{enter}
+:*c:Tbt::Big trash [rD1]{enter}
+:*c:Tld::Laundry (darks) [rD1]{enter}
+:*c:Tlm::Laundry (mfcs) [rD1]{enter}
+:*c:Tlo::Laundry (other) [rD1]{enter}
+:*c:Td::Dishes [rD1]{enter}
+:*c:Trb::Reset buffers [rD1]{enter}
+:*c:Tg::Guitar [rRK1]{enter}
+:*c:TEl::Elliptical [rH1]{enter}
+:*c:Tfm::Fresh Market [rD1]{enter}
+:*c:Tc::Cleaning [rDM1]{enter}
+:*c:T7::GTD7 [rK1]{enter}
+:*c:Tk::kbs 100 [rH1]^{enter}0{enter}
 
 
 ; Never paste formatting.  Otherwise column background colors get screwed up.

@@ -72,6 +72,16 @@ RegExHotstrings("\bcolou?r", "rgb(128, 255, 0);") ; try: colour or color
 Return
 
 
+; For some reason, hotstrings with w or s fail in Master.ahk.
+; After using these, the ones in Master.ahk won't trigger until after you hit enter once.
+; Also, if Master.ahk loads after this script, these may fail.
+#IfWinActive Personal Kanban ahk_class MozillaWindowClass
+:*Z:Tlw::Laundry (whites) [rD1] {enter}
+:*Z:Ts::Shopping [rD1]{enter}
+:*Z:Tw::Walmart [rD1]{enter}
+#IfWinActive
+
+
 JiraLink:
 	output := "https://uvu-it.atlassian.net/browse/" . $1 . "-" . $2
 	SendInput, {raw}%output%
