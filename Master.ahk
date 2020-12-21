@@ -1807,6 +1807,13 @@ return
 	Send _r{left}{backspace}/{right}{right}emind me to{space}
 return
 
+:*:Ar$::
+	Send _r{left}{backspace}/{right}{right}emind me to budget{space}
+	Send ^v
+	Send {space}for  tomorrow at 5 AM{left 17}
+return
+
+
 ; Remind me to do something at 5 AM tomorrow.
 ; Uses left key to put the cursor back at the right spot.
 ; :*:Ar5t::
