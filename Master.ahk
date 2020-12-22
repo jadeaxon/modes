@@ -671,6 +671,18 @@ $s::
 return
 
 
+; u => quick action #5 => move to @Exec Midyear Check-In and mark read
+$u::
+	ControlGetFocus, widget, A
+	if (RegExMatch(widget, "^OutlookGrid\d$")) {
+		Send ^+5
+	}
+	else {
+		Send u
+	}
+return
+
+
 ; Makes <C w> close Outlook.
 #IfWinActive ahk_exe OUTLOOK.EXE
 ^w::
