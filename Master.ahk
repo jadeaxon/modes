@@ -1819,6 +1819,11 @@ return
 	Send _r{left}{backspace}/{right}{right}emind me to{space}
 return
 
+; Remind me to do something at 5 AM tomorrow.
+:*:Ar5::
+	Send _r{left}{backspace}/{right}{right}emind me to{space}{space}tomorrow at 5 AM{left 17}
+return
+
 :*:Ar$::
 	Send _r{left}{backspace}/{right}{right}emind me to budget{space}
 	Send ^v
