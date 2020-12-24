@@ -81,6 +81,12 @@ Return
 :*Z:Tw::Walmart [rD1]{enter}
 #IfWinActive
 
+#IfWinActive Personal Kanban ahk_exe chrome.exe
+:*Z:Tlw::Laundry (whites) [rD1] {enter}
+:*Z:Ts::Shopping [rD1]{enter}
+:*Z:Tw::Walmart [rD1]{enter}
+#IfWinActive
+
 
 JiraLink:
 	output := "https://uvu-it.atlassian.net/browse/" . $1 . "-" . $2

@@ -61,6 +61,12 @@ CoordMode, Mouse, Relative
 GroupAdd, ExplorerGroup, ahk_class CabinetWClass
 GroupAdd, ExplorerGroup, ahk_class ExploreWClass
 
+; Let kanban hotkeys/hotstrings work with Firefox and Chrome.
+GroupAdd, PersonalKanban, Personal Kanban ahk_class MozillaWindowClass
+GroupAdd, PersonalKanban, Personal Kanban ahk_class Chrome_WidgetWin_1
+GroupAdd, WorkKanban, Work Kanban ahk_class MozillaWindowClass
+GroupAdd, WorkKanban, Work Kanban ahk_class Chrome_WidgetWin_1
+
 
 ; Is mouse click locked down via CapsLock hotkey?
 mouseDownLock := false
@@ -957,7 +963,7 @@ return
 ; Define hotstrings for common person tasks.
 ; BUG: For some reason, any hotstring with s or w in it is not working.
 ; I moved some of the hotstrings into RegExHostrings.ahk as a workaround.
-#IfWinActive Personal Kanban ahk_class MozillaWindowClass
+#IfWinActive ahk_group PersonalKanban
 :*c:Tlt::Laundry (whites) [rD1] {enter}
 :*c:Tlw::Laundry (whites) [rD1] {enter}
 :*c:TAh::Air out house [H1]{enter}
@@ -1015,13 +1021,14 @@ return
 #IfWinActive
 
 
-
 ; Make cut and paste work right in work kanban.
-#IfWinActive Work Kanban ahk_class MozillaWindowClass
+#IfWinActive ahk_group WorkKanban
 $^v::
+	; Paste values only since my columns are color coded.
 	Send ^+v
 return
 
+; For some reason, normal cut doesn't work.  This fixes it.
 $^x::
 	SendInput ^c
 	Sleep 50
