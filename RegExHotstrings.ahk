@@ -87,6 +87,25 @@ Return
 :*Z:Tw::Walmart [rD1]{enter}
 #IfWinActive
 
+; Now all the hotstrings starting with u don't work in Master.ahk.
+; Insert a Unicode bullet symbol immediately.
+; Use Windows Charater Map advanced view to search for these (or google them).
+:*:uBullet::{U+2022}
+:*:uDot::{U+2022}
+:*:uDegrees::{U+00B0}
+:*:uAry::{U+00BA} ; Ordinal indicator: primary, secondary, etc.
+:*:uEuros::{U+20AC}
+:*:uPlusOrMinus::{U+00B1}
+:*:uPlusMinus::{U+00B1}
+:*:uInfinity::{U+221E}
+:*:uIntersection::{U+2229}
+:*:uUnion::{U+222A}
+:*:uEnDash::{U+2013}
+:*:uEmDash::{U+2014}
+:*:uCheck::{U+2713}
+:*:uSquared::{U+00B2}
+:*:uCubed::{U+00B3}
+
 
 JiraLink:
 	output := "https://uvu-it.atlassian.net/browse/" . $1 . "-" . $2
