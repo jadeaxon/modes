@@ -634,7 +634,6 @@ $b::
 		Send b
 	}
 return
-#IfWinActive
 
 
 ; w => quick action #3 => move to @Waiting and mark read
@@ -672,6 +671,19 @@ $u::
 	}
 return
 
+
+; o => quick action #6 => move to @OBES and mark read
+$o::
+	ControlGetFocus, widget, A
+	if (RegExMatch(widget, "^OutlookGrid\d$")) {
+		Send ^+6
+	}
+	else {
+		Send o
+	}
+return
+
+#IfWinActive
 
 ; Makes <C w> close Outlook.
 #IfWinActive ahk_exe OUTLOOK.EXE
