@@ -1261,8 +1261,9 @@ $^d::
 return
 
 
-; <W click> => Delete the bookmark you are hovering over.
-$#LButton::
+; <S-W click> => Delete the bookmark you are hovering over.
+; Using just <W click> causes the Windows menu to accidentally pop up too much.
+$+#LButton::
 	Send, {AppsKey}d
 return
 
