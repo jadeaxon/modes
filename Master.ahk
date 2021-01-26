@@ -1728,6 +1728,11 @@ return
 ; I want them to spawn as individual reminder instances that I can snooze
 ; and mark as complete.
 :*:Ar7::
+	; Guard against accidental triggering when trying to do Ar5.
+	; 5 and 7 are right next to each other on the Programmer Dvorak keyboard layout.
+	MsgBox % 4 + 32 + 256, , Set all weekly reminders?
+    IfMsgBox No, return
+
 	remind("follow R1 Daily.txt at 5 AM on Monday")
 	remind("check calendar, set alarms, @<Day> -> Inbox at 5 AM on Monday")
 	remind("check recurring tasks spreadsheet https://bit.ly/2EIVc0v page at 5 AM on Monday")
