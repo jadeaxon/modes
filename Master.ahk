@@ -683,6 +683,18 @@ $o::
 	}
 return
 
+
+; i => quick action #7 => move to Inbox and mark read
+$i::
+	ControlGetFocus, widget, A
+	if (RegExMatch(widget, "^OutlookGrid\d$")) {
+		Send ^+7
+	}
+	else {
+		Send i
+	}
+return
+
 #IfWinActive
 
 ; Makes <C w> close Outlook.
