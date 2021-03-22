@@ -1845,7 +1845,6 @@ return
 	remind("touch up kitchen on the 15th of next month at 5 AM")
 	remind("update JSM on the 15th of next month at 5 AM")
 	remind("touch up vac garage on the 22nd of next month at 5 AM")
-	remind("replace peppermint on the 22nd of next month at 5 AM")
 	remind("clean toilets on the 22nd of next month at 5 AM")
 	remind("respawn monthly reminders via Ar31 on the 25th of next month at 5 AM")
 	remind("do monthly status report on the 28th of next month at 5 AM")
