@@ -1759,6 +1759,7 @@ return
 	remind("check recent ESS tickets https://uvu-it.atlassian.net/browse/UVU-24503?filter=10824 at 5 AM on Monday")
 	remind("check unwatched ESS tickets https://uvu-it.atlassian.net/browse/UVU-32552?filter=10916 at 5 AM on Monday")
 	remind("check https://itops.uvu.edu/secure/change_calendar/index.php page at 5 AM on Monday")
+	remind("brush teeth at 3 PM on Monday")
 	remind("check recent ESS tickets https://uvu-it.atlassian.net/browse/UVU-24503?filter=10824 at 4 PM on Monday")
 	;------------------------------------------------------------------------------	
 	remind("follow R1 Daily.txt at 5 AM on Tuesday")
@@ -1767,6 +1768,7 @@ return
 	remind("check recent ESS tickets https://uvu-it.atlassian.net/browse/UVU-24503?filter=10824 at 5 AM on Tuesday")
 	remind("check unwatched ESS tickets https://uvu-it.atlassian.net/browse/UVU-32552?filter=10916 at 5 AM on Tuesday")
 	remind("update ESS items on https://uvu-it.atlassian.net/projects/CA/board page at 2 PM on Tuesday")
+	remind("brush teeth at 3 PM on Tuesday")
 	remind("check recent ESS tickets https://uvu-it.atlassian.net/browse/UVU-24503?filter=10824 at 4 PM on Tuesday")
 	;------------------------------------------------------------------------------	
 	remind("follow R1 Daily.txt at 5 AM on Wednesday")
@@ -1777,6 +1779,7 @@ return
 	remind("check unwatched ESS tickets https://uvu-it.atlassian.net/browse/UVU-32552?filter=10916 at 5 AM on Wednesday")
 	remind("take magnesium at 9 AM on Wednesday")
 	remind("check mail at 3 PM on Wednesday")
+	remind("brush teeth at 3 PM on Wednesday")
 	remind("check recent ESS tickets https://uvu-it.atlassian.net/browse/UVU-24503?filter=10824 at 4 PM on Wednesday ")
 	;------------------------------------------------------------------------------	
 	remind("follow R1 Daily.txt at 5 AM on Thursday")
@@ -1786,6 +1789,7 @@ return
 	remind("check recent ESS tickets https://uvu-it.atlassian.net/browse/UVU-24503?filter=10824 at 5 AM on Thursday")
 	remind("check unwatched ESS tickets https://uvu-it.atlassian.net/browse/UVU-32552?filter=10916 at 5 AM on Thursday")
 	remind("prep for ESS meeting at 8:30 AM on Thursday")
+	remind("brush teeth at 3 PM on Thursday")
 	remind("check recent ESS tickets https://uvu-it.atlassian.net/browse/UVU-24503?filter=10824 at 4 PM on Thursday")
 	;------------------------------------------------------------------------------	
 	remind("follow R1 Daily.txt at 5 AM on Friday")
@@ -1800,6 +1804,7 @@ return
 	remind("dump @Quick Cases.txt to JSM at 2 PM on Friday")
 	remind("do weekly status report https://bit.ly/3kQrJku page at 3 PM on Friday")
 	remind("start next Progress (UVU).txt weekly header at 3 PM on Friday")
+	remind("brush teeth at 3 PM on Friday")
 	remind("check recent ESS tickets https://uvu-it.atlassian.net/browse/UVU-24503?filter=10824 at 4 PM on Friday")
 	;------------------------------------------------------------------------------	
 	remind("follow R1 Daily.txt at 5 AM on Saturday")
@@ -1810,6 +1815,7 @@ return
 	remind("check air filters running at 5 AM on Saturday")
 	remind("check recent ESS tickets https://uvu-it.atlassian.net/browse/UVU-24503?filter=10824 at 5 AM on Saturday")
 	remind("check unwatched ESS tickets https://uvu-it.atlassian.net/browse/UVU-32552?filter=10916 at 5 AM on Saturday")
+	remind("brush teeth at 3 PM on Saturday")
 	remind("floss at 3 PM on Saturday")
 	;------------------------------------------------------------------------------	
 	remind("follow R1 Daily.txt next Sunday at 5 AM")
@@ -1823,6 +1829,7 @@ return
 	remind("update Weight.xlsx next Sunday at 5 AM")
 	remind("check recent ESS tickets https://uvu-it.atlassian.net/browse/UVU-24503?filter=10824 at 5 AM on Sunday")
 	remind("check unwatched ESS tickets https://uvu-it.atlassian.net/browse/UVU-32552?filter=10916 at 5 AM on Sunday")
+	remind("brush teeth at 3 PM on Sunday")
 return
 
 
