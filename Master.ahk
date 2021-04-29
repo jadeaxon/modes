@@ -918,10 +918,20 @@ $w::
 	Sleep 20
 	Send {alt up}
 	Sleep 100
-	Send mmj@
+	Send mmj
 	Sleep 50
-	Send {down}{down}{down}
-	Sleep 50
+	Send @
+	Sleep 15
+	Send @
+	Sleep 15
+	Send @
+	Sleep 15
+	Send @
+	Sleep 15
+	Send @
+	Sleep 15
+	Send @
+	Sleep 15
 	Send {enter}
 return
 #IfWinActive
@@ -933,12 +943,21 @@ $w::
 	Sleep 20
 	Send {alt up}
 	Sleep 100
-	Send mmj@
+	Send mmj
 	Sleep 50
-	Send {down}{down}{down}
-	Sleep 50
+	Send @
+	Sleep 15
+	Send @
+	Sleep 15
+	Send @
+	Sleep 15
+	Send @
+	Sleep 15
+	Send @
+	Sleep 15
+	Send @
+	Sleep 15
 	Send {enter}
-	
 return
 #IfWinActive
 
