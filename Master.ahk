@@ -1836,6 +1836,8 @@ return
 	remind("start next Progress (UVU).txt weekly header at 3 PM on Friday")
 	remind("brush teeth at 3 PM on Friday")
 	remind("check recent ESS tickets https://uvu-it.atlassian.net/issues/?filter=10824 at 4 PM on Friday")
+	remind("check unwatched ESS board tickets https://uvu-it.atlassian.net/issues/?filter=10947 at 4 PM on Friday")
+	remind("check unassigned ESS board tickets https://uvu-it.atlassian.net/issues/?filter=11004 at 4 PM on Friday")
 	;------------------------------------------------------------------------------	
 	remind("follow R1 Daily.txt at 5 AM on Saturday")
 	remind("check recurring tasks spreadsheet at 5 AM on Saturday")
