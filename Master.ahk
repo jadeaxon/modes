@@ -1809,7 +1809,7 @@ return
 	remind("check unwatched ESS tickets https://uvu-it.atlassian.net/issues/?filter=10916 at 5 AM on Wednesday")
 	remind("take magnesium at 9 AM on Wednesday")
 	remind("check mail at 3 PM on Wednesday")
-	remind("brush teeth at 3 PM on Wednesday")
+	remind("brush teeth at 3 PM on Wednesday")	
 	remind("check recent ESS tickets https://uvu-it.atlassian.net/issues/?filter=10824 at 4 PM on Wednesday ")
 	;------------------------------------------------------------------------------	
 	remind("follow R1 Daily.txt at 5 AM on Thursday")
@@ -1819,6 +1819,7 @@ return
 	remind("begin GTD7 at 5 AM on Thursday")
 	remind("check recent ESS tickets https://uvu-it.atlassian.net/issues/?filter=10824 at 5 AM on Thursday")
 	remind("check unwatched ESS tickets https://uvu-it.atlassian.net/issues/?filter=10916 at 5 AM on Thursday")
+    remind("proc all 1:1 notes (including Dave's) at 1 PM on Thursday")	
 	remind("brush teeth at 3 PM on Thursday")
 	remind("check recent ESS tickets https://uvu-it.atlassian.net/issues/?filter=10824 at 4 PM on Thursday")
 	;------------------------------------------------------------------------------	
