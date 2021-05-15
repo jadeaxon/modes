@@ -1033,6 +1033,14 @@ $^x::
 	SendInput {backspace}
 return
 
+; Use with recurring tasks sheet.  When in the first cell of the task.
+; <C d> marks as done (unbolds and sets last done as current date).
+$^d::
+	Send ^b
+	Send {right 5}
+	Send ^;
+return
+
 ; <A click> toggles between cut and paste.
 ; All the normal modifier keys cause unwanted side behavior.
 Esc & LButton::
@@ -1112,6 +1120,9 @@ $+Up::
 	Send f
 return
 #IfWinActive
+
+
+
 
 
 
@@ -1818,6 +1829,7 @@ return
 	remind("prep for ESS meeting at 5 AM on Thursday")
 	remind("begin GTD7 at 5 AM on Thursday")
 	remind("check recent ESS tickets https://uvu-it.atlassian.net/issues/?filter=10824 at 5 AM on Thursday")
+	
 	remind("check unwatched ESS tickets https://uvu-it.atlassian.net/issues/?filter=10916 at 5 AM on Thursday")
     remind("proc all 1:1 notes (including Dave's) at 1 PM on Thursday")	
 	remind("brush teeth at 3 PM on Thursday")
