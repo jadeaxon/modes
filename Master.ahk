@@ -1039,7 +1039,17 @@ $^d::
 	Send ^b
 	Send {right 5}
 	Send ^;
+	Send {left 5}
 return
+
+; Sort by Score descending.
+; I end up doing this a lot after marking items as done or at the start of each new day.
+; I recorded a macro in Google Sheets that does this when you press <C-A-S 1>.
+; This just makes <C s> trigger it instead.
+$^s::
+	Send ^+!1
+return
+
 
 ; <A click> toggles between cut and paste.
 ; All the normal modifier keys cause unwanted side behavior.
