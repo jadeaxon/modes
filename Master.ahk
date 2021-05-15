@@ -1036,10 +1036,12 @@ return
 ; Use with recurring tasks sheet.  When in the first cell of the task.
 ; <C d> marks as done (unbolds and sets last done as current date).
 $^d::
+	SetKeyDelay, 10, 10
 	Send ^b
 	Send {right 5}
 	Send ^;
 	Send {left 5}
+	SetKeyDelay, -1, -1
 return
 
 ; Sort by Score descending.
