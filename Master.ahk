@@ -1344,6 +1344,11 @@ $+#LButton::
 	Send, {AppsKey}d
 return
 
+; Let's try having ;; delete the bookmark.
+:*:;;::
+	Send, {AppsKey}d
+return
+
 
 ;------------------------------------------------------------------------------
 ; Make <click + w> close tabs in Firefox.
