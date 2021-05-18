@@ -2933,10 +2933,18 @@ return
 ; This is like sending a restart signal to a veb server so it can reload its configuration file.
 #UseHook off
 LControl & Escape::
+	EnvGet, vUserProfile, USERPROFILE
+
+	; These should probably be reloaded after this reloads, but this may be good enough.
+	; Note that these do not get started if they aren't already running.
+	Run, %vUSERPROFILE%\projects\modes-private\Private.ahk /restart
+	Run, %vUSERPROFILE%\projects\modes\RegExHotstrings.ahk /restart
+
     ; *64 is one of the system sounds.
     SoundPlay *64
 	speak("Reloading Modes")
     Reload
+
     ; This code can only be reached if reloading fails.
     Sleep 1000
     MsgBox 4, , Script reloaded unsuccessful, open it for editing?

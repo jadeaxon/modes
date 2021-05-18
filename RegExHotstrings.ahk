@@ -26,6 +26,7 @@
 */
 
 #Persistent
+#SingleInstance Force
 
 Menu, Tray, Icon, %A_ScriptDir%\Icons\RegExHotstrings.ico
 
