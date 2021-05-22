@@ -1803,6 +1803,8 @@ return
 	MsgBox % 4 + 32 + 256, , Set all weekly reminders?
     IfMsgBox No, return
 
+	
+	; Monday ----------------------------------------------------------------------	
 	remind("follow R1 Daily.txt at 5 AM on Monday")
 	remind("check calendar, set alarms, @<Day> -> Inbox at 5 AM on Monday")
 	remind("check recurring tasks spreadsheet at 5 AM on Monday")
@@ -1820,7 +1822,7 @@ return
 	remind("check https://itops.uvu.edu/secure/change_calendar/index.php page at 5 AM on Monday")
 	remind("brush teeth at 3 PM on Monday")
 	remind("check recent ESS tickets https://uvu-it.atlassian.net/issues/?filter=10824 at 4 PM on Monday")
-	;------------------------------------------------------------------------------	
+	; Tuesday ---------------------------------------------------------------------	
 	remind("follow R1 Daily.txt at 5 AM on Tuesday")
 	remind("check calendar, set alarms, @<Day> -> Inbox at 5 AM on Tuesday")
 	remind("check recurring tasks spreadsheet at 5 AM on Tuesday")
@@ -1829,7 +1831,7 @@ return
 	remind("update ESS items on https://uvu-it.atlassian.net/projects/CA/board page at 2 PM on Tuesday")
 	remind("brush teeth at 3 PM on Tuesday")
 	remind("check recent ESS tickets https://uvu-it.atlassian.net/issues/?filter=10824 at 4 PM on Tuesday")
-	;------------------------------------------------------------------------------	
+	; Wednesday -------------------------------------------------------------------	
 	remind("follow R1 Daily.txt at 5 AM on Wednesday")
 	remind("check calendar, set alarms, @<Day> -> Inbox at 5 AM on Wednesday")
 	remind("check recurring tasks spreadsheet at 5 AM on Wednesday")
@@ -1840,25 +1842,25 @@ return
 	remind("check mail at 3 PM on Wednesday")
 	remind("brush teeth at 3 PM on Wednesday")	
 	remind("check recent ESS tickets https://uvu-it.atlassian.net/issues/?filter=10824 at 4 PM on Wednesday ")
-	;------------------------------------------------------------------------------	
+	; Thursday --------------------------------------------------------------------	
 	remind("follow R1 Daily.txt at 5 AM on Thursday")
 	remind("check calendar, set alarms, @<Day> -> Inbox at 5 AM on Thursday")
 	remind("check recurring tasks spreadsheet at 5 AM on Thursday")
 	remind("prep for ESS meeting at 5 AM on Thursday")
 	remind("begin GTD7 at 5 AM on Thursday")
 	remind("check recent ESS tickets https://uvu-it.atlassian.net/issues/?filter=10824 at 5 AM on Thursday")
-	
 	remind("check unwatched ESS tickets https://uvu-it.atlassian.net/issues/?filter=10916 at 5 AM on Thursday")
     remind("proc all 1:1 notes (including Dave's) at 1 PM on Thursday")	
 	remind("brush teeth at 3 PM on Thursday")
 	remind("check recent ESS tickets https://uvu-it.atlassian.net/issues/?filter=10824 at 4 PM on Thursday")
-	;------------------------------------------------------------------------------	
+	; Friday ----------------------------------------------------------------------	
 	remind("follow R1 Daily.txt at 5 AM on Friday")
 	remind("check calendar, set alarms, @<Day> -> Inbox at 5 AM on Friday")
 	remind("check recurring tasks spreadsheet at 5 AM on Friday")
 	remind("update Banner releases master spreadsheet at 5 AM on Friday")
 	remind("check recent ESS tickets https://uvu-it.atlassian.net/issues/?filter=10824 at 5 AM on Friday")
 	remind("check unwatched ESS tickets https://uvu-it.atlassian.net/issues/?filter=10916 at 5 AM on Friday")
+	remind("check unwatched reported by me https://uvu-it.atlassian.net/issues/?filter=11028 at 5 AM on Friday")
 	remind("do hbands at 6 AM on Friday")
 	remind("use up existing food at 9 AM on Friday")
 	remind("run water through Keurig at 2 PM on Friday")
@@ -1869,7 +1871,7 @@ return
 	remind("check recent ESS tickets https://uvu-it.atlassian.net/issues/?filter=10824 at 4 PM on Friday")
 	remind("check unwatched ESS board tickets https://uvu-it.atlassian.net/issues/?filter=10947 at 4 PM on Friday")
 	remind("check unassigned ESS board tickets https://uvu-it.atlassian.net/issues/?filter=11004 at 4 PM on Friday")
-	;------------------------------------------------------------------------------	
+	; Saturday --------------------------------------------------------------------	
 	remind("follow R1 Daily.txt at 5 AM on Saturday")
 	remind("check recurring tasks spreadsheet at 5 AM on Saturday")
 	remind("sync calendars at 5 AM on Saturday")
@@ -1880,7 +1882,7 @@ return
 	remind("check unwatched ESS tickets https://uvu-it.atlassian.net/issues/?filter=10916 at 5 AM on Saturday")
 	remind("brush teeth at 3 PM on Saturday")
 	remind("floss at 3 PM on Saturday")
-	;------------------------------------------------------------------------------	
+	; Sunday ----------------------------------------------------------------------	
 	remind("follow R1 Daily.txt next Sunday at 5 AM")
 	remind("check recurring tasks spreadsheet next Sunday at 5 AM")
 	remind("respawn weekly reminders via Ar7 next Sunday at 5 AM")
