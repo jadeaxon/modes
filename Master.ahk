@@ -1005,6 +1005,7 @@ return
 :*c:Tlt::Laundry (whites) [rD1] {enter}
 :*c:Tlw::Laundry (whites) [rD1] {enter}
 :*c:TAh::Air out house [H1]{enter}
+:*c:TOo::Overnight oats [H1]{enter}
 :*c:Tt::Trash [rD1]{enter}
 :*c:Tbt::Big trash [rD1]{enter}
 :*c:Tld::Laundry (darks) [rD1]{enter}
