@@ -921,17 +921,13 @@ $w::
 	Send mmj
 	Sleep 50
 	Send @
-	Sleep 15
+	Sleep 20
 	Send @
-	Sleep 15
+	Sleep 20
 	Send @
-	Sleep 15
+	Sleep 20
 	Send @
-	Sleep 15
-	Send @
-	Sleep 15
-	Send @
-	Sleep 15
+	Sleep 20
 	Send {enter}
 return
 #IfWinActive
@@ -946,17 +942,13 @@ $w::
 	Send mmj
 	Sleep 50
 	Send @
-	Sleep 15
+	Sleep 20
 	Send @
-	Sleep 15
+	Sleep 20
 	Send @
-	Sleep 15
+	Sleep 20
 	Send @
-	Sleep 15
-	Send @
-	Sleep 15
-	Send @
-	Sleep 15
+	Sleep 20
 	Send {enter}
 return
 #IfWinActive
