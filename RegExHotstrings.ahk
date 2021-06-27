@@ -79,13 +79,13 @@ Return
 #IfWinActive Personal Kanban ahk_class MozillaWindowClass
 :*Z:Tlw::Laundry (whites) [rD1] {enter}
 :*Z:Ts::Shopping [rD1]{enter}
-:*Z:Tw::Walmart [rD1]{enter}
+:*cZ:TWa::Walmart [rD1]{enter}
 #IfWinActive
 
 #IfWinActive Personal Kanban ahk_exe chrome.exe
 :*Z:Tlw::Laundry (whites) [rD1] {enter}
 :*Z:Ts::Shopping [rD1]{enter}
-:*Z:Tw::Walmart [rD1]{enter}
+:*cZ:TWa::Walmart [rD1]{enter}
 #IfWinActive
 
 ; Now all the hotstrings starting with u don't work in Master.ahk.
