@@ -915,19 +915,19 @@ return
 #IfWinActive Inbox - Mozilla Thunderbird
 $w::
 	Send {alt down}
-	Sleep 20
+	Sleep 40
 	Send {alt up}
 	Sleep 100
 	Send mmj
 	Sleep 50
 	Send @
-	Sleep 20
+	Sleep 40
 	Send @
-	Sleep 20
+	Sleep 40
 	Send @
-	Sleep 20
+	Sleep 40
 	Send @
-	Sleep 20
+	Sleep 40
 	Send {enter}
 return
 #IfWinActive
@@ -936,19 +936,19 @@ return
 #IfWinActive Junk - Mozilla Thunderbird
 $w::
 	Send {alt down}
-	Sleep 20
+	Sleep 40
 	Send {alt up}
 	Sleep 100
 	Send mmj
 	Sleep 50
 	Send @
-	Sleep 20
+	Sleep 40
 	Send @
-	Sleep 20
+	Sleep 40
 	Send @
-	Sleep 20
+	Sleep 40
 	Send @
-	Sleep 20
+	Sleep 40
 	Send {enter}
 return
 #IfWinActive
