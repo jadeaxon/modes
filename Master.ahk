@@ -1029,7 +1029,7 @@ return
 ; Use with recurring tasks sheet.  When in the first cell of the task.
 ; <C d> marks as done (unbolds and sets last done as current date).
 $^d::
-	SetKeyDelay, 15, 15
+	SetKeyDelay, 25, 25
 	Send ^b
 	Send {right 5}
 	Send ^;
