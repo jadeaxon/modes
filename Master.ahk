@@ -1339,9 +1339,10 @@ return
 
 ; Let's try having ;; delete the bookmark.
 :*:;;::
-	; Send, {AppsKey}d
 	; Latest Firefox changed the menu item to "remove" with e as accelerator key.
-	Send, {AppsKey}e
+	; Send, {AppsKey}e
+	; And now they changed it back.
+	Send, {AppsKey}d
 return
 
 
