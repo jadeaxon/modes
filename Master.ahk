@@ -1813,6 +1813,7 @@ return
 	remind("read next UVU policy at 5 AM on Monday")
 	remind("check recent ESS tickets https://uvu-it.atlassian.net/issues/?filter=10824 at 5 AM on Monday")
 	remind("check unwatched ESS tickets https://uvu-it.atlassian.net/issues/?filter=10916 at 5 AM on Monday")
+	remind("check unassigned ESS tickets https://uvu-it.atlassian.net/issues/?filter=11220 at 5 AM on Monday")	
 	remind("check invalid ESS commitments https://uvu-it.atlassian.net/issues/?filter=11020 at 5 AM on Monday")
 	remind("check https://itops.uvu.edu/secure/change_calendar/index.php page at 5 AM on Monday")
 	remind("check ESS incidents https://uvu-it.atlassian.net/issues/?filter=10921 at 5 AM on Monday")
