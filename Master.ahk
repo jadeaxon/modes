@@ -579,6 +579,19 @@ return
 #IfWinActive
 
 
+/*
+; FAIL: Emoji popup.  Use Esc to dismiss it.
+; Esc should dismiss it.
+; Also, there's a Windows setting which dismisses the Emoji Panel after an
+; emoji is emitted.
+#IfWinActive ahk_class ApplicationFrameWindow ahk_exe Explorer.EXE
+Esc::
+	; Send {enter}{backspace}
+	; Send #.
+return
+#IfWinActive
+*/
+
 
 ;==============================================================================
 ; Vim (.ahk files)
