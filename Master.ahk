@@ -1830,6 +1830,7 @@ return
 	remind("check https://itops.uvu.edu/secure/change_calendar/index.php page at 5 AM on Monday")
 	remind("check ESS incidents https://uvu-it.atlassian.net/issues/?filter=10921 at 5 AM on Monday")
 	remind("check 0 and N bookmarks at 5 AM on Monday")
+	remind("do symbolic poses at 5 AM on Monday")
 	remind("brush teeth at 3 PM on Monday")
 	remind("check recent ESS tickets https://uvu-it.atlassian.net/issues/?filter=10824 at 4 PM on Monday")
 	; Tuesday ---------------------------------------------------------------------	
