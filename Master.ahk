@@ -1867,6 +1867,7 @@ return
 	remind("check unwatched ESS tickets https://uvu-it.atlassian.net/issues/?filter=10916 at 5 AM on Thursday")
 	remind("check unwatched UPM tickets https://solutionstream.atlassian.net/issues/?filter=13388 at 5 AM on Thursday")
 	remind("check 0 and N bookmarks at 5 AM on Thursday")
+	remind("submit Walmart order at 5 AM on Thursday")
     remind("proc all 1:1 notes (including Dave's) at 1 PM on Thursday")	
 	remind("brush teeth at 3 PM on Thursday")
 	remind("check recent ESS tickets https://uvu-it.atlassian.net/issues/?filter=10824 at 4 PM on Thursday")
