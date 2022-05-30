@@ -302,6 +302,32 @@ return
 ; Probably because nothing autoexecutes after the first hotkey/hotstring is defined.
 
 
+; A hotstring to use with @Today.txt.
+:*:s.today::
+    FormatTime, year,, yyyy
+    FormatTime, month,, MM
+    FormatTime, day,, dd
+	FormatTime, day3, A_Now, ddd ; Mon, Tue, etc.
+
+    output = %year%-%month%-%day%
+    SendInput %output%: %day3%
+
+	Send, `n`n
+	Send, 6: `n
+	Send, 7: `n
+	Send, 8: `n
+	Send, 9: `n
+	Send, 10: `n
+	Send, 11: `n
+	Send, 12: `n
+	Send, 1: `n
+	Send, 2: `n
+	Send, 3: `n
+	Send, 4: `n
+
+return
+
+
 ;===============================================================================
 ; Hotkeys
 ;===============================================================================
