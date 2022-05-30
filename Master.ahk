@@ -1054,6 +1054,7 @@ return
 
 ; Never paste formatting.  Otherwise column background colors get screwed up.
 $^v::
+	clipboard := trim(clipboard, """") ; Remove outer double quotes.
 	Send ^+v
 return
 
@@ -1114,6 +1115,7 @@ return
 ; Make cut and paste work right in work kanban.
 #IfWinActive ahk_group WorkKanban
 $^v::
+	clipboard := trim(clipboard, """") ; Remove outer double quotes.
 	; Paste values only since my columns are color coded.
 	Send ^+v
 return
