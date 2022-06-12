@@ -1863,6 +1863,7 @@ return
 	remind("do symbolic poses at 5 AM on Monday")
 	remind("brush teeth at 3 PM on Monday")
 	remind("check recent ESS tickets https://uvu-it.atlassian.net/issues/?filter=10824 at 4 PM on Monday")
+	remind("check fridge and freezers at 8 PM on Monday")
 	; Tuesday ---------------------------------------------------------------------	
 	remind("follow R1 Daily.txt at 5 AM on Tuesday")
 	remind("check calendar, set alarms, @<Day> -> Inbox at 5 AM on Tuesday")
@@ -1874,6 +1875,7 @@ return
 	remind("update ESS items on https://uvu-it.atlassian.net/projects/CA/board page at 2 PM on Tuesday")
 	remind("brush teeth at 3 PM on Tuesday")
 	remind("check recent ESS tickets https://uvu-it.atlassian.net/issues/?filter=10824 at 4 PM on Tuesday")
+	remind("check fridge and freezers at 8 PM on Tuesday")
 	; Wednesday -------------------------------------------------------------------	
 	remind("follow R1 Daily.txt at 5 AM on Wednesday")
 	remind("check calendar, set alarms, @<Day> -> Inbox at 5 AM on Wednesday")
@@ -1887,6 +1889,7 @@ return
 	remind("check mail at 3 PM on Wednesday")
 	remind("brush teeth at 3 PM on Wednesday")	
 	remind("check recent ESS tickets https://uvu-it.atlassian.net/issues/?filter=10824 at 4 PM on Wednesday ")
+	remind("check fridge and freezers at 8 PM on Wednesday")
 	; Thursday --------------------------------------------------------------------	
 	remind("follow R1 Daily.txt at 5 AM on Thursday")
 	remind("check calendar, set alarms, @<Day> -> Inbox at 5 AM on Thursday")
@@ -1901,6 +1904,7 @@ return
     remind("proc all 1:1 notes (including Dave's) at 1 PM on Thursday")	
 	remind("brush teeth at 3 PM on Thursday")
 	remind("check recent ESS tickets https://uvu-it.atlassian.net/issues/?filter=10824 at 4 PM on Thursday")
+	remind("check fridge and freezers at 8 PM on Thursday")
 	; Friday ----------------------------------------------------------------------	
 	remind("follow R1 Daily.txt at 5 AM on Friday")
 	remind("check calendar, set alarms, @<Day> -> Inbox at 5 AM on Friday")
@@ -1918,6 +1922,7 @@ return
 	remind("check recent ESS tickets https://uvu-it.atlassian.net/issues/?filter=10824 at 4 PM on Friday")
 	remind("check unwatched ESS board tickets https://uvu-it.atlassian.net/issues/?filter=10947 at 4 PM on Friday")
 	remind("check unassigned ESS board tickets https://uvu-it.atlassian.net/issues/?filter=11004 at 4 PM on Friday")
+	remind("check fridge and freezers at 8 PM on Friday")
 	; Saturday --------------------------------------------------------------------	
 	remind("follow R1 Daily.txt at 5 AM on Saturday")
 	remind("check recurring tasks spreadsheet at 5 AM on Saturday")
@@ -1929,6 +1934,7 @@ return
 	remind("check recent ESS tickets https://uvu-it.atlassian.net/issues/?filter=10824 at 5 AM on Saturday")
 	remind("check unwatched ESS tickets https://uvu-it.atlassian.net/issues/?filter=10916 at 5 AM on Saturday")
 	remind("brush teeth at 3 PM on Saturday")
+	remind("check fridge and freezers at 8 PM on Saturday")
 	; Sunday ----------------------------------------------------------------------	
 	remind("follow R1 Daily.txt next Sunday at 5 AM")
 	remind("check recurring tasks spreadsheet next Sunday at 5 AM")
@@ -1940,6 +1946,7 @@ return
 	remind("check recent ESS tickets https://uvu-it.atlassian.net/issues/?filter=10824 at 5 AM on Sunday")
 	remind("check unwatched ESS tickets https://uvu-it.atlassian.net/issues/?filter=10916 at 5 AM on Sunday")
 	remind("brush teeth at 3 PM on Sunday")
+	remind("check fridge and freezers at 8 PM on Sunday")
 return
 
 
