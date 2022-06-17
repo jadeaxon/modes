@@ -313,6 +313,7 @@ return
     SendInput %output%: %day3%
 
 	Send, `n`n
+	Send, 5: `n
 	Send, 6: `n
 	Send, 7: `n
 	Send, 8: `n
@@ -324,6 +325,9 @@ return
 	Send, 2: `n
 	Send, 3: `n
 	Send, 4: `n
+	Send, 5: `n
+	Send, 6: `n
+	Send, 7: `n
 
 return
 
