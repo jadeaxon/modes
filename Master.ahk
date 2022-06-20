@@ -1869,6 +1869,10 @@ $^h::
 	Send {Enter}
 return
 
+; jj => <C j>
+:*:jj::
+	Send ^j
+return
 
 ; Ar7 => set weekly recurring reminders
 ; Slack has recurring reminders, but they are implemented badly.
