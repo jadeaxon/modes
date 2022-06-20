@@ -88,6 +88,9 @@ OPT_SPEAK := 0
 ; The hotkey for pressing w.
 W_HOTKEY := "not set"
 
+; Is the search dialog open in a Google Sheet?
+searchDialog := 0
+
 
 ;===============================================================================
 ; Includes
@@ -1090,9 +1093,24 @@ $^s::
 	Send ^+!1
 return
 
+; Make it so Esc dismisses the search dialog if it is present.
+$^f::
+	searchDialog := 1
+	Send ^f
+return
+
+Esc::
+	if (searchDialog) {
+		Send ^f
+		Send {tab}{tab}
+		Send {enter}
+		searchDialog := 0
+	}
+return
 
 ; <A click> toggles between cut and paste.
 ; All the normal modifier keys cause unwanted side behavior.
+/*
 Esc & LButton::
 	Click
 	Sleep 20
@@ -1108,6 +1126,7 @@ Esc & LButton::
 	}
 	kanbanCut := !kanbanCut
 return
+*/
 
 ; <A p> => Transition to progress file from kanban.
 $!p::
@@ -1135,8 +1154,10 @@ $^x::
 	SendInput {backspace}
 return
 
+
 ; <A click> toggles between cut and paste.
 ; All the normal modifier keys cause unwanted side behavior.
+/*
 Esc & LButton::
 	Click
 	Sleep 20
@@ -1152,12 +1173,29 @@ Esc & LButton::
 	}
 	kanbanCut := !kanbanCut
 return
+*/
+
+; Make it so Esc dismisses the search dialog if it is present.
+$^f::
+	searchDialog := 1
+	Send ^f
+return
+
+Esc::
+	if (searchDialog) {
+		Send ^f
+		Send {tab}{tab}
+		Send {enter}
+		searchDialog := 0
+	}
+return
 
 ; <A p> => Transition to progress file from kanban.
 $!p::
 	file = C:\Users\%A_UserName%\Dropbox\Organization\Progress\UVU\%A_YYYY%\Progress (UVU).txt
 	Run %file%
 return
+
 #IfWinActive
 
 
@@ -1172,10 +1210,6 @@ $+Up::
 	Send f
 return
 #IfWinActive
-
-
-
-
 
 
 ;-------------------------------------------------------------------------------
