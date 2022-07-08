@@ -1093,6 +1093,11 @@ $^s::
 	Send ^+!1
 return
 
+; Move to Done macro.
+$^m::
+	Send ^+!2
+return
+
 ; Make it so Esc dismisses the search dialog if it is present.
 $^f::
 	searchDialog := 1
