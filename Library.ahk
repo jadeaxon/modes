@@ -664,5 +664,25 @@ zeroBrightness() {
 } ; zeroBrightness()
 
 
+; Returns the number of the active monitor.
+; This is the number assigned in Windows' display setup.
+activeMonitor() {
+	; get the mouse coordinates first
+	CoordMode, Mouse, Screen ; use Screen, so we can compare the coords with the SysGet info.
+	MouseGetPos, mx, my
+
+	SysGet, monitorCount, 80 ; Get total number of monitors.
+	Loop, %monitorCount%
+	{
+		SysGet, mon%A_Index%, Monitor, %A_Index%	; "Monitor" will get the total desktop space of the monitor, including taskbars
+
+		if ( mx >= mon%A_Index%left ) && ( mx < mon%A_Index%right ) && ( my >= mon%A_Index%top ) && ( my < mon%A_Index%bottom ) {
+			monitor := A_Index
+			break
+		}
+	}
+	return monitor
+
+} ; activeMonitor()
 
 

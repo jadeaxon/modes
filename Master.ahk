@@ -1086,7 +1086,8 @@ $^d::
 	}
 	; MsgBox,,, %host% %color%
 
-	if (color = 0xCDCDF2) {
+	; The shade of red reported seems to depend on the monitor.
+	if ((color = 0xCDCDF2) or (color = 0xFFFFFF) or (color = 0xCCCCF4)) {
 		; Mark as done in Kanban sheet using Move to Done macro.
 		Send ^+!2
 	}
@@ -1109,12 +1110,12 @@ $^s::
 	Send ^+!1
 return
 
-; Move to Done macro.
-/*
+; Show info about all monitors.
 $^m::
-	Send ^+!2
+	activeMonitor := activeMonitor()
+	MsgBox,,, %activeMonitor%
 return
-*/
+
 
 ; Make it so Esc dismisses the search dialog if it is present.
 $^f::
