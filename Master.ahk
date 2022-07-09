@@ -91,6 +91,9 @@ W_HOTKEY := "not set"
 ; Is the search dialog open in a Google Sheet?
 searchDialog := 0
 
+; The color of a pixel.  In BGR hex format.
+color := 0
+
 
 ;===============================================================================
 ; Includes
@@ -1077,12 +1080,25 @@ return
 ; Use with recurring tasks sheet.  When in the first cell of the task.
 ; <C d> marks as done (unbolds and sets last done as current date).
 $^d::
-	SetKeyDelay, 25, 25
-	Send ^b
-	Send {right 5}
-	Send ^;
-	Send {left 5}
-	SetKeyDelay, -1, -1
+    EnvGet, host, COMPUTERNAME
+	if (host = "L16382") { ; Surface Pro 8
+		PixelGetColor, color, 2759, 446
+	}
+	; MsgBox,,, %host% %color%
+
+	if (color = 0xCDCDF2) {
+		; Mark as done in Kanban sheet using Move to Done macro.
+		Send ^+!2
+	}
+	else {
+		; Mark as done in Recurring sheet.
+		SetKeyDelay, 25, 25
+		Send ^b
+		Send {right 5}
+		Send ^;
+		Send {left 5}
+		SetKeyDelay, -1, -1
+	}
 return
 
 ; Sort by Score descending.
@@ -1094,9 +1110,11 @@ $^s::
 return
 
 ; Move to Done macro.
+/*
 $^m::
 	Send ^+!2
 return
+*/
 
 ; Make it so Esc dismisses the search dialog if it is present.
 $^f::
