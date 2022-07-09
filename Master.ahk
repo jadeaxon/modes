@@ -1080,9 +1080,23 @@ return
 ; Use with recurring tasks sheet.  When in the first cell of the task.
 ; <C d> marks as done (unbolds and sets last done as current date).
 $^d::
-    EnvGet, host, COMPUTERNAME
+	activeMonitor := activeMonitor()
+	CoordMode, Mouse, Window
+
+	EnvGet, host, COMPUTERNAME
 	if (host = "L16382") { ; Surface Pro 8
-		PixelGetColor, color, 2759, 446
+		if (activeMonitor = 1) { ; The laptop's screen.
+			PixelGetColor, color, 2759, 446
+		}
+		else if (activeMonitor = 2) { ; LG UltraFine
+			PixelGetColor, color, 1387, 224
+		}
+		else if (activeMonitor = 3) { ; Dell
+			PixelGetColor, color, 1386, 223
+		}
+		else { ; Unknown monitor.
+			color = 0
+		}
 	}
 	; MsgBox,,, %host% %color%
 
