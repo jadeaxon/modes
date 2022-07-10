@@ -2605,7 +2605,8 @@ Button_Budget:
 	Clipboard := ""
 
 	; Open budget file in gVim.
-	Run, C:\Users\jadeaxon\Dropbox\Organization\Financial\Budget\%A_YYYY% Budget.txt
+    EnvGet, home, USERPROFILE
+	Run, %home%\Dropbox\Organization\Financial\Budget\%A_YYYY% Budget.txt
 	Sleep 500
 	WinActivate ahk_exe gvim.exe
 	WinWaitActive ahk_exe gvim.exe
