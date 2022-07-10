@@ -1088,6 +1088,7 @@ $^d::
 	activeMonitor := activeMonitor()
 	CoordMode, Mouse, Window
 
+	color := 0
 	EnvGet, host, COMPUTERNAME
 	if (host = "L16382") { ; Surface Pro 8
 		if (activeMonitor = 1) { ; The laptop's screen.
@@ -1100,16 +1101,16 @@ $^d::
 			PixelGetColor, color, 1386, 223
 		}
 		else { ; Unknown monitor.
-			color = 0
+			color := 0
 		}
 	}
 	else if (host = "Inspiron-VM") {
 		PixelGetColor, color, 1382, 225
 	}
-	; MsgBox,,, %host% %color%
+	; MsgBox,,, %host% %activeMonitor% %color%
 
 	; The shade of red reported seems to depend on the monitor.
-	if ((color = 0xCDCDF2) or (color = 0xFFFFFF) or (color = 0xCCCCF4)) {
+	if ((color = 0xCDCDF2) or (color = 0xCCCCF4)) {
 		; Mark as done in Kanban sheet using Move to Done macro.
 		Send ^+!2
 	}
