@@ -1098,6 +1098,9 @@ $^d::
 			color = 0
 		}
 	}
+	else if (host = "Inspiron-VM") {
+		PixelGetColor, color, 1382, 225
+	}
 	; MsgBox,,, %host% %color%
 
 	; The shade of red reported seems to depend on the monitor.
