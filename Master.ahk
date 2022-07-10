@@ -658,6 +658,10 @@ return
 ; Outlook
 ;==============================================================================
 
+/*
+Outlook
+*/
+
 ; Archive the message your mouse is hovered over.  In Outlook's Inbox.
 ; FAIL: It changes last moved-to folder to top of list, so can't use fixed position!
 ; WIN: Set up a "Quick Step" in Outlook with shortcut key of <C-S 1>.  You can't set <C a> as shortcut there, so you remap it here.
@@ -771,6 +775,7 @@ $d::
 	ControlGetFocus, widget, A
 	; MsgBox,,, %widget%
 	if (RegExMatch(widget, "^OutlookGrid\d$")) {
+		Send {AppsKey}k{Esc}
 		Send {delete}
 	}
 	else {
