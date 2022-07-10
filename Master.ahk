@@ -2088,6 +2088,103 @@ return
 	Send {Enter}
 return
 
+
+
+; Pressing o when hovering over a reminder snoozes it for 1 hour.
+$o::
+	EnvGet, host, COMPUTERNAME
+    MouseGetPos, x, y
+	if (host = "L16382") { ; Surface Pro 8
+		if (y > 1500) {
+			; We're in the region you'd be typing.
+			Send o
+		}
+		else { ; Might be hovering over a reminder.
+			; When hovering over a reminder, the row it is on highlights light gray.
+			PixelGetColor, color, 1500, y
+			if (color = 0x292522) {
+				Click
+				Sleep 50
+				Send {Down}{Down}
+				Sleep 50
+				Send {Enter}
+			}
+			else {
+				Send o
+			}
+		}	
+	}
+	else { ; Not Surface Pro 8.
+		Send o
+	}
+return
+
+
+; Pressing e when hovering over a reminder snoozes it for 3 hours.
+; Using e so that left hand can type all the action keystrokes while right hand moves mouse.
+; In Programmer Dvorak, aoeu are home position keys for right hand.
+$e::
+	EnvGet, host, COMPUTERNAME
+    MouseGetPos, x, y
+	if (host = "L16382") { ; Surface Pro 8
+		if (y > 1500) {
+			; We're in the region you'd be typing.
+			Send e
+		}
+		else { ; Might be hovering over a reminder.
+			; When hovering over a reminder, the row it is on highlights light gray.
+			PixelGetColor, color, 1500, y
+			if (color = 0x292522) {
+				Click
+				Sleep 50
+				Send {Down}{Down}{Down}
+				Sleep 50
+				Send {Enter}
+			}
+			else {
+				Send e
+			}
+		}	
+	}
+	else { ; Not Surface Pro 8.
+		Send e
+	}
+return
+
+
+
+; Pressing u when hovering over a reminder snoozes it until tomorrow.
+; Using u so that left hand can type all the action keystrokes while right hand moves mouse.
+; In Programmer Dvorak, aoeu are home position keys for right hand.
+$u::
+	EnvGet, host, COMPUTERNAME
+    MouseGetPos, x, y
+	if (host = "L16382") { ; Surface Pro 8
+		if (y > 1500) {
+			; We're in the region you'd be typing.
+			Send u
+		}
+		else { ; Might be hovering over a reminder.
+			; When hovering over a reminder, the row it is on highlights light gray.
+			PixelGetColor, color, 1500, y
+			if (color = 0x292522) {
+				Click
+				Sleep 50
+				Send {Down}{Down}{Down}{Down}
+				Sleep 50
+				Send {Enter}
+			}
+			else {
+				Send u
+			}
+		}	
+	}
+	else { ; Not Surface Pro 8.
+		Send u
+	}
+return
+
+
 #IfWinActive
 
 
