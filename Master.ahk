@@ -1082,6 +1082,8 @@ $^x::
 	SendInput {backspace}
 return
 
+; #HotkeyModifierTimeout 0
+
 ; Use with recurring tasks sheet.  When in the first cell of the task.
 ; <C d> marks as done (unbolds and sets last done as current date).
 $^d::
@@ -1111,8 +1113,39 @@ $^d::
 
 	; The shade of red reported seems to depend on the monitor.
 	if ((color = 0xCDCDF2) or (color = 0xCCCCF4)) {
-		; Mark as done in Kanban sheet using Move to Done macro.
-		Send ^+!2
+		MouseGetPos, mx, my
+		PixelGetColor, color, mx, my, RGB
+		; MsgBox,,, %mx%, %my%, %color%
+
+		if (color = 0xDAEAD4) {
+			; We're hovering in the (green) Done column.
+			; Assume over the top non-header cell.
+			Send, {LShift Down}
+			Sleep 20
+			Send, {Down 6}
+			Send, {LShift Up}
+			Sleep 20
+			Send ^c
+			Sleep 20
+			Send {Backspace}
+			
+			; Copy completed tasks to progress text file using Vim.
+			file = C:\Users\%A_UserName%\Dropbox\Organization\Progress\Home\Progress (Home).txt
+			Run %file%
+			Sleep 200
+			Send gg
+			; This is a bit weird because when you hit /, Vim advances a character, so it does not
+			; find the first date line in the file.
+			year := A_Year - 2000
+			Send /0%year%-{Enter}
+			Send o
+			Send ^v
+			Send {Enter}
+		}
+		else { ; Marking a single task done.
+			; Mark as done in Kanban sheet using Move to Done macro.
+			Send ^+!2
+		}
 	}
 	else {
 		; Mark as done in Recurring sheet.
