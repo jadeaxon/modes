@@ -1115,9 +1115,10 @@ $^d::
 	if ((color = 0xCDCDF2) or (color = 0xCCCCF4)) {
 		MouseGetPos, mx, my
 		PixelGetColor, color, mx, my, RGB
+		PixelGetColor, color2, mx, 350, RGB ; Detect if a cell in the Done column is selected.	
 		; MsgBox,,, %mx%, %my%, %color%
 
-		if (color = 0xDAEAD4) {
+		if ((color = 0xDAEAD4) and (color2 = 0xE8EAED)) {
 			; We're hovering in the (green) Done column.
 			; Assume over the top non-header cell.
 			Send, {LShift Down}
