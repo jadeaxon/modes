@@ -1164,7 +1164,11 @@ return
 ; I recorded a macro in Google Sheets that does this when you press <C-A-S 1>.
 ; This just makes <C s> trigger it instead.
 $^s::
-	Send ^+!1
+	PixelGetColor, color, 500, 400, RGB ; Surface Pro 8
+	
+	if (color = 0xF3F3F3) { ; Light gray of header row on Recurring sheet.
+		Send ^+!1
+	}
 return
 
 ; Show info about all monitors.
