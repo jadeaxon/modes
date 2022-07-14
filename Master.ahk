@@ -2133,6 +2133,41 @@ return
 return
 
 
+; Pressing "a" when hovering over a reminder marks it as completed.
+$a::
+	EnvGet, host, COMPUTERNAME
+    MouseGetPos, x, y
+	if (host = "L16382") { ; Surface Pro 8
+		if (y > 1500) {
+			; We're in the region you'd be typing.
+			Send a
+		}
+		else { ; Might be hovering over a reminder.
+			; When hovering over a reminder, the row it is on highlights light gray.
+			PixelGetColor, color, 1500, y
+			if (color = 0x292522) {
+				Click
+				Sleep 30
+				Send +{Tab}
+				Sleep 30
+				Click
+				Sleep 30
+				Send +{Tab}
+				Sleep 30
+				Send +{Tab}
+				Sleep 30
+				Send {Enter}
+			}
+			else {
+				Send a
+			}
+		}	
+	}
+	else { ; Not Surface Pro 8.
+		Send a
+	}
+return
+
 
 ; Pressing o when hovering over a reminder snoozes it for 1 hour.
 $o::
