@@ -2172,29 +2172,56 @@ return
 ; Pressing o when hovering over a reminder snoozes it for 1 hour.
 $o::
 	EnvGet, host, COMPUTERNAME
-    MouseGetPos, x, y
+	activeMonitor := activeMonitorName()
+	CoordMode, Mouse, Window
+	keystroke = o
+	delay = 30
+	maxY = 9999
+	backgroundX = 9999
+	MouseGetPos, x, y
+	
+	; MsgBox,,, %host% %activeMonitor% %x% %y%
+
 	if (host = "L16382") { ; Surface Pro 8
-		if (y > 1500) {
+		if (activeMonitor = "Dell") {	
+			; maxY = 1500
+			; backgroundX = 1500
+			maxY = 1270
+			backgroundX = 770
+		}
+		else if (activeMonitor = "Surface Pro 8") {
+			; maxY = 1900
+			; backgroundX = 1200
+			; Only if multiple monitors.
+			maxY = 815
+			backgroundX = 750
+		}
+		else if (activeMonitor = "LG UltraFine") {
+			maxY = 1270
+			backgroundX = 770
+		}
+
+		if (y > maxY) {
 			; We're in the region you'd be typing.
-			Send o
+			Send %keystroke%
 		}
 		else { ; Might be hovering over a reminder.
 			; When hovering over a reminder, the row it is on highlights light gray.
-			PixelGetColor, color, 1500, y
-			if (color = 0x292522) {
+			PixelGetColor, color, backgroundX, y, RGB
+			if ((color = 0x222529) or (color = 0x1A1D21)) {
 				Click
-				Sleep 50
-				Send {Down}{Down}
-				Sleep 50
+				Sleep %delay%
+				Send {Down 2}
+				Sleep %delay%
 				Send {Enter}
 			}
 			else {
-				Send o
+				Send %keystroke%
 			}
-		}	
+		}
 	}
 	else { ; Not Surface Pro 8.
-		Send o
+		Send %keystroke%
 	}
 return
 
@@ -2204,32 +2231,49 @@ return
 ; In Programmer Dvorak, aoeu are home position keys for right hand.
 $e::
 	EnvGet, host, COMPUTERNAME
-    MouseGetPos, x, y
+	activeMonitor := activeMonitor()
+	keystroke = e
+	delay = 30
+	maxY = 9999
+	backgroundX = 9999
+	MouseGetPos, x, y
 	if (host = "L16382") { ; Surface Pro 8
-		if (y > 1500) {
+		if (activeMonitor = 1) {	
+			maxY = 1500
+			backgroundX = 1500
+		}
+		else if (activeMonitor = 2) {
+			maxY = 1900
+			backgroundX = 1200
+		}
+		else if (activeMonitor = 3) {
+			maxY = 1270
+			backgroundX = 770
+		}
+		
+		if (y > maxY) {
 			; We're in the region you'd be typing.
-			Send e
+			Send %keystroke%
 		}
 		else { ; Might be hovering over a reminder.
 			; When hovering over a reminder, the row it is on highlights light gray.
-			PixelGetColor, color, 1500, y
-			if (color = 0x292522) {
+			PixelGetColor, color, backgroundX, y, RGB
+			if (color = 0x222529) {
 				Click
-				Sleep 50
-				Send {Down}{Down}{Down}
-				Sleep 50
+				Sleep %delay%
+				Send {Down 3}
+				Sleep %delay%
 				Send {Enter}
 			}
 			else {
-				Send e
+				Send %keystroke%
 			}
-		}	
+		}
 	}
 	else { ; Not Surface Pro 8.
-		Send e
+		Send %keystroke%
 	}
 return
-
 
 
 ; Pressing u when hovering over a reminder snoozes it until tomorrow.

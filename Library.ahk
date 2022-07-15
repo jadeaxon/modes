@@ -664,6 +664,24 @@ zeroBrightness() {
 } ; zeroBrightness()
 
 
+activeMonitorResolution(ByRef width, ByRef height) {
+	CoordMode, Mouse, Screen
+	MouseGetPos, mouseX , mouseY
+	SysGet, monCount, MonitorCount
+	Loop %monCount%
+    { 	
+		SysGet, curMon, Monitor, %A_Index%
+        if (mouseX >= curMonLeft and mouseX <= curMonRight and mouseY >= curMonTop and mouseY <= curMonBottom) {
+			; X      := curMonTop
+			; y      := curMonLeft
+			height := curMonBottom - curMonTop
+			width  := curMonRight  - curMonLeft
+			return
+		}
+    } ; next monitor
+} ; activeMonitorResolution()
+
+
 ; Returns the number of the active monitor.
 ; This is the number assigned in Windows' display setup.
 activeMonitor() {
@@ -671,6 +689,8 @@ activeMonitor() {
 	CoordMode, Mouse, Screen ; use Screen, so we can compare the coords with the SysGet info.
 	MouseGetPos, mx, my
 
+	; This doesn't match up with the number Windows assigns each monitor.
+	; Maybe it would work if the monitors were all in a single row.
 	SysGet, monitorCount, 80 ; Get total number of monitors.
 	Loop, %monitorCount%
 	{
@@ -680,9 +700,30 @@ activeMonitor() {
 			monitor := A_Index
 			break
 		}
-	}
+	} ; next monitor
 	return monitor
 
 } ; activeMonitor()
+
+
+activeMonitorName() {
+	m := activeMonitor()
+	; MsgBox,,, m %m%	
+	monitorName := "Unknown"
+	SysGet, monA, Monitor, %m%
+	; MsgBox, Left: %monALeft% -- Top: %monATop% -- Right: %monARight% -- Bottom %monABottom%
+
+	if ((monALeft = -3840) and (monATop = -713) and (monARight = -1280) and (monABottom = 727)) {
+		monitorName := "LG UltraFine"
+	}
+	else if ((monALeft = 0) and (monATop = 0) and (monARight = 2560) and (monABottom = 1440)) {
+		monitorName := "Dell"
+	}
+	else if ((monALeft = -333) and (monATop = 1447) and (monARight = 1107) and (monABottom = 2407)) {
+		monitorName := "Surface Pro 8"
+	}
+
+	return monitorName
+}
 
 
