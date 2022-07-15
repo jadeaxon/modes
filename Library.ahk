@@ -734,7 +734,12 @@ activeMonitorName() {
 ; Slack
 ;===============================================================================
 
-handleSlackReminderHotkey(keystroke, menuPosition) {
+handleSlackReminderHotkey(keystroke, menuPositionArg, action) {
+	global delay
+	global menuPosition
+
+	menuPosition := menuPositionArg
+
 	EnvGet, host, COMPUTERNAME
 	activeMonitor := activeMonitorName()
 	CoordMode, Mouse, Window
@@ -783,11 +788,8 @@ handleSlackReminderHotkey(keystroke, menuPosition) {
 		; When hovering over a reminder, the row it is on highlights light gray.
 		PixelGetColor, color, backgroundX, y, RGB
 		if ((color = 0x222529) or (color = 0x1A1D21) or (color = 0xF8F8F8)) {
-			Click
-			Sleep %delay%
-			Send {Down %menuPosition%}
-			Sleep %delay%
-			Send {Enter}
+			; This should be either deferSlackReminder() or completeSlackReminder().
+			%action%()	
 		}
 		else {
 			Send %keystroke%
@@ -796,4 +798,28 @@ handleSlackReminderHotkey(keystroke, menuPosition) {
 } ; handleSlackReminderHotkey()
 
 
+deferSlackReminder() {
+	global delay
+	global menuPosition
+	Click
+	Sleep %delay%
+	Send {Down %menuPosition%}
+	Sleep %delay%
+	Send {Enter}
+}
 
+
+completeSlackReminder() {
+	global delay
+	Click
+	Sleep %delay%
+	Send +{Tab}
+	Sleep %delay%
+	Click
+	Sleep %delay%
+	Send +{Tab}
+	Sleep %delay%
+	Send +{Tab}
+	Sleep %delay%
+	Send {Enter}
+}

@@ -94,6 +94,12 @@ searchDialog := 0
 ; The color of a pixel.  In BGR hex format.
 color := 0
 
+; Delay between keystrokes.
+delay := 30
+
+; Context menu position for Slack reminders.
+menuPosition := 0
+
 
 ;===============================================================================
 ; Includes
@@ -2132,79 +2138,14 @@ return
 	Send {Enter}
 return
 
-
-; Pressing "a" when hovering over a reminder marks it as completed.
 $a::
-	EnvGet, host, COMPUTERNAME
-	activeMonitor := activeMonitorName()
-	CoordMode, Mouse, Window
-	keystroke = a
-	delay = 30
-	maxY = 9999
-	backgroundX = 9999
-	MouseGetPos, x, y
-	SysGet, monitors, MonitorCount
-	
-	; MsgBox,,, %host% %activeMonitor% %x% %y%
-
-	if (host = "L16382") { ; Surface Pro 8
-		if (activeMonitor = "Dell") {	
-			maxY = 1270
-			backgroundX = 770
-		}
-		else if (activeMonitor = "Surface Pro 8") {
-			if (monitors = 1) {
-				maxY = 1500
-				backgroundX = 1500
-			}
-			else {
-				maxY = 815
-				backgroundX = 750
-			}
-		}
-		else if (activeMonitor = "LG UltraFine") {
-			maxY = 1270
-			backgroundX = 770
-		}
-	}
-	else if (host = "Inspiron-VM") {
-		maxY = 890
-		backgroundX = 750
-	}
-	else { ; Not Surface Pro 8.
-		Send %keystroke%
-	}
-
-	if (y > maxY) {
-		; We're in the region you'd be typing.
-		Send %keystroke%
-	}
-	else { ; Might be hovering over a reminder.
-		; When hovering over a reminder, the row it is on highlights light gray.
-		PixelGetColor, color, backgroundX, y, RGB
-		if ((color = 0x222529) or (color = 0x1A1D21) or (color = 0xF8F8F8)) {
-			Click
-			Sleep %delay%
-			Send +{Tab}
-			Sleep %delay%
-			Click
-			Sleep %delay%
-			Send +{Tab}
-			Sleep %delay%
-			Send +{Tab}
-			Sleep %delay%
-			Send {Enter}
-		}
-		else {
-			Send %keystroke%
-		}
-	}
+	handleSlackReminderHotkey("a", 0, "completeSlackReminder")
 return
 
 
 ; Pressing o when hovering over a reminder snoozes it for 1 hour.
 $o::
-	handleSlackReminderHotkey("o", 2)
+	handleSlackReminderHotkey("o", 2, "deferSlackReminder")
 return
 
 
@@ -2212,7 +2153,7 @@ return
 ; Using e so that left hand can type all the action keystrokes while right hand moves mouse.
 ; In Programmer Dvorak, aoeu are home position keys for right hand.
 $e::
-	handleSlackReminderHotkey("e", 3)
+	handleSlackReminderHotkey("e", 3, "deferSlackReminder")
 return
 
 
@@ -2220,7 +2161,7 @@ return
 ; Using u so that left hand can type all the action keystrokes while right hand moves mouse.
 ; In Programmer Dvorak, aoeu are home position keys for right hand.
 $u::
-	handleSlackReminderHotkey("u", 4)
+	handleSlackReminderHotkey("u", 4, "deferSlackReminder")
 return
 
 
