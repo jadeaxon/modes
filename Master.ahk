@@ -2143,6 +2143,7 @@ $a::
 	maxY = 9999
 	backgroundX = 9999
 	MouseGetPos, x, y
+	SysGet, monitors, MonitorCount
 	
 	; MsgBox,,, %host% %activeMonitor% %x% %y%
 
@@ -2150,17 +2151,18 @@ $a::
 
 	if (host = "L16382") { ; Surface Pro 8
 		if (activeMonitor = "Dell") {	
-			; maxY = 1500
-			; backgroundX = 1500
 			maxY = 1270
 			backgroundX = 770
 		}
 		else if (activeMonitor = "Surface Pro 8") {
-			; maxY = 1900
-			; backgroundX = 1200
-			; Only if multiple monitors.
-			maxY = 815
-			backgroundX = 750
+			if (monitors = 1) {
+				maxY = 1500
+				backgroundX = 1500
+			}
+			else {
+				maxY = 815
+				backgroundX = 750
+			}
 		}
 		else if (activeMonitor = "LG UltraFine") {
 			maxY = 1270
@@ -2208,8 +2210,9 @@ $o::
 	maxY = 9999
 	backgroundX = 9999
 	MouseGetPos, x, y
+	SysGet, monitors, MonitorCount
 	
-	; MsgBox,,, %host% %activeMonitor% %x% %y%
+	; MsgBox,,, %host% monitor: %activeMonitor% monitors: %monitors% mouse: (%x%, %y%)
 
 	if (host = "L16382") { ; Surface Pro 8
 		if (activeMonitor = "Dell") {	
@@ -2219,11 +2222,14 @@ $o::
 			backgroundX = 770
 		}
 		else if (activeMonitor = "Surface Pro 8") {
-			; maxY = 1900
-			; backgroundX = 1200
-			; Only if multiple monitors.
-			maxY = 815
-			backgroundX = 750
+			if (monitors = 1) {
+				maxY = 1500
+				backgroundX = 1500
+			}
+			else {
+				maxY = 815
+				backgroundX = 750
+			}
 		}
 		else if (activeMonitor = "LG UltraFine") {
 			maxY = 1270
@@ -2267,7 +2273,8 @@ $e::
 	maxY = 9999
 	backgroundX = 9999
 	MouseGetPos, x, y
-	
+	SysGet, monitors, MonitorCount
+
 	; MsgBox,,, %host% %activeMonitor% %x% %y%
 
 	if (host = "L16382") { ; Surface Pro 8
@@ -2278,11 +2285,14 @@ $e::
 			backgroundX = 770
 		}
 		else if (activeMonitor = "Surface Pro 8") {
-			; maxY = 1900
-			; backgroundX = 1200
-			; Only if multiple monitors.
-			maxY = 815
-			backgroundX = 750
+			if (monitors = 1) {
+				maxY = 1500
+				backgroundX = 1500
+			}
+			else {
+				maxY = 815
+				backgroundX = 750
+			}
 		}
 		else if (activeMonitor = "LG UltraFine") {
 			maxY = 1270
@@ -2326,22 +2336,24 @@ $u::
 	maxY = 9999
 	backgroundX = 9999
 	MouseGetPos, x, y
+	SysGet, monitors, MonitorCount
 	
 	; MsgBox,,, %host% %activeMonitor% %x% %y%
 
 	if (host = "L16382") { ; Surface Pro 8
 		if (activeMonitor = "Dell") {	
-			; maxY = 1500
-			; backgroundX = 1500
 			maxY = 1270
 			backgroundX = 770
 		}
 		else if (activeMonitor = "Surface Pro 8") {
-			; maxY = 1900
-			; backgroundX = 1200
-			; Only if multiple monitors.
-			maxY = 815
-			backgroundX = 750
+			if (monitors = 1) {
+				maxY = 1500
+				backgroundX = 1500
+			}
+			else {
+				maxY = 815
+				backgroundX = 750
+			}
 		}
 		else if (activeMonitor = "LG UltraFine") {
 			maxY = 1270

@@ -722,6 +722,10 @@ activeMonitorName() {
 	else if ((monALeft = -333) and (monATop = 1447) and (monARight = 1107) and (monABottom = 2407)) {
 		monitorName := "Surface Pro 8"
 	}
+	else if ((monALeft = 0) and (monATop = 0) and (monARight = 2880) and (monABottom = 1920)) {
+		; These are the dimensions when running with no other monitors.
+		monitorName := "Surface Pro 8"
+	}
 
 	return monitorName
 }
