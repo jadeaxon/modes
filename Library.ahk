@@ -730,4 +730,70 @@ activeMonitorName() {
 	return monitorName
 }
 
+;===============================================================================
+; Slack
+;===============================================================================
+
+handleSlackReminderHotkey(keystroke, menuPosition) {
+	EnvGet, host, COMPUTERNAME
+	activeMonitor := activeMonitorName()
+	CoordMode, Mouse, Window
+	delay = 30
+	maxY = 9999
+	backgroundX = 9999
+	MouseGetPos, x, y
+	SysGet, monitors, MonitorCount
+
+	; MsgBox,,, %host% monitor: %activeMonitor% monitors: %monitors% mouse: (%x%, %y%)
+	; return
+
+	if (host = "L16382") { ; Surface Pro 8
+		if (activeMonitor = "Dell") {	
+			maxY = 1270
+			backgroundX = 770
+		}
+		else if (activeMonitor = "Surface Pro 8") {
+			if (monitors = 1) {
+				maxY = 1500
+				backgroundX = 1500
+			}
+			else {
+				maxY = 815
+				backgroundX = 750
+			}
+		}
+		else if (activeMonitor = "LG UltraFine") {
+			maxY = 1270
+			backgroundX = 770
+		}
+	}
+	else if (host = "Inspiron-VM") {
+		maxY = 890
+		backgroundX = 750
+	}
+	else { ; Not Surface Pro 8.
+		Send %keystroke%
+	}
+
+	if (y > maxY) {
+		; We're in the region you'd be typing.
+		Send %keystroke%
+	}
+	else { ; Might be hovering over a reminder.
+		; When hovering over a reminder, the row it is on highlights light gray.
+		PixelGetColor, color, backgroundX, y, RGB
+		if ((color = 0x222529) or (color = 0x1A1D21) or (color = 0xF8F8F8)) {
+			Click
+			Sleep %delay%
+			Send {Down %menuPosition%}
+			Sleep %delay%
+			Send {Enter}
+		}
+		else {
+			Send %keystroke%
+		}
+	}
+} ; handleSlackReminderHotkey()
+
+
 
