@@ -1097,10 +1097,14 @@ $^d::
 	CoordMode, Mouse, Window
 
 	color := 0
+	tabColor := 0
 	EnvGet, host, COMPUTERNAME
 	if (host = "L16382") { ; Surface Pro 8
 		if (activeMonitor = 1) { ; The laptop's screen.
 			PixelGetColor, color, 2759, 446
+			; This position is on the bottom Kanban sheet tab.
+			; When a sheet is selected, the pixels other than the sheet name are white.
+			PixelGetColor, tabColor, 260, 1800
 		}
 		else if (activeMonitor = 2) { ; LG UltraFine
 			PixelGetColor, color, 1387, 224
@@ -1118,7 +1122,7 @@ $^d::
 	; MsgBox,,, %host% %activeMonitor% %color%
 
 	; The shade of red reported seems to depend on the monitor.
-	if ((color = 0xCDCDF2) or (color = 0xCCCCF4)) {
+	if ((color = 0xCDCDF2) or (color = 0xCCCCF4) or (tabColor = 0xFFFFFF)) {
 		MouseGetPos, mx, my
 		PixelGetColor, color, mx, my, RGB
 		PixelGetColor, color2, mx, 350, RGB ; Detect if a cell in the Done column is selected.	
