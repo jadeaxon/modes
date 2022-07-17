@@ -1093,24 +1093,34 @@ return
 ; Use with recurring tasks sheet.  When in the first cell of the task.
 ; <C d> marks as done (unbolds and sets last done as current date).
 $^d::
-	activeMonitor := activeMonitor()
+	activeMonitor := activeMonitorName()
 	CoordMode, Mouse, Window
+	SysGet, monitors, MonitorCount
 
 	color := 0
 	tabColor := 0
 	EnvGet, host, COMPUTERNAME
 	if (host = "L16382") { ; Surface Pro 8
-		if (activeMonitor = 1) { ; The laptop's screen.
+		if (activeMonitor = "Surface Pro 8") { ; The laptop's screen.
+			; This is for running Surface without external monitors.
 			PixelGetColor, color, 2759, 446
+
 			; This position is on the bottom Kanban sheet tab.
 			; When a sheet is selected, the pixels other than the sheet name are white.
-			PixelGetColor, tabColor, 260, 1800
+			if (monitors = 1) {
+				PixelGetColor, tabColor, 260, 1800
+			}
+			else { ; Multiple monitors.
+				PixelGetColor, tabColor, 130, 940
+			}
 		}
-		else if (activeMonitor = 2) { ; LG UltraFine
+		else if (activeMonitor = "LG UltraFine") { ; LG UltraFine
 			PixelGetColor, color, 1387, 224
+			PixelGetColor, tabColor, 130, 1420
 		}
-		else if (activeMonitor = 3) { ; Dell
+		else if (activeMonitor = "Dell") {
 			PixelGetColor, color, 1386, 223
+			PixelGetColor, tabColor, 130, 1380
 		}
 		else { ; Unknown monitor.
 			color := 0
@@ -1119,7 +1129,9 @@ $^d::
 	else if (host = "Inspiron-VM") {
 		PixelGetColor, color, 1382, 225
 	}
+	
 	; MsgBox,,, %host% %activeMonitor% %color%
+	; return
 
 	; The shade of red reported seems to depend on the monitor.
 	if ((color = 0xCDCDF2) or (color = 0xCCCCF4) or (tabColor = 0xFFFFFF)) {
