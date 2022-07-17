@@ -1186,16 +1186,56 @@ return
 ; I recorded a macro in Google Sheets that does this when you press <C-A-S 1>.
 ; This just makes <C s> trigger it instead.
 $^s::
-	PixelGetColor, color, 500, 400, RGB ; Surface Pro 8
+	activeMonitor := activeMonitorName()
+	CoordMode, Mouse, Window
+	CoordMode, Pixel, Window
+	SysGet, monitors, MonitorCount
+
+	; TO DO: Factor this into a function that returns name of active Google Sheet.
+	color := 0
+	tabColor := 0
+	EnvGet, host, COMPUTERNAME
+	if (host = "L16382") { ; Surface Pro 8
+		if (activeMonitor = "Surface Pro 8") { ; The laptop's screen.
+			; This position is on the bottom Kanban sheet tab.
+			; When a sheet is selected, the pixels other than the sheet name are white.
+			if (monitors = 1) {
+				PixelGetColor, color, 500, 400, RGB ; Surface Pro 8
+			}
+			else { ; Multiple monitors.
+				PixelGetColor, tabColor, 230, 940
+			}
+		}
+		else if (activeMonitor = "LG UltraFine") { ; LG UltraFine
+			PixelGetColor, tabColor, 225, 1420
+			if (tabColor != 0xFFFFFF) {
+				; Some of the pixels aren't pure white.
+				PixelGetColor, tabColor, 226, 1422
+			}
+		}
+		else if (activeMonitor = "Dell") {
+			PixelGetColor, tabColor, 240, 1380
+		}
+		else { ; Unknown monitor.
+			color := 0
+		}
+	}
+	else if (host = "Inspiron-VM") {
+		color := 0 ; TO DO
+	}
 	
-	if (color = 0xF3F3F3) { ; Light gray of header row on Recurring sheet.
+	; MsgBox,,, %activeMonitor% %color% %tabColor%
+	; return
+
+	if ((color = 0xF3F3F3) or (tabColor = 0xFFFFFF)) { ; Light gray of header row on Recurring sheet.
+		; Run the app script to sort sheet by Score column.
 		Send ^+!1
 	}
 return
 
 ; Show info about all monitors.
 $^m::
-	activeMonitor := activeMonitor()
+	activeMonitor := activeMonitorName()
 	MsgBox,,, %activeMonitor%
 return
 
