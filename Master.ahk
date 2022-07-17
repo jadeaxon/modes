@@ -1134,6 +1134,11 @@ $^d::
 		headerY := 180
 		; headerColor := 0xE8EAED
 	}
+	else if (host = "D309552A") { ; Lenovo ThinkCentre 910s
+		PixelGetColor, color, 1380, 230, RGB
+		PixelGetColor, tabColor, 130, 1140, RGB
+		headerY := 180
+	}
 	
 	; MsgBox,,, %host% %activeMonitor% %color% %tabColor%
 	; return
