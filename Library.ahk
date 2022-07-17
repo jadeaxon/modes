@@ -710,25 +710,32 @@ activeMonitorName() {
 	m := activeMonitor()
 	; MsgBox,,, m %m%	
 	monitorName := "Unknown"
+	EnvGet, host, COMPUTERNAME
 	SysGet, monA, Monitor, %m%
 	; MsgBox, Left: %monALeft% -- Top: %monATop% -- Right: %monARight% -- Bottom %monABottom%
-
-	if ((monALeft = -3840) and (monATop = -713) and (monARight = -1280) and (monABottom = 727)) {
-		monitorName := "LG UltraFine"
+	
+	if (host = "L16382") { ; Surface Pro 8
+		if ((monALeft = -3840) and (monATop = -713) and (monARight = -1280) and (monABottom = 727)) {
+			monitorName := "LG UltraFine"
+		}
+		else if ((monALeft = 0) and (monATop = 0) and (monARight = 2560) and (monABottom = 1440)) {
+			monitorName := "Dell"
+		}
+		else if ((monALeft = -333) and (monATop = 1447) and (monARight = 1107) and (monABottom = 2407)) {
+			monitorName := "Surface Pro 8"
+		}
+		else if ((monALeft = 0) and (monATop = 0) and (monARight = 2880) and (monABottom = 1920)) {
+			; These are the dimensions when running with no other monitors.
+			monitorName := "Surface Pro 8"
+		}
 	}
-	else if ((monALeft = 0) and (monATop = 0) and (monARight = 2560) and (monABottom = 1440)) {
-		monitorName := "Dell"
-	}
-	else if ((monALeft = -333) and (monATop = 1447) and (monARight = 1107) and (monABottom = 2407)) {
-		monitorName := "Surface Pro 8"
-	}
-	else if ((monALeft = 0) and (monATop = 0) and (monARight = 2880) and (monABottom = 1920)) {
-		; These are the dimensions when running with no other monitors.
-		monitorName := "Surface Pro 8"
+	else if (host = "Inspiron-VM") {
+		monitorName := "Inspiron"
 	}
 
 	return monitorName
-}
+} ; activeMonitorName()
+
 
 ;===============================================================================
 ; Slack
