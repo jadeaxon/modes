@@ -1095,11 +1095,13 @@ return
 $^d::
 	activeMonitor := activeMonitorName()
 	CoordMode, Mouse, Window
+	CoordMode, Pixel, Window
+	EnvGet, host, COMPUTERNAME
 	SysGet, monitors, MonitorCount
-
 	color := 0
 	tabColor := 0
-	EnvGet, host, COMPUTERNAME
+	headerY := 350
+
 	if (host = "L16382") { ; Surface Pro 8
 		if (activeMonitor = "Surface Pro 8") { ; The laptop's screen.
 			; This is for running Surface without external monitors.
@@ -1127,35 +1129,43 @@ $^d::
 		}
 	}
 	else if (host = "Inspiron-VM") {
-		PixelGetColor, color, 1382, 225
+		PixelGetColor, color, 1180, 230, RGB
+		PixelGetColor, tabColor, 130, 1030, RGB
+		headerY := 180
+		; headerColor := 0xE8EAED
 	}
 	
-	; MsgBox,,, %host% %activeMonitor% %color%
+	; MsgBox,,, %host% %activeMonitor% %color% %tabColor%
 	; return
 
 	; The shade of red reported seems to depend on the monitor.
 	if ((color = 0xCDCDF2) or (color = 0xCCCCF4) or (tabColor = 0xFFFFFF)) {
 		MouseGetPos, mx, my
 		PixelGetColor, color, mx, my, RGB
-		PixelGetColor, color2, mx, 350, RGB ; Detect if a cell in the Done column is selected.	
+		PixelGetColor, color2, mx, headerY, RGB ; Detect if a cell in the Done column is selected.	
 		; MsgBox,,, %mx%, %my%, %color%
 
-		if ((color = 0xDAEAD4) and (color2 = 0xE8EAED)) {
+		if ( ((color = 0xDAEAD4) or (color = 0xD9EAD3)) and (color2 = 0xE8EAED) ) {
 			; We're hovering in the (green) Done column.
 			; Assume over the top non-header cell.
+			SetKeyDelay, 40, 20
 			Send, {LShift Down}
-			Sleep 20
 			Send, {Down 6}
 			Send, {LShift Up}
-			Sleep 20
 			Send ^c
-			Sleep 20
+			ClipWait	
 			Send {Backspace}
-			
+			Send {Delete} ; First one doesn't always do it.
+			Sleep 200
+			SetKeyDelay, 10, -1 ; default
+
 			; Copy completed tasks to progress text file using Vim.
 			file = C:\Users\%A_UserName%\Dropbox\Organization\Progress\Home\Progress (Home).txt
 			Run %file%
 			Sleep 200
+			SetTitleMatchMode, 2
+			WinActivate, GVIM
+			WinWaitActive, GVIM
 			Send gg
 			; This is a bit weird because when you hit /, Vim advances a character, so it does not
 			; find the first date line in the file.
@@ -1164,6 +1174,8 @@ $^d::
 			Send o
 			Send ^v
 			Send {Enter}
+			Send {Esc}
+			Send ^s ; My Vim saves the file when this is pressed.
 		}
 		else { ; Marking a single task done.
 			; Mark as done in Kanban sheet using Move to Done macro.
