@@ -1220,7 +1220,7 @@ $^s::
 		}
 	}
 	else if (host = "Inspiron-VM") {
-		color := 0 ; TO DO
+		PixelGetColor, tabColor, 230, 1032, RGB
 	}
 	
 	; MsgBox,,, %activeMonitor% %color% %tabColor%
