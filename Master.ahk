@@ -1192,7 +1192,6 @@ $^s::
 	SysGet, monitors, MonitorCount
 
 	; TO DO: Factor this into a function that returns name of active Google Sheet.
-	color := 0
 	tabColor := 0
 	EnvGet, host, COMPUTERNAME
 	if (host = "L16382") { ; Surface Pro 8
@@ -1200,21 +1199,21 @@ $^s::
 			; This position is on the bottom Kanban sheet tab.
 			; When a sheet is selected, the pixels other than the sheet name are white.
 			if (monitors = 1) {
-				PixelGetColor, color, 500, 400, RGB ; Surface Pro 8
+				PixelGetColor, tabColor, 460, 1800, RGB
 			}
 			else { ; Multiple monitors.
-				PixelGetColor, tabColor, 230, 940
+				PixelGetColor, tabColor, 230, 940, RGB
 			}
 		}
 		else if (activeMonitor = "LG UltraFine") { ; LG UltraFine
-			PixelGetColor, tabColor, 225, 1420
+			PixelGetColor, tabColor, 225, 1420, RGB
 			if (tabColor != 0xFFFFFF) {
 				; Some of the pixels aren't pure white.
-				PixelGetColor, tabColor, 226, 1422
+				PixelGetColor, tabColor, 226, 1422, RGB
 			}
 		}
 		else if (activeMonitor = "Dell") {
-			PixelGetColor, tabColor, 240, 1380
+			PixelGetColor, tabColor, 240, 1380, RGB
 		}
 		else { ; Unknown monitor.
 			color := 0
@@ -1227,7 +1226,7 @@ $^s::
 	; MsgBox,,, %activeMonitor% %color% %tabColor%
 	; return
 
-	if ((color = 0xF3F3F3) or (tabColor = 0xFFFFFF)) { ; Light gray of header row on Recurring sheet.
+	if (tabColor = 0xFFFFFF) { ; Light gray of header row on Recurring sheet.
 		; Run the app script to sort sheet by Score column.
 		Send ^+!1
 	}
