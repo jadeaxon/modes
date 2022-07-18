@@ -3319,8 +3319,13 @@ return  ; This makes the above hotstrings do nothing so that they override the i
 ::odouriferous::odoriferous
 ::odourous::odorous
 ::ouevre::oeuvre
+
+#IfWinNotActive Launchy
+; Otherwise it triggers when trying to go to Food Log.txt.
 ::fo::of
 :C:fo::of
+#IfWinNotActive
+
 ; Yeah, well there is this Unix command called od.
 ; :C:od::of
 ::ofits::of its
