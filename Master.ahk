@@ -966,10 +966,11 @@ return
 $f::
 	; MsgBox,,, Here
 	Send {LAlt down}
-	Sleep 100
+	Sleep 200
 	Send {LAlt up}
-	Send t
 	Sleep 100
+	Send t
+	Sleep 200
 	Send R
 return
 #IfWinActive
