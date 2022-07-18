@@ -935,6 +935,10 @@ return
 ;-------------------------------------------------------------------------------
 ; Thunderbird
 
+/*
+Thunderbird
+*/
+
 ; Make r mark folder read for any folder.
 ; Note that email composition windows only contain "Thunderbird" in their title, not "Mozilla Thunderbird".
 ; If you press this over a message instead of a folder, it just brings up the Mark context menu.
@@ -953,6 +957,20 @@ return
 #IfWinActive Junk - Mozilla Thunderbird
 $d::
 	Send {delete}
+return
+#IfWinActive
+
+
+#IfWinActive Junk - Mozilla Thunderbird
+; Run all the filters on the Junk folder.
+$f::
+	; MsgBox,,, Here
+	Send {LAlt down}
+	Sleep 100
+	Send {LAlt up}
+	Send t
+	Sleep 100
+	Send R
 return
 #IfWinActive
 
