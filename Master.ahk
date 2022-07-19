@@ -987,10 +987,8 @@ return
 $d::
 	Send {delete}
 return
-#IfWinActive
 
 
-#IfWinActive Junk - Mozilla Thunderbird
 ; Run all the filters on the Junk folder.
 $f::
 	; MsgBox,,, Here
@@ -1002,6 +1000,46 @@ $f::
 	Sleep 200
 	Send R
 return
+
+
+; Add a new junk mail filter for this message.
+$j::
+	; Open message in new tab.
+	Click
+	Click
+	; Copy email address.
+	CoordMode, Mouse, Window
+	MouseMove, 125, 165
+	Sleep 200
+	Click
+	Sleep 100
+	Send C
+	Sleep 100
+	ClipWait	
+	Send ^w
+	; Open mail filters.
+	Send {LAlt down}
+	Sleep 200
+	Send {LAlt up}
+	Send t
+	Sleep 100
+	Send F
+	Sleep 100
+	; Add email address to Junk #1 filter.
+	; Relies on it being the 3rd filter.
+	SetKeyDelay, 50, 25
+	Send {Down 2}
+	Send !e
+	Send {Tab 12}
+	Send {Enter}
+	Send +{Tab}+{Tab}+{Tab}
+	Send ^v
+	Send {Enter}
+	Send {Esc}
+	SetKeyDelay, 10, -1 ; default
+return
+
+
 #IfWinActive
 
 ; Make d act like delete key.
