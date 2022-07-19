@@ -1090,6 +1090,7 @@ return
 :*c:Tc::Cleaning [rDM1]{enter}
 :*c:T7::GTD7 [rK1]{enter}
 :*c:Tk::kbs 100 [rH1]^{enter}0{enter}
+:*c:Tbh::Bar hang [H1]^{enter}
 
 
 ; Never paste formatting.  Otherwise column background colors get screwed up.
