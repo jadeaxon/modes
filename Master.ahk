@@ -482,6 +482,35 @@ return
 #IfWinActive
 SetTitleMatchMode 1
 
+
+SetTitleMatchMode 2 ; Match window title internally.
+#IfWinActive YouTube ahk_class MozillaWindowClass
+; Allows me to use left hand to move through YouTube videos.
+$a::
+	CoordMode, Mouse, Window
+	MouseGetPos, x, y
+	if (y > 350) {
+		Send {Left}
+	}
+	else {
+		Send a
+	}
+return
+
+$'::
+	CoordMode, Mouse, Window
+	MouseGetPos, x, y
+	if (y > 350) {
+		Send {Right}
+	}
+	else {
+		Send {' down}{' up}
+	}
+return
+#IfWinActive
+SetTitleMatchMode 1
+
+
 ; Alternate scrolling keys so you're not always using your right hand.
 ; Only enabled when OPT_LEFT_SCROLL = 1.
 #If (OPT_LEFT_SCROLL = 1)
