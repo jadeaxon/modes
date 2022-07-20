@@ -1004,12 +1004,18 @@ return
 
 ; Add a new junk mail filter for this message.
 $j::
+	EnvGet, host, COMPUTERNAME
 	; Open message in new tab.
 	Click
 	Click
 	; Copy email address.
 	CoordMode, Mouse, Window
-	MouseMove, 125, 165
+	if (host = "L16382") { ; Surface Pro 8
+		MouseMove, 125, 165
+	}
+	else if (host = "Inspiron-VM") {
+		MouseMove, 70, 85
+	}
 	Sleep 200
 	Click
 	Sleep 100
