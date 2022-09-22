@@ -343,6 +343,9 @@ return
 
 return
 
+; Hotstrings for PL/SQL.
+:*:ps.o::dbms_output.put_line();{left}{left}
+
 
 ;===============================================================================
 ; Hotkeys
