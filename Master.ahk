@@ -110,6 +110,7 @@ Run %A_ScriptDir%\AutoCorrect.ahk
 #Include %A_ScriptDir%\Library.ahk
 ; #Include %A_ScriptDir%\Kindle.ahk
 ; #Include %A_ScriptDir%\JRoutine.ahk
+#Include %A_ScriptDir%\PL-SQL.ahk
 
 
 ;===============================================================================
@@ -342,9 +343,6 @@ return
 	Send, 7: `n
 
 return
-
-; Hotstrings for PL/SQL.
-:*:ps.o::dbms_output.put_line();{left}{left}
 
 
 ;===============================================================================
