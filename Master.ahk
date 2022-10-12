@@ -345,7 +345,9 @@ return
 return
 
 
+; These are used with items moved to Waiting column in kanban.
 :*:@WW::@W: Walmart
+:*:@WA::@W: Amazon
 
 
 ;===============================================================================
