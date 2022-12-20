@@ -732,6 +732,9 @@ activeMonitorName() {
 	else if (host = "Inspiron-VM") {
 		monitorName := "Inspiron"
 	}
+	else if (host = "L17006") {
+		monitorName := "Yoga"
+	}
 
 	return monitorName
 } ; activeMonitorName()
@@ -783,12 +786,18 @@ handleSlackReminderHotkey(keystroke, menuPositionArg, action) {
 		maxY = 890
 		backgroundX = 750
 	}
+	else if (host = "L17006") {
+		maxY = 960
+		backgroundX = 960
+	}
 	else { ; Not Surface Pro 8.
+		MsgBox,,, %host%	
 		Send %keystroke%
 	}
 
 	if (y > maxY) {
 		; We're in the region you'd be typing.
+		MsgBox,,, %y%	
 		Send %keystroke%
 	}
 	else { ; Might be hovering over a reminder.
@@ -799,6 +808,7 @@ handleSlackReminderHotkey(keystroke, menuPositionArg, action) {
 			%action%()	
 		}
 		else {
+			MsgBox,,, %color%	
 			Send %keystroke%
 		}
 	}
@@ -818,15 +828,33 @@ deferSlackReminder() {
 
 completeSlackReminder() {
 	global delay
-	Click
-	Sleep %delay%
-	Send +{Tab}
-	Sleep %delay%
-	Click
-	Sleep %delay%
-	Send +{Tab}
-	Sleep %delay%
-	Send +{Tab}
-	Sleep %delay%
-	Send {Enter}
+	EnvGet, host, COMPUTERNAME
+
+	; Slack on Windows 11 behaves a bit differently.
+	if (host = "L17006") {
+		Click
+		Sleep %delay%
+		Send +{Tab}
+		Sleep %delay%
+		Send {Tab}
+		Sleep %delay%
+		Send {Tab}
+		Sleep %delay%
+		Send {Tab}
+		Sleep %delay%
+		Send {Enter}
+	}
+	else {
+		Click
+		Sleep %delay%
+		Send +{Tab}
+		Sleep %delay%
+		Click
+		Sleep %delay%
+		Send +{Tab}
+		Sleep %delay%
+		Send +{Tab}
+		Sleep %delay%
+		Send {Enter}
+	}
 }
