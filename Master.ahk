@@ -1318,11 +1318,11 @@ $^s::
 	SysGet, monitors, MonitorCount
 
 	; TO DO: Factor this into a function that returns name of active Google Sheet.
-	tabColor := 0
+	tabColor := 0 ; Sheet tab color of recurring sheet.
 	EnvGet, host, COMPUTERNAME
 	if (host = "L16382") { ; Surface Pro 8
 		if (activeMonitor = "Surface Pro 8") { ; The laptop's screen.
-			; This position is on the bottom Kanban sheet tab.
+			; This position is on the bottom Recurring sheet tab.
 			; When a sheet is selected, the pixels other than the sheet name are white.
 			if (monitors = 1) {
 				PixelGetColor, tabColor, 460, 1800, RGB
@@ -1347,6 +1347,9 @@ $^s::
 	}
 	else if (host = "Inspiron-VM") {
 		PixelGetColor, tabColor, 230, 1032, RGB
+	}
+	else if (host = "L17006") { ; Lenovo Thinkpad X1 Yoga
+		PixelGetColor, tabColor, 290, 1110, RGB
 	}
 	
 	; MsgBox,,, %activeMonitor% %color% %tabColor%
