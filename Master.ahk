@@ -1008,6 +1008,7 @@ $f::
 return
 
 
+; TO DO: This hotkey doesn't really work on the Yoga.
 ; Add a new junk mail filter for this message.
 $j::
 	EnvGet, host, COMPUTERNAME
@@ -1021,6 +1022,9 @@ $j::
 	}
 	else if (host = "Inspiron-VM") {
 		MouseMove, 70, 85
+	}
+	else if (host = "L17006") {
+		MouseMove, 140, 105
 	}
 	Sleep 200
 	Click
@@ -1189,6 +1193,7 @@ return
 
 ; #HotkeyModifierTimeout 0
 
+; This can be used in the main kanban tab to move an item into the Done column.
 ; Use with recurring tasks sheet.  When in the first cell of the task.
 ; <C d> marks as done (unbolds and sets last done as current date).
 $^d::
@@ -1197,9 +1202,9 @@ $^d::
 	CoordMode, Pixel, Window
 	EnvGet, host, COMPUTERNAME
 	SysGet, monitors, MonitorCount
-	color := 0
-	tabColor := 0
-	headerY := 350
+	color := 0 ; a sample pixel from the Blocked column
+	tabColor := 0 ; a sample pixel from the first Google Sheets sheet tab
+	headerY := 350 ; to detect if selected cell is in the Done column
 
 	if (host = "L16382") { ; Surface Pro 8
 		if (activeMonitor = "Surface Pro 8") { ; The laptop's screen.
@@ -1238,18 +1243,23 @@ $^d::
 		PixelGetColor, tabColor, 130, 1140, RGB
 		headerY := 180
 	}
+	else if (host = "L17006") { ; Lenovo Thinkpad X1 Yoga
+		PixelGetColor, color, 1590, 140, RGB
+		PixelGetColor, tabColor, 160, 1110, RGB
+		headerY := 240
+	}
 	
 	; MsgBox,,, %host% %activeMonitor% %color% %tabColor%
 	; return
 
 	; The shade of red reported seems to depend on the monitor.
-	if ((color = 0xCDCDF2) or (color = 0xCCCCF4) or (tabColor = 0xFFFFFF)) {
+	if ((color = 0xCDCDF2) or (color = 0xCCCCF4) or (color = 0xF1CCCC) or (tabColor = 0xFFFFFF)) {
 		MouseGetPos, mx, my
 		PixelGetColor, color, mx, my, RGB
 		PixelGetColor, color2, mx, headerY, RGB ; Detect if a cell in the Done column is selected.	
 		; MsgBox,,, %mx%, %my%, %color%
 
-		if ( ((color = 0xDAEAD4) or (color = 0xD9EAD3)) and (color2 = 0xE8EAED) ) {
+		if ( ((color = 0xDAEAD4) or (color = 0xD9EAD3) or (color = 0xDAEAD2)) and (color2 = 0xE8EAED) ) {
 			; We're hovering in the (green) Done column.
 			; Assume over the top non-header cell.
 			SetKeyDelay, 40, 20
