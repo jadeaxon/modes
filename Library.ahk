@@ -791,13 +791,13 @@ handleSlackReminderHotkey(keystroke, menuPositionArg, action) {
 		backgroundX = 960
 	}
 	else { ; Not Surface Pro 8.
-		MsgBox,,, %host%	
+		; MsgBox,,, %host%	
 		Send %keystroke%
 	}
 
 	if (y > maxY) {
 		; We're in the region you'd be typing.
-		MsgBox,,, %y%	
+		; MsgBox,,, %y%	
 		Send %keystroke%
 	}
 	else { ; Might be hovering over a reminder.
@@ -808,7 +808,7 @@ handleSlackReminderHotkey(keystroke, menuPositionArg, action) {
 			%action%()	
 		}
 		else {
-			MsgBox,,, %color%	
+			; MsgBox,,, %color%	
 			Send %keystroke%
 		}
 	}
