@@ -2390,6 +2390,9 @@ $#u::
 	Run %A_ScriptDir%\UVU.ahk
 return
 
+/*
+Disable since Windows 11 uses <W n> for notifications.
+Also, I basically never use my navigation mode.
 ;-------------------------------------------------------------------------------
 ; <Window + n> => Navigation mode.
 $#n::
@@ -2398,6 +2401,7 @@ $#n::
     ; NOTE: The Windows file assosciation for Open on .ahk files must be set to AutoHotKey.exe.
     Run %A_ScriptDir%\Navigation.ahk
 return
+*/
 
 ;-------------------------------------------------------------------------------
 ; <Window + d> => Debug mode.
