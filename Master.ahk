@@ -800,6 +800,17 @@ $e::
 	}
 return
 
+; v => quick action #9 => move to @VisualVault and mark read
+$v::
+	ControlGetFocus, widget, A
+	if (RegExMatch(widget, "^OutlookGrid\d$")) {
+		Send ^+9
+	}
+	else {
+		Send v
+	}
+return
+
 #IfWinActive
 
 ; Makes <C w> close Outlook.
