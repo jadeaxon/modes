@@ -100,6 +100,22 @@ delay := 30
 ; Context menu position for Slack reminders.
 menuPosition := 0
 
+; Automatically move mouse if connected to multiple monitors.
+; They want to sleep to fast and don't always come back properly.
+lastX := 0
+lastY := 0
+while (true) {
+	SysGet, monitorCount, 80 ; Get total number of monitors.
+	if (monitorCount > 1) {
+		MouseGetPos, x, y
+		if ((x = lastX) and (y = lastY)) {
+			MouseMove, % x+5, % y+5
+		}
+		MouseGetPos, lastX, lastY
+		Sleep, 60000 ; 1 minute
+	}
+}
+
 
 ;===============================================================================
 ; Includes
