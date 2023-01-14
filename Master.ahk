@@ -100,22 +100,6 @@ delay := 30
 ; Context menu position for Slack reminders.
 menuPosition := 0
 
-; Automatically move mouse if connected to multiple monitors.
-; They want to sleep to fast and don't always come back properly.
-lastX := 0
-lastY := 0
-while (true) {
-	SysGet, monitorCount, 80 ; Get total number of monitors.
-	if (monitorCount > 1) {
-		MouseGetPos, x, y
-		if ((x = lastX) and (y = lastY)) {
-			MouseMove, % x+5, % y+5
-		}
-		MouseGetPos, lastX, lastY
-		Sleep, 60000 ; 1 minute
-	}
-}
-
 
 ;===============================================================================
 ; Includes
@@ -2589,6 +2573,7 @@ $^!j::
 	isChecked := (OPT_SPEAK) ? "checked" : ""
 	Gui, Add, Checkbox, %isChecked% vOPT_SPEAK gOPT_SPEAK, Spea&k when hotkeys and hotstrings are triggered?
 	Gui, Add, Button, gButton_Budget w250, &Budget
+	Gui, Add, Button, gButton_MouseJiggler w250, &Mouse Jiggler	
 	Gui, Show,, Modes
 	
 	speak("Modes window")
@@ -2831,6 +2816,11 @@ Button_Budget:
 	SendInput, %out%{space}
 	; You should now type in the purchase description.
 
+return
+
+Button_MouseJiggler:
+	Gui, Destroy
+	Run %A_ScriptDir%\MouseJiggler.ahk
 return
 
 
