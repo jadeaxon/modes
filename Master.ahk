@@ -2322,13 +2322,15 @@ return
 ; return
 
 
-
 ; <C click> => /remind list
 ^LButton::
-	Send _r{left}{backspace}/{right}{right}emind list
+	Send {space}r{left}
+	Sleep 100
+	Send {backspace}/{right}{right}emind list
 	Sleep 200
 	Send {Enter}
 return
+
 
 $a::
 	handleSlackReminderHotkey("a", 0, "completeSlackReminder")
