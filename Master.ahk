@@ -1216,6 +1216,8 @@ $^d::
 	color := 0 ; a sample pixel from the Blocked column
 	tabColor := 0 ; a sample pixel from the first Google Sheets sheet tab
 	headerY := 350 ; to detect if selected cell is in the Done column
+	doneSelected := 0xE8EAED ; pixel color if Done column selected
+	activeTabColor := 0xFFFFFF ; pixel color when first Google Sheet tab is active
 
 	if (host = "L16382") { ; Surface Pro 8
 		if (activeMonitor = "Surface Pro 8") { ; The laptop's screen.
@@ -1256,21 +1258,24 @@ $^d::
 	}
 	else if (host = "L17006") { ; Lenovo Thinkpad X1 Yoga
 		PixelGetColor, color, 1590, 140, RGB
-		PixelGetColor, tabColor, 160, 1110, RGB
-		headerY := 240
+		PixelGetColor, tabColor, 175, 1110, RGB
+		headerY := 250
+		doneSelected := 0xD5E3FE
+		activeTabColor := 0xE2E9F8
 	}
 	
 	; MsgBox,,, %host% %activeMonitor% %color% %tabColor%
 	; return
 
 	; The shade of red reported seems to depend on the monitor.
-	if ((color = 0xCDCDF2) or (color = 0xCCCCF4) or (color = 0xF1CCCC) or (tabColor = 0xFFFFFF)) {
+	if ((color = 0xCDCDF2) or (color = 0xCCCCF4) or (color = 0xF1CCCC) or (tabColor = activeTabColor)) {
 		MouseGetPos, mx, my
 		PixelGetColor, color, mx, my, RGB
 		PixelGetColor, color2, mx, headerY, RGB ; Detect if a cell in the Done column is selected.	
-		; MsgBox,,, %mx%, %my%, %color%
+		; MsgBox,,, %host% %mx% %my% %headerY% %color% %color2%
+		; return
 
-		if ( ((color = 0xDAEAD4) or (color = 0xD9EAD3) or (color = 0xDAEAD2)) and (color2 = 0xE8EAED) ) {
+		if ( ((color = 0xDAEAD4) or (color = 0xD9EAD3) or (color = 0xDAEAD2)) and (color2 = doneSelected)) {
 			; We're hovering in the (green) Done column.
 			; Assume over the top non-header cell.
 			SetKeyDelay, 40, 20
@@ -1327,6 +1332,7 @@ $^s::
 	CoordMode, Mouse, Window
 	CoordMode, Pixel, Window
 	SysGet, monitors, MonitorCount
+	activeTabColor := 0xFFFFFF ; pixel color when 2nd Google Sheet tab is active
 
 	; TO DO: Factor this into a function that returns name of active Google Sheet.
 	tabColor := 0 ; Sheet tab color of recurring sheet.
@@ -1360,13 +1366,14 @@ $^s::
 		PixelGetColor, tabColor, 230, 1032, RGB
 	}
 	else if (host = "L17006") { ; Lenovo Thinkpad X1 Yoga
-		PixelGetColor, tabColor, 290, 1110, RGB
+		PixelGetColor, tabColor, 300, 1110, RGB
+		activeTabColor := 0xE2E9F8
 	}
 	
-	; MsgBox,,, %activeMonitor% %color% %tabColor%
+	; MsgBox,,, %host% %activeMonitor% %tabColor% %activeTabColor%
 	; return
 
-	if (tabColor = 0xFFFFFF) { ; Light gray of header row on Recurring sheet.
+	if (tabColor = activeTabColor) { ; Light gray of header row on Recurring sheet.
 		; Run the app script to sort sheet by Score column.
 		Send ^+!1
 	}
