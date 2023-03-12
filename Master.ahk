@@ -1336,53 +1336,17 @@ return
 ; This just makes <C s> trigger it instead.
 $^s::
 	activeMonitor := activeMonitorName()
-	CoordMode, Mouse, Window
-	CoordMode, Pixel, Window
-	SysGet, monitors, MonitorCount
-	activeTabColor := 0xFFFFFF ; pixel color when 2nd Google Sheet tab is active
-
-	; TO DO: Factor this into a function that returns name of active Google Sheet.
-	tabColor := 0 ; Sheet tab color of recurring sheet.
-	EnvGet, host, COMPUTERNAME
-	if (host = "L16382") { ; Surface Pro 8
-		if (activeMonitor = "Surface Pro 8") { ; The laptop's screen.
-			; This position is on the bottom Recurring sheet tab.
-			; When a sheet is selected, the pixels other than the sheet name are white.
-			if (monitors = 1) {
-				PixelGetColor, tabColor, 460, 1800, RGB
-			}
-			else { ; Multiple monitors.
-				PixelGetColor, tabColor, 230, 940, RGB
-			}
-		}
-		else if (activeMonitor = "LG UltraFine") { ; LG UltraFine
-			PixelGetColor, tabColor, 225, 1420, RGB
-			if (tabColor != 0xFFFFFF) {
-				; Some of the pixels aren't pure white.
-				PixelGetColor, tabColor, 226, 1422, RGB
-			}
-		}
-		else if (activeMonitor = "Dell") {
-			PixelGetColor, tabColor, 240, 1380, RGB
-		}
-		else { ; Unknown monitor.
-			color := 0
-		}
-	}
-	else if (host = "Inspiron-VM") {
-		PixelGetColor, tabColor, 230, 1032, RGB
-	}
-	else if (host = "L17006") { ; Lenovo Thinkpad X1 Yoga
-		PixelGetColor, tabColor, 300, 1110, RGB
-		activeTabColor := 0xE2E9F8
-	}
+	activeSheet := activeSheet()	
 	
-	; MsgBox,,, %host% %activeMonitor% %tabColor% %activeTabColor%
+	; MsgBox,,, %host% %activeSheet%
 	; return
 
-	if (tabColor = activeTabColor) { ; Light gray of header row on Recurring sheet.
-		; Run the app script to sort sheet by Score column.
+	if (activeSheet = "Recurring") {
+		; Run the Google app script to sort sheet by Score column.
 		Send ^+!1
+	}
+	else {
+		Send ^s
 	}
 return
 
@@ -1391,7 +1355,6 @@ $^m::
 	activeMonitor := activeMonitorName()
 	MsgBox,,, %activeMonitor%
 return
-
 
 ; Make it so Esc dismisses the search dialog if it is present.
 $^f::
