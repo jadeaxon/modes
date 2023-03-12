@@ -740,6 +740,70 @@ activeMonitorName() {
 } ; activeMonitorName()
 
 
+; Returns the name of the active Google Sheet within a workbook.
+activeSheet() {
+	CoordMode, Mouse, Window
+	CoordMode, Pixel, Window
+	EnvGet, host, COMPUTERNAME
+	SysGet, monitors, MonitorCount
+	activeSheet := "Unknown"
+	tabColor := 0 ; a sample pixel from the first Google Sheets sheet tab
+	activeTabColor := 0xFFFFFF ; pixel color when first Google Sheet tab is active
+
+	if (host = "L16382") { ; Surface Pro 8
+		if (activeMonitor = "Surface Pro 8") { ; The laptop's screen.
+			; This position is on the bottom Kanban sheet tab.
+			; When a sheet is selected, the pixels other than the sheet name are white.
+			if (monitors = 1) {
+				PixelGetColor, tabColor, 260, 1800
+				if (tabColor = activeTabColor) {
+					activeSheet := "Kanban"
+				}
+			}
+			else { ; Multiple monitors.
+				PixelGetColor, tabColor, 130, 940
+			}
+		}
+		else if (activeMonitor = "LG UltraFine") { ; LG UltraFine
+			PixelGetColor, tabColor, 130, 1420
+		}
+		else if (activeMonitor = "Dell") {
+			PixelGetColor, tabColor, 130, 1380
+		}
+		else { ; Unknown monitor.
+			tabColor := 0
+		}
+	}
+	/* retired
+	else if (host = "Inspiron-VM") {
+		PixelGetColor, color, 1180, 230, RGB
+		PixelGetColor, tabColor, 130, 1030, RGB
+		headerY := 180
+		; headerColor := 0xE8EAED
+	}
+	else if (host = "D309552A") { ; Lenovo ThinkCentre 910s
+		PixelGetColor, color, 1380, 230, RGB
+		PixelGetColor, tabColor, 130, 1140, RGB
+		headerY := 180
+	}
+	*/
+	else if (host = "L17006") { ; Lenovo Thinkpad X1 Yoga
+		PixelGetColor, tabColor, 175, 1110, RGB
+		; activeTabColor := 0xE2E9F8
+		if (tabColor = activeTabColor) {
+			 activeSheet := "Kanban"
+		}
+		PixelGetColor, tabColor, 290, 1110, RGB
+		if (tabColor = activeTabColor) {
+			activeSheet := "Recurring"
+		}
+	}
+	
+	return activeSheet
+} ; activeSheet()
+
+
+
 ;===============================================================================
 ; Slack
 ;===============================================================================

@@ -1209,6 +1209,11 @@ return
 ; <C d> marks as done (unbolds and sets last done as current date).
 $^d::
 	activeMonitor := activeMonitorName()
+	activeSheet := activeSheet()	
+	
+	; MsgBox,,, %host% %activeSheet%
+	; return
+
 	CoordMode, Mouse, Window
 	CoordMode, Pixel, Window
 	EnvGet, host, COMPUTERNAME
@@ -1259,16 +1264,15 @@ $^d::
 	else if (host = "L17006") { ; Lenovo Thinkpad X1 Yoga
 		PixelGetColor, color, 1590, 140, RGB
 		PixelGetColor, tabColor, 175, 1110, RGB
-		headerY := 250
-		doneSelected := 0xD5E3FE
-		activeTabColor := 0xE2E9F8
+		headerY := 230
+		doneSelected := 0xE8EAED
+		; activeTabColor := 0xE2E9F8
 	}
 	
 	; MsgBox,,, %host% %activeMonitor% %color% %tabColor%
 	; return
 
-	; The shade of red reported seems to depend on the monitor.
-	if ((color = 0xCDCDF2) or (color = 0xCCCCF4) or (color = 0xF1CCCC) or (tabColor = activeTabColor)) {
+	if (activeSheet = "Kanban") {
 		MouseGetPos, mx, my
 		PixelGetColor, color, mx, my, RGB
 		PixelGetColor, color2, mx, headerY, RGB ; Detect if a cell in the Done column is selected.	
@@ -1312,7 +1316,7 @@ $^d::
 			Send ^+!2
 		}
 	}
-	else {
+	else if (activeSheet = "Recurring") {
 		; Mark as done in Recurring sheet.
 		SetKeyDelay, 25, 25
 		Send ^b
@@ -1320,6 +1324,9 @@ $^d::
 		Send ^;
 		Send {left 5}
 		SetKeyDelay, -1, -1
+	}
+	else {
+		Send ^d
 	}
 return
 
