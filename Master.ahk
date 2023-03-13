@@ -1232,7 +1232,8 @@ $^d::
 			; This position is on the bottom Kanban sheet tab.
 			; When a sheet is selected, the pixels other than the sheet name are white.
 			if (monitors = 1) {
-				PixelGetColor, tabColor, 260, 1800
+				; PixelGetColor, tabColor, 260, 1800
+				PixelGetColor, tabColor, 50, 1575
 			}
 			else { ; Multiple monitors.
 				PixelGetColor, tabColor, 130, 940

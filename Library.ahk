@@ -749,15 +749,28 @@ activeSheet() {
 	activeSheet := "Unknown"
 	tabColor := 0 ; a sample pixel from the first Google Sheets sheet tab
 	activeTabColor := 0xFFFFFF ; pixel color when first Google Sheet tab is active
+	activeMonitor := activeMonitorName()
+			
+	; MsgBox,,, %host% %monitors%
+	; return
 
 	if (host = "L16382") { ; Surface Pro 8
 		if (activeMonitor = "Surface Pro 8") { ; The laptop's screen.
 			; This position is on the bottom Kanban sheet tab.
 			; When a sheet is selected, the pixels other than the sheet name are white.
+			
 			if (monitors = 1) {
-				PixelGetColor, tabColor, 260, 1800
+				; PixelGetColor, tabColor, 260, 1800
+				PixelGetColor, tabColor, 260, 1790
+				; MsgBox,,, %tabColor%
+				; return
 				if (tabColor = activeTabColor) {
 					activeSheet := "Kanban"
+				}
+
+				PixelGetColor, tabColor, 460, 1790
+				if (tabColor = activeTabColor) {
+					activeSheet := "Recurring"
 				}
 			}
 			else { ; Multiple monitors.
