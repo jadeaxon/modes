@@ -748,11 +748,10 @@ activeSheet() {
 	SysGet, monitors, MonitorCount
 	activeSheet := "Unknown"
 	tabColor := 0 ; a sample pixel from the first Google Sheets sheet tab
-	activeTabColor := 0xFFFFFF ; pixel color when first Google Sheet tab is active
 	activeMonitor := activeMonitorName()
-			
-	; MsgBox,,, %host% %monitors%
-	; return
+	oldActiveTabColor := 0xFFFFFF ; pixel color when first Google Sheet tab is active
+	; activeTabColor := 0xDAE5F9 ; this is the color it is when mouse is hovering 
+	activeTabColor := 0xE2E9F8
 
 	if (host = "L16382") { ; Surface Pro 8
 		if (activeMonitor = "Surface Pro 8") { ; The laptop's screen.
@@ -787,26 +786,22 @@ activeSheet() {
 			tabColor := 0
 		}
 	}
-	/* retired
-	else if (host = "Inspiron-VM") {
-		PixelGetColor, color, 1180, 230, RGB
-		PixelGetColor, tabColor, 130, 1030, RGB
-		headerY := 180
-		; headerColor := 0xE8EAED
-	}
-	else if (host = "D309552A") { ; Lenovo ThinkCentre 910s
-		PixelGetColor, color, 1380, 230, RGB
-		PixelGetColor, tabColor, 130, 1140, RGB
-		headerY := 180
-	}
-	*/
 	else if (host = "L17006") { ; Lenovo Thinkpad X1 Yoga
+		activeSheet := "HERE"	
 		PixelGetColor, tabColor, 175, 1110, RGB
-		; activeTabColor := 0xE2E9F8
+		if (tabColor = oldActiveTabColor) {
+			 activeSheet := "Kanban"
+		}
+		PixelGetColor, tabColor, 180, 1110, RGB
+		; MsgBox,,,, %tabColor% %activeTabColor%
 		if (tabColor = activeTabColor) {
 			 activeSheet := "Kanban"
 		}
 		PixelGetColor, tabColor, 290, 1110, RGB
+		if (tabColor = oldActiveTabColor) {
+			activeSheet := "Recurring"
+		}
+		PixelGetColor, tabColor, 300, 1110, RGB
 		if (tabColor = activeTabColor) {
 			activeSheet := "Recurring"
 		}
@@ -814,7 +809,6 @@ activeSheet() {
 	
 	return activeSheet
 } ; activeSheet()
-
 
 
 ;===============================================================================

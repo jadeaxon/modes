@@ -1265,8 +1265,10 @@ $^d::
 	else if (host = "L17006") { ; Lenovo Thinkpad X1 Yoga
 		PixelGetColor, color, 1590, 140, RGB
 		PixelGetColor, tabColor, 175, 1110, RGB
-		headerY := 230
-		doneSelected := 0xE8EAED
+		; headerY := 230
+		headerY := 250
+		; doneSelected := 0xE8EAED
+		doneSelected := 0xD5E3FE
 		; activeTabColor := 0xE2E9F8
 	}
 	
@@ -1336,6 +1338,7 @@ return
 ; I recorded a macro in Google Sheets that does this when you press <C-A-S 1>.
 ; This just makes <C s> trigger it instead.
 $^s::
+	EnvGet, host, COMPUTERNAME
 	activeMonitor := activeMonitorName()
 	activeSheet := activeSheet()	
 	
