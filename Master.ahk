@@ -1222,7 +1222,10 @@ $^d::
 	tabColor := 0 ; a sample pixel from the first Google Sheets sheet tab
 	headerY := 350 ; to detect if selected cell is in the Done column
 	doneSelected := 0xE8EAED ; pixel color if Done column selected
+	doneSelected2 := 0xE8EAED ; pixel color if Done column selected
 	activeTabColor := 0xFFFFFF ; pixel color when first Google Sheet tab is active
+	hoveringOverDoneColumn := false
+	doneColumnSelected := false
 
 	if (host = "L16382") { ; Surface Pro 8
 		if (activeMonitor = "Surface Pro 8") { ; The laptop's screen.
@@ -1269,6 +1272,7 @@ $^d::
 		headerY := 250
 		; doneSelected := 0xE8EAED
 		doneSelected := 0xD5E3FE
+		doneSelected2 := 0xD3E3FD	
 		; activeTabColor := 0xE2E9F8
 	}
 	
@@ -1282,7 +1286,14 @@ $^d::
 		; MsgBox,,, %host% %mx% %my% %headerY% %color% %color2%
 		; return
 
-		if ( ((color = 0xDAEAD4) or (color = 0xD9EAD3) or (color = 0xDAEAD2)) and (color2 = doneSelected)) {
+	
+		if ((color = 0xDAEAD4) or (color = 0xD9EAD3) or (color = 0xDAEAD2)) {
+			hoveringOverDoneColumn := true
+		}
+		if ((color2 = doneSelected) or (color2 = doneSelected2)) {
+			doneColumnSelected := true
+		}
+		if (hoveringOverDoneColumn and doneColumnSelected) {
 			; We're hovering in the (green) Done column.
 			; Assume over the top non-header cell.
 			SetKeyDelay, 40, 20

@@ -752,6 +752,7 @@ activeSheet() {
 	oldActiveTabColor := 0xFFFFFF ; pixel color when first Google Sheet tab is active
 	; activeTabColor := 0xDAE5F9 ; this is the color it is when mouse is hovering 
 	activeTabColor := 0xE2E9F8
+	activeTabColor2 := 0xE1E9F7
 
 	if (host = "L16382") { ; Surface Pro 8
 		if (activeMonitor = "Surface Pro 8") { ; The laptop's screen.
@@ -794,7 +795,7 @@ activeSheet() {
 		}
 		PixelGetColor, tabColor, 180, 1110, RGB
 		; MsgBox,,,, %tabColor% %activeTabColor%
-		if (tabColor = activeTabColor) {
+		if ((tabColor = activeTabColor) or (tabColor = activeTabColor2)) {
 			 activeSheet := "Kanban"
 		}
 		PixelGetColor, tabColor, 290, 1110, RGB
@@ -802,7 +803,7 @@ activeSheet() {
 			activeSheet := "Recurring"
 		}
 		PixelGetColor, tabColor, 300, 1110, RGB
-		if (tabColor = activeTabColor) {
+		if ((tabColor = activeTabColor) or (tabColor = activeTabColor2)) {
 			activeSheet := "Recurring"
 		}
 	}
