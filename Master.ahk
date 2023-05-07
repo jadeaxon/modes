@@ -2102,6 +2102,10 @@ return
 ; Slack
 ;===============================================================================
 
+/*
+Slack
+*/
+
 ; Map <A S Down> to <A S n>.  <A S Down> is too hard to reach.  It is the Slack
 ; keyboard shortcut to change to the next channel with an unread message in it.
 ;
@@ -2323,33 +2327,37 @@ return
 	Send {Enter}
 return
 
+#IfWinActive
 
+
+#IfWinActive Later - UVU IT - Slack
 $a::
-	handleSlackReminderHotkey("a", 0, "completeSlackReminder")
+	completeSlackReminder()
+	; handleSlackReminderHotkey("a", 0, "completeSlackReminder")
 return
-
 
 ; Pressing o when hovering over a reminder snoozes it for 1 hour.
 $o::
-	handleSlackReminderHotkey("o", 2, "deferSlackReminder")
-return
+	deferSlackReminder(2)
+	; handleSlackReminderHotkey("o", 2, "deferSlackReminder")
 
+return
 
 ; Pressing e when hovering over a reminder snoozes it for 3 hours.
 ; Using e so that left hand can type all the action keystrokes while right hand moves mouse.
 ; In Programmer Dvorak, aoeu are home position keys for right hand.
 $e::
-	handleSlackReminderHotkey("e", 3, "deferSlackReminder")
+	deferSlackReminder(3)
+	; handleSlackReminderHotkey("e", 3, "deferSlackReminder")
 return
-
 
 ; Pressing u when hovering over a reminder snoozes it until tomorrow.
 ; Using u so that left hand can type all the action keystrokes while right hand moves mouse.
 ; In Programmer Dvorak, aoeu are home position keys for right hand.
 $u::
-	handleSlackReminderHotkey("u", 4, "deferSlackReminder")
+	deferSlackReminder(4)
+	; handleSlackReminderHotkey("u", 4, "deferSlackReminder")
 return
-
 
 #IfWinActive
 

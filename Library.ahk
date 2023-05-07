@@ -816,6 +816,40 @@ activeSheet() {
 ; Slack
 ;===============================================================================
 
+completeSlackReminder() {
+	delay := 30	
+	EnvGet, host, COMPUTERNAME
+
+	Click
+	Sleep %delay%
+	Send {Tab}
+	Sleep %delay%
+	Send {Tab}
+	Sleep %delay%
+	Send {Enter}
+}
+
+deferSlackReminder(menuPosition) {
+	delay := 30	
+	Click
+	Sleep %delay%
+	Send {Tab}
+	Sleep %delay%
+	Send {Tab}
+	Sleep %delay%
+	Send {Tab}
+	Sleep %delay%
+	Send {Space}
+	Sleep %delay%
+	Send {Down %menuPosition%}
+	Sleep %delay%
+	Send {Enter}
+	Sleep %delay%
+	Send {Home}
+	Click
+}
+
+/* Old
 handleSlackReminderHotkey(keystroke, menuPositionArg, action) {
 	global delay
 	global menuPosition
@@ -887,6 +921,7 @@ handleSlackReminderHotkey(keystroke, menuPositionArg, action) {
 } ; handleSlackReminderHotkey()
 
 
+
 deferSlackReminder() {
 	global delay
 	global menuPosition
@@ -930,3 +965,4 @@ completeSlackReminder() {
 		Send {Enter}
 	}
 }
+*/
