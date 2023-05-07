@@ -2156,6 +2156,11 @@ return
 	Send ^j
 return
 
+
+:*:ArT::
+	remind("test reminders in 10 minutes")
+return
+
 ; Ar7 => set weekly recurring reminders
 ; Slack has recurring reminders, but they are implemented badly.
 ; I want them to spawn as individual reminder instances that I can snooze
@@ -2238,7 +2243,7 @@ return
 	; remind("check 0 and N bookmarks at 5 AM on Friday")
 	remind("use up existing food at 9 AM on Friday")
     remind("proc all meeting notes --this-week-- (check calendar) at 1 PM on Friday")
-	remind("do weekly status report (email Troy) at 3 PM on Friday")
+	remind("do weekly status report (email Christina) at 3 PM on Friday")
 	remind("start next Progress (UVU).txt weekly header at 3 PM on Friday")
 	remind("brush teeth at 3 PM on Friday")
 	remind("check unwatched ESS board tickets https://uvu-it.atlassian.net/issues/?filter=10947 at 4 PM on Friday")
@@ -3385,9 +3390,13 @@ speak(message) {
 ; Emits a Slack reminder request.
 remind(what) {
 	; The prefix keeps Slack's annoying new shortcuts "helper" from popping up.
-	prefix := "_r{left}{backspace}/{right}{right}emind me to"
-	Send %prefix% %what%
-	Sleep 200
+	; prefix := "_r{left}{backspace}/{right}{right}emind me to"
+	; Send %prefix% %what%
+	clipboard := ""
+	clipboard := "/remind me to " . what
+	ClipWait
+	Send ^v
+	Sleep 500
 	Send {enter}
 }
 

@@ -847,6 +847,8 @@ deferSlackReminder(menuPosition) {
 	Sleep %delay%
 	Send {Home}
 	Click
+	Sleep %delay%
+	Send {Home} ; first one doesn't always register
 }
 
 /* Old
