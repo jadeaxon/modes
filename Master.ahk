@@ -950,6 +950,32 @@ $^g::
 return
 
 
+; Mark cell as neutral (yellow) in spreadsheet.
+$^n::
+	t := 30
+	Send {LAlt down}
+	Sleep %t%
+	Send {LAlt up}
+	Sleep %t%
+	Send h
+	Sleep %t%
+	Send j
+	Sleep %t%
+	Send {home}
+	Sleep %t%
+	Send {right}
+	Sleep %t%
+	Send {right}
+	Sleep %t%
+	Send {right}
+	Sleep %t%
+	Send {enter}
+return
+
+
+
+
+
 #IfWinActive
 
 
