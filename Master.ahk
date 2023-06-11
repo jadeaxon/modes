@@ -919,6 +919,41 @@ return
 
 
 ;==============================================================================
+; Excel
+;==============================================================================
+
+/*
+Excel
+*/
+
+
+#IfWinActive Banner Upgrade Tasks
+
+; Mark cell as good (green) in spreadsheet.
+$^g::
+	t := 30
+	Send {LAlt down}
+	Sleep %t%
+	Send {LAlt up}
+	Sleep %t%
+	Send h
+	Sleep %t%
+	Send j
+	Sleep %t%
+	Send {home}
+	Sleep %t%
+	Send {right}
+	Sleep %t%
+	Send {right}
+	Sleep %t%
+	Send {enter}
+return
+
+
+#IfWinActive
+
+
+;==============================================================================
 ; Gmail
 ;==============================================================================
 
