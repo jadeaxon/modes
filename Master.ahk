@@ -2360,10 +2360,16 @@ return
 ; Damn Slack and their new search shortcuts popup that can't be disabled.
 :*:Ar2::
 	; Send _r{left}{backspace}/{right}{right}emind me to{space}
-	Send {space}r{left}
-	Sleep 100
-	Send {backspace}/{right}{right}emind me to{space}
+	clipboard := ""
+	clipboard := "/remind me to "
+	ClipWait
+	Send ^v
+	Sleep 200
+	Send {LControl up}
+	Send {RControl up}
+	Sleep 200
 return
+
 
 ; Remind me to do something at 5 AM tomorrow.
 :*:Ar5::
