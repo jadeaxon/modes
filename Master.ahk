@@ -101,8 +101,8 @@ delay := 30
 menuPosition := 0
 
 ; Start up all the usual apps on the Surface 8 in the morning.
+EnvGet, host, COMPUTERNAME
 if (host = "L16382") { ; Surface Pro 8
-
 	if (not WinExist("ahk_exe OUTLOOK.EXE")) {	
 		Run, C:\Users\%A_UserName%\Desktop\Comms\Outlook.lnk
 	}
