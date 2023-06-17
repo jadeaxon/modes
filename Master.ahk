@@ -100,6 +100,58 @@ delay := 30
 ; Context menu position for Slack reminders.
 menuPosition := 0
 
+; Start up all the usual apps on the Surface 8 in the morning.
+if (host = "L16382") { ; Surface Pro 8
+
+	if (not WinExist("ahk_exe OUTLOOK.EXE")) {	
+		Run, C:\Users\%A_UserName%\Desktop\Comms\Outlook.lnk
+	}
+	Sleep, 1000
+	if (not WinExist("ahk_exe thunderbird.exe")) {
+		Run, C:\Users\%A_UserName%\Desktop\Comms\Thunderbird.lnk
+	}
+	Sleep, 1000
+	Run, C:\Users\%A_UserName%\Desktop\Comms\Teams.lnk
+	Sleep, 1000
+	Run, C:\Users\%A_UserName%\Desktop\Comms\Slack.lnk
+	Sleep, 1000
+	Run, C:\Users\%A_UserName%\Desktop\Comms\Firefox.lnk
+	Sleep, 1000
+	Run, C:\Users\%A_UserName%\Desktop\Comms\Chrome.lnk
+	Sleep, 1000
+	Run, C:\Users\%A_UserName%\Desktop\Media\Kindle.lnk
+	Sleep, 1000
+
+	Sleep, 3000
+
+	WinMaximize, ahk_exe thunderbird.exe
+	Sleep, 500
+	WinActivate, ahk_exe thunderbird.exe
+
+	WinMaximize, ahk_exe Teams.exe
+	Sleep, 500
+	WinActivate, ahk_exe Teams.exe
+	; Teams does this weird overmaximization.
+	Sleep, 200
+	Send #{Up}
+	WinMinimize, ahk_exe Teams.exe
+
+	WinMaximize, ahk_exe slack.exe
+	Sleep, 500
+	WinActivate, ahk_exe slack.exe
+
+	WinMaximize, ahk_exe Kindle.exe
+	Sleep, 500
+	WinActivate, ahk_exe Kindle.exe
+
+
+	Sleep, 3000 
+	WinMaximize, ahk_exe OUTLOOK.EXE
+	Sleep, 500
+	WinActivate, ahk_exe OUTLOOK.EXE
+	; Unless you end on Outlook, its tray bar lights up with alert status.
+}
+
 
 ;===============================================================================
 ; Includes
