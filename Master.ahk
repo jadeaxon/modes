@@ -100,6 +100,7 @@ delay := 30
 ; Context menu position for Slack reminders.
 menuPosition := 0
 
+
 ; Start up all the usual apps on the Surface 8 in the morning.
 EnvGet, host, COMPUTERNAME
 if (host = "L16382") { ; Surface Pro 8
@@ -144,6 +145,22 @@ if (host = "L16382") { ; Surface Pro 8
 	Sleep, 500
 	WinActivate, ahk_exe Kindle.exe
 
+	; Open usual morning tabs in Firefox.
+	Run, https://www.google.com/search?q=sunrise
+	Sleep, 1000
+	Run, https://www.google.com/search?q=weather
+	Sleep, 1000
+	Run, https://news.google.com/home?hl=en-US&gl=US&ceid=US:en
+	Sleep, 1000
+
+	; Open Personal Kanban in Chrome.
+	WinActivate, ahk_exe chrome.exe
+	WinWaitActive, ahk_exe chrome.exe
+	Send ^l
+	clipboard = https://docs.google.com/spreadsheets/d/1zXpRv6WFdb9eX9YDerTTCE7L3N6InYxJ-FYec9ok79I/edit#gid=0
+	ClipWait
+	Send ^v
+	Send {enter}
 
 	Sleep, 3000 
 	WinMaximize, ahk_exe OUTLOOK.EXE
