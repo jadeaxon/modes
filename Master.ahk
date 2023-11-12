@@ -1130,7 +1130,7 @@ return
 #IfWinActive
 
 ; Make d act like delete key.
-#IfWinActive Junk - Mozilla Thunderbird
+#IfWinActive Junk - ahk_exe thunderbird.exe
 $d::
 	Send {delete}
 return
@@ -1195,19 +1195,18 @@ $j::
 	Send {Esc}
 	SetKeyDelay, 10, -1 ; default
 return
-
-
 #IfWinActive
 
+
 ; Make d act like delete key.
-#IfWinActive Inbox - Mozilla Thunderbird
+#IfWinActive Inbox - ahk_exe thunderbird.exe
 $d::
 	Send {delete}
 return
 #IfWinActive
 
 ; Make d act like delete key.
-#IfWinActive @Waiting - Mozilla Thunderbird
+#IfWinActive @Waiting - ahk_exe thunderbird.exe
 $d::
 	Send {delete}
 return
@@ -1215,7 +1214,7 @@ return
 
 
 ; w => Move message to @Waiting.
-#IfWinActive Inbox - Mozilla Thunderbird
+#IfWinActive Inbox - ahk_exe thunderbird.exe
 $w::
 	Send {alt down}
 	Sleep 40
@@ -1236,7 +1235,7 @@ return
 #IfWinActive
 
 ; w => Move message to @Waiting.
-#IfWinActive Junk - Mozilla Thunderbird
+#IfWinActive Junk - ahk_exe thunderbird.exe
 $w::
 	Send {alt down}
 	Sleep 40
@@ -1258,7 +1257,7 @@ return
 
 
 ; i => Move message to Inbox.
-#IfWinActive Junk - Mozilla Thunderbird
+#IfWinActive Junk - ahk_exe thunderbird.exe
 $i::
 	Send {alt down}
 	Sleep 20
