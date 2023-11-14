@@ -798,14 +798,21 @@ activeSheet() {
 		if ((tabColor = activeTabColor) or (tabColor = activeTabColor2)) {
 			 activeSheet := "Kanban"
 		}
+		/*
 		PixelGetColor, tabColor, 290, 1110, RGB
 		if (tabColor = oldActiveTabColor) {
 			activeSheet := "Recurring"
 		}
+		*/
 		PixelGetColor, tabColor, 300, 1110, RGB
+		if ((tabColor = activeTabColor) or (tabColor = activeTabColor2)) {
+			activeSheet := "Rocks"
+		}
+		PixelGetColor, tabColor, 410, 1110, RGB
 		if ((tabColor = activeTabColor) or (tabColor = activeTabColor2)) {
 			activeSheet := "Recurring"
 		}
+
 	}
 	
 	return activeSheet
