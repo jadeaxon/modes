@@ -1000,16 +1000,15 @@ Excel
 
 ; Mark cell as good (green) in spreadsheet.
 $^g::
-	t := 30
-	Send {LAlt down}
-	Sleep %t%
-	Send {LAlt up}
-	Sleep %t%
-	Send h
+	t := 50
+	; Send, {LAlt down} ; This does not work in Excel.
+	Send !h
+	Sleep 500
+	; Send, {LAlt up} ; This does not work in Excel.
 	Sleep %t%
 	Send j
 	Sleep %t%
-	Send {home}
+	Send {PgUp}	
 	Sleep %t%
 	Send {right}
 	Sleep %t%
@@ -1021,16 +1020,15 @@ return
 
 ; Mark cell as neutral (yellow) in spreadsheet.
 $^n::
-	t := 30
-	Send {LAlt down}
-	Sleep %t%
-	Send {LAlt up}
-	Sleep %t%
-	Send h
+	t := 50
+	;Send, {LAlt down}
+	Send !h
+	Sleep 500
+	; Send, {LAlt up}
 	Sleep %t%
 	Send j
 	Sleep %t%
-	Send {home}
+	Send {PgUp}	
 	Sleep %t%
 	Send {right}
 	Sleep %t%
@@ -1040,9 +1038,6 @@ $^n::
 	Sleep %t%
 	Send {enter}
 return
-
-
-
 
 
 #IfWinActive
@@ -1314,6 +1309,24 @@ return
 :*c:T7::GTD7 [rK1]{enter}
 :*c:Tk::kbs 100 [rH1]^{enter}0{enter}
 :*c:Tbh::Bar hang [H1]^{enter}
+:*c:T1::
+	t := 200
+	ts := 100
+	Send Elliptical [rH1]{enter}
+	Send {Left 4}
+	Sleep %t%
+	Send ^c
+	Sleep %t%
+	Send {Right 4}
+	Sleep %t%
+	Send ^V
+	Sleep %ts%
+	Send {enter}
+	Sleep %ts%
+	Send {enter}
+	Send Dishes [rD1]{enter}
+return
+
 
 
 ; Never paste formatting.  Otherwise column background colors get screwed up.
