@@ -169,6 +169,21 @@ if ( (host = "L16382") && (A_Hour <= 7) ) { ; Surface Pro 8
 	; Unless you end on Outlook, its tray bar lights up with alert status.
 }
 
+if ( (host = "L16382") && (A_Hour > 7) ) { ; Surface Pro 8
+	Run, https://time.is/
+	WinActivate, ahk_exe firefox.exe
+	WinWaitActive, ahk_exe firefox.exe
+	
+	if (not WinExist("ahk_exe OUTLOOK.EXE")) {	
+		Run, C:\Users\%A_UserName%\Desktop\Comms\Outlook.lnk
+	}
+	Sleep, 7000 
+	WinMaximize, ahk_exe OUTLOOK.EXE
+	Sleep, 500
+	WinActivate, ahk_exe OUTLOOK.EXE
+
+}
+
 
 ;===============================================================================
 ; Includes
