@@ -103,7 +103,7 @@ menuPosition := 0
 
 ; Start up all the usual apps on the Surface 8 in the morning.
 EnvGet, host, COMPUTERNAME
-if (host = "L16382") { ; Surface Pro 8
+if ( (host = "L16382") && (A_Hour <= 7) ) { ; Surface Pro 8
 	if (not WinExist("ahk_exe OUTLOOK.EXE")) {	
 		Run, C:\Users\%A_UserName%\Desktop\Comms\Outlook.lnk
 	}
@@ -147,11 +147,11 @@ if (host = "L16382") { ; Surface Pro 8
 
 	; Open usual morning tabs in Firefox.
 	Run, https://www.google.com/search?q=sunrise
-	Sleep, 1000
+	Sleep, 5000
 	Run, https://www.google.com/search?q=weather
-	Sleep, 1000
+	Sleep, 2000
 	Run, https://news.google.com/home?hl=en-US&gl=US&ceid=US:en
-	Sleep, 1000
+	Sleep, 2000
 
 	; Open Personal Kanban in Chrome.
 	WinActivate, ahk_exe chrome.exe
