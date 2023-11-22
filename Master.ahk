@@ -100,6 +100,8 @@ delay := 30
 ; Context menu position for Slack reminders.
 menuPosition := 0
 
+EnvGet, vUserProfile, USERPROFILE
+Run, %vUSERPROFILE%\projects\reactor\daily.bat
 
 ; Start up all the usual apps on the Surface 8 in the morning.
 EnvGet, host, COMPUTERNAME
