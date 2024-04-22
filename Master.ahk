@@ -101,7 +101,7 @@ delay := 30
 menuPosition := 0
 
 EnvGet, vUserProfile, USERPROFILE
-Run, %vUSERPROFILE%\projects\reactor\daily.bat
+; Run, %vUSERPROFILE%\projects\reactor\daily.bat
 
 ; Start up all the usual apps on the Surface 8 in the morning.
 EnvGet, host, COMPUTERNAME
@@ -2333,69 +2333,37 @@ return
 	
 	; Monday ----------------------------------------------------------------------	
 	remind("check rocks at 5 AM on Monday")
-	remind("check calendar, set alarms, @<Day> -> Inbox at 5 AM on Monday")
 	remind("check recurring tasks spreadsheet at 5 AM on Monday")
 	remind("water plants at 5 AM on Monday")
-	remind("waiting/blocked on @Waiting.txt/email/bookmarks/kanban/Jira/Planner at 5 AM on Monday")
-	remind("check work email @Later at 5 AM on Monday")
-	remind("check saved Teams messages at 5 AM on Monday")
-	remind("read next UVU policy at 5 AM on Monday")
-	remind("check unwatched ESS tickets https://uvu-it.atlassian.net/issues/?filter=10916 at 5 AM on Monday")
-	remind("check unassigned ESS tickets https://uvu-it.atlassian.net/issues/?filter=11220 at 5 AM on Monday")	
-	remind("do --weekly-- commitments check at 5 AM on Monday")
-	remind("check https://itops.uvu.edu/secure/change_calendar/index.php page at 5 AM on Monday")
-	remind("check ESS incidents https://uvu-it.atlassian.net/issues/?filter=10921 at 5 AM on Monday")
-	remind("do symbolic poses at 5 AM on Monday")
 	
 	; Tuesday ---------------------------------------------------------------------	
-	remind("check calendar, set alarms, @<Day> -> Inbox at 5 AM on Tuesday")
 	remind("check recurring tasks spreadsheet at 5 AM on Tuesday")
-	remind("check unwatched ESS tickets https://uvu-it.atlassian.net/issues/?filter=10916 at 5 AM on Tuesday")
 	remind("take magnesium at 9 AM on Tuesday")
-	remind("update ESS items on https://uvu-it.atlassian.net/projects/CA/board page at 2 PM on Tuesday")
 	
 	; Wednesday -------------------------------------------------------------------	
-	remind("check calendar, set alarms, @<Day> -> Inbox at 5 AM on Wednesday")
 	remind("check recurring tasks spreadsheet at 5 AM on Wednesday")
 	remind("do 34 kbs at 5 AM on Wednesday")
-	remind("check unwatched ESS tickets https://uvu-it.atlassian.net/issues/?filter=10916 at 5 AM on Wednesday")
-	remind("check tickets reported by ESS https://uvu-it.atlassian.net/issues/?filter=11212 at 5 AM on Wednesday")
 	
 	; Thursday --------------------------------------------------------------------	
-	remind("check calendar, set alarms, @<Day> -> Inbox at 5 AM on Thursday")
 	remind("check recurring tasks spreadsheet at 5 AM on Thursday")
-	remind("prep for ESS meeting at 5 AM on Thursday")
 	remind("begin GTD7 at 5 AM on Thursday")
-	remind("check unwatched ESS tickets https://uvu-it.atlassian.net/issues/?filter=10916 at 5 AM on Thursday")
 	remind("check 0 and N bookmarks at 5 AM on Thursday")
 	remind("submit Walmart order at 5 AM on Thursday")
 	remind("do hbands at 6 AM on Thursday")
 	remind("take magnesium at 9 AM on Thursday")
 	
 	; Friday ----------------------------------------------------------------------	
-	remind("check calendar, set alarms, @<Day> -> Inbox at 5 AM on Friday")
 	remind("check recurring tasks spreadsheet at 5 AM on Friday")
-	remind("update Banner releases master spreadsheet at 5 AM on Friday")
-	remind("check unwatched ESS tickets https://uvu-it.atlassian.net/issues/?filter=10916 at 5 AM on Friday")
-	remind("check unwatched reported by me https://uvu-it.atlassian.net/issues/?filter=11028 at 5 AM on Friday")
-	remind("do weekly status report at 3 PM on Friday")
-	remind("start next Progress (UVU).txt weekly header at 3 PM on Friday")
-	remind("check unwatched ESS board tickets https://uvu-it.atlassian.net/issues/?filter=10947 at 4 PM on Friday")
-	remind("check unassigned ESS board tickets https://uvu-it.atlassian.net/issues/?filter=11004 at 4 PM on Friday")
 	
 	; Saturday --------------------------------------------------------------------	
-	remind("review R1 Daily.txt at 5 AM on Saturday")
 	remind("check recurring tasks spreadsheet at 5 AM on Saturday")
-	remind("sync calendars at 5 AM on Saturday")
-	remind("take Epsom or ACV bath at 5 AM on Saturday")
-	remind("clean laptop monitors at 5 AM on Saturday")
+	remind("review R1 Daily.txt at 5 AM on Saturday")
 	remind("check air filters running at 5 AM on Saturday")
 	remind("listen to audiobook while bringing in groceries at 5 AM on Saturday")
 	
 	; Sunday ----------------------------------------------------------------------	
 	remind("check recurring tasks spreadsheet next Sunday at 5 AM")
 	remind("respawn weekly reminders via Ar7 next Sunday at 5 AM")
-	remind("reset buffers next Sunday at 5 AM")
 	remind("check mail next Sunday at 5 AM")
 return
 
@@ -2406,10 +2374,7 @@ return
 ; and mark as complete.
 :*:Ar31::
 	remind("pay Jason on the 1st of next month at 5 AM")
-	remind("save/invest on the 1st of next month at 5 AM")
-	remind("cycle food delivery on the 8th of next month at 5 AM")
 	remind("respawn monthly reminders via Ar31 on the 25th of next month at 5 AM")
-	remind("do monthly status report on the 28th of next month at 5 AM")
 return
 
 
