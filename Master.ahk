@@ -472,6 +472,15 @@ Hotkeys
 ; return
 
 
+; Disable NumLock on Zenbook.
+; Stops the touchpad numberpad from appearing on Zenbook.
+$NumLock::
+	EnvGet, host, COMPUTERNAME
+	if (host = "Zenbook") {	
+		return
+	}
+	Send {NumLock}
+
 ; Make CapsLock click the mouse.
 $CapsLock::
 	Click
@@ -517,9 +526,11 @@ return
 ; <S Numpad0> => <S Insert> on Inspiron.
 ; Since the Inspiron doesn't have an Insert key, and ^C doesn't work consistently everywhere,
 ; this is useful.
+/*
 +Numpad0::
 	Send +{Insert}
 return
+*/
 
 ; Make page navigation easier in Adobe Digital Editions.
 #IfWinActive ahk_exe DigitalEditions.exe
@@ -1913,6 +1924,7 @@ return
 ; {Left} => Numpad4 on this laptop for some reason.
 ;
 ; Without doing this, automating context menus doesn't work.
+/*
 VK64::
     Send, {vk25sc14B}
 return
@@ -1921,6 +1933,7 @@ return
 VK68::
     Send, {vk28sc150}
 return
+*/
 
 ; {vk27sc14D} => right arrow
 
@@ -2479,6 +2492,7 @@ return
 ; 66  04D	 	d	5.05	Numpad6        	
 ; 69  051	 	d	0.94	Numpad9        	
 
+/*
 SC048::
 	Send {up}
 return
@@ -2502,6 +2516,7 @@ return
 SC051::
 	Send {PgDn}
 return
+*/
 
 
 ;===============================================================================
