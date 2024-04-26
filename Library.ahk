@@ -735,6 +735,9 @@ activeMonitorName() {
 	else if (host = "L17006") {
 		monitorName := "Yoga"
 	}
+	else if (host = "Zenbook") {
+		monitorName := "Zenbook"
+	}
 
 	return monitorName
 } ; activeMonitorName()
@@ -788,13 +791,12 @@ activeSheet() {
 		}
 	}
 	else if (host = "L17006") { ; Lenovo Thinkpad X1 Yoga
-		activeSheet := "HERE"	
 		PixelGetColor, tabColor, 175, 1110, RGB
 		if (tabColor = oldActiveTabColor) {
 			 activeSheet := "Kanban"
 		}
 		PixelGetColor, tabColor, 180, 1110, RGB
-		; MsgBox,,,, %tabColor% %activeTabColor%
+		; MsgBox,,, %tabColor% %activeTabColor%
 		if ((tabColor = activeTabColor) or (tabColor = activeTabColor2)) {
 			 activeSheet := "Kanban"
 		}
@@ -814,7 +816,26 @@ activeSheet() {
 		}
 
 	}
+	else if ((host = "Zenbook") or (host = "ZENBOOK")) { ; ASUS Zenbook 14X OLED
+		; activeTabColor := 0xDCE5F6
+		activeTabColor := 0xE3E9F6
+		PixelGetColor, tabColor, 400, 1650, RGB
+		if (tabColor = activeTabColor) {
+			 activeSheet := "Kanban"
+		}
+		PixelGetColor, tabColor, 580, 1650, RGB
+		if (tabColor = activeTabColor) {
+			activeSheet := "Rocks"
+		}
+		PixelGetColor, tabColor, 800, 1650, RGB
+		; MsgBox,,, Zenbook tab color: %tabColor% 
+		; MsgBox,,, Zenbook active tab color: %activeTabColor%
+		if (tabColor = activeTabColor) {
+			activeSheet := "Recurring"
+		}
+	}
 	
+	; MsgBox,,, %activeSheet%
 	return activeSheet
 } ; activeSheet()
 
