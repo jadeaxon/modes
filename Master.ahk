@@ -1445,6 +1445,10 @@ $^d::
 		doneSelected2 := 0xD3E3FD	
 		; activeTabColor := 0xE2E9F8
 	}
+	else if (host = "ZENBOOK") { ; ASUS Zenbook 14X OLED
+		headerY := 425
+		doneSelected := 0xD8E3FB
+	}
 	
 	; MsgBox,,, %host% %activeMonitor% %color% %tabColor%
 	; return
@@ -1455,9 +1459,11 @@ $^d::
 		PixelGetColor, color2, mx, headerY, RGB ; Detect if a cell in the Done column is selected.	
 		; MsgBox,,, %host% %mx% %my% %headerY% %color% %color2%
 		; return
-
 	
 		if ((color = 0xDAEAD4) or (color = 0xD9EAD3) or (color = 0xDAEAD2)) {
+			hoveringOverDoneColumn := true
+		}
+		if (color = 0xDDE9D5) { ; Zenbook
 			hoveringOverDoneColumn := true
 		}
 		if ((color2 = doneSelected) or (color2 = doneSelected2)) {
@@ -1467,15 +1473,24 @@ $^d::
 			; We're hovering in the (green) Done column.
 			; Assume over the top non-header cell.
 			SetKeyDelay, 40, 20
-			Send, {LShift Down}
-			Send, {Down 6}
-			Send, {LShift Up}
+			; Strangely, if you use left shift down/up, it toggles the keyboard language in Windows.
+			; Even though the Windows shortcut for that is <W space> and has been disabled.
+			; Send, {LShift Down}
+			; Send, {Down 6}
+			Send, +{Down}
+			Send, +{Down}
+			Send, +{Down}
+			Send, +{Down}
+			Send, +{Down}
+			Send, +{Down}
+			; Send, {LShift Up}
 			Send ^c
 			ClipWait	
 			Send {Backspace}
-			Send {Delete} ; First one doesn't always do it.
+			; Send {Delete} ; First one doesn't always do it.
 			Sleep 200
 			SetKeyDelay, 10, -1 ; default
+			
 
 			; Copy completed tasks to progress text file using Vim.
 			file = C:\Users\%A_UserName%\Dropbox\Organization\Progress\Home\Progress (Home).txt
@@ -1493,6 +1508,7 @@ $^d::
 			Send ^v
 			Send {Enter}
 			Send {Esc}
+			Sleep 100
 			Send ^s ; My Vim saves the file when this is pressed.
 		}
 		else { ; Marking a single task done.
