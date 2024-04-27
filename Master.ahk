@@ -1355,13 +1355,14 @@ return
 	Send Dishes [rD1]{enter}
 return
 
-
-
 ; Never paste formatting.  Otherwise column background colors get screwed up.
 $^v::
 	; The problem with this is now if you paste any multiline cell, it pastes it as multiple cells.
 	; clipboard := trim(clipboard, """") ; Remove outer double quotes.
 	Send ^+v
+
+	; Seems like the shift key always gets stuck after this.
+	Send {LShift up}
 return
 
 $^x::
