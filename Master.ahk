@@ -309,6 +309,13 @@ return
 	SendInput %output%:{space}  
 return
 
+; Like ymd but with day of week abbreviation at end.
+::ymdd::
+	FormatTime, output,, yyyy-MM-dd
+	output = %output% %A_DDD%
+	SendInput %output%:{space}  
+return
+
 
 ; Directory abbreviation for Downloads directory.
 :*:Aoddl::
@@ -3340,6 +3347,8 @@ return
     SendInput {Enter}
 
 return
+
+
 
 
 
