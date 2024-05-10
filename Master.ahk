@@ -442,6 +442,11 @@ return
 :*:@WW::@W: Walmart
 :*:@WA::@W: Amazon
 
+; Toggle number lock.
+:*:<numlock>::
+    Send {NumLock}
+return
+
 
 ;===============================================================================
 ; Hotkeys
