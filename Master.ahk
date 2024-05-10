@@ -2965,8 +2965,9 @@ Button_Budget:
 	out := "$" . newRemainingBudget
 	out := RegExReplace(out, "(\d)(?=(?:\d{3})+(?:\.|$))", "$1,") ; Commify number.
 
+	amount := Format("{:.2f}", amount) ; Round to 2 decimal places.
 	SendInput, o
-	SendInput, %out%{space}
+	SendInput, %out%{space}-$%amount%{space}
 	; You should now type in the purchase description.
 
 return
