@@ -310,10 +310,10 @@ return
 return
 
 ; Like ymd but with day of week abbreviation at end.
-::ymdd::
+:O:ymdd::
 	FormatTime, output,, yyyy-MM-dd
-	output = %output% %A_DDD%
-	SendInput %output%:{space}  
+	output = %output%: %A_DDD%
+	SendInput %output%{enter}{enter}  
 return
 
 
