@@ -2374,25 +2374,20 @@ return
 
 	
 	; Monday ----------------------------------------------------------------------	
-	remind("check rocks at 5 AM on Monday")
 	remind("check recurring tasks spreadsheet at 5 AM on Monday")
 	remind("water plants at 5 AM on Monday")
 	
 	; Tuesday ---------------------------------------------------------------------	
 	remind("check recurring tasks spreadsheet at 5 AM on Tuesday")
-	remind("take magnesium at 9 AM on Tuesday")
 	
 	; Wednesday -------------------------------------------------------------------	
 	remind("check recurring tasks spreadsheet at 5 AM on Wednesday")
-	remind("do 34 kbs at 5 AM on Wednesday")
 	
 	; Thursday --------------------------------------------------------------------	
 	remind("check recurring tasks spreadsheet at 5 AM on Thursday")
 	remind("begin GTD7 at 5 AM on Thursday")
 	remind("check 0 and N bookmarks at 5 AM on Thursday")
 	remind("submit Walmart order at 5 AM on Thursday")
-	remind("do hbands at 6 AM on Thursday")
-	remind("take magnesium at 9 AM on Thursday")
 	
 	; Friday ----------------------------------------------------------------------	
 	remind("check recurring tasks spreadsheet at 5 AM on Friday")
