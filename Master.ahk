@@ -1143,6 +1143,38 @@ return
 #IfWinActive
 
 
+
+;-------------------------------------------------------------------------------
+; Chained Echoes
+
+/*
+Chained Echoes
+*/
+
+#IfWinActive ahk_exe Chained Echoes.exe
+$,::w
+$o::s
+$e::d
+
+$;::q
+$.::e
+
+$c::i
+$p::r
+
+$t::k
+
+$Enter::Space
+
+$Left::a
+$Right::d
+$Down::s
+$Up::w
+
+#IfWinActive
+
+
+
 ;-------------------------------------------------------------------------------
 ; Thunderbird
 
