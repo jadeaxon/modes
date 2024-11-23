@@ -1377,7 +1377,7 @@ return
 :*c:Tg::Guitar [rRK1]{enter}
 :*c:TEl::Elliptical [rH1]{enter}
 :*c:Tfm::Fresh Market [rD1]{enter}
-:*c:Tc::Cleaning [rDM1]{enter}
+:*c:Tce::Clean/examine 1 drawer [/1]{enter}
 :*c:T7::GTD7 [rK1]{enter}
 :*c:Tk::kbs 100 [rH1]^{enter}0{enter}
 :*c:Tbh::Bar hang [H1]^{enter}
