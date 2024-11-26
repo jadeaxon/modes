@@ -1538,7 +1538,8 @@ $^d::
 			
 
 			; Copy completed tasks to progress text file using Vim.
-			file = C:\Users\%A_UserName%\Dropbox\Organization\Progress\Home\Progress (Home).txt
+			; file = C:\Users\%A_UserName%\Dropbox\Organization\Progress\Home\Progress (Home).txt
+			file = G:\My Drive\Organization\Progress\Home\Progress (Home).txt
 			Run %file%
 			Sleep 200
 			SetTitleMatchMode, 2
@@ -1639,7 +1640,8 @@ return
 
 ; <A p> => Transition to progress file from kanban.
 $!p::
-	file = C:\Users\%A_UserName%\Dropbox\Organization\Progress\Home\Progress (Home).txt
+	; file = C:\Users\%A_UserName%\Dropbox\Organization\Progress\Home\Progress (Home).txt
+	file = G:\My Drive\Organization\Progress\Home\Progress (Home).txt
 	Run %file%
 return
 #IfWinActive
