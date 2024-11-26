@@ -1703,7 +1703,8 @@ return
 
 ; <A p> => Transition to progress file from kanban.
 $!p::
-	file = C:\Users\%A_UserName%\Dropbox\Organization\Progress\UVU\%A_YYYY%\Progress (UVU).txt
+	; file = C:\Users\%A_UserName%\Dropbox\Organization\Progress\UVU\%A_YYYY%\Progress (UVU).txt
+	file = G:\My Drive\Organization\Progress\UVU\%A_YYYY%\Progress (UVU).txt
 	Run %file%
 return
 
@@ -2780,7 +2781,8 @@ return
 ; Open all @ files in home contexts in a single gVim.
 Button_HomeContexts:
 	Gui, Destroy
-	Run C:\Users\jadeaxon\Dropbox\Organization\To Do\Contexts\Home
+	; Run C:\Users\jadeaxon\Dropbox\Organization\To Do\Contexts\Home
+	Run G:\My Drive\Organization\To Do\Contexts\Home
 	Sleep 1000
 	Send #{Up}
 	Sleep 100
@@ -2819,7 +2821,8 @@ return
 ; Open all @ files in work contexts in a single gVim.
 Button_WorkContexts:
 	Gui, Destroy
-	Run C:\Users\jadeaxon\Dropbox\Organization\To Do\Contexts\Work
+	; Run C:\Users\jadeaxon\Dropbox\Organization\To Do\Contexts\Work
+	Run G:\My Drive\Organization\To Do\Contexts\Work
 	Sleep 1000
 	Send #{Up}
 	Sleep 100
@@ -2858,7 +2861,8 @@ return
 ; Open all @ files in agendas in a single gVim.
 Button_Agendas:
 	Gui, Destroy
-	Run C:\Users\jadeaxon\Dropbox\Organization\To Do\Agendas
+	; Run C:\Users\jadeaxon\Dropbox\Organization\To Do\Agendas
+	Run G:\My Drive\Organization\To Do\Agendas
 	Sleep 1000
 	Send #{Up}
 	Sleep 100
@@ -2897,7 +2901,8 @@ return
 ; Open all recurring tasks files in a single gVim.
 Button_Recurring:
 	Gui, Destroy
-	Run C:\Users\jadeaxon\Dropbox\Organization\To Do\Recurring
+	; Run C:\Users\jadeaxon\Dropbox\Organization\To Do\Recurring
+	Run G:\My Drive\Organization\To Do\Contexts\Recurring
 	Sleep 1000
 	Send #{Up}
 	Sleep 100
@@ -2962,7 +2967,8 @@ Button_Budget:
 
 	; Open budget file in gVim.
     EnvGet, home, USERPROFILE
-	Run, %home%\Dropbox\Organization\Financial\Budget\%A_YYYY%\%A_YYYY% Budget.txt
+	; Run, %home%\Dropbox\Organization\Financial\Budget\%A_YYYY%\%A_YYYY% Budget.txt
+	Run, G:\My Drive\Organization\Financial\Budget\%A_YYYY%\%A_YYYY% Budget.txt
 	Sleep 500
 	WinActivate ahk_exe gvim.exe
 	WinWaitActive ahk_exe gvim.exe
