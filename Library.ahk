@@ -818,20 +818,21 @@ activeSheet() {
 	}
 	else if ((host = "Zenbook") or (host = "ZENBOOK")) { ; ASUS Zenbook 14X OLED
 		; activeTabColor := 0xDCE5F6
-		; activeTabColor := 0xE3E9F6
+		; Not sure if night light mode is changing the reported color or something else.
+		activeTabColor2 := 0xE3E9F6
 		activeTabColor := 0xE1E9F7
 		PixelGetColor, tabColor, 400, 1650, RGB
-		if (tabColor = activeTabColor) {
+		if ((tabColor = activeTabColor) or (tabcolor = activeTabColor2)) {
 			 activeSheet := "Kanban"
 		}
 		PixelGetColor, tabColor, 800, 1650, RGB
-		if (tabColor = activeTabColor) {
+		if ((tabColor = activeTabColor) or (tabColor = activeTabColor2)) {
 			activeSheet := "Rocks"
 		}
 		PixelGetColor, tabColor, 580, 1650, RGB
 		; MsgBox,,, Zenbook tab color: %tabColor% 
 		; MsgBox,,, Zenbook active tab color: %activeTabColor%
-		if (tabColor = activeTabColor) {
+		if ((tabColor = activeTabColor) or (tabColor = activeTabColor2)) {
 			activeSheet := "Recurring"
 		}
 	}
