@@ -1978,6 +1978,65 @@ return
 #IfWinActive
 
 
+
+;-------------------------------------------------------------------------------
+; Ableton Live
+
+/*
+Ableton Live
+*/
+
+#IfWinActive ahk_exe Ableton Live 12 Lite.exe
+
+;$^t::
+	;MsgBox,,, active
+;return
+
+; Remap shortcut to toggle browser for Programmer Dvorak.
+$^!(::
+	;FAIL: It's not working!
+	;MsgBox,,, active
+	;SendInput {Ctrl Down}{Alt Down}5{Ctrl Up}{Alt Up}
+	/*	
+	SendPlay {LCtrl down}
+	Sleep 50
+	SendPlay {LAlt down}
+	Sleep 50
+	SendPlay 5
+	Sleep 50
+	SendPlay {LAlt up}
+	SendPlay {LCtrl up}
+	Send {tab}
+	*/
+
+	/* This should work but doesn't!
+	Send {vkA2scO1D down}
+	Sleep 10
+	Send {vkA4sc038 down}
+	Sleep 10
+	Send {vk35sc006 down}
+	Sleep 10
+	Send {vk35sc006 up}
+	Sleep 10
+	Send {vkA4sc038 up}
+	Sleep 10
+	Send {vkA2scO1D up}
+	*/
+	; This is Live's other keyboard shortcut to toggle browser.
+	Send ^!{b}
+
+/*
+A2  01D	 	d	10.84	LControl       	
+A4  038	 	d	0.05	LAlt           	
+35  006	 	d	0.20	5              	
+35  006	 	u	0.08	5              	
+A4  038	 	u	0.34	LAlt           	
+A2  01D	 	u	0.01	LControl  
+*/
+return
+
+#IfWinActive
+
 ;==============================================================================
 ; Keyboard
 ;==============================================================================
