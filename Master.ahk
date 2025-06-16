@@ -1832,7 +1832,7 @@ return
 ;-------------------------------------------------------------------------------
 ; <Alt + F1> => look up AutoHotkey docs (when we're editing .ahk files in Cygwin)
 ; <A-W h> => ditto
-
+/*
 !#h::
 !F1::
 	; MsgBox,,, Triggered
@@ -1846,7 +1846,7 @@ GetAutoHotkeyHelp:
 	Sleep 500
 	WinActivate, ahk_exe firefox.exe
 return
-
+*/
 
 ;-------------------------------------------------------------------------------
 ; Make <Ctrl + W> close AHK help windows (so your tabbed-browsing moves work everywhere).
