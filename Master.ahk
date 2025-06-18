@@ -1367,7 +1367,7 @@ return
 :*c:Tlw::Laundry (whites) [rD1] {enter}
 :*c:TAh::Air out house [H1]{enter}
 :*c:TOo::Overnight oats [H1]{enter}
-:*c:Tt::Trash [rD1]{enter}
+:*c:Ttr::Trash [rD1]{enter}
 :*c:Tbt::Big trash [rD1]{enter}
 :*c:Tld::Laundry (darks) [rD1]{enter}
 :*c:Tlm::Laundry (mfcs) [rD1]{enter}
@@ -1378,6 +1378,7 @@ return
 :*c:TEl::Elliptical [rH1]{enter}
 :*c:Tfm::Fresh Market [rD1]{enter}
 :*c:Tce::Clean/examine 1 drawer [/1]{enter}
+:*c:Ttm::50m treadmill{enter}
 :*c:T7::GTD7 [rK1]{enter}
 :*c:Tk::kbs 100 [rH1]^{enter}0{enter}
 :*c:Tbh::Bar hang [H1]^{enter}
