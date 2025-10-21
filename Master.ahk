@@ -809,13 +809,16 @@ return
 ;==============================================================================
 
 
+#IfWinActive Mail - Jeffrey Anderson - Outlook
 ; Make tapping shift twice do a click.
+; Leaving this active globally seems to mess up the Kanban hotkeys.
 ~Shift Up::
     if (A_PriorHotkey = A_ThisHotkey && A_TimeSincePriorHotkey < 400)
     {
         Click
     }
 Return
+#IfWinActive
 
 
 /*
