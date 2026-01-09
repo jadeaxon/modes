@@ -78,13 +78,11 @@ Return
 ; Also, if Master.ahk loads after this script, these may fail.
 #IfWinActive Personal Kanban ahk_class MozillaWindowClass
 :*Z:Tlw::Laundry (whites) [rD1] {enter}
-:*Z:Ts::Shopping [rD1]{enter}
 :*cZ:TWa::Walmart [rD1]{enter}
 #IfWinActive
 
 #IfWinActive Personal Kanban ahk_exe chrome.exe
 :*Z:Tlw::Laundry (whites) [rD1] {enter}
-:*Z:Ts::Shopping [rD1]{enter}
 :*cZ:TWa::Walmart [rD1]{enter}
 #IfWinActive
 
