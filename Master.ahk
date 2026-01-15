@@ -1404,7 +1404,7 @@ return
 :*c:Tce::Clean/examine 1 drawer [/1]{enter}
 :*c:Ttm::50m treadmill{enter}
 :*c:T2m::25m treadmill{enter}
-:*c:Tst::5m strength training{enter}
+:*c:Tst::7.5m strength training{enter}
 :*c:T7::GTD7 [rK1]{enter}
 :*c:Tk::kbs 100 [rH1]^{enter}0{enter}
 :*c:Tbh::Bar hang [H1]^{enter}
