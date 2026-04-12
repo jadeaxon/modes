@@ -221,7 +221,6 @@ Hotstrings
 ::(r)::{U+00AE}
 ::(tm)::{U+2122}
 
-
 ; In Cygwin, I use j@h as a command 99% of the time.
 ; How would I do ~ or / in case using absolute path?
 #IfWinNotActive ahk_exe mintty.exe
@@ -236,7 +235,6 @@ Hotstrings
 :*:my.uvid::10845493
 :*:my.pidm::658225
 
-
 ; Misspellings.
 ::comrad::comrade
 :*:digestable::digestible
@@ -244,6 +242,10 @@ Hotstrings
 :*:plateu::plateau
 :*:persuassion::persuasion
 :*:colocation::collocation
+
+; Python.
+:R:s.pshe!::#!/usr/bin/env python3
+:R:py.!::#!/usr/bin/env python3
 
 ; Date and time.
 ; 9:30 AM
@@ -1404,7 +1406,7 @@ return
 :*c:Tce::Clean/examine 1 drawer [/1]{enter}
 :*c:Ttm::50m treadmill{enter}
 :*c:T2m::25m treadmill{enter}
-:*c:Tst::7.5m strength training{enter}
+:*c:Tst::12.5m strength training{enter}
 :*c:T7::GTD7 [rK1]{enter}
 :*c:Tk::kbs 100 [rH1]^{enter}0{enter}
 :*c:Tbh::Bar hang [H1]^{enter}
