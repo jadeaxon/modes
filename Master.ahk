@@ -2007,6 +2007,58 @@ return
 #IfWinActive
 
 
+;==============================================================================
+; Chrome
+;==============================================================================
+
+#IfWinActive ahk_exe chrome.exe
+; #NoEnv
+; SendMode Input
+; SetWorkingDir %A_ScriptDir%
+
+; This ensures the hotkey only works when Google Chrome is the active window
+#IfWinActive ahk_exe chrome.exe
+
+^+s::
+    ; Toggle the variable between true and false
+    toggled := !toggled
+    
+    if (toggled) {
+        ; Start sending the Down arrow every 1000ms (1 second)
+        SetTimer, SendDownKey, 750
+        ToolTip, Auto-Scroll: ON
+        SetTimer, RemoveToolTip, -2000 ; Hide tooltip after 2 seconds
+    } 
+	else {
+        ; Stop the timer
+        SetTimer, SendDownKey, Off
+        ToolTip, Auto-Scroll: OFF
+        SetTimer, RemoveToolTip, -2000
+    }
+return
+
+SendDownKey:
+    ; Safety check: Only send the key if Chrome is still the active window
+    IfWinActive, ahk_exe chrome.exe
+    {
+        Send, {Down}
+    }
+    else
+    {
+        ; Stop if you switch away from Chrome to prevent mess-ups elsewhere
+        toggled := false
+        SetTimer, SendDownKey, Off
+        ToolTip, Auto-Scroll: STOPPED (Window Lost)
+        SetTimer, RemoveToolTip, -2000
+    }
+return
+
+RemoveToolTip:
+    ToolTip
+return
+
+#IfWinActive
+
 
 ;-------------------------------------------------------------------------------
 ; Ableton Live
