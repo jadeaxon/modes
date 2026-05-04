@@ -187,6 +187,45 @@ if ( (host = "L16382") && (A_Hour > 6) ) { ; Surface Pro 8
 }
 
 
+; Autoclick skip button for YouTube ads in Chrome.
+SetTimer, SkipYouTubeAd, 1000
+
+SkipYouTubeAd:
+    SavedCoordPixel := A_CoordModePixel
+    SavedCoordMouse := A_CoordModeMouse
+    SavedTitleMode  := A_TitleMatchMode
+
+    CoordMode, Pixel, Screen
+    CoordMode, Mouse, Screen
+    SetTitleMatchMode, 2
+
+	;ToolTip, Timer started
+	;SetTimer, RemoveSkipAdToolTip, -2000
+
+    IfWinActive, YouTube ahk_exe chrome.exe
+    {
+        PixelGetColor, color1, 1884, 1301, RGB
+        PixelGetColor, color2, 1889, 1301, RGB
+
+        if (color1 == 0xFFFFFF and color2 == 0xFFFFFF) {
+            MouseGetPos, MouseX, MouseY 
+            Click, 1884, 1301
+            MouseMove, %MouseX%, %MouseY%, 0 
+            ToolTip, Ad skipped
+            SetTimer, RemoveSkipAdToolTip, -2000
+        }
+    }
+
+    CoordMode, Pixel, %SavedCoordPixel%
+    CoordMode, Mouse, %SavedCoordMouse%
+    SetTitleMatchMode, %SavedTitleMode%
+return
+
+RemoveSkipAdToolTip:
+    ToolTip
+return
+
+
 ;===============================================================================
 ; Includes
 ;===============================================================================
