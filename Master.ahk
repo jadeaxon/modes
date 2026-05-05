@@ -57,6 +57,8 @@ Menu, Tray, Icon, %A_ScriptDir%\Icons\Master.ico
 
 CoordMode, Mouse, Relative
 
+; CONVERTED
+
 ; Group all Explorer windows.  Used by a shortcut to close them all.
 GroupAdd, ExplorerGroup, ahk_class CabinetWClass
 GroupAdd, ExplorerGroup, ahk_class ExploreWClass
