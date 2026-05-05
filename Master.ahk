@@ -2059,16 +2059,10 @@ return
 ; Chrome
 ;==============================================================================
 
-#IfWinActive ahk_exe chrome.exe
-; #NoEnv
-; SendMode Input
-; SetWorkingDir %A_ScriptDir%
-
 ; This ensures the hotkey only works when Google Chrome is the active window
 #IfWinActive ahk_exe chrome.exe
 
-; Autoscroller mainly for YouTube.
-^+s::
+toggle_autoscroll:
     ; Toggle the variable between true and false
     toggled := !toggled
     
@@ -2086,6 +2080,23 @@ return
         ToolTip, % "Autoscroll OFF: toggled by hotkey"
         SetTimer, RemoveToolTip, -2000
     }
+return
+
+; I keep accidentally hitting <C s> to activate this.
+^s::
+    IfWinActive, YouTube ahk_exe chrome.exe
+    {
+		Gosub, toggle_autoscroll
+		return
+	}
+	Send, ^s
+
+return
+
+; Autoscroller mainly for YouTube.
+^+s::
+	; For some reason, putting the code in a function does not work.
+	Gosub, toggle_autoscroll
 return
 
 SendDownKey:
