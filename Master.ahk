@@ -57,8 +57,6 @@ Menu, Tray, Icon, %A_ScriptDir%\Icons\Master.ico
 
 CoordMode, Mouse, Relative
 
-; CONVERTED
-
 ; Group all Explorer windows.  Used by a shortcut to close them all.
 GroupAdd, ExplorerGroup, ahk_class CabinetWClass
 GroupAdd, ExplorerGroup, ahk_class ExploreWClass
@@ -68,7 +66,6 @@ GroupAdd, PersonalKanban, Personal Kanban ahk_class MozillaWindowClass
 GroupAdd, PersonalKanban, Personal Kanban ahk_class Chrome_WidgetWin_1
 GroupAdd, WorkKanban, Work Kanban ahk_class MozillaWindowClass
 GroupAdd, WorkKanban, Work Kanban ahk_class Chrome_WidgetWin_1
-
 
 ; Is mouse click locked down via CapsLock hotkey?
 mouseDownLock := false
@@ -103,138 +100,10 @@ delay := 30
 menuPosition := 0
 
 EnvGet, vUserProfile, USERPROFILE
-; Run, %vUSERPROFILE%\projects\reactor\daily.bat
 
-; Start up all the usual apps on the Surface 8 in the morning.
 EnvGet, host, COMPUTERNAME
-if ( (host = "L16382") && (A_Hour <= 6) ) { ; Surface Pro 8
-	if (not WinExist("ahk_exe OUTLOOK.EXE")) {	
-		Run, C:\Users\%A_UserName%\Desktop\Comms\Outlook.lnk
-	}
-	Sleep, 1000
-	if (not WinExist("ahk_exe thunderbird.exe")) {
-		Run, C:\Users\%A_UserName%\Desktop\Comms\Thunderbird.lnk
-	}
-	Sleep, 1000
-	Run, C:\Users\%A_UserName%\Desktop\Comms\Teams.lnk
-	Sleep, 1000
-	Run, C:\Users\%A_UserName%\Desktop\Comms\Slack.lnk
-	Sleep, 1000
-	Run, C:\Users\%A_UserName%\Desktop\Comms\Firefox.lnk
-	Sleep, 1000
-	Run, C:\Users\%A_UserName%\Desktop\Comms\Chrome.lnk
-	Sleep, 1000
-	Run, C:\Users\%A_UserName%\Desktop\Media\Kindle.lnk
-	Sleep, 1000
 
-	Sleep, 3000
-
-	WinMaximize, ahk_exe thunderbird.exe
-	Sleep, 500
-	WinActivate, ahk_exe thunderbird.exe
-
-	WinMaximize, ahk_exe Teams.exe
-	Sleep, 500
-	WinActivate, ahk_exe Teams.exe
-	; Teams does this weird overmaximization.
-	Sleep, 200
-	Send #{Up}
-	WinMinimize, ahk_exe Teams.exe
-
-	WinMaximize, ahk_exe slack.exe
-	Sleep, 500
-	WinActivate, ahk_exe slack.exe
-
-	WinMaximize, ahk_exe Kindle.exe
-	Sleep, 500
-	WinActivate, ahk_exe Kindle.exe
-
-	; Open usual morning tabs in Firefox.
-	Run, https://www.google.com/search?q=sunrise
-	Sleep, 5000
-	Run, https://www.google.com/search?q=weather
-	Sleep, 2000
-	Run, https://news.google.com/home?hl=en-US&gl=US&ceid=US:en
-	Sleep, 2000
-
-	; Open Personal Kanban in Chrome.
-	WinActivate, ahk_exe chrome.exe
-	WinWaitActive, ahk_exe chrome.exe
-	Send ^l
-	clipboard = https://docs.google.com/spreadsheets/d/1zXpRv6WFdb9eX9YDerTTCE7L3N6InYxJ-FYec9ok79I/edit#gid=0
-	ClipWait
-	Send ^v
-	Send {enter}
-
-	Sleep, 3000 
-	WinMaximize, ahk_exe OUTLOOK.EXE
-	Sleep, 500
-	WinActivate, ahk_exe OUTLOOK.EXE
-	; Unless you end on Outlook, its tray bar lights up with alert status.
-}
-
-if ( (host = "L16382") && (A_Hour > 6) ) { ; Surface Pro 8
-	Run, https://time.is/
-	WinActivate, ahk_exe firefox.exe
-	WinWaitActive, ahk_exe firefox.exe
-	
-	if (not WinExist("ahk_exe OUTLOOK.EXE")) {	
-		Run, C:\Users\%A_UserName%\Desktop\Comms\Outlook.lnk
-	}
-	Sleep, 7000 
-	WinMaximize, ahk_exe OUTLOOK.EXE
-	Sleep, 500
-	WinActivate, ahk_exe OUTLOOK.EXE
-
-}
-
-
-/*
-; FAIL: Doesn't quite work.
-; Autoclick skip button for YouTube ads in Chrome.
-SetTimer, SkipYouTubeAd, 1000
-
-SkipYouTubeAd:
-    SavedCoordPixel := A_CoordModePixel
-    SavedCoordMouse := A_CoordModeMouse
-    SavedTitleMode  := A_TitleMatchMode
-
-    CoordMode, Pixel, Screen
-    CoordMode, Mouse, Screen
-    SetTitleMatchMode, 2
-
-	;ToolTip, Timer started
-	;SetTimer, RemoveSkipAdToolTip, -2000
-
-	WinGetTitle, CurrentTitle, A
-	isHomepage := RegExMatch(CurrentTitle, "^\(\d+\)\sYouTube$|^YouTube$")
-
-    IfWinActive, YouTube ahk_exe chrome.exe
-    {
-		if (!isHomepage) {
-			MsgBox,,, %CurrentTitle%
-			PixelGetColor, color1, 1884, 1301, RGB
-			PixelGetColor, color2, 1889, 1301, RGB
-
-			if (color1 == 0xFFFFFF and color2 == 0xFFFFFF) {
-				MouseGetPos, MouseX, MouseY 
-				Click, 1884, 1301
-				MouseMove, %MouseX%, %MouseY%, 0 
-				ToolTip, Ad skipped
-				SetTimer, RemoveSkipAdToolTip, -2000
-			}
-		}
-    }
-
-    CoordMode, Pixel, %SavedCoordPixel%
-    CoordMode, Mouse, %SavedCoordMouse%
-    SetTitleMatchMode, %SavedTitleMode%
-return
-
-RemoveSkipAdToolTip:
-    ToolTip
-return
-*/
+; CONVERTED
 
 
 ;===============================================================================
