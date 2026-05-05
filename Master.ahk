@@ -2067,25 +2067,41 @@ return
 ; This ensures the hotkey only works when Google Chrome is the active window
 #IfWinActive ahk_exe chrome.exe
 
+; Autoscroller mainly for YouTube.
 ^+s::
     ; Toggle the variable between true and false
     toggled := !toggled
     
     if (toggled) {
+		MouseGetPos, mouse_x_start, mouse_y_start
+
         ; Start sending the Down arrow every 1000ms (1 second)
         SetTimer, SendDownKey, 750
-        ToolTip, Auto-Scroll: ON
+        ToolTip, Autoscroll ON
         SetTimer, RemoveToolTip, -2000 ; Hide tooltip after 2 seconds
     } 
 	else {
         ; Stop the timer
         SetTimer, SendDownKey, Off
-        ToolTip, Auto-Scroll: OFF
+        ToolTip, % "Autoscroll OFF: toggled by hotkey"
         SetTimer, RemoveToolTip, -2000
     }
 return
 
 SendDownKey:
+	; Check current position
+    MouseGetPos, mouse_x, mouse_y
+    
+    ; Calculate distance moved
+    if (Abs(mouse_x - mouse_x_start) > 10 or Abs(mouse_y - mouse_y_start) > 10)
+    {
+        toggled := false
+        SetTimer, SendDownKey, Off
+        ToolTip, Autoscroll OFF: mouse moved
+        SetTimer, RemoveToolTip, -2000
+    }
+
+
     ; Safety check: Only send the key if Chrome is still the active window
     IfWinActive, ahk_exe chrome.exe
     {
@@ -2096,7 +2112,7 @@ SendDownKey:
         ; Stop if you switch away from Chrome to prevent mess-ups elsewhere
         toggled := false
         SetTimer, SendDownKey, Off
-        ToolTip, Auto-Scroll: STOPPED (Window Lost)
+        ToolTip, Autoscroll OFF: changed windows
         SetTimer, RemoveToolTip, -2000
     }
 return
