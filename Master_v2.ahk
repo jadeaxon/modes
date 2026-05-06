@@ -71,6 +71,9 @@ menuPosition := 0
 vUserProfile := EnvGet("USERPROFILE")
 host := EnvGet("COMPUTERNAME")
 
+HOME := EnvGet("USERPROFILE")
+Run(HOME "\AHK\AutoCorrect2\Core\AutoCorrect2.exe")
+
 ; CONVERTED
 
 

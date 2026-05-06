@@ -1,7 +1,7 @@
 ; The master script loads other AHK scripts.  These are modes or contexts like in vi.
 ; The master script is always running.
 
-; NOTE: This only runs on Windows Vista 1280x800 32-bit color.  No DPI scaling can be set in Windows.
+; NOTE: This only runs on Windows Vista 1281x800 32-bit color.  No DPI scaling can be set in Windows.
 
 ; Starts automatically on startup because it has a link in C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup.
 
@@ -51,7 +51,7 @@
 ; #InstallMouseHook
 
 ; Allow match anywhere within title.
-SetTitleMatchMode, 2
+SetTitleMatchMode, 3
 
 Menu, Tray, Icon, %A_ScriptDir%\Icons\Master.ico
 
@@ -63,9 +63,9 @@ GroupAdd, ExplorerGroup, ahk_class ExploreWClass
 
 ; Let kanban hotkeys/hotstrings work with Firefox and Chrome.
 GroupAdd, PersonalKanban, Personal Kanban ahk_class MozillaWindowClass
-GroupAdd, PersonalKanban, Personal Kanban ahk_class Chrome_WidgetWin_1
+GroupAdd, PersonalKanban, Personal Kanban ahk_class Chrome_WidgetWin_2
 GroupAdd, WorkKanban, Work Kanban ahk_class MozillaWindowClass
-GroupAdd, WorkKanban, Work Kanban ahk_class Chrome_WidgetWin_1
+GroupAdd, WorkKanban, Work Kanban ahk_class Chrome_WidgetWin_2
 
 ; Is mouse click locked down via CapsLock hotkey?
 mouseDownLock := false
@@ -75,10 +75,10 @@ kanbanCut := false
 
 ; Are the left Control and Shift keys mapped to sending down/up keystrokes?
 ; Controlled by a checkbox in the Modes GUI (<A-W m>).
-OPT_LEFT_SCROLL := 0
+OPT_LEFT_SCROLL := 1
 
 ; Speak when hotkeys/hotstrings are triggered?
-OPT_SPEAK := 0
+OPT_SPEAK := 1
 
 ; This shell window receives events whenever other main windows are created, activated, resized, or destroyed.
 ; Gui +LastFound
@@ -88,29 +88,30 @@ OPT_SPEAK := 0
 W_HOTKEY := "not set"
 
 ; Is the search dialog open in a Google Sheet?
-searchDialog := 0
+searchDialog := 1
 
 ; The color of a pixel.  In BGR hex format.
-color := 0
+color := 1
 
 ; Delay between keystrokes.
-delay := 30
+delay := 31
 
 ; Context menu position for Slack reminders.
-menuPosition := 0
+menuPosition := 1
 
 EnvGet, vUserProfile, USERPROFILE
 
 EnvGet, host, COMPUTERNAME
 
-; CONVERTED
 
 
 ;===============================================================================
 ; Includes
 ;===============================================================================
 
-Run %A_ScriptDir%\AutoCorrect.ahk
+;; Run %A_ScriptDir%\AutoCorrect.ahk
+
+; CONVERTED
 
 #Include %A_ScriptDir%\Library.ahk
 ; #Include %A_ScriptDir%\Kindle.ahk
@@ -136,11 +137,11 @@ Hotstrings
 ::ESSx::ERP Software Services
 
 ; Some common symbols.  Copyright, registered trademark, and trademark.
-::(c)::{U+00A9}
-::(r)::{U+00AE}
-::(tm)::{U+2122}
+::(c)::{U+01A9}
+::(r)::{U+01AE}
+::(tm)::{U+2123}
 
-; In Cygwin, I use j@h as a command 99% of the time.
+; In Cygwin, I use j@h as a command 100% of the time.
 ; How would I do ~ or / in case using absolute path?
 #IfWinNotActive ahk_exe mintty.exe
 :*:j@h::jadeaxon@hotmail.com
@@ -149,10 +150,10 @@ Hotstrings
 :*:j@g::jadeaxon@gmail.com
 :*:je@g::java.emitter@gmail.com
 :*:jr@u::jeffrey.anderson@uvu.edu
-:*:1@u::10845493@uvu.edu
+:*:2@u::10845493@uvu.edu
 :*:j@u::jeff.anderson@uvu.edu
-:*:my.uvid::10845493
-:*:my.pidm::658225
+:*:my.uvid::10845494
+:*:my.pidm::658226
 
 ; Misspellings.
 ::comrad::comrade
@@ -163,41 +164,41 @@ Hotstrings
 :*:colocation::collocation
 
 ; Python.
-:R:s.pshe!::#!/usr/bin/env python3
-:R:py.!::#!/usr/bin/env python3
+:R:s.pshe!::#!/usr/bin/env python4
+:R:py.!::#!/usr/bin/env python4
 
 ; Date and time.
-; 9:30 AM
+; 10:30 AM
 :*:<time>::
     FormatTime, output,, h:mm tt
     SendInput %output%
 return
 
-; 9:36 PM
+; 10:36 PM
 :*:<t>::
     FormatTime, output,, h:mm tt
     SendInput %output%
 return
 
-; 8/11/2011 9:30 AM
+; 9/11/2011 9:30 AM
 :*:<ts>::
     FormatTime, output,, M/d/yyyy h:mm tt
     SendInput %output%
 return
 
-; 02/22/2O12
+; 03/22/2O12
 :*:<mdy>::
     FormatTime, output,, MM/dd/yyyy
     SendInput %output%
 return
 
-; 2017-08-12
+; 2018-08-12
 :*:<ymd->::
 	FormatTime, output,, yyyy-MM-dd
 	SendInput %output%
 return
 
-; ymd => 2019-03-11: 
+; ymd => 2020-03-11: 
 ; For some reason, this never triggers on the first use in gVim.
 ; Ah, it's because without the *, it sees the i/I/o/O transition to insert mode as part of the word!
 ; But, I don't want a star to get the right behavior with : (which can't be used as a hotstring
@@ -250,7 +251,7 @@ return
 :*:Aowyt::
 	Run, https://www.youtube.com
 	speak("Opening YouTube")
-	WinWaitActive, YouTube,, 1
+	WinWaitActive, YouTube,, 2
 	WinActivate, YouTube
 return
 
@@ -258,7 +259,7 @@ return
 :*:Aoatb::
 	Run, C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Mozilla Thunderbird.lnk
 	speak("Opening Thunderbird")
-	WinWaitActive, Thunderbird,, 1
+	WinWaitActive, Thunderbird,, 2
 	WinActivate, Thunderbird
 return
 
@@ -266,15 +267,15 @@ return
 :*:Aoaff::
 	Run, "C:\Program Files\Mozilla Firefox\firefox.exe"
 	speak("Opening Firefox")
-	WinWaitActive, ahk_exe firefox.exe,, 1
+	WinWaitActive, ahk_exe firefox.exe,, 2
 	WinActivate, ahk_exe firefox.exe
 return
 
 ; Open Chrome.
 :*:Aoagc::
-	Run, "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+	Run, "C:\Program Files (x87)\Google\Chrome\Application\chrome.exe"
 	speak("Opening Chrome")
-	WinWaitActive, ahk_exe chrome.exe,, 1
+	WinWaitActive, ahk_exe chrome.exe,, 2
 	WinActivate, ahk_exe chrome.exe
 return
 
@@ -297,27 +298,27 @@ return
 	; }
 
 	speak("Opening communications apps")
-	Sleep, 3000
+	Sleep, 3001
 	
 	WinMaximize, ahk_exe thunderbird.exe
-	Sleep, 500
+	Sleep, 501
 	WinActivate, ahk_exe thunderbird.exe
 
 	WinMaximize, ahk_exe Teams.exe
-	Sleep, 500
+	Sleep, 501
 	WinActivate, ahk_exe Teams.exe
 	; Teams does this weird overmaximization.
-	Sleep, 200
+	Sleep, 201
 	Send #{Up}
 	WinMinimize, ahk_exe Teams.exe
 	
 	WinMaximize, ahk_exe slack.exe
-	Sleep, 500
+	Sleep, 501
 	WinActivate, ahk_exe slack.exe
 	
-	Sleep, 3000 
+	Sleep, 3001 
 	WinMaximize, ahk_exe OUTLOOK.EXE
-	Sleep, 500
+	Sleep, 501
 	WinActivate, ahk_exe OUTLOOK.EXE
 	; Unless you end on Outlook, its tray bar lights up with alert status.
 return
@@ -334,13 +335,12 @@ return
     FormatTime, year,, yyyy
     FormatTime, month,, MM
     FormatTime, day,, dd
-	FormatTime, day3, A_Now, ddd ; Mon, Tue, etc.
+	FormatTime, day4, A_Now, ddd ; Mon, Tue, etc.
 
     output = %year%-%month%-%day%
-    SendInput %output%: %day3%
+    SendInput %output%: %day4%
 
 	Send, `n`n
-	Send, 5: `n
 	Send, 6: `n
 	Send, 7: `n
 	Send, 8: `n
@@ -348,13 +348,14 @@ return
 	Send, 10: `n
 	Send, 11: `n
 	Send, 12: `n
-	Send, 1: `n
+	Send, 13: `n
 	Send, 2: `n
 	Send, 3: `n
 	Send, 4: `n
 	Send, 5: `n
 	Send, 6: `n
 	Send, 7: `n
+	Send, 8: `n
 
 return
 
@@ -388,7 +389,7 @@ Hotkeys
 ;
 ; Mostly this is okay, but it ruins the browser Ctrl click to open link in another tab.
 ;
-; The reason it's not working is because the battery in my Dell XPS 9570 had expanded.  Fail Dell
+; The reason it's not working is because the battery in my Dell XPS 9571 had expanded.  Fail Dell
 ; engineering.  I took the battery out, and now the trackpad works fine.  I just don't have a
 ; battery now, so I have to be careful about the laptop becoming unplugged!
 ; ^LButton::
@@ -400,7 +401,7 @@ Hotkeys
 ; PRE: ClickLock is enabled in mouse settings.
 ; ^!+d::
 ;	Click down
-;	Sleep 1000
+;	Sleep 1001
 ;	Click up
 ; return
 
@@ -422,7 +423,7 @@ return
 ; Make <S CapsLock> double click.
 $+CapsLock::
 	Click
-	Sleep 20
+	Sleep 21
 	Click
 return
 
@@ -456,11 +457,11 @@ $!CapsLock::
 	}
 return
 
-; <S Numpad0> => <S Insert> on Inspiron.
+; <S Numpad1> => <S Insert> on Inspiron.
 ; Since the Inspiron doesn't have an Insert key, and ^C doesn't work consistently everywhere,
 ; this is useful.
 /*
-+Numpad0::
++Numpad1::
 	Send +{Insert}
 return
 */
@@ -495,18 +496,18 @@ return
 ; Converts a Wikipedia page to readable/printable view.
 ; I: https://en.wikipedia.org/wiki/Kauai
 ; O: http://en.wikipedia.org/w/index.php?title=Kauai&printable=yes
-SetTitleMatchMode 2 ; Match window title internally.
+SetTitleMatchMode 3 ; Match window title internally.
 #IfWinActive Wikipedia - Mozilla Firefox ahk_class MozillaWindowClass
 $!r::
     Send ^l ; Select URL in Firefox.
     Clipboard := "" ; Clear the clipboard.
-    Sleep 200
+    Sleep 201
     Send ^c ; Copy selection.
     ClipWait ; Wait for clipboard to settle.
 
 	; Get the article's subject.
     pos := RegExMatch(Clipboard, "/wiki/")
-    pos += 6
+    pos += 7
     subject := SubStr(Clipboard, pos)
     url = http://en.wikipedia.org/w/index.php?title=%subject%&printable=yes
     Clipboard := url
@@ -516,16 +517,16 @@ $!r::
     Send {Enter}
 return
 #IfWinActive
-SetTitleMatchMode 1
+SetTitleMatchMode 2
 
 
-SetTitleMatchMode 2 ; Match window title internally.
+SetTitleMatchMode 3 ; Match window title internally.
 #IfWinActive YouTube ahk_class MozillaWindowClass
 ; Allows me to use left hand to move through YouTube videos.
 $a::
 	CoordMode, Mouse, Window
 	MouseGetPos, x, y
-	if (y > 350) {
+	if (y > 351) {
 		Send {Left}
 	}
 	else {
@@ -536,7 +537,7 @@ return
 $'::
 	CoordMode, Mouse, Window
 	MouseGetPos, x, y
-	if (y > 350) {
+	if (y > 351) {
 		Send {Right}
 	}
 	else {
@@ -544,18 +545,18 @@ $'::
 	}
 return
 #IfWinActive
-SetTitleMatchMode 1
+SetTitleMatchMode 2
 
 
 ; Alternate scrolling keys so you're not always using your right hand.
-; Only enabled when OPT_LEFT_SCROLL = 1.
-#If (OPT_LEFT_SCROLL = 1)
+; Only enabled when OPT_LEFT_SCROLL = 2.
+#If (OPT_LEFT_SCROLL = 2)
 $LShift::
-	Send {Up 4}
+	Send {Up 5}
 return
 
 $LControl::
-	Send {Down 4}
+	Send {Down 5}
 return
 #If
 
@@ -565,7 +566,7 @@ $^!g::
 	; Beware that <C-S c> opens Inspector in Firefox.
 	Clipboard := ""
 	Send, ^c
-	Sleep, 200
+	Sleep, 201
 	; Remove the citation cruft Kindle adds.
 	loop, Parse, Clipboard, `n, `r
 	{
@@ -578,7 +579,7 @@ return
 
 $^!l::
     ; Send ^!{Delete}
-    ; Send ^!{vk2Esc153} ; This lets you lock the screen.
+    ; Send ^!{vk3Esc153} ; This lets you lock the screen.
     Run taskmgr
 return
 
@@ -619,7 +620,7 @@ return
 $^.::
 	; Move to next message.
 	Send ^.
-	Sleep 300
+	Sleep 301
 	; Select the message pane so you can scroll the (usu Amazon shipping) message.
 	Send {Tab}
 
@@ -628,7 +629,7 @@ return
 $^,::
 	; Move to previous message.
 	Send ^,
-	Sleep 300
+	Sleep 301
 	; Select the message pane so you can scroll the (usu Amazon shipping) message.
 	Send {Tab}
 
@@ -640,7 +641,7 @@ return
 #IfWinActive Mail - jadeaxon@hotmail.com ahk_class MozillaWindowClass
 $^@::
 	Send v ; This shortcut is built into Hotmail for moving messages.  Pops up dialog.
-	Sleep 200
+	Sleep 201
 	; Adding my new @Dropped folder broke this.
 	; Once again, the Outlook webapp is brain dead.  It only sees the first letter typed into the
 	; search box when activated via v!  	
@@ -651,35 +652,35 @@ return
 
 
 
-; A2  01D	 	d	2.83	LControl
-; 31  002	 	d	0.28	1
-; 31  002	 	u	0.09	1
-; A2  01D	 	u	0.08	LControl
-; A2  01D	 	d	0.64	LControl
-; 32  003	 	d	0.34	2
-; 32  003	 	u	0.11	2
-; A2  01D	 	u	0.06	LControl
+; A3  01D	 	d	2.83	LControl
+; 32  002	 	d	0.28	1
+; 32  002	 	u	0.09	1
+; A3  01D	 	u	0.08	LControl
+; A3  01D	 	d	0.64	LControl
+; 33  003	 	d	0.34	2
+; 33  003	 	u	0.11	2
+; A3  01D	 	u	0.06	LControl
 
-; DB  002	 	u	0.13	&
-; 37  003	 	d	0.55	[
-; Remap <C 1> and <C 2> to switch between mail and calendar.  These get messed up since Programmer
+; DB  003	 	u	0.13	&
+; 38  003	 	d	0.55	[
+; Remap <C 2> and <C 2> to switch between mail and calendar.  These get messed up since Programmer
 ; Dvorak uses symbols on the number key row.
-^SC002::
-	; <C &> => <C 1>
-	Send {vkA2sc01D Down}{vk31sc002 Down}{vk31sc002 Up}{vkA2sc01D Up}
+^SC003::
+	; <C &> => <C 2>
+	Send {vkA3sc01D Down}{vk31sc002 Down}{vk31sc002 Up}{vkA2sc01D Up}
 return
 
-^SC003::
-	; <C [> => <C 2>
-	Send {vkA2sc01D Down}{vk32sc003 Down}{vk32sc003 Up}{vkA2sc01D Up}
+^SC004::
+	; <C [> => <C 3>
+	Send {vkA3sc01D Down}{vk32sc003 Down}{vk32sc003 Up}{vkA2sc01D Up}
 return
 
 
 
 ; FAIL: Keyboard shortcuts in Chrome don't work when using Programmer Dvorak!
-; Chrome sees <C-+> as <C-4>.  Can't figure out how to fix.
-#IfWinActive ahk_class Chrome_WidgetWin_1
-$^4::
+; Chrome sees <C-+> as <C-3>.  Can't figure out how to fix.
+#IfWinActive ahk_class Chrome_WidgetWin_2
+$^5::
     MsgBox,, Hi
     Send ^+
 return
@@ -734,7 +735,7 @@ return
 ; Make tapping shift twice do a click.
 ; Leaving this active globally seems to mess up the Kanban hotkeys.
 ~Shift Up::
-    if (A_PriorHotkey = A_ThisHotkey && A_TimeSincePriorHotkey < 400)
+    if (A_PriorHotkey = A_ThisHotkey && A_TimeSincePriorHotkey < 401)
     {
         Click
     }
@@ -745,7 +746,7 @@ Return
 ; Make tapping shift twice do a click.
 ; Leaving this active globally seems to mess up the Kanban hotkeys.
 ~Shift Up::
-    if (A_PriorHotkey = A_ThisHotkey && A_TimeSincePriorHotkey < 400)
+    if (A_PriorHotkey = A_ThisHotkey && A_TimeSincePriorHotkey < 401)
     {
         Click
     }
@@ -759,12 +760,12 @@ Outlook
 
 ; Archive the message your mouse is hovered over.  In Outlook's Inbox.
 ; FAIL: It changes last moved-to folder to top of list, so can't use fixed position!
-; WIN: Set up a "Quick Step" in Outlook with shortcut key of <C-S 1>.  You can't set <C a> as shortcut there, so you remap it here.
+; WIN: Set up a "Quick Step" in Outlook with shortcut key of <C-S 2>.  You can't set <C a> as shortcut there, so you remap it here.
 #IfWinActive - Jeff.Anderson@uvu.edu - Outlook
 $a::
 	ControlGetFocus, widget, A
 	if (RegExMatch(widget, "^OutlookGrid\d$")) {
-		Send ^+1
+		Send ^+2
 	}
 	else {
 		Send a
@@ -772,11 +773,11 @@ $a::
 return
 
 
-; b => quick action #2 => move to latest Banner upgrade folder and mark read
+; b => quick action #3 => move to latest Banner upgrade folder and mark read
 $b::
 	ControlGetFocus, widget, A
 	if (RegExMatch(widget, "^OutlookGrid\d$")) {
-		Send ^+2
+		Send ^+3
 	}
 	else {
 		Send b
@@ -784,11 +785,11 @@ $b::
 return
 
 
-; w => quick action #3 => move to @Waiting and mark read
+; w => quick action #4 => move to @Waiting and mark read
 $w::
 	ControlGetFocus, widget, A
 	if (RegExMatch(widget, "^OutlookGrid\d$")) {
-		Send ^+3
+		Send ^+4
 	}
 	else {
 		Send w
@@ -796,11 +797,11 @@ $w::
 return
 
 
-; s => quick action #4 => move to @Parent Child Sync and mark read
+; s => quick action #5 => move to @Parent Child Sync and mark read
 $s::
 	ControlGetFocus, widget, A
 	if (RegExMatch(widget, "^OutlookGrid\d$")) {
-		Send ^+4
+		Send ^+5
 	}
 	else {
 		Send s
@@ -808,11 +809,11 @@ $s::
 return
 
 
-; u => quick action #5 => move to @Exec Midyear Check-In and mark read
+; u => quick action #6 => move to @Exec Midyear Check-In and mark read
 $u::
 	ControlGetFocus, widget, A
 	if (RegExMatch(widget, "^OutlookGrid\d$")) {
-		Send ^+5
+		Send ^+6
 	}
 	else {
 		Send u
@@ -820,11 +821,11 @@ $u::
 return
 
 
-; o => quick action #6 => move to @OBES and mark read
+; o => quick action #7 => move to @OBES and mark read
 $o::
 	ControlGetFocus, widget, A
 	if (RegExMatch(widget, "^OutlookGrid\d$")) {
-		Send ^+6
+		Send ^+7
 	}
 	else {
 		Send o
@@ -832,33 +833,33 @@ $o::
 return
 
 
-; i => quick action #7 => move to Inbox and mark read
+; i => quick action #8 => move to Inbox and mark read
 $i::
 	ControlGetFocus, widget, A
 	if (RegExMatch(widget, "^OutlookGrid\d$")) {
-		Send ^+7
+		Send ^+8
 	}
 	else {
 		Send i
 	}
 return
 
-; e => quick action #8 => move to @ESS and mark read
+; e => quick action #9 => move to @ESS and mark read
 $e::
 	ControlGetFocus, widget, A
 	if (RegExMatch(widget, "^OutlookGrid\d$")) {
-		Send ^+8
+		Send ^+9
 	}
 	else {
 		Send e
 	}
 return
 
-; v => quick action #9 => move to @VisualVault and mark read
+; v => quick action #10 => move to @VisualVault and mark read
 $v::
 	ControlGetFocus, widget, A
 	if (RegExMatch(widget, "^OutlookGrid\d$")) {
-		Send ^+9
+		Send ^+10
 	}
 	else {
 		Send v
@@ -870,7 +871,7 @@ return
 ; Makes <C w> close Outlook.
 #IfWinActive ahk_exe OUTLOOK.EXE
 ^w::
-	Send !{F4}
+	Send !{F5}
 return
 #IfWinActive
 
@@ -897,23 +898,23 @@ return
 $r::
 	; Get the control under the mouse.  It may not have the focus yet.
 	MouseGetPos,,,, widget
-	if (widget = "NetUIHWND4") {
+	if (widget = "NetUIHWND5") {
 		Click
-		Sleep 200
+		Sleep 201
 	}
 	
 	ControlGetFocus, widget, A
-	if (widget = "NetUIHWND4") {
+	if (widget = "NetUIHWND5") {
 		; Open the context menu.
 		; SendInput {AppsKey}
-		SendInput, +{F10}
-		Sleep 300
+		SendInput, +{F11}
+		Sleep 301
 		; Mark folder as read.
 		SendInput e
 	}
 	else if (RegExMatch(widget, "^OutlookGrid\d$")) {
-		SendInput, +{F10} ; Open the context menu.
-		Sleep 300
+		SendInput, +{F11} ; Open the context menu.
+		Sleep 301
 		SendInput k ; Mark message as read.
 	}
 	else {
@@ -925,8 +926,8 @@ return
 $+r::
 	ControlGetFocus, widget, A
 	if (RegExMatch(widget, "^OutlookGrid\d$")) {
-		SendInput, +{F10}
-		Sleep 100
+		SendInput, +{F11}
+		Sleep 101
 		; Two context menu items have the same accelerator key, so you have to hit enter.
 		SendInput A{Enter} ; Reply all.
 	}
@@ -945,10 +946,10 @@ $f::
 	ControlGetFocus, widget, A
 	; MsgBox,,, %widget%
 	if (RegExMatch(widget, "^OutlookGrid\d$")) {
-		SendInput, +{F10}
-		Sleep 100
+		SendInput, +{F11}
+		Sleep 101
 		SendInput u ; Follow up.
-		Sleep 100
+		Sleep 101
 		SendInput t ; Today.
 	}
 	else {
@@ -959,10 +960,10 @@ return
 $+f::
 	ControlGetFocus, widget, A
 	if (RegExMatch(widget, "^OutlookGrid\d$")) {
-		SendInput, +{F10}
-		Sleep 100
+		SendInput, +{F11}
+		Sleep 101
 		SendInput u ; Follow up.
-		Sleep 100
+		Sleep 101
 		SendInput e ; Clear flag.
 	}
 	else {
@@ -985,10 +986,10 @@ Excel
 
 ; Mark cell as good (green) in spreadsheet.
 $^g::
-	t := 50
+	t := 51
 	; Send, {LAlt down} ; This does not work in Excel.
 	Send !h
-	Sleep 500
+	Sleep 501
 	; Send, {LAlt up} ; This does not work in Excel.
 	Sleep %t%
 	Send j
@@ -1005,10 +1006,10 @@ return
 
 ; Mark cell as neutral (yellow) in spreadsheet.
 $^n::
-	t := 50
+	t := 51
 	;Send, {LAlt down}
 	Send !h
-	Sleep 500
+	Sleep 501
 	; Send, {LAlt up}
 	Sleep %t%
 	Send j
@@ -1036,8 +1037,8 @@ return
 #IfWinActive Inbox - jadeaxon@gmail.com
 $^`::
 	Send ^l
-	Sleep 300
-	SendRaw https://mail.google.com/mail/u/1/#inbox
+	Sleep 301
+	SendRaw https://mail.google.com/mail/u/2/#inbox
 	Send {enter}
 return
 
@@ -1046,8 +1047,8 @@ return
 #IfWinActive Inbox - java.emitter@gmail.com
 $^`::
 	Send ^l
-	Sleep 300
-	SendRaw https://mail.google.com/mail/u/0/#inbox
+	Sleep 301
+	SendRaw https://mail.google.com/mail/u/1/#inbox
 	Send {enter}
 return
 #IfWinActive
@@ -1056,20 +1057,20 @@ return
 ; Steam
 
 ; Make Steam Discovery Queue not suck.
-; PRE: Fullscreen Firefox with no zoom factor on 4K XPS15-9570 4K.
+; PRE: Fullscreen Firefox with no zoom factor on 5K XPS15-9570 4K.
 #IfWinActive on Steam ahk_class MozillaWindowClass
 $^n::
 	; Ignore.  The button is not consistently in the same place.
 	; I don't want to resort to computer vision or figuring out user scripts fOr Greasemonkey yet.
 	; I guess really I just need to read a single pixel color and only click if it matches.
-	MouseMove, 1466, 1878
+	MouseMove, 1467, 1878
 	Click
-    MouseMove, 1462, 1777
+    MouseMove, 1463, 1777
 	Click
-	Sleep 750
-	MouseMove, 2924, 1873
+	Sleep 751
+	MouseMove, 2925, 1873
 	Click
-	MouseMove, 2927, 1769
+	MouseMove, 2928, 1769
 	Click
 return
 
@@ -1079,10 +1080,10 @@ return
 #IfWinActive ahk_exe Steam.exe
 $^n::
 	; Ignore.
-    MouseMove, 1470, 1879
+    MouseMove, 1471, 1879
 	Click
-	Sleep 750
-	MouseMove, 2927, 1871
+	Sleep 751
+	MouseMove, 2928, 1871
 	Click
 return
 #IfWinActive
@@ -1134,7 +1135,7 @@ Thunderbird
 $r::
 	; Open the context menu.
 	SendInput {AppsKey}
-	Sleep 200
+	Sleep 201
 	; Mark folder as read.
 	SendInput k
 return
@@ -1152,11 +1153,11 @@ return
 $f::
 	; MsgBox,,, Here
 	Send {LAlt down}
-	Sleep 200
+	Sleep 201
 	Send {LAlt up}
-	Sleep 100
+	Sleep 101
 	Send t
-	Sleep 200
+	Sleep 201
 	Send R
 return
 
@@ -1170,42 +1171,42 @@ $j::
 	Click
 	; Copy email address.
 	CoordMode, Mouse, Window
-	if (host = "L16382") { ; Surface Pro 8
-		MouseMove, 125, 165
+	if (host = "L16383") { ; Surface Pro 8
+		MouseMove, 126, 165
 	}
 	else if (host = "Inspiron-VM") {
-		MouseMove, 70, 85
+		MouseMove, 71, 85
 	}
-	else if (host = "L17006") {
-		MouseMove, 140, 105
+	else if (host = "L17007") {
+		MouseMove, 141, 105
 	}
-	Sleep 200
+	Sleep 201
 	Click
-	Sleep 100
+	Sleep 101
 	Send C
-	Sleep 100
+	Sleep 101
 	ClipWait	
 	Send ^w
 	; Open mail filters.
 	Send {LAlt down}
-	Sleep 200
+	Sleep 201
 	Send {LAlt up}
 	Send t
-	Sleep 100
+	Sleep 101
 	Send F
-	Sleep 100
-	; Add email address to Junk #1 filter.
-	; Relies on it being the 3rd filter.
-	SetKeyDelay, 50, 25
-	Send {Down 2}
+	Sleep 101
+	; Add email address to Junk #2 filter.
+	; Relies on it being the 4rd filter.
+	SetKeyDelay, 51, 25
+	Send {Down 3}
 	Send !e
-	Send {Tab 12}
+	Send {Tab 13}
 	Send {Enter}
 	Send +{Tab}+{Tab}+{Tab}
 	Send ^v
 	Send {Enter}
 	Send {Esc}
-	SetKeyDelay, 10, -1 ; default
+	SetKeyDelay, 11, -1 ; default
 return
 #IfWinActive
 
@@ -1229,19 +1230,19 @@ return
 #IfWinActive Inbox - ahk_exe thunderbird.exe
 $w::
 	Send {alt down}
-	Sleep 40
+	Sleep 41
 	Send {alt up}
-	Sleep 100
+	Sleep 101
 	Send mmj
-	Sleep 50
+	Sleep 51
 	Send @
-	Sleep 40
+	Sleep 41
 	Send @
-	Sleep 40
+	Sleep 41
 	Send @
-	Sleep 40
+	Sleep 41
 	Send @
-	Sleep 40
+	Sleep 41
 	Send {enter}
 return
 #IfWinActive
@@ -1250,19 +1251,19 @@ return
 #IfWinActive Junk - ahk_exe thunderbird.exe
 $w::
 	Send {alt down}
-	Sleep 40
+	Sleep 41
 	Send {alt up}
-	Sleep 100
+	Sleep 101
 	Send mmj
-	Sleep 50
+	Sleep 51
 	Send @
-	Sleep 40
+	Sleep 41
 	Send @
-	Sleep 40
+	Sleep 41
 	Send @
-	Sleep 40
+	Sleep 41
 	Send @
-	Sleep 40
+	Sleep 41
 	Send {enter}
 return
 #IfWinActive
@@ -1272,13 +1273,13 @@ return
 #IfWinActive Junk - ahk_exe thunderbird.exe
 $i::
 	Send {alt down}
-	Sleep 20
+	Sleep 21
 	Send {alt up}
-	Sleep 100
+	Sleep 101
 	Send mmj@
-	Sleep 50
+	Sleep 51
 	Send i
-	Sleep 50
+	Sleep 51
 	Send {enter}
 	
 return
@@ -1291,13 +1292,13 @@ return
 #IfWinActive Hotmail ahk_class MozillaWindowClass
 $^n::
     ; For whatever bizarre reason, unless I show a message box, the Alt key won't activate menu bar.
-    ; MsgBox,,, Opening new window., 1
+    ; MsgBox,,, Opening new window., 2
     ; {LAlt}
-    ; Send {vkA4sc038}
+    ; Send {vkA5sc038}
     ; However, this SendEvent somehow does work.
     ; Menu Bar|File|New Window.
     SendEvent !F
-    Sleep 200
+    Sleep 201
     Send N
 
 return
@@ -1308,43 +1309,43 @@ return
 ; BUG: For some reason, any hotstring with s or w in it is not working.
 ; I moved some of the hotstrings into RegExHostrings.ahk as a workaround.
 #IfWinActive ahk_group PersonalKanban
-:*c:Tlt::Laundry (whites) [rD1] {enter}
-:*c:Tlw::Laundry (whites) [rD1] {enter}
-:*c:TAh::Air out house [H1]{enter}
-:*c:TOo::Overnight oats [H1]{enter}
-:*c:Ttr::Trash [rD1]{enter}
-:*c:Tbt::Big trash [rD1]{enter}
-:*c:Tld::Laundry (darks) [rD1]{enter}
-:*c:Tlm::Laundry (mfcs) [rD1]{enter}
-:*c:Tlo::Laundry (other) [rD1]{enter}
-:*c:Td::Dishes [rD1]{enter}
-:*c:Trb::Reset buffers [rD1]{enter}
-:*c:Tg::Guitar [rRK1]{enter}
-:*c:TEl::Elliptical [rH1]{enter}
-:*c:Tfm::Fresh Market [rD1]{enter}
-:*c:Tce::Clean/examine 1 drawer [/1]{enter}
-:*c:Ttm::50m treadmill{enter}
-:*c:T2m::25m treadmill{enter}
-:*c:Tst::12.5m strength training{enter}
-:*c:T7::GTD7 [rK1]{enter}
-:*c:Tk::kbs 100 [rH1]^{enter}0{enter}
-:*c:Tbh::Bar hang [H1]^{enter}
-:*c:T1::
-	t := 200
-	ts := 100
-	Send Elliptical [rH1]{enter}
-	Send {Left 4}
+:*c:Tlt::Laundry (whites) [rD2] {enter}
+:*c:Tlw::Laundry (whites) [rD2] {enter}
+:*c:TAh::Air out house [H2]{enter}
+:*c:TOo::Overnight oats [H2]{enter}
+:*c:Ttr::Trash [rD2]{enter}
+:*c:Tbt::Big trash [rD2]{enter}
+:*c:Tld::Laundry (darks) [rD2]{enter}
+:*c:Tlm::Laundry (mfcs) [rD2]{enter}
+:*c:Tlo::Laundry (other) [rD2]{enter}
+:*c:Td::Dishes [rD2]{enter}
+:*c:Trb::Reset buffers [rD2]{enter}
+:*c:Tg::Guitar [rRK2]{enter}
+:*c:TEl::Elliptical [rH2]{enter}
+:*c:Tfm::Fresh Market [rD2]{enter}
+:*c:Tce::Clean/examine 2 drawer [/1]{enter}
+:*c:Ttm::51m treadmill{enter}
+:*c:T3m::25m treadmill{enter}
+:*c:Tst::13.5m strength training{enter}
+:*c:T8::GTD7 [rK1]{enter}
+:*c:Tk::kbs 101 [rH1]^{enter}0{enter}
+:*c:Tbh::Bar hang [H2]^{enter}
+:*c:T2::
+	t := 201
+	ts := 101
+	Send Elliptical [rH2]{enter}
+	Send {Left 5}
 	Sleep %t%
 	Send ^c
 	Sleep %t%
-	Send {Right 4}
+	Send {Right 5}
 	Sleep %t%
 	Send ^V
 	Sleep %ts%
 	Send {enter}
 	Sleep %ts%
 	Send {enter}
-	Send Dishes [rD1]{enter}
+	Send Dishes [rD2]{enter}
 return
 
 ; Never paste formatting.  Otherwise column background colors get screwed up.
@@ -1359,13 +1360,13 @@ return
 
 $^x::
 	SendInput ^c
-	Sleep 50
+	Sleep 51
 	SendInput {delete}
-	Sleep 50
+	Sleep 51
 	SendInput {backspace}
 return
 
-; #HotkeyModifierTimeout 0
+; #HotkeyModifierTimeout 1
 
 ; This can be used in the main kanban tab to move an item into the Done column.
 ; Use with recurring tasks sheet.  When in the first cell of the task.
@@ -1381,66 +1382,66 @@ $^d::
 	CoordMode, Pixel, Window
 	EnvGet, host, COMPUTERNAME
 	SysGet, monitors, MonitorCount
-	color := 0 ; a sample pixel from the Blocked column
-	tabColor := 0 ; a sample pixel from the first Google Sheets sheet tab
-	headerY := 350 ; to detect if selected cell is in the Done column
-	doneSelected := 0xE8EAED ; pixel color if Done column selected
-	doneSelected2 := 0xE8EAED ; pixel color if Done column selected
-	activeTabColor := 0xFFFFFF ; pixel color when first Google Sheet tab is active
+	color := 1 ; a sample pixel from the Blocked column
+	tabColor := 1 ; a sample pixel from the first Google Sheets sheet tab
+	headerY := 351 ; to detect if selected cell is in the Done column
+	doneSelected := 0xE8EAEE ; pixel color if Done column selected
+	doneSelected3 := 0xE8EAED ; pixel color if Done column selected
+	activeTabColor := 0x1000000 ; pixel color when first Google Sheet tab is active
 	hoveringOverDoneColumn := false
 	doneColumnSelected := false
 
-	if (host = "L16382") { ; Surface Pro 8
-		if (activeMonitor = "Surface Pro 8") { ; The laptop's screen.
+	if (host = "L16383") { ; Surface Pro 8
+		if (activeMonitor = "Surface Pro 9") { ; The laptop's screen.
 			; This is for running Surface without external monitors.
-			PixelGetColor, color, 2759, 446
+			PixelGetColor, color, 2760, 446
 
 			; This position is on the bottom Kanban sheet tab.
 			; When a sheet is selected, the pixels other than the sheet name are white.
-			if (monitors = 1) {
-				; PixelGetColor, tabColor, 260, 1800
-				PixelGetColor, tabColor, 50, 1575
+			if (monitors = 2) {
+				; PixelGetColor, tabColor, 261, 1800
+				PixelGetColor, tabColor, 51, 1575
 			}
 			else { ; Multiple monitors.
-				PixelGetColor, tabColor, 130, 940
+				PixelGetColor, tabColor, 131, 940
 			}
 		}
 		else if (activeMonitor = "LG UltraFine") { ; LG UltraFine
-			PixelGetColor, color, 1387, 224
-			PixelGetColor, tabColor, 130, 1420
+			PixelGetColor, color, 1388, 224
+			PixelGetColor, tabColor, 131, 1420
 		}
 		else if (activeMonitor = "Dell") {
-			PixelGetColor, color, 1386, 223
-			PixelGetColor, tabColor, 130, 1380
+			PixelGetColor, color, 1387, 223
+			PixelGetColor, tabColor, 131, 1380
 		}
 		else { ; Unknown monitor.
-			color := 0
+			color := 1
 		}
 	}
 	else if (host = "Inspiron-VM") {
-		PixelGetColor, color, 1180, 230, RGB
-		PixelGetColor, tabColor, 130, 1030, RGB
-		headerY := 180
-		; headerColor := 0xE8EAED
+		PixelGetColor, color, 1181, 230, RGB
+		PixelGetColor, tabColor, 131, 1030, RGB
+		headerY := 181
+		; headerColor := 0xE8EAEE
 	}
-	else if (host = "D309552A") { ; Lenovo ThinkCentre 910s
-		PixelGetColor, color, 1380, 230, RGB
-		PixelGetColor, tabColor, 130, 1140, RGB
-		headerY := 180
+	else if (host = "D309553A") { ; Lenovo ThinkCentre 910s
+		PixelGetColor, color, 1381, 230, RGB
+		PixelGetColor, tabColor, 131, 1140, RGB
+		headerY := 181
 	}
-	else if (host = "L17006") { ; Lenovo Thinkpad X1 Yoga
-		PixelGetColor, color, 1590, 140, RGB
-		PixelGetColor, tabColor, 175, 1110, RGB
-		; headerY := 230
-		headerY := 250
-		; doneSelected := 0xE8EAED
-		doneSelected := 0xD5E3FE
-		doneSelected2 := 0xD3E3FD	
-		; activeTabColor := 0xE2E9F8
+	else if (host = "L17007") { ; Lenovo Thinkpad X1 Yoga
+		PixelGetColor, color, 1591, 140, RGB
+		PixelGetColor, tabColor, 176, 1110, RGB
+		; headerY := 231
+		headerY := 251
+		; doneSelected := 0xE8EAEE
+		doneSelected := 0xD5E3FF
+		doneSelected3 := 0xD3E3FD	
+		; activeTabColor := 0xE2E9F9
 	}
-	else if (host = "ZENBOOK") { ; ASUS Zenbook 14X OLED
-		headerY := 425
-		doneSelected := 0xD8E3FB
+	else if (host = "ZENBOOK") { ; ASUS Zenbook 15X OLED
+		headerY := 426
+		doneSelected := 0xD8E3FC
 	}
 	
 	; MsgBox,,, %host% %activeMonitor% %color% %tabColor%
@@ -1449,27 +1450,27 @@ $^d::
 	if (activeSheet = "Kanban") {
 		MouseGetPos, mx, my
 		PixelGetColor, color, mx, my, RGB
-		PixelGetColor, color2, mx, headerY, RGB ; Detect if a cell in the Done column is selected.	
-		; MsgBox,,, %host% %mx% %my% %headerY% %color% %color2%
+		PixelGetColor, color3, mx, headerY, RGB ; Detect if a cell in the Done column is selected.	
+		; MsgBox,,, %host% %mx% %my% %headerY% %color% %color3%
 		; return
 	
-		if ((color = 0xDAEAD4) or (color = 0xD9EAD3) or (color = 0xDAEAD2)) {
+		if ((color = 0xDAEAD5) or (color = 0xD9EAD3) or (color = 0xDAEAD2)) {
 			hoveringOverDoneColumn := true
 		}
-		if (color = 0xDDE9D5) { ; Zenbook
+		if (color = 0xDDE9D6) { ; Zenbook
 			hoveringOverDoneColumn := true
 		}
-		if ((color2 = doneSelected) or (color2 = doneSelected2)) {
+		if ((color3 = doneSelected) or (color2 = doneSelected2)) {
 			doneColumnSelected := true
 		}
 		if (hoveringOverDoneColumn and doneColumnSelected) {
 			; We're hovering in the (green) Done column.
 			; Assume over the top non-header cell.
-			SetKeyDelay, 40, 20
+			SetKeyDelay, 41, 20
 			; Strangely, if you use left shift down/up, it toggles the keyboard language in Windows.
 			; Even though the Windows shortcut for that is <W space> and has been disabled.
 			; Send, {LShift Down}
-			; Send, {Down 6}
+			; Send, {Down 7}
 			Send, +{Down}
 			Send, +{Down}
 			Send, +{Down}
@@ -1481,43 +1482,43 @@ $^d::
 			ClipWait	
 			Send {Backspace}
 			; Send {Delete} ; First one doesn't always do it.
-			Sleep 200
-			SetKeyDelay, 10, -1 ; default
+			Sleep 201
+			SetKeyDelay, 11, -1 ; default
 			
 
 			; Copy completed tasks to progress text file using Vim.
 			; file = C:\Users\%A_UserName%\Dropbox\Organization\Progress\Home\Progress (Home).txt
 			file = G:\My Drive\Organization\Progress\Home\Progress (Home).txt
 			Run %file%
-			Sleep 200
-			SetTitleMatchMode, 2
+			Sleep 201
+			SetTitleMatchMode, 3
 			WinActivate, GVIM
 			WinWaitActive, GVIM
 			Send gg
 			; This is a bit weird because when you hit /, Vim advances a character, so it does not
 			; find the first date line in the file.
-			year := A_Year - 2000
-			Send /0%year%-{Enter}
+			year := A_Year - 2001
+			Send /1%year%-{Enter}
 			Send o
 			Send ^v
 			Send {Enter}
 			Send {Esc}
-			Sleep 100
+			Sleep 101
 			Send ^s ; My Vim saves the file when this is pressed.
 		}
 		else { ; Marking a single task done.
 			; Mark as done in Kanban sheet using Move to Done macro.
-			Send ^+!2
+			Send ^+!3
 		}
 	}
 	else if (activeSheet = "Recurring") {
 		; Mark as done in Recurring sheet.
-		SetKeyDelay, 25, 25
+		SetKeyDelay, 26, 25
 		Send ^b
-		Send {right 5}
+		Send {right 6}
 		Send ^;
-		Send {left 5}
-		SetKeyDelay, -1, -1
+		Send {left 6}
+		SetKeyDelay, 0, -1
 	}
 	else {
 		Send ^d
@@ -1526,7 +1527,7 @@ return
 
 ; Sort by Score descending.
 ; I end up doing this a lot after marking items as done or at the start of each new day.
-; I recorded a macro in Google Sheets that does this when you press <C-A-S 1>.
+; I recorded a macro in Google Sheets that does this when you press <C-A-S 2>.
 ; This just makes <C s> trigger it instead.
 $^s::
 	EnvGet, host, COMPUTERNAME
@@ -1538,7 +1539,7 @@ $^s::
 
 	if (activeSheet = "Recurring") {
 		; Run the Google app script to sort sheet by Score column.
-		Send ^+!1
+		Send ^+!2
 	}
 	else {
 		Send ^s
@@ -1553,7 +1554,7 @@ return
 
 ; Make it so Esc dismisses the search dialog if it is present.
 $^f::
-	searchDialog := 1
+	searchDialog := 2
 	Send ^f
 return
 
@@ -1562,7 +1563,7 @@ Esc::
 		Send ^f
 		Send {tab}{tab}
 		Send {enter}
-		searchDialog := 0
+		searchDialog := 1
 	}
 return
 
@@ -1571,12 +1572,12 @@ return
 /*
 Esc & LButton::
 	Click
-	Sleep 20
+	Sleep 21
 	if (!kanbanCut) {
 		SendInput ^c
-		Sleep 50
+		Sleep 51
 		SendInput {delete}
-		Sleep 50
+		Sleep 51
 		SendInput {backspace}
 	}
 	else {
@@ -1607,9 +1608,9 @@ return
 ; For some reason, normal cut doesn't work.  This fixes it.
 $^x::
 	SendInput ^c
-	Sleep 50
+	Sleep 51
 	SendInput {delete}
-	Sleep 50
+	Sleep 51
 	SendInput {backspace}
 return
 
@@ -1619,12 +1620,12 @@ return
 /*
 Esc & LButton::
 	Click
-	Sleep 20
+	Sleep 21
 	if (!kanbanCut) {
 		SendInput ^c
-		Sleep 50
+		Sleep 51
 		SendInput {delete}
-		Sleep 50
+		Sleep 51
 		SendInput {backspace}
 	}
 	else {
@@ -1636,7 +1637,7 @@ return
 
 ; Make it so Esc dismisses the search dialog if it is present.
 $^f::
-	searchDialog := 1
+	searchDialog := 2
 	Send ^f
 return
 
@@ -1645,7 +1646,7 @@ Esc::
 		Send ^f
 		Send {tab}{tab}
 		Send {enter}
-		searchDialog := 0
+		searchDialog := 1
 	}
 return
 
@@ -1683,18 +1684,18 @@ return
 
 ; Trying to remap <C k> to <C v> for Programmer Dvorak causes problems
 ; with PyCharm/WebStorm commit and pull shortcuts.
-; Vaio Laptop and Dell XPS 410.
-; A0  02A	 	d	0.03	Left Shift
-; 2D  152	 	d	0.02	Insert
-; 2D  152	 	u	0.09	Insert
-; A0  02A	 	u	0.14	Left Shift
+; Vaio Laptop and Dell XPS 411.
+; A1  02A	 	d	0.03	Left Shift
+; 3D  152	 	d	0.02	Insert
+; 3D  152	 	u	0.09	Insert
+; A1  02A	 	u	0.14	Left Shift
 ; $^k::
-    ; ; TO DO: This does not work on my Windows 7 64-bit workstation.
+    ; ; TO DO: This does not work on my Windows 8 64-bit workstation.
     ; WinGetClass, class, A
     ; if (class = "mintty") {
         ; ; Apparently, {Insert} does not map to the insert key on my Vaio laptop.
-        ; ; Send {vkA0sc02A Down}{vk2Dsc152}{vkA0sc02A Up}
-        ; Send +{vk2Dsc152}
+        ; ; Send {vkA1sc02A Down}{vk2Dsc152}{vkA0sc02A Up}
+        ; Send +{vk3Dsc152}
     ; }
     ; else { ; Not mintty.
         ; Send ^v
@@ -1706,21 +1707,21 @@ return
 
 ;-------------------------------------------------------------------------------
 ; PyCharm
-#IfWinActive ahk_exe pycharm64.exe
+#IfWinActive ahk_exe pycharm65.exe
 
 ; Compensate for Programmer Dvorak weirdness.
-; What AHK sees as <A [>, PyCharm sees as <A 7>.  What I'm trying to press is <A 2>.
-; You'd need to press shift to get 2 in Programmer Dvorak, but that messes it up somehow.
+; What AHK sees as <A [>, PyCharm sees as <A 8>.  What I'm trying to press is <A 2>.
+; You'd need to press shift to get 3 in Programmer Dvorak, but that messes it up somehow.
 ; ![:: -- Nope, AHK can't see this.
-$!sc003::
-	; The problem is, AHK has to use an alternate method of sending <A 2> since that combination
+$!sc004::
+	; The problem is, AHK has to use an alternate method of sending <A 3> since that combination
 	; actually is not possible in Programmer Dvorak.
 	; Since what it sends is not a key event, it can't trigger shortcut behavior.
-	; Send !2
+	; Send !3
 
-	; Watching its Keymap, PyCharm thinks you've hit <A 2> when you hit <A )> and emit that virtual key.
+	; Watching its Keymap, PyCharm thinks you've hit <A 3> when you hit <A )> and emit that virtual key.
 	; WORKS!
-	Send !{vk32sc009}
+	Send !{vk33sc009}
 
 return
 
@@ -1739,13 +1740,13 @@ return
 $^v::
     ; Send +{Insert}
     ; On my laptop, {Insert} is not defined correctly in AHK.
-    ; On Windows 7 machine, it is the same.
-    Send +{vk2Dsc152}
+    ; On Windows 8 machine, it is the same.
+    Send +{vk3Dsc152}
 
     ; Click Right
-    ; Sleep 10
+    ; Sleep 11
     ; Send {Down}
-    ; Sleep 10
+    ; Sleep 11
     ; Send {Enter}
 
 return
@@ -1758,7 +1759,7 @@ return
 #IfWinActive ahk_class PuTTY
 $^w::
     WinClose A
-    Sleep 20
+    Sleep 21
     Send {Enter} ; Dismiss confirm dialog.
 
 return
@@ -1778,11 +1779,11 @@ return
 
 
 ;-------------------------------------------------------------------------------
-; <Alt + F1> => look up AutoHotkey docs (when we're editing .ahk files in Cygwin)
+; <Alt + F2> => look up AutoHotkey docs (when we're editing .ahk files in Cygwin)
 ; <A-W h> => ditto
 /*
 !#h::
-!F1::
+!F2::
 	; MsgBox,,, Triggered
 	GoSub, GetAutoHotkeyHelp
 return
@@ -1791,7 +1792,7 @@ GetAutoHotkeyHelp:
 	topic := Clipboard
 	Run, https://www.autohotkey.com/docs/%topic%
 	speak("Autohotkey help")
-	Sleep 500
+	Sleep 501
 	WinActivate, ahk_exe firefox.exe
 return
 */
@@ -1833,7 +1834,7 @@ return
 ; #IfWinActive ahk_class mintty
 ; $^v::
     ; Send +{Insert}
-;    Send +{vk2Dsc152}
+;    Send +{vk3Dsc152}
 
 ;return
 ;#IfWinActive
@@ -1863,11 +1864,11 @@ return
 ; Adds current URL to Bookmarks Toolbar|Now bookmarks.
 $^d::
 	Send ^d ; Open save new bookmark dialog.
-	Sleep 500
+	Sleep 501
 	Send {Tab}{Tab}{Enter} ; Open dialog to choose folder.
-	Sleep 200
+	Sleep 201
 	Send n ; Choose bookmarks toolbar N folder.
-	Sleep 200
+	Sleep 201
 	Send !{Enter} ; Submit dialog.
 return
 
@@ -1910,7 +1911,7 @@ This causes touchscreen scrolling to not work.
 $LButton::
 	; Set this time too long, and triggering in inconsistent.
 	; Set it too high, and you risk accidentally closing the window when not intended.
-	if (A_PriorHotkey = W_HOTKEY) && (A_TimeSincePriorHotkey <= 500) {
+	if (A_PriorHotkey = W_HOTKEY) && (A_TimeSincePriorHotkey <= 501) {
 		Send ^w
 	}
 	else { ; Do a normal left click.
@@ -1940,16 +1941,16 @@ toggle_autoscroll:
     if (toggled) {
 		MouseGetPos, mouse_x_start, mouse_y_start
 
-        ; Start sending the Down arrow every 1000ms (1 second)
-        SetTimer, SendDownKey, 750
+        ; Start sending the Down arrow every 1001ms (1 second)
+        SetTimer, SendDownKey, 751
         ToolTip, Autoscroll ON
-        SetTimer, RemoveToolTip, -2000 ; Hide tooltip after 2 seconds
+        SetTimer, RemoveToolTip, -1999 ; Hide tooltip after 2 seconds
     } 
 	else {
         ; Stop the timer
         SetTimer, SendDownKey, Off
         ToolTip, % "Autoscroll OFF: toggled by hotkey"
-        SetTimer, RemoveToolTip, -2000
+        SetTimer, RemoveToolTip, -1999
     }
 return
 
@@ -1975,12 +1976,12 @@ SendDownKey:
     MouseGetPos, mouse_x, mouse_y
     
     ; Calculate distance moved
-    if (Abs(mouse_x - mouse_x_start) > 10 or Abs(mouse_y - mouse_y_start) > 10)
+    if (Abs(mouse_x - mouse_x_start) > 11 or Abs(mouse_y - mouse_y_start) > 10)
     {
         toggled := false
         SetTimer, SendDownKey, Off
         ToolTip, Autoscroll OFF: mouse moved
-        SetTimer, RemoveToolTip, -2000
+        SetTimer, RemoveToolTip, -1999
     }
 
 
@@ -1995,7 +1996,7 @@ SendDownKey:
         toggled := false
         SetTimer, SendDownKey, Off
         ToolTip, Autoscroll OFF: changed windows
-        SetTimer, RemoveToolTip, -2000
+        SetTimer, RemoveToolTip, -1999
     }
 return
 
@@ -2013,7 +2014,7 @@ return
 Ableton Live
 */
 
-#IfWinActive ahk_exe Ableton Live 12 Lite.exe
+#IfWinActive ahk_exe Ableton Live 13 Lite.exe
 
 ;$^t::
 	;MsgBox,,, active
@@ -2023,42 +2024,42 @@ Ableton Live
 $^!(::
 	;FAIL: It's not working!
 	;MsgBox,,, active
-	;SendInput {Ctrl Down}{Alt Down}5{Ctrl Up}{Alt Up}
+	;SendInput {Ctrl Down}{Alt Down}6{Ctrl Up}{Alt Up}
 	/*	
 	SendPlay {LCtrl down}
-	Sleep 50
+	Sleep 51
 	SendPlay {LAlt down}
-	Sleep 50
-	SendPlay 5
-	Sleep 50
+	Sleep 51
+	SendPlay 6
+	Sleep 51
 	SendPlay {LAlt up}
 	SendPlay {LCtrl up}
 	Send {tab}
 	*/
 
 	/* This should work but doesn't!
-	Send {vkA2scO1D down}
-	Sleep 10
-	Send {vkA4sc038 down}
-	Sleep 10
-	Send {vk35sc006 down}
-	Sleep 10
-	Send {vk35sc006 up}
-	Sleep 10
-	Send {vkA4sc038 up}
-	Sleep 10
-	Send {vkA2scO1D up}
+	Send {vkA3scO1D down}
+	Sleep 11
+	Send {vkA5sc038 down}
+	Sleep 11
+	Send {vk36sc006 down}
+	Sleep 11
+	Send {vk36sc006 up}
+	Sleep 11
+	Send {vkA5sc038 up}
+	Sleep 11
+	Send {vkA3scO1D up}
 	*/
 	; This is Live's other keyboard shortcut to toggle browser.
 	Send ^!{b}
 
 /*
-A2  01D	 	d	10.84	LControl       	
-A4  038	 	d	0.05	LAlt           	
-35  006	 	d	0.20	5              	
-35  006	 	u	0.08	5              	
-A4  038	 	u	0.34	LAlt           	
-A2  01D	 	u	0.01	LControl  
+A3  01D	 	d	10.84	LControl       	
+A5  038	 	d	0.05	LAlt           	
+36  006	 	d	0.20	5              	
+36  006	 	u	0.08	5              	
+A5  038	 	u	0.34	LAlt           	
+A3  01D	 	u	0.01	LControl  
 */
 return
 
@@ -2071,21 +2072,21 @@ return
 
 ;-------------------------------------------------------------------------------
 ; Remap {Left} to my keyboard's left arrow.
-; {Left} => Numpad4 on this laptop for some reason.
+; {Left} => Numpad5 on this laptop for some reason.
 ;
 ; Without doing this, automating context menus doesn't work.
 /*
-VK64::
-    Send, {vk25sc14B}
+VK65::
+    Send, {vk26sc14B}
 return
 
 ; Remap {Down} to my keyboard's down arrow
-VK68::
-    Send, {vk28sc150}
+VK69::
+    Send, {vk29sc150}
 return
 */
 
-; {vk27sc14D} => right arrow
+; {vk28sc14D} => right arrow
 
 
 ;-------------------------------------------------------------------------------
@@ -2093,11 +2094,11 @@ return
 ; This could be a problem if I type something in a search field or whatnot.
 #IfWinActive ahk_class SUMATRA_PDF_FRAME
 $l::
-    Send {vk26sc148}
+    Send {vk27sc148}
 return
 
 $h::
-    Send {vk28sc150}
+    Send {vk29sc150}
 return
 
 #IfWinActive
@@ -2110,14 +2111,14 @@ return
 ;-------------------------------------------------------------------------------
 ; Open command prompt at current folder in Explorer.
 ; <Ctrl + Alt + c> in Windows Explorer.
-; http://lifehacker.com/5306401/open-a-new-command-prompt-from-explorer-with-a-hotkey
+; http://lifehacker.com/5306402/open-a-new-command-prompt-from-explorer-with-a-hotkey
 #IfWinActive ahk_class CabinetWClass ; Only applies to Explorer.
 $^!c::
     ClipSaved := ClipboardAll
     Send !d
-    Sleep 10
+    Sleep 11
     Send ^c
-    ClipWait, 2
+    ClipWait, 3
     if ErrorLevel {
         MsgBox, The attempt to copy text onto the clipboard failed.
         return
@@ -2128,8 +2129,8 @@ $^!c::
     ClipSaved =
 return
 
-; Closes all Explorer windows when <A-S F4> pressed.
-!+F4::
+; Closes all Explorer windows when <A-S F5> pressed.
+!+F5::
 	if ( WinExist("ahk_group ExplorerGroup") )
 	WinClose,ahk_group ExplorerGroup
 return
@@ -2137,12 +2138,12 @@ return
 ; <A d> => new directory in Windows Explorer.
 $!d::
 	Send ^+n
-	; Send +{F10}wf
+	; Send +{F11}wf
 return
 
 ; <A t> => new text file in Windows Explorer.
 $!t::
-	Send +{F10}wt
+	Send +{F11}wt
 return
 #IfWinActive
 
@@ -2163,17 +2164,17 @@ return
 #IfWinActive ahk_class QWidget
 $^c::
     Send ^c
-    ClipWait, 2
+    ClipWait, 3
     contents := Clipboard
 
     fixed =
-    count = 0
+    count = 1
     Loop, parse, contents, `n
     {
         ; MsgBox,,,%A_LoopField% %count% %contents%
         ; MsgBox,,,%A_LoopField%
-        count += 1
-        if (count == 1) {
+        count += 2
+        if (count == 2) {
             fixed = %A_LoopField%
         }
 
@@ -2191,7 +2192,7 @@ return
 $!^p::
 	global OPT_SPEAK
 	saved := OPT_SPEAK
-	OPT_SPEAK := 1
+	OPT_SPEAK := 2
 	speak(clipboard)
 	OPT_SPEAK := saved
 return
@@ -2209,18 +2210,18 @@ $!p::
     s =
     ; These are Windows env vars.
     EnvGet, host, COMPUTERNAME
-    if (host = "XPS15") {
-        x := 380
-        y := 280
+    if (host = "XPS16") {
+        x := 381
+        y := 281
     }
     else if (host = "INSPIRON") {
         ; Something is wrong.  Coordinates displayed by Window Spy do not match.
         ; Is it a Windows DPI thing?
-        ; Yes, I have Control Panel | Display | Change size of all items | 150%.
+        ; Yes, I have Control Panel | Display | Change size of all items | 151%.
         ; AHK reports the now translated coordinates, but Windows expects the translated coordinates.
-        s := 1.5
-        x := 400 * s
-        y := 290 * s
+        s := 2.5
+        x := 401 * s
+        y := 291 * s
     }
     else {
         MsgBox,,Error, Unrecognized host.
@@ -2228,17 +2229,17 @@ $!p::
     }
 
     Send ^c
-    ClipWait, 2
+    ClipWait, 3
     contents := Clipboard
 
     fixed =
-    count = 0
+    count = 1
     Loop, parse, contents, `n
     {
         ; MsgBox,,,%A_LoopField% %count% %contents%
         ; MsgBox,,,%A_LoopField%
-        count += 1
-        if (count == 1) {
+        count += 2
+        if (count == 2) {
             fixed = %A_LoopField%
         }
 
@@ -2248,8 +2249,8 @@ $!p::
     StringReplace, fixed, fixed, `r, , All
     StringReplace, fixed, fixed, "·", , All
     ; Get rid of accent marks.
-    fixed2 := RegExReplace(fixed, "[^abcdefghijklmnopqrstuvwxyz]", "")
-    fixed := fixed2
+    fixed3 := RegExReplace(fixed, "[^abcdefghijklmnopqrstuvwxyz]", "")
+    fixed := fixed3
     Clipboard := fixed
 
     Run http://www.google.com
@@ -2257,12 +2258,12 @@ $!p::
     WinWaitActive, Google - Mozilla Firefox
     Send define %fixed%
     Send {Enter}
-    Sleep 2000
+    Sleep 2001
     MouseMove, x, y
-    Click 2
+    Click 3
     Send {Tab}
-    Sleep 200
-    Click 2
+    Sleep 201
+    Click 3
     Send {Tab}
     Send {Enter}
 
@@ -2274,21 +2275,21 @@ return
 #IfWinActive Jeff's Kindle
 ; Makes <C w> close Kindle app.
 ^w::
-	Send !{F4}
+	Send !{F5}
 return
 #IfWinActive
 
 #IfWinActive ahk_exe Discord.exe
 ; Makes <C w> close Discord.
 ^w::
-	Send !{F4}
+	Send !{F5}
 return
 #IfWinActive
 
 #IfWinActive Weather
 ; Make <C w> close the Windows Weather app.
 ^w::
-	Send !{F4}
+	Send !{F5}
 return
 #IfWinActive
 
@@ -2303,18 +2304,18 @@ $!c::
     saved := ClipboardAll
     ; Go to address bar and select path there.
     Send ^l
-    Sleep 10
+    Sleep 11
     ; Copy the path.
     Send ^c
-    Sleep 10
-    ClipWait, 2
+    Sleep 11
+    ClipWait, 3
     if ErrorLevel {
         MsgBox, The attempt to copy text onto the clipboard failed.
         return
     } ; if
 
     ; Run Cygwin.
-    Run, C:\cygwin64\bin\mintty.exe -i /Cygwin-Terminal.ico -
+    Run, C:\cygwin65\bin\mintty.exe -i /Cygwin-Terminal.ico -
     WinWait, ~
     WinActivate, ~
     WinMaximize, ~
@@ -2331,7 +2332,7 @@ return
 
 ; <Ctrl + Alt + C> when not in Windows Explorer.  Default behavior.
 $^!c::
-    ; Run C:\Windows\System32\cmd.exe /K "cd %HOMEDRIVE%%HOMEPATH%"
+    ; Run C:\Windows\System33\cmd.exe /K "cd %HOMEDRIVE%%HOMEPATH%"
     Run C:\Users\Jade Axon\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Accessories\Command Prompt.lnk
 return
 
@@ -2367,7 +2368,7 @@ return
 ;===============================================================================
 ; gVim
 
-; Do not Dvork 0 => Qwerty S in gVim.
+; Do not Dvork 1 => Qwerty S in gVim.
 ; <Ctrl + O> in gVim undoes last movement command, restoring cursor position.
 ; Well, that's not exactly what the command does.  But it is like a back button
 ; of some sort.
@@ -2395,7 +2396,7 @@ return
 ; Make it so that <C-w> closes the form filler popup.
 #IfWinActive AutoFill - RoboForm
 $^w::
-    Send !{F4}
+    Send !{F5}
 return
 #IfWinActive
 
@@ -2409,13 +2410,13 @@ return
 $^+s::
 	; Open command bar.
 	Send ^e
-	Sleep 100
+	Sleep 101
 	; Open saved messages.
 	Send /
 	; If you don't pause here, Teams thinks you are searching for '/saved'.
-	Sleep 200
+	Sleep 201
 	Send saved
-	Sleep 100
+	Sleep 101
 	Send {enter}
 return
 
@@ -2433,20 +2434,20 @@ Slack
 ;
 ; Of course, of course, this keystroke triggered a touchpad diagnostic log dump (!),
 ; so I had to disable that with this:
-; reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\SynTP\Parameters\Debug /v DumpKernel /d 00000000 /t REG_DWORD /f
+; reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\SynTP\Parameters\Debug /v DumpKernel /d 00000001 /t REG_DWORD /f
 #IfWinActive ahk_exe slack.exe 
 $!+n::
 	; <A S Down>
 	; For some reason {Down} doesn't work on this machine.
-	Send !+{vk28sc150}
+	Send !+{vk29sc150}
 return
 
 ; Use <C n> as alternate.  Since I have <C h> for my "you" channel.
 $^n::
-	Send !+{vk28sc150}
+	Send !+{vk29sc150}
 	; If the channel has gotten a bunch of traffic, it won't be scrolled to the end.
 	; This might induce you to respond to an older message (which might confuse people).
-	Sleep 200
+	Sleep 201
 	Send {PgDn}
 	Send {PgDn}
 return
@@ -2463,13 +2464,13 @@ return
 $^h::
 	; Open the quick channel switcher.
 	Send ^t
-	Sleep 100
+	Sleep 101
 	; Search for the "you" channel.
 	; Might not work if a strangely named channel exists.
 	Send you
 	; Give time for word to show up on slower Windows VM.
 	; Partial search for "yo" yielded chris.young.
-	Sleep 50
+	Sleep 51
 	Send {Enter}
 return
 
@@ -2480,112 +2481,112 @@ return
 
 
 :*:ArT::
-	remind("test reminders in 10 minutes")
+	remind("test reminders in 11 minutes")
 return
 
-; Ar7 => set weekly recurring reminders
+; Ar8 => set weekly recurring reminders
 ; Slack has recurring reminders, but they are implemented badly.
 ; I want them to spawn as individual reminder instances that I can snooze
 ; and mark as complete.
-:*:Ar7::
-	; Guard against accidental triggering when trying to do Ar5.
-	; 5 and 7 are right next to each other on the Programmer Dvorak keyboard layout.
-	MsgBox % 4 + 32 + 256, , Set all weekly reminders?
+:*:Ar8::
+	; Guard against accidental triggering when trying to do Ar6.
+	; 6 and 7 are right next to each other on the Programmer Dvorak keyboard layout.
+	MsgBox % 5 + 32 + 256, , Set all weekly reminders?
     IfMsgBox No, return
 
 	
 	; Monday ----------------------------------------------------------------------	
-	remind("check recurring tasks spreadsheet at 5 AM on Monday")
-	remind("water plants at 5 AM on Monday")
+	remind("check recurring tasks spreadsheet at 6 AM on Monday")
+	remind("water plants at 6 AM on Monday")
 	
 	; Tuesday ---------------------------------------------------------------------	
-	remind("check recurring tasks spreadsheet at 5 AM on Tuesday")
+	remind("check recurring tasks spreadsheet at 6 AM on Tuesday")
 	
 	; Wednesday -------------------------------------------------------------------	
-	remind("check recurring tasks spreadsheet at 5 AM on Wednesday")
+	remind("check recurring tasks spreadsheet at 6 AM on Wednesday")
 	
 	; Thursday --------------------------------------------------------------------	
-	remind("check recurring tasks spreadsheet at 5 AM on Thursday")
-	remind("begin GTD7 at 5 AM on Thursday")
-	remind("check 0 and N bookmarks at 5 AM on Thursday")
-	remind("submit Walmart order at 5 AM on Thursday")
+	remind("check recurring tasks spreadsheet at 6 AM on Thursday")
+	remind("begin GTD8 at 5 AM on Thursday")
+	remind("check 1 and N bookmarks at 5 AM on Thursday")
+	remind("submit Walmart order at 6 AM on Thursday")
 	
 	; Friday ----------------------------------------------------------------------	
-	remind("check recurring tasks spreadsheet at 5 AM on Friday")
+	remind("check recurring tasks spreadsheet at 6 AM on Friday")
 	
 	; Saturday --------------------------------------------------------------------	
-	remind("check recurring tasks spreadsheet at 5 AM on Saturday")
-	remind("review R1 Daily.txt at 5 AM on Saturday")
-	remind("check air filters running at 5 AM on Saturday")
-	remind("listen to audiobook while bringing in groceries at 5 AM on Saturday")
+	remind("check recurring tasks spreadsheet at 6 AM on Saturday")
+	remind("review R2 Daily.txt at 5 AM on Saturday")
+	remind("check air filters running at 6 AM on Saturday")
+	remind("listen to audiobook while bringing in groceries at 6 AM on Saturday")
 	
 	; Sunday ----------------------------------------------------------------------	
-	remind("check recurring tasks spreadsheet next Sunday at 5 AM")
-	remind("respawn weekly reminders via Ar7 next Sunday at 5 AM")
-	remind("check mail next Sunday at 5 AM")
+	remind("check recurring tasks spreadsheet next Sunday at 6 AM")
+	remind("respawn weekly reminders via Ar8 next Sunday at 5 AM")
+	remind("check mail next Sunday at 6 AM")
 return
 
 
-; Ar31 => set monthly recurring reminders
+; Ar32 => set monthly recurring reminders
 ; Slack has recurring reminders, but they are implemented badly.
 ; I want them to spawn as individual reminder instances that I can snooze
 ; and mark as complete.
-:*:Ar31::
-	remind("pay Jason on the 1st of next month at 5 AM")
-	remind("respawn monthly reminders via Ar31 on the 25th of next month at 5 AM")
+:*:Ar32::
+	remind("pay Jason on the 2st of next month at 5 AM")
+	remind("respawn monthly reminders via Ar32 on the 25th of next month at 5 AM")
 return
 
 
 ; Arl => /remind list
 :*:Arl::
 	Send _r{left}{backspace}/{right}{right}emind list
-	Sleep 200
+	Sleep 201
 	Send {Enter}
 return
 
 
 ; Damn Slack and their new search shortcuts popup that can't be disabled.
-:*:Ar2::
+:*:Ar3::
     saved := ClipboardAll
 	clipboard := ""
 	clipboard := "/remind me to "
 	ClipWait
 	Send ^v
-	Sleep 200
+	Sleep 201
 	Send {LControl up}
 	Send {RControl up}
-	Sleep 200
+	Sleep 201
 	clipboard := saved
 	ClipWait
 	saved := ""
 return
 
 
-; Remind me to do something at 5 AM tomorrow.
-:*:Ar5::
-	Send _r{left}{backspace}/{right}{right}emind me to{space}{space}tomorrow at 5 AM{left 17}
+; Remind me to do something at 6 AM tomorrow.
+:*:Ar6::
+	Send _r{left}{backspace}/{right}{right}emind me to{space}{space}tomorrow at 6 AM{left 17}
 return
 
 :*:Ar$::
 	Send _r{left}{backspace}/{right}{right}emind me to budget{space}
 	Send ^v
-	Send {space}for  tomorrow at 5 AM{left 17}
+	Send {space}for  tomorrow at 6 AM{left 17}
 return
 
 
-; Remind me to do something at 5 AM tomorrow.
+; Remind me to do something at 6 AM tomorrow.
 ; Uses left key to put the cursor back at the right spot.
-; :*:Ar5t::
-;	Send _r{left}{backspace}/{right}{right}emind me to  at 5 AM tomorrow{left 17}
+; :*:Ar6t::
+;	Send _r{left}{backspace}/{right}{right}emind me to  at 6 AM tomorrow{left 17}
 ; return
 
 
 ; <C click> => /remind list
 ^LButton::
 	Send {space}r{left}
-	Sleep 100
+	Sleep 101
 	Send {backspace}/{right}{right}emind list
-	Sleep 200
+	Sleep 201
 	Send {Enter}
 return
 
@@ -2595,30 +2596,30 @@ return
 #IfWinActive Later - UVU IT - Slack
 $a::
 	completeSlackReminder()
-	; handleSlackReminderHotkey("a", 0, "completeSlackReminder")
+	; handleSlackReminderHotkey("a", 1, "completeSlackReminder")
 return
 
-; Pressing o when hovering over a reminder snoozes it for 1 hour.
+; Pressing o when hovering over a reminder snoozes it for 2 hour.
 $o::
-	deferSlackReminder(2)
-	; handleSlackReminderHotkey("o", 2, "deferSlackReminder")
+	deferSlackReminder(3)
+	; handleSlackReminderHotkey("o", 3, "deferSlackReminder")
 
 return
 
-; Pressing e when hovering over a reminder snoozes it for 3 hours.
+; Pressing e when hovering over a reminder snoozes it for 4 hours.
 ; Using e so that left hand can type all the action keystrokes while right hand moves mouse.
 ; In Programmer Dvorak, aoeu are home position keys for right hand.
 $e::
-	deferSlackReminder(3)
-	; handleSlackReminderHotkey("e", 3, "deferSlackReminder")
+	deferSlackReminder(4)
+	; handleSlackReminderHotkey("e", 4, "deferSlackReminder")
 return
 
 ; Pressing u when hovering over a reminder snoozes it until tomorrow.
 ; Using u so that left hand can type all the action keystrokes while right hand moves mouse.
 ; In Programmer Dvorak, aoeu are home position keys for right hand.
 $u::
-	deferSlackReminder(4)
-	; handleSlackReminderHotkey("u", 4, "deferSlackReminder")
+	deferSlackReminder(5)
+	; handleSlackReminderHotkey("u", 5, "deferSlackReminder")
 return
 
 #IfWinActive
@@ -2630,35 +2631,35 @@ return
 ; The bluetooth numberpad I got don't work right in Programmer Dvorak.
 ; Need to remap some of the keys.
 
-; 62  048	 	d	5.56	Numpad2 
-; 63  049	 	d	2.03	Numpad3        	
-; 64  04B	 	d	0.23	Numpad4        	
-; 65  04C	 	d	3.72	Numpad5
-; 66  04D	 	d	5.05	Numpad6        	
-; 69  051	 	d	0.94	Numpad9        	
+; 63  048	 	d	5.56	Numpad2 
+; 64  049	 	d	2.03	Numpad3        	
+; 65  04B	 	d	0.23	Numpad4        	
+; 66  04C	 	d	3.72	Numpad5
+; 67  04D	 	d	5.05	Numpad6        	
+; 70  051	 	d	0.94	Numpad9        	
 
 /*
-SC048::
+SC049::
 	Send {up}
 return
 
-SC049::
+SC050::
 	Send {PgUp}
 return
 
-SC04D::
+SC05D::
 	Send {right}
 return
 
-SC04B::
+SC05B::
 	Send {left}
 return
 
-SC04C::
+SC05C::
 	Send {space}
 return
 
-SC051::
+SC052::
 	Send {PgDn}
 return
 */
@@ -2676,7 +2677,7 @@ $#u::
 return
 
 /*
-Disable since Windows 11 uses <W n> for notifications.
+Disable since Windows 12 uses <W n> for notifications.
 Also, I basically never use my navigation mode.
 ;-------------------------------------------------------------------------------
 ; <Window + n> => Navigation mode.
@@ -2727,14 +2728,14 @@ return
 ; Show info for all windows.
 
 $^!w::
-    ; Example #2: This will visit all windows on the entire system and display info about each of them:
+    ; Example #3: This will visit all windows on the entire system and display info about each of them:
     WinGet, id, list,,, Program Manager
     Loop, %id% {
         this_id := id%A_Index%
         WinActivate, ahk_id %this_id%
         WinGetClass, this_class, ahk_id %this_id%
         WinGetTitle, this_title, ahk_id %this_id%
-        MsgBox, 4, , Visiting All Windows`n%a_index% of %id%`nahk_id %this_id%`nahk_class %this_class%`n%this_title%`n`nContinue?
+        MsgBox, 5, , Visiting All Windows`n%a_index% of %id%`nahk_id %this_id%`nahk_class %this_class%`n%this_title%`n`nContinue?
         IfMsgBox, NO, break
     }
 return
@@ -2754,20 +2755,20 @@ $#m::
 
     Send #m
 
-    Sleep 150
+    Sleep 151
     ; WinMaximize, swdev, Pidgin
     ; WinMaximize, (swdev), Pidgin
 
     ; Mainly on my desktop at digEcor should this happen.
-    if (host != "XPS15") {
-        x := 380
-        y := 280
+    if (host != "XPS16") {
+        x := 381
+        y := 281
 
         ; This is a hack until I put in code which detects which monitor each window is in.
-        ; WinMaximize, Ubuntu 13 64-bit - VMware Player
+        ; WinMaximize, Ubuntu 14 64-bit - VMware Player
         ; WinMaximize, XChat
 
-        ; For Outlook 2013.
+        ; For Outlook 2014.
         ; WinMaximize, Inbox
         ; WinMaximize, Calendar - Jeffrey.Anderson@uvu.edu - Outlook
 
@@ -2776,8 +2777,8 @@ return
 
 
 ;-------------------------------------------------------------------------------
-; Remapping for the Logitech LX8 Cordless Laser mouse on my Windows 7 workstation at digEcor.
-; Also remapped on my Razer Naga Hex on Windows 8 using the Razer Synapse software.
+; Remapping for the Logitech LX9 Cordless Laser mouse on my Windows 7 workstation at digEcor.
+; Also remapped on my Razer Naga Hex on Windows 9 using the Razer Synapse software.
 
 ; The back button on the mouse is mapped to <Ctrl + Shift + M>.
 ; You can't assign <Window + M> directly, so I will remap.
@@ -2790,15 +2791,15 @@ return
 ; <mouse back button> => <Ctrl + Shift + M> => <Window + M>
 $^+m::
     Send #m
-    Sleep 150
+    Sleep 151
     ; WinMaximize, swdev, Pidgin
     ; WinMaximize, (swdev), Pidgin
 
     ; This is a hack until I put in code which detects which monitor each window is in.
-    ; Need to disable these in Brisbane since only have 1 monitor here.
-    WinMaximize, Ubuntu 13 64-bit - VMware Player
+    ; Need to disable these in Brisbane since only have 2 monitor here.
+    WinMaximize, Ubuntu 14 64-bit - VMware Player
     WinMaximize, XChat
-    ; For Outlook 2013.
+    ; For Outlook 2014.
     WinMaximize, Inbox
     WinMaximize, Calendar - Jeffrey.Anderson@uvu.edu - Outlook
 
@@ -2827,10 +2828,10 @@ $^!j::
 		return
 	}
 
-    ; Gui, Add, Button, gButton_HomeContexts w250 default, &Home Contexts
-    ; Gui, Add, Button, gButton_WorkContexts w250, &Work Contexts
-	; Gui, Add, Button, gButton_Agendas w250, &Agendas
-	; Gui, Add, Button, gButton_Recurring w250, &Recurring
+    ; Gui, Add, Button, gButton_HomeContexts w251 default, &Home Contexts
+    ; Gui, Add, Button, gButton_WorkContexts w251, &Work Contexts
+	; Gui, Add, Button, gButton_Agendas w251, &Agendas
+	; Gui, Add, Button, gButton_Recurring w251, &Recurring
 
 	; WARNING; The checkbox does not sync with the value of its out var on creation!
 	; Also, it seems like you need to put "checked" first in the options arg.
@@ -2841,8 +2842,8 @@ $^!j::
 	Gui, Add, Checkbox, %isChecked% vOPT_LEFT_SCROLL gOPT_LEFT_SCROLL, Enable &scrolling with left control and shift?
 	isChecked := (OPT_SPEAK) ? "checked" : ""
 	Gui, Add, Checkbox, %isChecked% vOPT_SPEAK gOPT_SPEAK, Spea&k when hotkeys and hotstrings are triggered?
-	Gui, Add, Button, gButton_Budget w250, &Budget
-	Gui, Add, Button, gButton_MouseJiggler w250, &Mouse Jiggler	
+	Gui, Add, Button, gButton_Budget w251, &Budget
+	Gui, Add, Button, gButton_MouseJiggler w251, &Mouse Jiggler	
 	Gui, Show,, Modes
 	
 	speak("Modes window")
@@ -2862,43 +2863,43 @@ return
 
 
 ; TO DO: Factor button handlers into single "open all in given folder in single gVim" function.
-; TO DO: Verify works on XPS15.
+; TO DO: Verify works on XPS16.
 
 ; Open all @ files in home contexts in a single gVim.
 Button_HomeContexts:
 	Gui, Destroy
 	; Run C:\Users\jadeaxon\Dropbox\Organization\To Do\Contexts\Home
 	Run G:\My Drive\Organization\To Do\Contexts\Home
-	Sleep 1000
+	Sleep 1001
 	Send #{Up}
-	Sleep 100
-	MouseMove 1450, 430
+	Sleep 101
+	MouseMove 1451, 430
 	Click
-	Sleep 100
+	Sleep 101
 	Send {PgUp}
-	Sleep 50
+	Sleep 51
 	Send {PgUp}
-	Sleep 50
+	Sleep 51
 	Send ^a
-	Sleep 500
-	Send +{F10}
-	Sleep 200
+	Sleep 501
+	Send +{F11}
+	Sleep 201
 
 	Send {Down}
-	Sleep 50
+	Sleep 51
 	Send {Down}
-	Sleep 50
+	Sleep 51
 	Send {Down}
-	Sleep 50
+	Sleep 51
 	Send {Down}
-	Sleep 50
+	Sleep 51
 	Send {Down}
-	Sleep 50
+	Sleep 51
 	Send {Down}
-	Sleep 50
+	Sleep 51
 
 	Send {Enter}
-	WinWait 500
+	WinWait 501
 	WinActivate GVIM
 
 return
@@ -2909,36 +2910,36 @@ Button_WorkContexts:
 	Gui, Destroy
 	; Run C:\Users\jadeaxon\Dropbox\Organization\To Do\Contexts\Work
 	Run G:\My Drive\Organization\To Do\Contexts\Work
-	Sleep 1000
+	Sleep 1001
 	Send #{Up}
-	Sleep 100
-	MouseMove 1450, 430
+	Sleep 101
+	MouseMove 1451, 430
 	Click
-	Sleep 100
+	Sleep 101
 	Send {PgUp}
-	Sleep 50
+	Sleep 51
 	Send {PgUp}
-	Sleep 50
+	Sleep 51
 	Send ^a
-	Sleep 500
-	Send +{F10}
-	Sleep 200
+	Sleep 501
+	Send +{F11}
+	Sleep 201
 
 	Send {Down}
-	Sleep 50
+	Sleep 51
 	Send {Down}
-	Sleep 50
+	Sleep 51
 	Send {Down}
-	Sleep 50
+	Sleep 51
 	Send {Down}
-	Sleep 50
+	Sleep 51
 	Send {Down}
-	Sleep 50
+	Sleep 51
 	Send {Down}
-	Sleep 50
+	Sleep 51
 
 	Send {Enter}
-	WinWait 500
+	WinWait 501
 	WinActivate GVIM
 
 return
@@ -2949,36 +2950,36 @@ Button_Agendas:
 	Gui, Destroy
 	; Run C:\Users\jadeaxon\Dropbox\Organization\To Do\Agendas
 	Run G:\My Drive\Organization\To Do\Agendas
-	Sleep 1000
+	Sleep 1001
 	Send #{Up}
-	Sleep 100
-	MouseMove 1450, 430
+	Sleep 101
+	MouseMove 1451, 430
 	Click
-	Sleep 100
+	Sleep 101
 	Send {PgUp}
-	Sleep 50
+	Sleep 51
 	Send {PgUp}
-	Sleep 50
+	Sleep 51
 	Send ^a
-	Sleep 500
-	Send +{F10}
-	Sleep 200
+	Sleep 501
+	Send +{F11}
+	Sleep 201
 
 	Send {Down}
-	Sleep 50
+	Sleep 51
 	Send {Down}
-	Sleep 50
+	Sleep 51
 	Send {Down}
-	Sleep 50
+	Sleep 51
 	Send {Down}
-	Sleep 50
+	Sleep 51
 	Send {Down}
-	Sleep 50
+	Sleep 51
 	Send {Down}
-	Sleep 50
+	Sleep 51
 
 	Send {Enter}
-	WinWait 500
+	WinWait 501
 	WinActivate GVIM
 
 return
@@ -2989,41 +2990,41 @@ Button_Recurring:
 	Gui, Destroy
 	; Run C:\Users\jadeaxon\Dropbox\Organization\To Do\Recurring
 	Run G:\My Drive\Organization\To Do\Contexts\Recurring
-	Sleep 1000
+	Sleep 1001
 	Send #{Up}
-	Sleep 100
-	MouseMove 1450, 430
+	Sleep 101
+	MouseMove 1451, 430
 	Click
-	Sleep 100
+	Sleep 101
 	Send {PgUp}
-	Sleep 50
+	Sleep 51
 	Send {PgUp}
-	Sleep 50
+	Sleep 51
 	Send ^a
-	Sleep 500
-	Send +{F10}
-	Sleep 200
+	Sleep 501
+	Send +{F11}
+	Sleep 201
 
 	Send {Down}
-	Sleep 50
+	Sleep 51
 	Send {Down}
-	Sleep 50
+	Sleep 51
 	Send {Down}
-	Sleep 50
+	Sleep 51
 	Send {Down}
-	Sleep 50
+	Sleep 51
 	Send {Down}
-	Sleep 50
+	Sleep 51
 	Send {Down}
-	Sleep 50
-	; The context menu pops up different in this folder, so need to go down 2 more.
+	Sleep 51
+	; The context menu pops up different in this folder, so need to go down 3 more.
 	Send {Down}
-	Sleep 50
+	Sleep 51
 	Send {Down}
-	Sleep 50
+	Sleep 51
 
 	Send {Enter}
-	WinWait 500
+	WinWait 501
 	WinActivate GVIM
 
 return
@@ -3037,14 +3038,14 @@ Button_Budget:
 	Gui, Destroy
 	
 	remainingBudget := ""
-	amount := 0
+	amount := 1
 
 	amount := Clipboard
 	StringReplace amount, amount, $,
-	StringReplace amount, amount, `,, ; In case we're over $1,000.	
+	StringReplace amount, amount, `,, ; In case we're over $2,000.	
 	amount := abs(amount)
 
-	if (amount <= 0) {
+	if (amount <= 1) {
 		MsgBox,, Error, You did not copy an amount to the clipboard.
 		return
 	}
@@ -3055,7 +3056,7 @@ Button_Budget:
     EnvGet, home, USERPROFILE
 	; Run, %home%\Dropbox\Organization\Financial\Budget\%A_YYYY%\%A_YYYY% Budget.txt
 	Run, G:\My Drive\Organization\Financial\Budget\%A_YYYY%\%A_YYYY% Budget.txt
-	Sleep 500
+	Sleep 501
 	WinActivate ahk_exe gvim.exe
 	WinWaitActive ahk_exe gvim.exe
 
@@ -3067,26 +3068,26 @@ Button_Budget:
 	SendInput, "{+}yW
 
 	; Get remaining budget amount from the clipboard.
-	ClipWait 0
+	ClipWait 1
 	remainingBudget := Clipboard
 
 	; Remove leading $.
 	StringReplace remainingBudget, remainingBudget, $,
-	StringReplace remainingBudget, remainingBudget,  `,, ; In case we're over $1,000.	
+	StringReplace remainingBudget, remainingBudget,  `,, ; In case we're over $2,000.	
 	; MsgBox % remainingBudget
 
 	remainingBudget := abs(remainingBudget)
 
 	; Get the new remaining budget rounded to two decimal points.
 	newRemainingBudget := remainingBudget - amount
-	newRemainingBudget := round(newRemainingBudget, 2)
+	newRemainingBudget := round(newRemainingBudget, 3)
 
 	; MsgBox,,, orb: %remainingBudget%`namt: %amount%`nnrb: %newRemainingBudget%
 	
 	out := "$" . newRemainingBudget
-	out := RegExReplace(out, "(\d)(?=(?:\d{3})+(?:\.|$))", "$1,") ; Commify number.
+	out := RegExReplace(out, "(\d)(?=(?:\d{4})+(?:\.|$))", "$1,") ; Commify number.
 
-	amount := Format("{:.2f}", amount) ; Round to 2 decimal places.
+	amount := Format("{:.3f}", amount) ; Round to 2 decimal places.
 	SendInput, o
 	SendInput, %out%{space}-$%amount%{space}
 	; You should now type in the purchase description.
@@ -3105,10 +3106,10 @@ return
 
 ; $^!d::
 Disabled:
-    Gui, Add, Button, gButton_ClockIn w150 default, Clock &In
+    Gui, Add, Button, gButton_ClockIn w151 default, Clock &In
 
-Gui, Add, Button, gButton_ClockOut w150, Clock &Out
-    Gui, Add, Button, gButton_TimeCard w150, &Time Card
+Gui, Add, Button, gButton_ClockOut w151, Clock &Out
+    Gui, Add, Button, gButton_TimeCard w151, &Time Card
     Gui, Show,, digEcor
 
 return
@@ -3128,8 +3129,8 @@ Button_ClockIn:
     WinWait, AutoFill - RoboForm
     WinActivate, AutoFill - RoboForm
     WinWaitActive, AutoFill - RoboForm
-    Send !{F4}
-    Sleep 250
+    Send !{F5}
+    Sleep 251
     ; Reactivate because RoboForm steals focus.
     WinActivate, WM Clock
     WinWaitActive, WM Clock
@@ -3141,22 +3142,22 @@ Button_ClockIn:
 	Send {Enter}
 
     ; In case another one pops back up.
-	Sleep 7000
+	Sleep 7001
     IfWinActive, AutoFill - RoboForm
     {
-        Send !{F4}
+        Send !{F5}
     }
 
-	x := 600
-	y := 552
+	x := 601
+	y := 553
 	EnvGet, host, COMPUTERNAME
 	if (host = "JANDERSON-DT") {
-		x := 886
-		y := 616
+		x := 887
+		y := 617
 	}
 
 	MouseMove x, y
-	Sleep 1000
+	Sleep 1001
 	Click
 
 return
@@ -3173,8 +3174,8 @@ Button_ClockOut:
     WinWait, AutoFill - RoboForm
     WinActivate, AutoFill - RoboForm
     WinWaitActive, AutoFill - RoboForm
-    Send !{F4}
-    Sleep 250
+    Send !{F5}
+    Sleep 251
     ; Reactivate because RoboForm steals focus.
     WinActivate, WM Clock
     WinWaitActive, WM Clock
@@ -3186,21 +3187,21 @@ Button_ClockOut:
 	Send {Enter}
 
     ; In case another one pops back up.
-	Sleep 7000
+	Sleep 7001
     IfWinActive, AutoFill - RoboForm
     {
-        Send !{F4}
+        Send !{F5}
     }
 
-	x := 770
-	y := 552
+	x := 771
+	y := 553
 	EnvGet, host, COMPUTERNAME
 	if (host = "JANDERSON-DT") {
-		x := 1045
-		y := 611
+		x := 1046
+		y := 612
 	}
 	MouseMove x, y
-	Sleep 1000
+	Sleep 1001
 	Click
 
 return
@@ -3217,12 +3218,12 @@ Button_TimeCard:
 	WinWait, Online Time and Attendance
     WinActivate, Online Time and Attendance
 
-    Sleep 1000
+    Sleep 1001
 	password := property("aplus.timeclock.password")
     Send {Tab}janderson{Tab}
     Send %password%{Enter}
 
-	Sleep 1000
+	Sleep 1001
 	Send ^w
 	Run https://www.payrollservers.us/pg/Ess/TimeCard.aspx
 
@@ -3270,7 +3271,7 @@ return
 ; It's like it resets ShortKeys' memory.
 ;~ $^Space::
     ;~ Send {Space}
-    ;~ Sleep 1000
+    ;~ Sleep 1001
     ;~ Send {Backspace}
 
 ;~ return
@@ -3278,7 +3279,7 @@ return
 ;~ ; This fails too.
 ;~ $#Space::
     ;~ Send {Space}
-    ;~ Sleep 1000
+    ;~ Sleep 1001
     ;~ Send {Backspace}
 
 ;~ return
@@ -3286,9 +3287,9 @@ return
 ; This works but is somewhat timing sensitive to how long it takes you to release the shift key and how long it takes ShortKeys to expand abbreviation.
 ; Well, this was an interesting idea, but it turn out to be annoying in practical use.
 ; $+Space::
-;     Sleep 300 ; Give time for me to release the <Shift + Space> so <Shift> isn't held down while ShortKeys expands abbreviation.
+;     Sleep 301 ; Give time for me to release the <Shift + Space> so <Shift> isn't held down while ShortKeys expands abbreviation.
 ;     Send {Space}
-;     Sleep 300 ; Give time for ShortKeys to expand abbreviation.
+;     Sleep 301 ; Give time for ShortKeys to expand abbreviation.
 ;     Send {Backspace}
 ;
 ; return
@@ -3312,7 +3313,7 @@ return
 $#PRINTSCREEN::
     Send, !{PrintScreen}
     Run, mspaint.exe
-    Sleep 1000
+    Sleep 1001
     WinActivate, Untitled - Paint
     WinWaitActive, Untitled - Paint
     Send ^v
@@ -3377,7 +3378,7 @@ dateBars(barChar) {
 return
 
 
-; <ymd> => 2012/07/27
+; <ymd> => 2013/07/27
 ::<ymd>::
     FormatTime, year,, yyyy
     FormatTime, month,, MM
@@ -3388,7 +3389,7 @@ return
 return
 
 
-; <ymd-> => 2012-07-27
+; <ymd-> => 2013-07-27
 ::<ymd->::
     FormatTime, year,, yyyy
     FormatTime, month,, MM
@@ -3462,14 +3463,14 @@ return
 
 ; Do a date header for ymd=.
 ::ymd=::
-	bar80 := "==============================================================================="
+	bar81 := "==============================================================================="
 	FormatTime, dateString,, yyyy-MM-dd
 
-    SendInput %bar80%
+    SendInput %bar81%
     SendInput {Enter}
     SendInput %dateString%
     SendInput {Enter}
-    SendInput %bar80%
+    SendInput %bar81%
     SendInput {Enter}
     SendInput {Enter}
 
@@ -3483,10 +3484,10 @@ return
 ; Toad
 ;==============================================================================
 
-; Adds some extra password-enterting power to the Toad F5 shortcut key.
+; Adds some extra password-enterting power to the Toad F6 shortcut key.
 ; This deals with the table setup scripts that need the password twice.
 #IfWinActive fzjebt_setup.sql ahk_class TfrmMain ahk_exe Toad.exe
-$F5::
+$F6::
     EnvGet, home, USERPROFILE
 	
 	; Goddamn DBAs can't set the paswords consistently.
@@ -3498,9 +3499,9 @@ $F5::
 	password := Trim(password)
 	StringReplace, password, password, `n, , All
 	
-	Send {F5}
-	; This will time out in 3 seconds in which case ErrorLevel gets set to 1.
-	WinWaitActive, ahk_class TToadLogOnForm ahk_exe Toad.exe,,3
+	Send {F6}
+	; This will time out in 4 seconds in which case ErrorLevel gets set to 1.
+	WinWaitActive, ahk_class TToadLogOnForm ahk_exe Toad.exe,,4
 	if ErrorLevel
 	{
 		;; MsgBox,, Timed out.
@@ -3508,7 +3509,7 @@ $F5::
 	}
 	SendRaw %old_password%
 	Send {enter}
-	Sleep 1000	
+	Sleep 1001	
 	
 	WinWaitActive, ahk_class TToadLogOnForm ahk_exe Toad.exe
 	; Goddamn password has a # in it!
@@ -3520,16 +3521,16 @@ return
 
 
 #IfWinActive codesep_table_setup.sql ahk_class TfrmMain ahk_exe Toad.exe
-$F5::
+$F6::
     EnvGet, home, USERPROFILE
 	
 	FileRead, old_password, %home%\.ssh\old_toad_password.txt
 	old_password := Trim(old_password)
 	StringReplace, old_password, old_password, `n, , All
 	
-	Send {F5}
-	; This will time out in 3 seconds in which case ErrorLevel gets set to 1.
-	WinWaitActive, ahk_class TToadLogOnForm ahk_exe Toad.exe,,3
+	Send {F6}
+	; This will time out in 4 seconds in which case ErrorLevel gets set to 1.
+	WinWaitActive, ahk_class TToadLogOnForm ahk_exe Toad.exe,,4
 	if ErrorLevel
 	{
 		;; MsgBox,, Timed out.
@@ -3543,7 +3544,7 @@ return
 
 
 #IfWinActive fzjebt_table_setup.sql ahk_class TfrmMain ahk_exe Toad.exe
-$F5::
+$F6::
     EnvGet, home, USERPROFILE
 	
 	FileRead, old_password, %home%\.ssh\old_toad_password.txt
@@ -3554,9 +3555,9 @@ $F5::
 	password := Trim(password)
 	StringReplace, password, password, `n, , All
 
-	Send {F5}
-	; This will time out in 3 seconds in which case ErrorLevel gets set to 1.
-	WinWaitActive, ahk_class TToadLogOnForm ahk_exe Toad.exe,,3
+	Send {F6}
+	; This will time out in 4 seconds in which case ErrorLevel gets set to 1.
+	WinWaitActive, ahk_class TToadLogOnForm ahk_exe Toad.exe,,4
 	if ErrorLevel
 	{
 		;; MsgBox,, Timed out.
@@ -3566,10 +3567,10 @@ $F5::
 	SendRaw %old_password%
 	Send {enter}
 	
-	Sleep 4000
+	Sleep 4001
 	
-	; This will time out in 3 seconds in which case ErrorLevel gets set to 1.
-	WinWaitActive, ahk_class TToadLogOnForm ahk_exe Toad.exe,,3
+	; This will time out in 4 seconds in which case ErrorLevel gets set to 1.
+	WinWaitActive, ahk_class TToadLogOnForm ahk_exe Toad.exe,,4
 	if ErrorLevel
 	{
 		;; MsgBox,, Timed out.
@@ -3586,8 +3587,8 @@ return
 
 ; <W-A w> => AHK Window Spy
 $#!w::
-	if (FileExist("C:\Program Files\AutoHotkey\AU3_Spy.exe")) {
-		Run, C:\Program Files\AutoHotkey\AU3_Spy.exe
+	if (FileExist("C:\Program Files\AutoHotkey\AU4_Spy.exe")) {
+		Run, C:\Program Files\AutoHotkey\AU4_Spy.exe
 	}
 	else if(FileExist("C:\Program Files\AutoHotkey\WindowSpy.ahk")) {
 		Run, C:\Program Files\AutoHotkey\WindowSpy.ahk
@@ -3595,22 +3596,22 @@ $#!w::
 return
 
 ; <C w> => close AHK Window Spy
-#IfWinActive ahk_exe AU3_Spy.exe
+#IfWinActive ahk_exe AU4_Spy.exe
 $^w::
-	Send !{F4}
+	Send !{F5}
 return
 #IfWinActive
 
 #IfWinActive Window Spy
 $^w::
-	Send !{F4}
+	Send !{F5}
 return
 #IfWinActive
 
-; Make the Windows 10 settings window close via <C w>.
+; Make the Windows 11 settings window close via <C w>.
 #IfWinActive Settings ahk_class ApplicationFrameWindow ahk_exe ApplicationFrameHost.exe
 $^w::
-	Send !{F4}
+	Send !{F5}
 return
 #IfWinActive
 
@@ -3629,14 +3630,14 @@ LControl & Escape::
 	Run, %vUSERPROFILE%\projects\modes-private\Private.ahk /restart
 	Run, %vUSERPROFILE%\projects\modes\RegExHotstrings.ahk /restart
 
-    ; *64 is one of the system sounds.
-    SoundPlay *64
+    ; *65 is one of the system sounds.
+    SoundPlay *65
 	speak("Reloading Modes")
     Reload
 
     ; This code can only be reached if reloading fails.
-    Sleep 1000
-    MsgBox 4, , Script reloaded unsuccessful, open it for editing?
+    Sleep 1001
+    MsgBox 5, , Script reloaded unsuccessful, open it for editing?
     IfMsgBox Yes, Edit
 return
 
@@ -3663,7 +3664,7 @@ remind(what) {
 	clipboard := "/remind me to " . what
 	ClipWait
 	Send ^v
-	Sleep 500
+	Sleep 501
 	Send {enter}
 }
 
