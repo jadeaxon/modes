@@ -2345,14 +2345,13 @@ $^v::
     SendInput {Raw}%clipboard%
 return
 
-; Dvorak.  The automapping fails here.
+; Dvorak. The automapping fails here.
 $^k::
     SendInput {Raw}%clipboard%
 return
 
 
 #IfWinActive
-
 
 
 ;-------------------------------------------------------------------------------
@@ -2362,7 +2361,6 @@ $#p::
     Clipboard = MouseMove %x%, %y%
 
 return
-
 
 
 ;===============================================================================
@@ -2379,302 +2377,9 @@ return
 #IfWinActive
 
 
-
-
-;-------------------------------------------------------------------------------
-; <Ctrl + Alt + F> => Firefox (well, default browser).
-
-$^!f::
-    Run http://www.google.com
-return
-
-
-
-;===============================================================================
-; RoboForm
-
-; Make it so that <C-w> closes the form filler popup.
-#IfWinActive AutoFill - RoboForm
-$^w::
-    Send !{F5}
-return
-#IfWinActive
-
-
-
-;===============================================================================
-; Teams
-
-; <C-S s> => open saved messages
-#IfWinActive ahk_exe Teams.exe 
-$^+s::
-	; Open command bar.
-	Send ^e
-	Sleep 101
-	; Open saved messages.
-	Send /
-	; If you don't pause here, Teams thinks you are searching for '/saved'.
-	Sleep 201
-	Send saved
-	Sleep 101
-	Send {enter}
-return
-
-
-;===============================================================================
-; Slack
-;===============================================================================
-
-/*
-Slack
-*/
-
-; Map <A S Down> to <A S n>.  <A S Down> is too hard to reach.  It is the Slack
-; keyboard shortcut to change to the next channel with an unread message in it.
-;
-; Of course, of course, this keystroke triggered a touchpad diagnostic log dump (!),
-; so I had to disable that with this:
-; reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\SynTP\Parameters\Debug /v DumpKernel /d 00000001 /t REG_DWORD /f
-#IfWinActive ahk_exe slack.exe 
-$!+n::
-	; <A S Down>
-	; For some reason {Down} doesn't work on this machine.
-	Send !+{vk29sc150}
-return
-
-; Use <C n> as alternate.  Since I have <C h> for my "you" channel.
-$^n::
-	Send !+{vk29sc150}
-	; If the channel has gotten a bunch of traffic, it won't be scrolled to the end.
-	; This might induce you to respond to an older message (which might confuse people).
-	Sleep 201
-	Send {PgDn}
-	Send {PgDn}
-return
-
-
-; Block whatever global handler is intercepting this.
-; I think it was triggering my <W m> thing that keeps Outlook, etc. on a specific monitor.
-$^+m::
-	Send ^+m
-return
-
-
-; <C h> to jump to my "you" channel.
-$^h::
-	; Open the quick channel switcher.
-	Send ^t
-	Sleep 101
-	; Search for the "you" channel.
-	; Might not work if a strangely named channel exists.
-	Send you
-	; Give time for word to show up on slower Windows VM.
-	; Partial search for "yo" yielded chris.young.
-	Sleep 51
-	Send {Enter}
-return
-
-; jj => <C j>
-:*:jj::
-	Send ^j
-return
-
-
-:*:ArT::
-	remind("test reminders in 11 minutes")
-return
-
-; Ar8 => set weekly recurring reminders
-; Slack has recurring reminders, but they are implemented badly.
-; I want them to spawn as individual reminder instances that I can snooze
-; and mark as complete.
-:*:Ar8::
-	; Guard against accidental triggering when trying to do Ar6.
-	; 6 and 7 are right next to each other on the Programmer Dvorak keyboard layout.
-	MsgBox % 5 + 32 + 256, , Set all weekly reminders?
-    IfMsgBox No, return
-
-	
-	; Monday ----------------------------------------------------------------------	
-	remind("check recurring tasks spreadsheet at 6 AM on Monday")
-	remind("water plants at 6 AM on Monday")
-	
-	; Tuesday ---------------------------------------------------------------------	
-	remind("check recurring tasks spreadsheet at 6 AM on Tuesday")
-	
-	; Wednesday -------------------------------------------------------------------	
-	remind("check recurring tasks spreadsheet at 6 AM on Wednesday")
-	
-	; Thursday --------------------------------------------------------------------	
-	remind("check recurring tasks spreadsheet at 6 AM on Thursday")
-	remind("begin GTD8 at 5 AM on Thursday")
-	remind("check 1 and N bookmarks at 5 AM on Thursday")
-	remind("submit Walmart order at 6 AM on Thursday")
-	
-	; Friday ----------------------------------------------------------------------	
-	remind("check recurring tasks spreadsheet at 6 AM on Friday")
-	
-	; Saturday --------------------------------------------------------------------	
-	remind("check recurring tasks spreadsheet at 6 AM on Saturday")
-	remind("review R2 Daily.txt at 5 AM on Saturday")
-	remind("check air filters running at 6 AM on Saturday")
-	remind("listen to audiobook while bringing in groceries at 6 AM on Saturday")
-	
-	; Sunday ----------------------------------------------------------------------	
-	remind("check recurring tasks spreadsheet next Sunday at 6 AM")
-	remind("respawn weekly reminders via Ar8 next Sunday at 5 AM")
-	remind("check mail next Sunday at 6 AM")
-return
-
-
-; Ar32 => set monthly recurring reminders
-; Slack has recurring reminders, but they are implemented badly.
-; I want them to spawn as individual reminder instances that I can snooze
-; and mark as complete.
-:*:Ar32::
-	remind("pay Jason on the 2st of next month at 5 AM")
-	remind("respawn monthly reminders via Ar32 on the 25th of next month at 5 AM")
-return
-
-
-; Arl => /remind list
-:*:Arl::
-	Send _r{left}{backspace}/{right}{right}emind list
-	Sleep 201
-	Send {Enter}
-return
-
-
-; Damn Slack and their new search shortcuts popup that can't be disabled.
-:*:Ar3::
-    saved := ClipboardAll
-	clipboard := ""
-	clipboard := "/remind me to "
-	ClipWait
-	Send ^v
-	Sleep 201
-	Send {LControl up}
-	Send {RControl up}
-	Sleep 201
-	clipboard := saved
-	ClipWait
-	saved := ""
-return
-
-
-; Remind me to do something at 6 AM tomorrow.
-:*:Ar6::
-	Send _r{left}{backspace}/{right}{right}emind me to{space}{space}tomorrow at 6 AM{left 17}
-return
-
-:*:Ar$::
-	Send _r{left}{backspace}/{right}{right}emind me to budget{space}
-	Send ^v
-	Send {space}for  tomorrow at 6 AM{left 17}
-return
-
-
-; Remind me to do something at 6 AM tomorrow.
-; Uses left key to put the cursor back at the right spot.
-; :*:Ar6t::
-;	Send _r{left}{backspace}/{right}{right}emind me to  at 6 AM tomorrow{left 17}
-; return
-
-
-; <C click> => /remind list
-^LButton::
-	Send {space}r{left}
-	Sleep 101
-	Send {backspace}/{right}{right}emind list
-	Sleep 201
-	Send {Enter}
-return
-
-#IfWinActive
-
-
-#IfWinActive Later - UVU IT - Slack
-$a::
-	completeSlackReminder()
-	; handleSlackReminderHotkey("a", 1, "completeSlackReminder")
-return
-
-; Pressing o when hovering over a reminder snoozes it for 2 hour.
-$o::
-	deferSlackReminder(3)
-	; handleSlackReminderHotkey("o", 3, "deferSlackReminder")
-
-return
-
-; Pressing e when hovering over a reminder snoozes it for 4 hours.
-; Using e so that left hand can type all the action keystrokes while right hand moves mouse.
-; In Programmer Dvorak, aoeu are home position keys for right hand.
-$e::
-	deferSlackReminder(4)
-	; handleSlackReminderHotkey("e", 4, "deferSlackReminder")
-return
-
-; Pressing u when hovering over a reminder snoozes it until tomorrow.
-; Using u so that left hand can type all the action keystrokes while right hand moves mouse.
-; In Programmer Dvorak, aoeu are home position keys for right hand.
-$u::
-	deferSlackReminder(5)
-	; handleSlackReminderHotkey("u", 5, "deferSlackReminder")
-return
-
-#IfWinActive
-
-
-;===============================================================================
-; Numberpad
-
-; The bluetooth numberpad I got don't work right in Programmer Dvorak.
-; Need to remap some of the keys.
-
-; 63  048	 	d	5.56	Numpad2 
-; 64  049	 	d	2.03	Numpad3        	
-; 65  04B	 	d	0.23	Numpad4        	
-; 66  04C	 	d	3.72	Numpad5
-; 67  04D	 	d	5.05	Numpad6        	
-; 70  051	 	d	0.94	Numpad9        	
-
-/*
-SC049::
-	Send {up}
-return
-
-SC050::
-	Send {PgUp}
-return
-
-SC05D::
-	Send {right}
-return
-
-SC05B::
-	Send {left}
-return
-
-SC05C::
-	Send {space}
-return
-
-SC052::
-	Send {PgDn}
-return
-*/
-
-
 ;===============================================================================
 ; Submode Launching
 
-
-;-------------------------------------------------------------------------------
-; <W u> => UVU mode.
-$#u::
-	; SoundPlay %A_ScriptDir%\Sounds\UVU_Start.wav
-	Run %A_ScriptDir%\UVU.ahk
-return
 
 /*
 Disable since Windows 12 uses <W n> for notifications.
@@ -3324,44 +3029,6 @@ return
 ; ABBREVIATION HOTSTRINGS
 
 
-; Prints out date with bar above and below it.
-; FAIL.
-dateBars(barChar) {
-    FormatTime, monthDay,, d
-    FormatTime, month,, MMMM
-    FormatTime, weekDay,, dddd
-    FormatTime, year,, yyyy
-
-    monthDay := ordinal(monthDay)
-
-    minus := "-"
-    equals := "="
-    longBar := "uninitialized"
-    if barChar = %minus%
-    {
-        longBar := "-------------------------------------------------------------------------------------------------------------------------"
-    }
-    if barChar = %equals%
-    {
-        longBar := "========================================================================================================================="
-    }
-
-
-    dateString = %weekday%`, %month% %monthDay%`, %year%
-
-    ; FormatTime, output,, dddd`, MMMM` d`, yyyy
-    SendInput %longBar%
-    SendInput {Enter}
-    SendInput %dateString%
-    SendInput {Enter}
-    SendInput %longBar%
-    SendInput {Enter}
-    SendInput {Enter}
-
-    return
-} ; dateBars(barChar)
-
-
 ; This hotstring replaces "<date>" with the current date and time via the commands below.
 ::<date>::
     FormatTime, monthDay,, d
@@ -3400,14 +3067,7 @@ return
 return
 
 
-; Expand to the kind of date heading I use in my journal.
-; ::<date--bars>::
-;    dateBars(-)
-; return
-
-
 ::<date-->::
-    ; dateBars(-)
     FormatTime, monthDay,, d
     FormatTime, month,, MMMM
     FormatTime, weekDay,, dddd
@@ -3435,7 +3095,6 @@ return
 
 
 ::<date==>::
-    ; dateBars(-)
     FormatTime, monthDay,, d
     FormatTime, month,, MMMM
     FormatTime, weekDay,, dddd
