@@ -46,8 +46,8 @@ mouseDownLock := false
 kanbanCut := false
 
 ; Are the left Control and Shift keys mapped to sending down/up keystrokes?
-; Controlled by a checkbox in the Modes GUI (<A-W m>).
-OPT_LEFT_SCROLL := 0
+; Controlled by a checkbox in the Modes GUI windo (<C-A j>).
+OPT_LEFT_HAND_SCROLL := 0
 
 ; Speak when hotkeys/hotstrings are triggered?
 OPT_SPEAK := 1
@@ -169,7 +169,142 @@ Run(HOME "\AHK\AutoCorrect2\Core\AutoCorrect2.exe")
 	speak("Opening downloads folder")	
 }
 
+; These are used with items moved to Waiting column in kanban.
+:*:@WW::@W: Walmart
+:*:@WA::@W: Amazon
+
+; Toggle numberlock.
+:*:<numlock>:: {
+    Send("{NumLock}")
+}
+
+; FAIL: Just does not work right. 
+; This should allow it to toggle capslock even if it is one.
+; Also, v1 Master.ahk hotkeys that use CapsLock should still work.
+/*
+:?i:<capslock>::
+{
+    ; Set the level higher than the v1 hotkey (usually level 0)
+    SendLevel(1) 
+    
+    ; This will now be ignored by other AHK scripts 
+    ; but seen by Windows to toggle the actual state
+    Send("{CapsLock}")
+    
+    ; Reset it just to be safe
+    SendLevel(0)
+}
+*/
+
+
+;===============================================================================
+; Hotkeys
+;===============================================================================
+
+; # => Win; ^ => Ctrl;  + => Shift; ! => Alt
+; $ => Don't allow "Send" output to trigger.  Don't let hotkeys trigger other hotkeys.
+
+; Disable NumLock on Zenbook.
+; Stops the touchpad numberpad from appearing on Zenbook.
+$NumLock:: {
+	if (HOST = "Zenbook") {	
+		return
+	}
+	Send("{NumLock}")
+}
+
+; Make is so that <Window + Space> does not switch input languages.  This is causing me to nearly die
+; in Path of Exile.
+#space::return
+
+; By default, <C Down> sends End.  This is not what I want in Firefox.
+#HotIf WinActive("ahk_class MozillaWindowClass")
+^Down:: {
+	Send("{PgDn}")
+}
+
+^Up:: {
+	Send("{PgUp}")
+}
+#HotIf
+
+; FAIL: Doesn't work. But, doesn't seem to be necessary anymore either.
+; Converts a Wikipedia page to readable/printable view.
+; Trigger: Alt+R (only when Firefox is on a Wikipedia page)
+/*
+#HotIf WinActive("Wikipedia - Mozilla Firefox ahk_class MozillaWindowClass")
+!r::
+{
+    A_Clipboard := "" ; Clear the clipboard
+    Send("^l")        ; Select URL in address bar
+    Sleep(200)
+    Send("^c")        ; Copy selection
+    
+    ; ClipWait returns 0 (false) if it times out after 2 seconds
+    if !ClipWait(2) {
+        return
+    }
+
+    ; Process the URL
+    ; Using RegExMatch to find the position of the subject
+    if (RegExMatch(A_Clipboard, "/wiki/(.*)", &match)) {
+        subject := match[1]
+        printableUrl := "http://en.wikipedia.org/w/index.php?title=" subject "&printable=yes"
+        
+        ; Put it back on the clipboard and navigate
+        A_Clipboard := printableUrl
+        if ClipWait(2) {
+            Send("^l")
+            Sleep(50)
+            Send("^v")
+            Send("{Enter}")
+        }
+    }
+}
+#HotIf
+*/
+
+; WARNING: Having this on screws up normal typing.
+; Alternate scrolling keys so you're not always using your right hand.
+; Only enabled when OPT_LEFT_SCROLL = 1.
+; The Modes window <C-A j> sets this.
+#HotIf (OPT_LEFT_HAND_SCROLL = 1)
+$LShift:: {
+	Send("{Up 5}")
+}
+
+$LControl:: {
+	Send("{Down 5}")
+}
+#HotIf
+
+; Makes <C-A g> search selected text in Google.
+$^!g:: {
+    A_Clipboard := "" ; Clear the clipboard
+    Send("^c")        ; Copy selected text
+
+    ; Wait up to 2 seconds for text to arrive
+    if !ClipWait(2) {
+        return
+    }
+
+    ; Remove the citation cruft (e.g., from Kindle/Web)
+    ; We parse the clipboard and take only the first line.
+    loop parse, A_Clipboard, "`n", "`r"
+    {
+        ; Update the clipboard with just the first line
+        A_Clipboard := A_LoopField
+        break
+    }
+
+    ; Clean the query for the URL (replaces spaces/special chars)
+    ; Note: 'Run' in v2 requires quotes for the string/expression
+    query := A_Clipboard
+    Run("https://www.google.com/search?hl=en&q=" . query)
+}
+
 ; CONVERTED
+
 
 ^+h:: {
     MsgBox("Hello, AHK v2!")

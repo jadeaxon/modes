@@ -208,171 +208,14 @@ return
 	speak("Opening downloads folder")	
 return
 
-
-*/
-
-; CONVERTED
-
-
-
-; Open a website: YouTube.
-:*:Aowyt::
-	Run, https://www.youtube.com
-	speak("Opening YouTube")
-	WinWaitActive, YouTube,, 2
-	WinActivate, YouTube
-return
-
-; Open an app: Thunderbird.
-:*:Aoatb::
-	Run, C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Mozilla Thunderbird.lnk
-	speak("Opening Thunderbird")
-	WinWaitActive, Thunderbird,, 2
-	WinActivate, Thunderbird
-return
-
-; Open Firefox.
-:*:Aoaff::
-	Run, "C:\Program Files\Mozilla Firefox\firefox.exe"
-	speak("Opening Firefox")
-	WinWaitActive, ahk_exe firefox.exe,, 2
-	WinActivate, ahk_exe firefox.exe
-return
-
-; Open Chrome.
-:*:Aoagc::
-	Run, "C:\Program Files (x87)\Google\Chrome\Application\chrome.exe"
-	speak("Opening Chrome")
-	WinWaitActive, ahk_exe chrome.exe,, 2
-	WinActivate, ahk_exe chrome.exe
-return
-
-; Open all your comms apps.
-:*:Aoa*c::
-	if (not WinExist("ahk_exe OUTLOOK.EXE")) {	
-		Run, C:\Users\%A_UserName%\Desktop\Comms\Outlook.lnk
-	}
-	
-	if (not WinExist("ahk_exe thunderbird.exe")) {
-		Run, C:\Users\%A_UserName%\Desktop\Comms\Mozilla Thunderbird.lnk
-	}
-	
-	; if (not WinExist("ahk_exe Teams.exe")) {
-		Run, C:\Users\%A_UserName%\Desktop\Comms\Microsoft Teams.lnk
-	; }
-
-	; if (not WinExist("ahk_exe slack.exe")) {
-		Run, C:\Users\%A_UserName%\Desktop\Comms\Slack.lnk
-	; }
-
-	speak("Opening communications apps")
-	Sleep, 3001
-	
-	WinMaximize, ahk_exe thunderbird.exe
-	Sleep, 501
-	WinActivate, ahk_exe thunderbird.exe
-
-	WinMaximize, ahk_exe Teams.exe
-	Sleep, 501
-	WinActivate, ahk_exe Teams.exe
-	; Teams does this weird overmaximization.
-	Sleep, 201
-	Send #{Up}
-	WinMinimize, ahk_exe Teams.exe
-	
-	WinMaximize, ahk_exe slack.exe
-	Sleep, 501
-	WinActivate, ahk_exe slack.exe
-	
-	Sleep, 3001 
-	WinMaximize, ahk_exe OUTLOOK.EXE
-	Sleep, 501
-	WinActivate, ahk_exe OUTLOOK.EXE
-	; Unless you end on Outlook, its tray bar lights up with alert status.
-return
-
-; This does not work.
-; Has to be run as its own app.
-; I can't figure out how to load it as part of this one.
-; #Include %A_ScriptDir%\RegExHotstrings.ahk
-; Probably because nothing autoexecutes after the first hotkey/hotstring is defined.
-
-
-; A hotstring to use with @Today.txt.
-:*:s.today::
-    FormatTime, year,, yyyy
-    FormatTime, month,, MM
-    FormatTime, day,, dd
-	FormatTime, day4, A_Now, ddd ; Mon, Tue, etc.
-
-    output = %year%-%month%-%day%
-    SendInput %output%: %day4%
-
-	Send, `n`n
-	Send, 6: `n
-	Send, 7: `n
-	Send, 8: `n
-	Send, 9: `n
-	Send, 10: `n
-	Send, 11: `n
-	Send, 12: `n
-	Send, 13: `n
-	Send, 2: `n
-	Send, 3: `n
-	Send, 4: `n
-	Send, 5: `n
-	Send, 6: `n
-	Send, 7: `n
-	Send, 8: `n
-
-return
-
-
 ; These are used with items moved to Waiting column in kanban.
 :*:@WW::@W: Walmart
 :*:@WA::@W: Amazon
 
-; Toggle number lock.
+; Toggle numberlock.
 :*:<numlock>::
     Send {NumLock}
 return
-
-
-;===============================================================================
-; Hotkeys
-;===============================================================================
-
-/*
-Hotkeys
-*/
-
-
-; # => Win; ^ => Ctrl;  + => Shift; ! => Alt
-; $ => Don't allow "Send" output to trigger.  Don't let hotkeys trigger other hotkeys.
-
-; Note that you can right click by doing a two-finger trackpad tap.
-; The right click button on my laptop is not working correctly.
-; Making it so that Ctrl left click does a right click.
-; For some reason, if you try to map Alt left click, the context menu just closes instantly.
-;
-; Mostly this is okay, but it ruins the browser Ctrl click to open link in another tab.
-;
-; The reason it's not working is because the battery in my Dell XPS 9571 had expanded.  Fail Dell
-; engineering.  I took the battery out, and now the trackpad works fine.  I just don't have a
-; battery now, so I have to be careful about the laptop becoming unplugged!
-; ^LButton::
-;	Click, Right
-; return
-
-; Make a three-finger trackpad tap start dragging.
-; PRE: Three finger tap mapped to custom shortcut <C-A-S d>.
-; PRE: ClickLock is enabled in mouse settings.
-; ^!+d::
-;	Click down
-;	Sleep 1001
-;	Click up
-; return
-
 
 ; Disable NumLock on Zenbook.
 ; Stops the touchpad numberpad from appearing on Zenbook.
@@ -383,6 +226,7 @@ $NumLock::
 	}
 	Send {NumLock}
 
+; NOTE: Decided not to bring any capslock stuff forward to v2.
 ; Make CapsLock click the mouse.
 $CapsLock::
 	Click
@@ -425,27 +269,6 @@ $!CapsLock::
 	}
 return
 
-; <S Numpad1> => <S Insert> on Inspiron.
-; Since the Inspiron doesn't have an Insert key, and ^C doesn't work consistently everywhere,
-; this is useful.
-/*
-+Numpad1::
-	Send +{Insert}
-return
-*/
-
-; Make page navigation easier in Adobe Digital Editions.
-#IfWinActive ahk_exe DigitalEditions.exe
-Down::
-	Send {PgDn}
-return
-
-Up::
-	Send {PgUp}
-return
-#IfWinActive
-
-
 ; Make is so that <Window + Space> does not switch input languages.  This is causing me to nearly die
 ; in Path of Exile.
 #space::return
@@ -487,7 +310,7 @@ return
 #IfWinActive
 SetTitleMatchMode 2
 
-
+; NOTE: Decided not to move these to v2.
 SetTitleMatchMode 3 ; Match window title internally.
 #IfWinActive YouTube ahk_class MozillaWindowClass
 ; Allows me to use left hand to move through YouTube videos.
@@ -502,23 +325,24 @@ $a::
 	}
 return
 
-$'::
+$o::
 	CoordMode, Mouse, Window
 	MouseGetPos, x, y
 	if (y > 351) {
 		Send {Right}
 	}
 	else {
-		Send {' down}{' up}
+		Send o
 	}
 return
 #IfWinActive
 SetTitleMatchMode 2
 
-
+; WARNING: Having this on screws up normal typing.
 ; Alternate scrolling keys so you're not always using your right hand.
-; Only enabled when OPT_LEFT_SCROLL = 2.
-#If (OPT_LEFT_SCROLL = 2)
+; Only enabled when OPT_LEFT_SCROLL = 1.
+; The Modes window <C-A j> sets this.
+#If (OPT_LEFT_SCROLL = 1)
 $LShift::
 	Send {Up 5}
 return
@@ -544,94 +368,8 @@ $^!g::
 	Run, http://www.google.com/search?hl=en&q=%Clipboard%
 return
 
-
-$^!l::
-    ; Send ^!{Delete}
-    ; Send ^!{vk3Esc153} ; This lets you lock the screen.
-    Run taskmgr
-return
-
-; Before locking the screen, mute the volume.  This is so Slack alerts don't bother other people at work.
-$#l::
-    Send {Volume_Mute}
-    ; Windows will respond to the <W l> also.  This does not block Windows from seeing it.
-return
-
-
-; Make it so I can launch Launchy from the VM.
-; This does not work.
-#IfWinActive ahk_class VMPlayerFrame
-$!space::
-    Send {Ctrl Right}{Alt Right}
-    Send !{Space}
-
-return
-#IfWinActive
-
-
-; Make it so SlickRun dismisses by <A-r>.
-#IfWinActive ahk_class TMain
-$!r::
-    Send {Esc}
-return
-#IfWinActive
-
-
-;-------------------------------------------------------------------------------
-; Make it easy to archive message being viewed in Hotmail.
-; Note that in Hotmail, <C .> moves to next message and <C ,> moves to previous message.
-; These are both close to the 'e' key in Programmer Dvorak.  So, using these three shortcuts
-; is great for processing your @Waiting folder during a GTD weekly review.
-#IfWinActive Mail - jadeaxon@hotmail.com ahk_class MozillaWindowClass
-; Use 'e' to archive.  This is built into Hotmail.
-
-$^.::
-	; Move to next message.
-	Send ^.
-	Sleep 301
-	; Select the message pane so you can scroll the (usu Amazon shipping) message.
-	Send {Tab}
-
-return
-
-$^,::
-	; Move to previous message.
-	Send ^,
-	Sleep 301
-	; Select the message pane so you can scroll the (usu Amazon shipping) message.
-	Send {Tab}
-
-return
-#IfWinActive
-
-
-; Make <C @> move selected/current message to @Waiting in Hotmail.
-#IfWinActive Mail - jadeaxon@hotmail.com ahk_class MozillaWindowClass
-$^@::
-	Send v ; This shortcut is built into Hotmail for moving messages.  Pops up dialog.
-	Sleep 201
-	; Adding my new @Dropped folder broke this.
-	; Once again, the Outlook webapp is brain dead.  It only sees the first letter typed into the
-	; search box when activated via v!  	
-	; Send @Waiting{Enter}
-	Send @{down}{enter}
-return
-#IfWinActive
-
-
-
-; A3  01D	 	d	2.83	LControl
-; 32  002	 	d	0.28	1
-; 32  002	 	u	0.09	1
-; A3  01D	 	u	0.08	LControl
-; A3  01D	 	d	0.64	LControl
-; 33  003	 	d	0.34	2
-; 33  003	 	u	0.11	2
-; A3  01D	 	u	0.06	LControl
-
-; DB  003	 	u	0.13	&
-; 38  003	 	d	0.55	[
-; Remap <C 2> and <C 2> to switch between mail and calendar.  These get messed up since Programmer
+; NOTE: Not migrating these to v2.
+; Remap <C 2> and <C 2> to switch between mail and calendar. These get messed up since Programmer
 ; Dvorak uses symbols on the number key row.
 ^SC003::
 	; <C &> => <C 2>
@@ -643,30 +381,17 @@ return
 	Send {vkA3sc01D Down}{vk32sc003 Down}{vk32sc003 Up}{vkA2sc01D Up}
 return
 
-
-
-; FAIL: Keyboard shortcuts in Chrome don't work when using Programmer Dvorak!
-; Chrome sees <C-+> as <C-3>.  Can't figure out how to fix.
-#IfWinActive ahk_class Chrome_WidgetWin_2
-$^5::
-    MsgBox,, Hi
-    Send ^+
-return
-#IfWinActive
-
-
-/*
-; FAIL: Emoji popup.  Use Esc to dismiss it.
-; Esc should dismiss it.
-; Also, there's a Windows setting which dismisses the Emoji Panel after an
-; emoji is emitted.
-#IfWinActive ahk_class ApplicationFrameWindow ahk_exe Explorer.EXE
-Esc::
-	; Send {enter}{backspace}
-	; Send #.
-return
-#IfWinActive
 */
+
+
+;===============================================================================
+; Hotkeys
+;===============================================================================
+
+; # => Win; ^ => Ctrl;  + => Shift; ! => Alt
+; $ => Don't allow "Send" output to trigger.  Don't let hotkeys trigger other hotkeys.
+
+; CONVERTED
 
 
 ;==============================================================================
