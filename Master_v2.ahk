@@ -60,7 +60,7 @@ searchDialog := 0
 
 ; The color of a pixel. In hex format. 
 ; v2 uses 0x prefix for hex; v1 style "000000" strings should be 0x000000 numbers.
-color := 0
+; color := 0
 
 ; Delay between keystrokes.
 delay := 30
@@ -69,16 +69,61 @@ delay := 30
 menuPosition := 0
 
 vUserProfile := EnvGet("USERPROFILE")
-host := EnvGet("COMPUTERNAME")
+HOST := EnvGet("COMPUTERNAME")
 
 HOME := EnvGet("USERPROFILE")
 Run(HOME "\AHK\AutoCorrect2\Core\AutoCorrect2.exe")
 
+
+;===============================================================================
+; Includes
+;===============================================================================
+
+#Include "Library_v2.ahk"
+;#Include "PL-SQL_v2.ahk"
+
+
+;===============================================================================
+; Hotstrings
+;===============================================================================
+
+; Make the hotstrings case-sensitive.
+#Hotstring c
+
+; These abbreviations expand in most Windows programs.
+; They do not expand in Cygwin.
+:*:USAx::United States of America
+:*:UVUx::Utah Valley University
+:*:ESSx::ERP Software Services
+
+; Some common symbols.  Copyright, registered trademark, and trademark.
+:*:(c)::{U+01A9}
+:*:(r)::{U+01AE}
+:*:(tm)::{U+2123}
+
+#HotIf !WinActive("ahk_exe mintty.exe")
+:*:j@h::jadeaxon@hotmail.com
+#HotIf
+
+:*:j@g::jadeaxon@gmail.com
+:*:je@g::java.emitter@gmail.com
+:*:jr@u::jeffrey.anderson@uvu.edu
+:*:2@u::10845493@uvu.edu
+:*:j@u::jeff.anderson@uvu.edu
+:*:my.uvid::10845494
+:*:my.pidm::658226
+
+; Misspellings.
+::comrad::comrade
+:*:digestable::digestible
+:*:hazzard::hazard
+:*:plateu::plateau
+:*:persuassion::persuasion
+:*:colocation::collocation
+
 ; CONVERTED
 
-
-^+h::
-{
+^+h:: {
     MsgBox("Hello, AHK v2!")
 }
 

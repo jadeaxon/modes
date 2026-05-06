@@ -104,49 +104,40 @@ EnvGet, vUserProfile, USERPROFILE
 EnvGet, host, COMPUTERNAME
 
 
-
 ;===============================================================================
 ; Includes
 ;===============================================================================
 
 ;; Run %A_ScriptDir%\AutoCorrect.ahk
-
-; CONVERTED
-
 #Include %A_ScriptDir%\Library.ahk
-; #Include %A_ScriptDir%\Kindle.ahk
-; #Include %A_ScriptDir%\JRoutine.ahk
-#Include %A_ScriptDir%\PL-SQL.ahk
+;#Include %A_ScriptDir%\PL-SQL.ahk
 
 
 ;===============================================================================
 ; Abbreviations, Hotstrings
 ;===============================================================================
 
-/*
-Hotstrings
-*/
-
 ; Make the hotstrings case-sensitive.
 #Hotstring c
 
 ; These abbreviations expand in most Windows programs.
 ; They do not expand in Cygwin.
-::USAx::United States of America
-::UVUx::Utah Valley University
-::ESSx::ERP Software Services
+;; ::USAx::United States of America
+;; ::UVUx::Utah Valley University
+;; ::ESSx::ERP Software Services
 
 ; Some common symbols.  Copyright, registered trademark, and trademark.
-::(c)::{U+01A9}
-::(r)::{U+01AE}
-::(tm)::{U+2123}
+;; ::(c)::{U+01A9}
+;; ::(r)::{U+01AE}
+;; ::(tm)::{U+2123}
 
 ; In Cygwin, I use j@h as a command 100% of the time.
 ; How would I do ~ or / in case using absolute path?
-#IfWinNotActive ahk_exe mintty.exe
-:*:j@h::jadeaxon@hotmail.com
-#IfWinNotActive
+;; #IfWinNotActive ahk_exe mintty.exe
+;;:*:j@h::jadeaxon@hotmail.com
+;; #IfWinNotActive
 
+/**
 :*:j@g::jadeaxon@gmail.com
 :*:je@g::java.emitter@gmail.com
 :*:jr@u::jeffrey.anderson@uvu.edu
@@ -162,6 +153,9 @@ Hotstrings
 :*:plateu::plateau
 :*:persuassion::persuasion
 :*:colocation::collocation
+*/
+
+; CONVERTED
 
 ; Python.
 :R:s.pshe!::#!/usr/bin/env python4

@@ -8,7 +8,7 @@ sleepRandomSeconds(min, max) {
     min *= 1000
     max *= 1000
 
-	sleepTime := Random(minMs, maxMs)
+	sleepTime := Random(min, max)
     Sleep(sleepTime)
 }
 
@@ -45,16 +45,18 @@ IsDirectory(path) {
 }
 
 exists(path) {
-    exists := FileExist(path) ; returns an attribute string for the file or empty if DNE
-    if (exists) {
-        exists := true
+	; Functions and variables share the same global namespace.
+	; So, you'd be overwriting this function if you used 'exists' as the variable.
+	; And, you'd be trying to assign to a global without declaring it global.
+    exists_ := FileExist(path) ; returns an attribute string for the file or empty if DNE
+    if (exists_) {
+        exists_ := true
     }
     else {
-        exists := false
+        exists_ := false
     }
     
-    return exists
-    
+    return exists_
 }
 
 
@@ -64,8 +66,10 @@ exists(path) {
 
 ; Returns the value of the given property from ~/.properties.
 property(key) {
-    home := EnvGet("USERPROFILE")
-    propFile := home "\.properties"
+	; PRE: HOME is set to home dir by script including this library.
+	; Global vars are global across all files (unlike in Python).
+	global HOME
+    propFile := HOME "\.properties"
     
     if !FileExist(propFile)
         return ""
@@ -145,6 +149,18 @@ activeMonitorResolution(&width, &height) {
     }
 }
 
+; Manual implementation of MonitorGetFromPoint for AHK v2.0.
+; This function is available in AHK v2.1 alpha.
+MonitorGetFromPoint(X, Y) {
+    Count := MonitorGetCount()
+    Loop Count {
+        MonitorGet(A_Index, &L, &T, &R, &B)
+        if (X >= L && X <= R && Y >= T && Y <= B)
+            return A_Index
+    }
+    return MonitorGetPrimary() ; Fallback to primary if not found
+}
+
 ; Returns the number of the active monitor.
 activeMonitor() {
     CoordMode("Mouse", "Screen")
@@ -155,8 +171,8 @@ activeMonitor() {
 }
 
 activeMonitorName() {
-	host = EnvGet("COMPUTERNAME")
-	if (host = "Zenbook") {
+	global HOST
+	if (HOST = "Zenbook") {
 		monitorName := "Zenbook"
 	}
 	return monitorName
@@ -165,16 +181,16 @@ activeMonitorName() {
 
 ; Returns the name of the active Google Sheet within a workbook.
 activeSheet() {
+	global HOST
     CoordMode("Mouse", "Window")
     CoordMode("Pixel", "Window")
 
-    host := EnvGet("COMPUTERNAME")
     monitors := MonitorGetCount()
 
-    activeSheet := "unknown"
+    active_sheet := "unknown"
 
     ; ASUS Zenbook 14X OLED
-    if (StrLower(host) == "zenbook") {
+    if (StrLower(HOST) == "zenbook") {
         ; Update colors for this specific machine
         activeTabColor  := 0xE1E9F7
         activeTabColor2 := 0xE3E9F6
@@ -187,17 +203,17 @@ activeSheet() {
 
         ; Check each tab location
         if isActive(400, 1650)
-            activeSheet := "Kanban"
+            active_sheet := "Kanban"
         else if isActive(800, 1650)
-            activeSheet := "Rocks"
+            active_sheet := "Rocks"
         else if isActive(580, 1650)
-            activeSheet := "Recurring"
+            active_sheet := "Recurring"
 
         ; tabColor := PixelGetColor(580, 1650, "RGB")
         ; MsgBox("Zenbook tab color: " tabColor "`nActive: " activeTabColor, , "T1")
     }
 
-    return activeSheet
+    return active_sheet
 }
 
 
