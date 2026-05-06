@@ -50,7 +50,7 @@ kanbanCut := false
 OPT_LEFT_SCROLL := 0
 
 ; Speak when hotkeys/hotstrings are triggered?
-OPT_SPEAK := 0
+OPT_SPEAK := 1
 
 ; The hotkey for pressing w.
 W_HOTKEY := "not set"
@@ -120,6 +120,54 @@ Run(HOME "\AHK\AutoCorrect2\Core\AutoCorrect2.exe")
 :*:plateu::plateau
 :*:persuassion::persuasion
 :*:colocation::collocation
+
+; Python.
+:R:py.!::#!/usr/bin/env python3
+
+; 10:30 AM
+:*:<t>::
+:*:<time>::
+{
+    ; FormatTime returns the formatted string directly
+    output := FormatTime(, "h:mm tt")
+    Send(output)
+}
+
+; 9/11/2011 9:30 AM
+:*:<ts>:: {
+    output := FormatTime(, "M/d/yyyy h:mm tt")
+    Send(output)
+}
+
+; 03/22/2O12
+:*:<mdy>:: {
+    output := FormatTime(, "MM/dd/yyyy")
+    Send(output)
+}
+
+; 2018-08-12
+::ymd::
+:*:<ymd->::
+{
+	output := FormatTime(, "yyyy-MM-dd")
+    Send(output)
+}
+
+; 2026-05-06: Wed
+:O:ymdd::
+{
+    datePart := FormatTime(, "yyyy-MM-dd")
+    output := datePart ": " A_DDD
+    Send(output "{Enter}{Enter}")
+}
+
+; Directory abbreviation for Downloads directory.
+:*:Aoddl::
+:*:Acddl::
+{
+	Run(HOME "\Downloads")
+	speak("Opening downloads folder")	
+}
 
 ; CONVERTED
 

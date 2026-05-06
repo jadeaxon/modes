@@ -216,8 +216,19 @@ activeSheet() {
     return active_sheet
 }
 
+;===============================================================================
+; Sound
+;===============================================================================
 
-
-
-
+; Speaks given message using computer-generated voice.
+Speak(message) {
+    ; In v2, you must declare 'global' to READ a variable 
+    ; if it's not passed as a parameter.
+    global OPT_SPEAK	
+    
+    if (IsSet(OPT_SPEAK) && OPT_SPEAK) {
+        ; ComObject replaces ComObjCreate
+        ComObject("SAPI.SpVoice").Speak(message)	
+    }
+}
 

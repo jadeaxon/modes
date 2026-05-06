@@ -153,13 +153,9 @@ EnvGet, host, COMPUTERNAME
 :*:plateu::plateau
 :*:persuassion::persuasion
 :*:colocation::collocation
-*/
-
-; CONVERTED
 
 ; Python.
-:R:s.pshe!::#!/usr/bin/env python4
-:R:py.!::#!/usr/bin/env python4
+:R:py.!::#!/usr/bin/env python3
 
 ; Date and time.
 ; 10:30 AM
@@ -192,34 +188,6 @@ return
 	SendInput %output%
 return
 
-; ymd => 2020-03-11: 
-; For some reason, this never triggers on the first use in gVim.
-; Ah, it's because without the *, it sees the i/I/o/O transition to insert mode as part of the word!
-; But, I don't want a star to get the right behavior with : (which can't be used as a hotstring
-; character).
-::iymd::
-	FormatTime, output,, yyyy-MM-dd
-	SendInput %output%:{space}  
-return
-
-; This still doesn't work.
-::Iymd::
-	FormatTime, output,, yyyy-MM-dd
-	SendInput %output%:{space}  
-return
-
-; This still doesn't work.
-::Oymd::
-	FormatTime, output,, yyyy-MM-dd
-	SendInput {enter}%output%:{space}  
-return
-
-; For some strange reason, we lose an enter keystroke here.
-::oymd::
-	FormatTime, output,, yyyy-MM-dd
-	SendInput {enter}%output%:{space}  
-return
-
 ::ymd::
 	FormatTime, output,, yyyy-MM-dd
 	SendInput %output%:{space}  
@@ -232,7 +200,6 @@ return
 	SendInput %output%{enter}{enter}  
 return
 
-
 ; Directory abbreviation for Downloads directory.
 :*:Aoddl::
 :*:Acddl::
@@ -240,6 +207,13 @@ return
 	Run, %vUSERPROFILE%\Downloads
 	speak("Opening downloads folder")	
 return
+
+
+*/
+
+; CONVERTED
+
+
 
 ; Open a website: YouTube.
 :*:Aowyt::
@@ -3295,10 +3269,11 @@ LControl & Escape::
 return
 
 
-
 ;==============================================================================
 ; Functions
+;==============================================================================
 
+; converted
 ; Speaks given message using computer-generated voice.
 speak(message) {
 	Global OPT_SPEAK	
@@ -3306,19 +3281,4 @@ speak(message) {
 		ComObjCreate("SAPI.SpVoice").Speak(message)	
 	}
 }
-
-
-; Emits a Slack reminder request.
-remind(what) {
-	; The prefix keeps Slack's annoying new shortcuts "helper" from popping up.
-	; prefix := "_r{left}{backspace}/{right}{right}emind me to"
-	; Send %prefix% %what%
-	clipboard := ""
-	clipboard := "/remind me to " . what
-	ClipWait
-	Send ^v
-	Sleep 501
-	Send {enter}
-}
-
 
