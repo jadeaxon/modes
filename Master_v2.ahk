@@ -333,7 +333,7 @@ $NumLock:: {
 
 ; WARNING: Having this on screws up normal typing.
 ; Alternate scrolling keys so you're not always using your right hand.
-; Only enabled when OPT_LEFT_SCROLL = 1.
+; Only enabled when OPT_LEFT_HAND_SCROLL = 1.
 ; The Modes window <C-A j> sets this.
 #HotIf (OPT_LEFT_HAND_SCROLL = 1)
 $LShift:: {
@@ -949,6 +949,115 @@ $^m:: {
 }
 
 
+#HotIf
+
+
+;==============================================================================
+; Modes Window
+;==============================================================================
+
+; <C-A j> => Jeff's GUI.
+; <A-W m> => Modes GUI.
+$!#m::
+$^!j::
+{
+    ; Check if GUI already exists by its title "Modes"
+    if WinExist("Modes") {
+        WinActivate("Modes")
+        return
+    }
+
+    ; Create a new GUI object
+    myGui := Gui(,"Modes")
+    myGui.Opt("+LastFound")
+    
+    ; Setup variables (Using global scope for persistence across GUI runs)
+    global OPT_LEFT_HAND_SCROLL := OPT_LEFT_HAND_SCROLL ?? 0
+    global OPT_SPEAK := OPT_SPEAK ?? 0
+
+    ; Checkbox 1: Left Scroll [cite: 3, 4]
+	cbScroll := myGui.Add("Checkbox", (OPT_LEFT_HAND_SCROLL ? "Checked" : ""), "Enable &scrolling with left control and shift?")
+	cbScroll.OnEvent("Click", UpdateOptLeftHandScroll)
+
+    ; Checkbox 2: Speak [cite: 6]
+    cbSpeak := myGui.Add("Checkbox", (OPT_SPEAK ? "Checked" : ""), "Spea&k when hotkeys and hotstrings are triggered?")
+    cbSpeak.OnEvent("Click", UpdateOptSpeak)
+
+    ; Buttons [cite: 7]
+    btnBudget := myGui.Add("Button", "w251", "&Budget")
+    btnBudget.OnEvent("Click", Button_Budget)
+
+    btnJiggler := myGui.Add("Button", "w251", "Mouse &Jiggler")
+    btnJiggler.OnEvent("Click", (*) => (myGui.Destroy(), Run(A_ScriptDir "\MouseJiggler_v2.ahk")))
+
+    ; Escape key handling [cite: 17]
+    myGui.OnEvent("Escape", (guiObj) => guiObj.Destroy())
+    myGui.OnEvent("Close", (guiObj) => guiObj.Destroy())
+
+    myGui.Show()
+}
+
+UpdateOptSpeak(ctrl, *) {
+	global OPT_SPEAK := ctrl.Value
+}
+
+UpdateOptLeftHandScroll(ctrl, *) {
+    global OPT_LEFT_HAND_SCROLL := ctrl.Value
+}
+
+
+Button_Budget(btn, *) {
+    btn.Gui.Destroy() ; [cite: 12]
+    
+    amountStr := A_Clipboard
+    ; Clean the string: remove $ and commas 
+    amount := StrReplace(StrReplace(amountStr, "$"), ",")
+    amount := Abs(Number(amount || 0))
+
+    if (amount <= 1) {
+        MsgBox("You did not copy an amount to the clipboard.", "Error")
+        return
+    }
+
+    A_Clipboard := ""
+    
+    ; Path to budget file [cite: 14]
+    budgetPath := "G:\My Drive\Organization\Financial\Budget\" A_YYYY "\" A_YYYY " Budget.txt"
+    
+    if FileExist(budgetPath) {
+        Run(budgetPath)
+        if WinWaitActive("ahk_exe gvim.exe",, 3) {
+            ; Vim commands [cite: 15]
+            SendInput("{esc}{esc}gg/NEXT{enter}{up}")
+            SendInput('"{+}yW') ; Copy line to clipboard in Vim
+
+            if ClipWait(1) {
+                remBudget := StrReplace(StrReplace(A_Clipboard, "$"), ",")
+                remBudget := Abs(Number(remBudget || 0))
+
+                newRem := Round(remBudget - amount, 3)
+                
+                ; Format output 
+                out := "$" . newRem
+                ; Commify logic
+                out := RegExReplace(out, "(\d)(?=(?:\d{3})+(?:\.|$))", "$1,")
+                
+                formattedAmt := Format("{:.3f}", amount)
+                SendInput("o" out "{space}-$" formattedAmt "{space}")
+            }
+        }
+    }
+}
+
+
+; Make <Enter> also close the Modes window.
+#HotIf WinActive("Modes")
+Enter:: {
+    if (activeHwnd := WinActive("A")) {
+        guiObj := GuiFromHwnd(activeHwnd)
+        guiObj.Destroy()
+    }
+}
 #HotIf
 
 
