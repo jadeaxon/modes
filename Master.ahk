@@ -472,14 +472,17 @@ return
 :*c:T8::GTD7 [rK1]{enter}
 :*c:Tk::kbs 101 [rH1]^{enter}0{enter}
 :*c:Tbh::Bar hang [H2]^{enter}
-
-*/
-
-; CONVERTED
+#IfWinActive
 
 
 #IfWinActive ahk_group PersonalKanban
-; Never paste formatting.  Otherwise column background colors get screwed up.
+; <A p> => Transition to progress file from kanban.
+$!p::
+	file = G:\My Drive\Organization\Progress\Home\Progress (Home).txt
+	Run %file%
+return
+
+; Never paste formatting. Otherwise column background colors get screwed up.
 $^v::
 	; The problem with this is now if you paste any multiline cell, it pastes it as multiple cells.
 	; clipboard := trim(clipboard, """") ; Remove outer double quotes.
@@ -488,6 +491,7 @@ $^v::
 	; Seems like the shift key always gets stuck after this.
 	Send {LShift up}
 return
+#IfWinActive
 
 $^x::
 	SendInput ^c
@@ -497,7 +501,13 @@ $^x::
 	SendInput {backspace}
 return
 
-; #HotkeyModifierTimeout 1
+
+*/
+
+; CONVERTED
+
+
+#IfWinActive ahk_group PersonalKanban
 
 ; This can be used in the main kanban tab to move an item into the Done column.
 ; Use with recurring tasks sheet.  When in the first cell of the task.
@@ -697,35 +707,6 @@ Esc::
 		searchDialog := 1
 	}
 return
-
-; <A click> toggles between cut and paste.
-; All the normal modifier keys cause unwanted side behavior.
-/*
-Esc & LButton::
-	Click
-	Sleep 21
-	if (!kanbanCut) {
-		SendInput ^c
-		Sleep 51
-		SendInput {delete}
-		Sleep 51
-		SendInput {backspace}
-	}
-	else {
-		Send ^+v
-	}
-	kanbanCut := !kanbanCut
-return
-*/
-
-; <A p> => Transition to progress file from kanban.
-$!p::
-	; file = C:\Users\%A_UserName%\Dropbox\Organization\Progress\Home\Progress (Home).txt
-	file = G:\My Drive\Organization\Progress\Home\Progress (Home).txt
-	Run %file%
-return
-#IfWinActive
-
 
 ; Make cut and paste work right in work kanban.
 #IfWinActive ahk_group WorkKanban

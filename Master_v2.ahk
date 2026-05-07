@@ -322,6 +322,35 @@ $^!g:: {
     Run("https://www.google.com/search?hl=en&q=" . query)
 }
 
+
+#HotIf WinActive("ahk_group PersonalKanban")
+; <A p> => Transition to progress file from kanban.
+$!p:: {
+	local file
+	file := "G:\My Drive\Organization\Progress\Home\Progress (Home).txt"
+	Run(file)
+}
+
+; Never paste formatting. Otherwise column background colors get screwed up.
+$^v:: {
+	; The problem with this is now if you paste any multiline cell, it pastes it as multiple cells.
+	; clipboard := trim(clipboard, """") ; Remove outer double quotes.
+	Send("^+v")
+
+	; Seems like the shift key always gets stuck after this.
+	Send("{LShift up}")
+}
+
+$^x:: {
+	Send("^c")
+	Sleep(50)
+	Send("{delete}")
+	Sleep(50)
+	Send("{backspace}")
+}
+#Hotif
+
+
 ;==============================================================================
 ; Vim (.ahk files)
 ; AutoHotkey
