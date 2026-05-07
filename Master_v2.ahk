@@ -450,6 +450,45 @@ $^w:: {
 }
 #HotIf
 
+
+;==============================================================================
+; Firefox
+;==============================================================================
+
+;-------------------------------------------------------------------------------
+; Make <Ctrl + T> open a new Google tab in Firefox (instead of a blank).
+; Firefox is brain dead in this regard.  Why would you want to open a blank tab???
+; Bloody brilliant.  This works like a charm.
+;
+; TIP: <Ctrl + Shift + T> resurrects the last tab you (accidentally) closed.
+#HotIf WinActive("ahk_exe firefox.exe")
+$^t:: {
+    ; Create the new tab.
+    Send("^t")
+    ; Go to the address bar.
+    Send("^l")
+    ; Type in Google address.
+    Send("www.google.com{Enter}")
+}
+
+; Adds current URL to Bookmarks Toolbar|Now bookmarks.
+$^d:: {
+	Send("^d") ; Open save new bookmark dialog.
+	Sleep(500)
+	Send("{Tab}{Tab}{Enter}") ; Open dialog to choose folder.
+	Sleep(200)
+	Send("{left}{right}n") ; Choose bookmarks toolbar N folder.
+	Sleep(200)
+	Send("!{Enter}") ; Submit dialog.
+}
+
+; Let's try having ;; delete the bookmark.
+:*:;;:: {
+	Send("{AppsKey}d")
+}
+#HotIf
+
+
 ; CONVERTED
 
 ^+h:: {

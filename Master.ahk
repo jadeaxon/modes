@@ -544,6 +544,47 @@ return
 #IfWinActive
 
 
+;==============================================================================
+; Firefox
+;==============================================================================
+
+;-------------------------------------------------------------------------------
+; Make <Ctrl + T> open a new Google tab in Firefox (instead of a blank).
+; Firefox is brain dead in this regard.  Why would you want to open a blank tab???
+; Bloody brilliant.  This works like a charm.
+;
+; TIP: <Ctrl + Shift + T> resurrects the last tab you (accidentally) closed.
+#IfWinActive ahk_exe firefox.exe
+$^t::
+    ; Create the new tab.
+    Send ^t
+    ; Go to the address bar.
+    Send ^l
+    ; Type in Google address.
+    Send www.google.com{Enter}
+
+return
+
+; Adds current URL to Bookmarks Toolbar|Now bookmarks.
+$^d::
+	Send ^d ; Open save new bookmark dialog.
+	Sleep 501
+	Send {Tab}{Tab}{Enter} ; Open dialog to choose folder.
+	Sleep 201
+	Send n ; Choose bookmarks toolbar N folder.
+	Sleep 201
+	Send !{Enter} ; Submit dialog.
+return
+
+; Let's try having ;; delete the bookmark.
+:*:;;::
+	; Latest Firefox changed the menu item to "remove" with e as accelerator key.
+	; Send, {AppsKey}e
+	; And now they changed it back.
+	Send, {AppsKey}d
+return
+#IfWinActive
+
 CONVERTED
 
 */
@@ -692,93 +733,6 @@ return
 ; CONVERTED (END SKIP)
 
 ; CONVERTED
-
-;==============================================================================
-; Firefox
-;==============================================================================
-
-;-------------------------------------------------------------------------------
-; Make <Ctrl + T> open a new Google tab in Firefox (instead of a blank).
-; Firefox is brain dead in this regard.  Why would you want to open a blank tab???
-; Bloody brilliant.  This works like a charm.
-;
-; TIP: <Ctrl + Shift + T> resurrects the last tab you (accidentally) closed.
-#IfWinActive ahk_exe firefox.exe
-$^t::
-    ; Create the new tab.
-    Send ^t
-    ; Go to the address bar.
-    Send ^l
-    ; Type in Google address.
-    Send www.google.com{Enter}
-
-return
-
-
-; Adds current URL to Bookmarks Toolbar|Now bookmarks.
-$^d::
-	Send ^d ; Open save new bookmark dialog.
-	Sleep 501
-	Send {Tab}{Tab}{Enter} ; Open dialog to choose folder.
-	Sleep 201
-	Send n ; Choose bookmarks toolbar N folder.
-	Sleep 201
-	Send !{Enter} ; Submit dialog.
-return
-
-
-; <S-W click> => Delete the bookmark you are hovering over.
-; Using just <W click> causes the Windows menu to accidentally pop up too much.
-$+#LButton::
-	Send, {AppsKey}d
-return
-
-; Let's try having ;; delete the bookmark.
-:*:;;::
-	; Latest Firefox changed the menu item to "remove" with e as accelerator key.
-	; Send, {AppsKey}e
-	; And now they changed it back.
-	Send, {AppsKey}d
-return
-
-
-;------------------------------------------------------------------------------
-; Make <click + w> close tabs in Firefox.
-
-/*
-; Make w a hotkey that sends itself so we can use A_PriorHotkey.
-$w::
-	W_HOTKEY := A_ThisHotKey
-	Send w
-return
-*/
-
-/*
-This causes touchscreen scrolling to not work.
-
-; With w defined as a hotkey, we can now use this to trigger a specific action if
-; we click the mouse shortly after pressing w.
-; It's like having a LButton & w hotkey (which I couldn't get to work directly).
-; PRE: This might not work tapping the laptop mousepad (vs. clicking the actual left button)
-; unless using #InstallMouseHook.
-; But, this seems to stop working after a few times if I use those directives.
-$LButton::
-	; Set this time too long, and triggering in inconsistent.
-	; Set it too high, and you risk accidentally closing the window when not intended.
-	if (A_PriorHotkey = W_HOTKEY) && (A_TimeSincePriorHotkey <= 501) {
-		Send ^w
-	}
-	else { ; Do a normal left click.
-		; Without this left button drags fails.
-		Send {LButton down}
-		KeyWait, LButton
-		Send {LButton up}
-		; MsgBox,,, clicked
-	}
-return
-*/
-
-#IfWinActive
 
 
 ;==============================================================================
