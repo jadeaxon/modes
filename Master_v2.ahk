@@ -695,7 +695,7 @@ SendDownKey() {
 RemoveToolTip() => ToolTip()
 
 ; Move through YouTube videos using left hand.
-#HotIf (WinActive("ahk_exe chrome.exe") && IsMouseInVideoZone())
+#HotIf (WinActive("YouTube ahk_exe chrome.exe") && IsMouseInVideoZone())
 a::Send("{Left}")
 o::Send("{Right}")
 $^l:: {
