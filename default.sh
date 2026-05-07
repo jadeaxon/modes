@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-explorer Reload.ahk
+explorer.exe Reload_v2.ahk
 
