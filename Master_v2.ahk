@@ -5,8 +5,9 @@
 ; FAIL: AHK v2 syntax highlighting does not work in Vim.
 #Requires AutoHotkey v2.0
 
-; Warn about using uninitialized variables (On by default in v2, but good to keep)
+; Warn about using uninitialized variables, etc.
 #Warn
+#Warn Unreachable, Off
 
 ; #NoEnv is removed in v2 as it is the default behavior.
 
@@ -1047,12 +1048,14 @@ UpdateOptLeftHandScroll(ctrl, *) {
 
 
 Button_Budget(btn, *) {
-    btn.Gui.Destroy() ; [cite: 12]
+    btn.Gui.Destroy()
+	local amount
+	SetKeyDelay(50, 50) ; 10ms delay between keys, 10ms press duration
     
-    amountStr := A_Clipboard
-    ; Clean the string: remove $ and commas 
-    amount := StrReplace(StrReplace(amountStr, "$"), ",")
-    amount := Abs(Number(amount || 0))
+	amount := A_Clipboard
+	amount := Exorcise(amount)
+	amount := RegExReplace(amount, "[^\d\.-]")
+	amount := Abs(Number(amount))
 
     if (amount <= 1) {
         MsgBox("You did not copy an amount to the clipboard.", "Error")
@@ -1069,25 +1072,35 @@ Button_Budget(btn, *) {
         if WinWaitActive("ahk_exe gvim.exe",, 3) {
             ; Vim commands [cite: 15]
             SendInput("{esc}{esc}gg/NEXT{enter}{up}")
-            SendInput('"{+}yW') ; Copy line to clipboard in Vim
+            Sleep(100)
+			; SendEvent('"{+}yW') ; Copy line to clipboard in Vim
+			SendEvent('"')
+			SendEvent("{+}")
+			SendEvent("y")
+			SendEvent("W")
+            Sleep(100)
 
             if ClipWait(1) {
-                remBudget := StrReplace(StrReplace(A_Clipboard, "$"), ",")
-                remBudget := Abs(Number(remBudget || 0))
-
-                newRem := Round(remBudget - amount, 3)
+				remBudget := A_Clipboard
+				remBudget := Exorcise(remBudget)
+				remBudget := RegExReplace(remBudget, "[^\d\.-]")
+				remBudget := Number(remBudget)
+                newRem := Round(remBudget - amount, 2)
                 
                 ; Format output 
-                out := "$" . newRem
+				if (newRem >= 0)
+					out := "$" . newRem
+				else 
+					out := "-$" . Abs(newRem)
                 ; Commify logic
                 out := RegExReplace(out, "(\d)(?=(?:\d{3})+(?:\.|$))", "$1,")
                 
-                formattedAmt := Format("{:.3f}", amount)
+                formattedAmt := Format("{:.2f}", amount)
                 SendInput("o" out "{space}-$" formattedAmt "{space}")
-            }
-        }
-    }
-}
+            } ; wait for clipboard
+        } ; gVim active
+    } ; budget file exists
+} ; Button_Budget()
 
 
 ; Make <Enter> also close the Modes window.

@@ -1,6 +1,24 @@
 #Requires AutoHotkey v2.0
 
 ;===============================================================================
+; String
+;===============================================================================
+
+; Removes all invisible control characters and strips ALL types of 
+; whitespace (including non-breaking spaces) from both ends.
+; WARNING: You can get such possessed strings when you read from the clipboard.
+Exorcise(s) {
+    ; 1. Remove Control Characters (non-printing chars like null, bell, etc.)
+    ; [[:cntrl:]] is a POSIX class that matches characters 0-31 and 127.
+    s := RegExReplace(s, "[[:cntrl:]]", "")
+
+    ; 2. Trim both ends of ALL whitespace
+    ; \s matches space, tab, and newlines. 
+    ; \x{00A0} specifically targets the dreaded Non-Breaking Space.
+    return RegExReplace(s, "^[\s\x{00A0}]+|[\s\x{00A0}]+$")
+}
+
+;===============================================================================
 ; Sleep
 ;===============================================================================
 
