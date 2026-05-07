@@ -348,6 +348,51 @@ $^x:: {
 	Sleep(50)
 	Send("{backspace}")
 }
+
+; Make it so Esc dismisses the search dialog if it is present.
+$^f:: {
+	global searchDialog
+	searchDialog := 1
+	Send("^f")
+}
+
+Esc:: {
+	global searchDialog
+	if (searchDialog) {
+		Send("^f")
+		Send("{tab}{tab}")
+		Send("{enter}")
+		searchDialog := 0
+	}
+}
+#Hotif
+
+; <C-w> in Sumatra PDF Reader closes the app.
+#HotIf WinActive("ahk_class SUMATRA_PDF_FRAME")
+$^w:: {
+    WinClose("A")
+}
+#Hotif
+
+; Make <Ctrl + W> close Cygwin/mintty windows (so your tabbed-browsing moves work everywhere).
+#HotIf WinActive("ahk_class mintty")
+$^w:: {
+    WinClose("A")
+}
+#Hotif
+
+; Make <Ctrl + W> close AHK help windows (so your tabbed-browsing moves work everywhere).
+#HotIf WinActive("ahk_class HH Parent")
+$^w:: {
+    WinClose("A")
+}
+#Hotif
+
+; Make <Ctrl + W> close Preview windows (so your tabbed-browsing moves work everywhere).
+#HotIf WinActive("ahk_class Photo_Lightweight_Viewer")
+$^w:: {
+    WinClose("A")
+}
 #Hotif
 
 

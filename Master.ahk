@@ -498,11 +498,58 @@ $^x::
 	SendInput {backspace}
 return
 
+; Make it so Esc dismisses the search dialog if it is present.
+$^f::
+	searchDialog := 1
+	Send ^f
+return
+
+Esc::
+	if (searchDialog) {
+		Send ^f
+		Send {tab}{tab}
+		Send {enter}
+		searchDialog := 0
+	}
+return
+
+; <C-w> in Sumatra PDF Reader closes the app.
+#IfWinActive ahk_class SUMATRA_PDF_FRAME
+$^w::
+    WinClose, A
+return
+#IfWinActive
+
+; Make <Ctrl + W> close Cygwin/mintty windows (so your tabbed-browsing moves work everywhere).
+#IfWinActive ahk_class mintty
+$^w::
+    WinClose A
+return
+#IfWinActive
+
+; Make <Ctrl + W> close AHK help windows (so your tabbed-browsing moves work everywhere).
+#IfWinActive ahk_class HH Parent
+$^w::
+    WinClose A
+
+return
+#IfWinActive
+
+; Make <Ctrl + W> close Preview windows (so your tabbed-browsing moves work everywhere).
+#IfWinActive ahk_class Photo_Lightweight_Viewer
+$^w::
+    WinClose A
+
+return
+#IfWinActive
+
+
+CONVERTED
 
 */
 
-; CONVERTED
 
+; CONVERTED (SKIP)
 
 #IfWinActive ahk_group PersonalKanban
 
@@ -642,96 +689,9 @@ $^m::
 	MsgBox,,, %activeMonitor%
 return
 
-; Make it so Esc dismisses the search dialog if it is present.
-$^f::
-	searchDialog := 1
-	Send ^f
-return
+; CONVERTED (END SKIP)
 
-Esc::
-	if (searchDialog) {
-		Send ^f
-		Send {tab}{tab}
-		Send {enter}
-		searchDialog := 0
-	}
-return
-
-; Make cut and paste work right in work kanban.
-#IfWinActive ahk_group WorkKanban
-$^v::
-	; The problem with this is now if you paste any multiline cell, it pastes it as multiple cells.
-	; clipboard := trim(clipboard, """") ; Remove outer double quotes.
-	; Paste values only since my columns are color coded.
-	Send ^+v
-return
-
-; For some reason, normal cut doesn't work.  This fixes it.
-$^x::
-	SendInput ^c
-	Sleep 51
-	SendInput {delete}
-	Sleep 51
-	SendInput {backspace}
-return
-
-
-; Make it so Esc dismisses the search dialog if it is present.
-$^f::
-	searchDialog := 1
-	Send ^f
-return
-
-Esc::
-	if (searchDialog) {
-		Send ^f
-		Send {tab}{tab}
-		Send {enter}
-		searchDialog := 0
-	}
-return
-
-#IfWinActive
-
-
-;-------------------------------------------------------------------------------
-; <C-w> in Sumatra PDF Reader closes the app.
-#IfWinActive ahk_class SUMATRA_PDF_FRAME
-$^w::
-    WinClose, A
-return
-#IfWinActive
-
-
-;-------------------------------------------------------------------------------
-; Make <Ctrl + W> close Cygwin/mintty windows (so your tabbed-browsing moves work everywhere).
-#IfWinActive ahk_class mintty
-$^w::
-    WinClose A
-
-return
-#IfWinActive
-
-
-;-------------------------------------------------------------------------------
-; Make <Ctrl + W> close AHK help windows (so your tabbed-browsing moves work everywhere).
-#IfWinActive ahk_class HH Parent
-$^w::
-    WinClose A
-
-return
-#IfWinActive
-
-
-;-------------------------------------------------------------------------------
-; Make <Ctrl + W> close Preview windows (so your tabbed-browsing moves work everywhere).
-#IfWinActive ahk_class Photo_Lightweight_Viewer
-$^w::
-    WinClose A
-
-return
-#IfWinActive
-
+; CONVERTED
 
 ;==============================================================================
 ; Firefox
