@@ -177,20 +177,27 @@ Run(HOME "\AHK\AutoCorrect2\Core\AutoCorrect2.exe")
 
 ; 03/22/2O12
 :*:<mdy>:: {
-    output := FormatTime(, "MM/dd/yyyy")
+    output := FormatTime(, "MM/dd/yyyy ")
     Send(output)
 }
 
 ; 2018-08-12
-::ymd::
+:*:ymd`s::
 :*:<ymd->::
 {
-	output := FormatTime(, "yyyy-MM-dd")
+	output := FormatTime(, "yyyy-MM-dd ")
     Send(output)
 }
 
+; 2018-08-12: 
+:*:ymd`::: {
+	output := FormatTime(, "yyyy-MM-dd: ")
+    Send(output)
+}
+
+; 2018/08/12
 :*:<ymd>:: {
-	output := FormatTime(, "yyyy/MM/dd")
+	output := FormatTime(, "yyyy/MM/dd ")
     Send(output)
 }
 
