@@ -30,14 +30,18 @@ h::	{
     }
     
     helpPath := "C:\Program Files\AutoHotkey\v2.0.26\AutoHotkey.chm"
-    
+    title := "AutoHotkey v2 Help"
+
     if FileExist(helpPath) {
-        Run(helpPath)
-        if WinWait("AutoHotkey v2 Help", , 3) {
-            WinActivate("AutoHotkey v2 Help")
-			WinMaximize("AutoHotkey v2 Help")
+		if !WinExist(title) {
+			Run(helpPath)
+		}
+        if WinWait(title, , 3) {
+            WinActivate(title)
+			WinMaximize(title)
             Send("!s") ; Open search
             Sleep(50)
+			Send("^+{backspace}") ; delete any existing search
             
             Suspend(true) ; Prevent 'h' from re-triggering while typing search
             Send(A_Clipboard)
@@ -52,8 +56,14 @@ h::	{
     }
 }
 
+RemoveToolTip() => ToolTip()
+
 ; Terminate this keystroke handler. End this mode.
 LControl & Escape:: {
+	ToolTip("Debug mode OFF")
+	Suspend(true)
+	SetTimer(RemoveToolTip, -2000)
+	Sleep(2000)
 	ExitApp
 }
 

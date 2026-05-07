@@ -951,6 +951,20 @@ $^m:: {
 
 #HotIf
 
+
+;===============================================================================
+; Submodes
+;===============================================================================
+
+; <W d> => Debug mode.
+$#d:: {
+    SoundPlay("Sounds\buzzing_bug.wav")
+	ToolTip("Debug mode ON")
+	SetTimer(RemoveToolTip, -2000)
+    Run("Debug_v2.ahk")
+}
+
+
 ; CONVERTED
 
 ^+h:: {
