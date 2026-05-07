@@ -221,7 +221,7 @@ activeSheet() {
 ;===============================================================================
 
 ; Speaks given message using computer-generated voice.
-Speak(message) {
+speak(message) {
     ; In v2, you must declare 'global' to READ a variable 
     ; if it's not passed as a parameter.
     global OPT_SPEAK	

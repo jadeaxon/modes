@@ -714,6 +714,22 @@ $^w::
 	WinMinimize
 return
 
+; Speak (pronounce) what's on the clipboard.
+$!^p::
+	global OPT_SPEAK
+	saved := OPT_SPEAK
+	OPT_SPEAK := 1
+	speak(clipboard)
+	OPT_SPEAK := saved
+return
+
+; <W p> => Copy a relative MouseMove(x, y) at current mouse location.
+$#p::
+    MouseGetPos, x, y
+    Clipboard = MouseMove %x%, %y%
+
+return
+
 CONVERTED
 
 */
@@ -863,23 +879,7 @@ return
 
 ; CONVERTED
 
-; Speak (pronounce) what's on the clipboard.
-$!^p::
-	global OPT_SPEAK
-	saved := OPT_SPEAK
-	OPT_SPEAK := 1
-	speak(clipboard)
-	OPT_SPEAK := saved
-return
 
-
-;-------------------------------------------------------------------------------
-; <Window + p> => Copy a relative MouseMove(x, y) at current mouse location.
-$#p::
-    MouseGetPos, x, y
-    Clipboard = MouseMove %x%, %y%
-
-return
 
 
 ;===============================================================================
@@ -1813,6 +1813,7 @@ return
 ; converted
 ; Speaks given message using computer-generated voice.
 speak(message) {
+	return
 	Global OPT_SPEAK	
 	if (OPT_SPEAK) {
 		ComObjCreate("SAPI.SpVoice").Speak(message)	

@@ -401,6 +401,25 @@ $^w:: {
 $^w:: {
 	WinMinimize("A")
 }
+#Hotif
+
+; <C-A p> => Speak (pronounce) what's on the clipboard.
+^!p:: {
+    global OPT_SPEAK
+    saved := OPT_SPEAK
+    OPT_SPEAK := 1
+    speak(A_Clipboard)
+    OPT_SPEAK := saved
+}
+
+; <W p> => Copy a relative MouseMove(x, y) at current mouse location.
+; <W p> usually opens a screen to let you select a projector, which is useless to me.
+$#p:: {
+	local x
+	local y
+    MouseGetPos(&x, &y)
+    A_Clipboard := Format("MouseMove({}, {})", x, y)
+}
 
 
 ;==============================================================================
