@@ -694,6 +694,24 @@ SendDownKey() {
 
 RemoveToolTip() => ToolTip()
 
+; Move through YouTube videos using left hand.
+#HotIf (WinActive("ahk_exe chrome.exe") && IsMouseInVideoZone())
+a::Send("{Left}")
+o::Send("{Right}")
+$^l:: {
+    MouseGetPos(&mouseX, &mouseY)
+	MouseMove(mouseX, 130) ; Zenbook address bar location
+	Send("^l") ; move keyboard focus to address bar
+}
+#HotIf
+
+IsMouseInVideoZone() {
+	local mouseY
+    static threshold := 0.30 ; Top 30% of screen is "Safe Zone" for Address Bar
+    MouseGetPos(, &mouseY)
+    return (mouseY > (A_ScreenHeight * threshold))
+}
+
 
 ;==============================================================================
 ; Windows Explorer
