@@ -328,6 +328,35 @@ $^!g:: {
 }
 #HotIf
 
+
+;==============================================================================
+; Outlook
+;==============================================================================
+
+; Make tapping shift twice do a click.
+#HotIf WinActive("Inbox - Jeffrey Anderson - Outlook")
+~Shift Up:: {
+    if (A_PriorHotkey == A_ThisHotkey && A_TimeSincePriorHotkey < 401) {
+        Click()
+    }
+}
+#HotIf
+
+#HotIf WinActive("Junk - Jeffrey Anderson - Outlook")
+~Shift Up:: {
+    if (A_PriorHotkey == A_ThisHotkey && A_TimeSincePriorHotkey < 401) {
+        Click()
+    }
+}
+#HotIf
+
+; Makes <C w> close Outlook.
+#HotIf WinActive("ahk_exe olk.exe")
+^w:: {
+	Send("!{F4}")
+}
+#HotIf
+
 ; CONVERTED
 
 ^+h:: {

@@ -413,15 +413,10 @@ return
 
 #IfWinActive
 
-*/
-
-; CONVERTED
-
 
 ;==============================================================================
 ; Outlook
 ;==============================================================================
-
 
 #IfWinActive Mail - Jeffrey Anderson - Outlook
 ; Make tapping shift twice do a click.
@@ -451,6 +446,10 @@ Return
 	Send !{F5}
 return
 #IfWinActive
+
+*/
+
+; CONVERTED
 
 
 ;==============================================================================
