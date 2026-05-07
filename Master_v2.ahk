@@ -303,8 +303,32 @@ $^!g:: {
     Run("https://www.google.com/search?hl=en&q=" . query)
 }
 
-; CONVERTED
+;==============================================================================
+; Vim (.ahk files)
+; AutoHotkey
+;==============================================================================
 
+#HotIf WinActive("ahk_exe mintty.exe")
+
+; AutoHotkey comment bar.
+:*:;b::;==============================================================================
+
+; AutoHotkey comment heading.
+:*:;h:: {
+	; AHK v2 autotrims leading whitespace from strings declared like this.
+	header := "
+	(
+	;==============================================================================
+	; | 
+	;==============================================================================
+	)"
+
+	Send(header)
+	Send("{Esc 2}{Up}A{Backspace}")
+}
+#HotIf
+
+; CONVERTED
 
 ^+h:: {
     MsgBox("Hello, AHK v2!")

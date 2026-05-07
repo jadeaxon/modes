@@ -217,6 +217,14 @@ return
     Send {NumLock}
 return
 
+
+;===============================================================================
+; Hotkeys
+;===============================================================================
+
+; # => Win; ^ => Ctrl;  + => Shift; ! => Alt
+; $ => Don't allow "Send" output to trigger.  Don't let hotkeys trigger other hotkeys.
+
 ; Disable NumLock on Zenbook.
 ; Stops the touchpad numberpad from appearing on Zenbook.
 $NumLock::
@@ -381,19 +389,6 @@ return
 	Send {vkA3sc01D Down}{vk32sc003 Down}{vk32sc003 Up}{vkA2sc01D Up}
 return
 
-*/
-
-
-;===============================================================================
-; Hotkeys
-;===============================================================================
-
-; # => Win; ^ => Ctrl;  + => Shift; ! => Alt
-; $ => Don't allow "Send" output to trigger.  Don't let hotkeys trigger other hotkeys.
-
-; CONVERTED
-
-
 ;==============================================================================
 ; Vim (.ahk files)
 ; AutoHotkey
@@ -417,6 +412,10 @@ return
 return
 
 #IfWinActive
+
+*/
+
+; CONVERTED
 
 
 ;==============================================================================
