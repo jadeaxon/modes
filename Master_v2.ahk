@@ -283,6 +283,21 @@ XHotstring(":Z*:rxhs[(](.*?)[)]", (m, *) => (
     SendEvent("rxhs() called with arg " m[1])
 ))
 
+; t(2, dishes) => set a timer for a reminder message box to appear in 2m that says "dishes"
+XHotstring(":*:t\((\d+), (.+?)\)", (m, *) => set_reminder(Number(m[1]), m[2]))
+
+set_reminder(minutes, what) {
+	local millis := minutes * 60 * 1000
+	SetTimer(() => MsgBox(what), -millis)
+	ToolTip("Reminder set for " minutes " minutes")
+	SetTimer(RemoveToolTip, -2000)
+}
+
+/*
+^+t:: {
+	set_reminder(1, "check reminder")
+}
+*/
 
 ;===============================================================================
 ; Hotkeys
