@@ -891,8 +891,6 @@ $#k::
     Run %A_ScriptDir%\MouseKeys.ahk
 return
 
-*/
-
 #IfWinActive ahk_group PersonalKanban
 
 ; This can be used in the main kanban tab to move an item into the Done column.
@@ -909,16 +907,16 @@ $^d::
 	CoordMode, Pixel, Window
 	EnvGet, host, COMPUTERNAME
 	SysGet, monitors, MonitorCount
-	color := 1 ; a sample pixel from the Blocked column
-	tabColor := 1 ; a sample pixel from the first Google Sheets sheet tab
-	headerY := 351 ; to detect if selected cell is in the Done column
+	color := 0 ; a sample pixel from the Blocked column
+	tabColor := 0 ; a sample pixel from the first Google Sheets sheet tab
+	headerY := 350 ; to detect if selected cell is in the Done column
 	doneSelected := 0xE8EAEE ; pixel color if Done column selected
-	doneSelected3 := 0xE8EAED ; pixel color if Done column selected
+	doneSelected2 := 0xE8EAED ; pixel color if Done column selected
 	activeTabColor := 0x1000000 ; pixel color when first Google Sheet tab is active
 	hoveringOverDoneColumn := false
 	doneColumnSelected := false
 
-	if (host = "ZENBOOK") { ; ASUS Zenbook 15X OLED
+	if (host = "ZENBOOK") { ; ASUS Zenbook 14X OLED
 		headerY := 426
 		doneSelected := 0xD8E3FC
 	}
@@ -945,7 +943,7 @@ $^d::
 		if (hoveringOverDoneColumn and doneColumnSelected) {
 			; We're hovering in the (green) Done column.
 			; Assume over the top non-header cell.
-			SetKeyDelay, 41, 20
+			SetKeyDelay, 40, 20
 			; Strangely, if you use left shift down/up, it toggles the keyboard language in Windows.
 			; Even though the Windows shortcut for that is <W space> and has been disabled.
 			; Send, {LShift Down}
@@ -961,41 +959,41 @@ $^d::
 			ClipWait	
 			Send {Backspace}
 			; Send {Delete} ; First one doesn't always do it.
-			Sleep 201
-			SetKeyDelay, 11, -1 ; default	
+			Sleep 200
+			SetKeyDelay, 10, -1 ; default	
 
 			; Copy completed tasks to progress text file using Vim.
 			; file = C:\Users\%A_UserName%\Dropbox\Organization\Progress\Home\Progress (Home).txt
 			file = G:\My Drive\Organization\Progress\Home\Progress (Home).txt
 			Run %file%
-			Sleep 201
-			SetTitleMatchMode, 3
+			Sleep 200
+			SetTitleMatchMode, 2
 			WinActivate, GVIM
 			WinWaitActive, GVIM
 			Send gg
 			; This is a bit weird because when you hit /, Vim advances a character, so it does not
 			; find the first date line in the file.
 			year := A_Year - 2001
-			Send /1%year%-{Enter}
+			Send /0%year%-{Enter}
 			Send o
 			Send ^v
 			Send {Enter}
 			Send {Esc}
-			Sleep 101
+			Sleep 100
 			Send ^s ; My Vim saves the file when this is pressed.
 		}
 		else { ; Marking a single task done.
 			; Mark as done in Kanban sheet using Move to Done macro.
-			Send ^+!3
+			Send ^+!0
 		}
 	}
 	else if (activeSheet = "Recurring") {
 		; Mark as done in Recurring sheet.
-		SetKeyDelay, 26, 25
+		SetKeyDelay, 25, 25
 		Send ^b
-		Send {right 6}
+		Send {right 5}
 		Send ^;
-		Send {left 6}
+		Send {left 5}
 		SetKeyDelay, 0, -1
 	}
 	else {
@@ -1029,6 +1027,11 @@ $^m::
 	activeMonitor := activeMonitorName()
 	MsgBox,,, %activeMonitor%
 return
+#IfWinActive
+
+CONVERTED
+
+*/
 
 
 ;===============================================================================

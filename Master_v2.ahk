@@ -630,9 +630,10 @@ $^d:: {
 ; Chrome
 ;==============================================================================
 
-#HotIf WinActive("ahk_exe chrome.exe")
+#HotIf WinActive("YouTube ahk_exe chrome.exe")
 
 ; I keep accidentally hitting <C s> to activate this.
+/*
 ^s:: {
     if WinActive("YouTube ahk_exe chrome.exe") {
 		toggle_autoscroll()
@@ -641,9 +642,12 @@ $^d:: {
 		Send("^s")
 	}
 }
+*/
 
-; Autoscroller mainly for YouTube.
-^+s:: {
+; Autoscroller for YouTube.
+^s::
+^+s:: 
+{
 	toggle_autoscroll()
 }
 #HotIf
@@ -821,6 +825,131 @@ $!t:: {
 
 #HotIf
 
+
+;==============================================================================
+; Personal Kanban
+;==============================================================================
+
+#HotIf WinActive("ahk_group PersonalKanban")
+$^d:: {
+	global HOST
+	local file
+    ; monitor := activeMonitorName()
+    sheet  := activeSheet()
+	MsgBox(sheet)
+	if (true) {
+		return
+	}
+    
+    ; Setup modes
+    CoordMode("Mouse", "Window")
+    CoordMode("Pixel", "Window")
+    
+    monitors := MonitorGetCount()
+    
+    ; Initialize variables
+    headerY := 350 
+    doneSelected := 0xE8EAEE 
+    doneSelected2 := 0xE8EAED 
+    hoveringOverDoneColumn := false
+    doneColumnSelected := false
+
+    ; Tailor for your Zenbook 14X OLED
+    if (HOST = "ZENBOOK") { 
+        headerY := 426
+        doneSelected := 0xD8E3FC
+    }
+    
+    if (sheet = "Kanban") {
+        MouseGetPos(&mx, &my)
+        
+        color := PixelGetColor(mx, my) ; Defaults to BGR unless specified, but we'll use hex
+        color2 := PixelGetColor(mx, headerY) 
+	
+        ; Logical ORs and comparisons
+        if (color = 0xDAEAD5 || color = 0xD9EAD3 || color = 0xDAEAD2 || color = 0xDDE9D6) {
+            hoveringOverDoneColumn := true
+        }
+        
+        if (color2 = doneSelected || color2 = doneSelected2) {
+            doneColumnSelected := true
+        }
+
+        if (hoveringOverDoneColumn && doneColumnSelected) {
+            ; SetKeyDelay is now a function
+            SetKeyDelay(40, 20)
+            
+            ; Combined Send for efficiency
+            Send("+{Down 6}")
+            Send("^c")
+            if !ClipWait(2) {
+                return ; Exit if clipboard copy fails
+            }
+            Send("{Backspace}")
+            Sleep(200)
+            SetKeyDelay(10, -1) 
+
+            ; File Path and Run
+            file := "G:\My Drive\Organization\Progress\Home\Progress (Home).txt"
+            Run(file)
+            Sleep(200)
+            
+            SetTitleMatchMode(2)
+            if WinWaitActive("GVIM", , 3) {
+                Send("gg")
+                yearShort := A_Year - 2000 - 1
+                searchYear := (yearShort < 10 ? "0" : "") . yearShort
+                
+                Send("/" searchYear "-{Enter}")
+                Send("o^v{Enter}{Esc}")
+                Sleep(100)
+                Send("^s")
+            }
+        }
+        else { 
+            ; Mark as done in Kanban sheet using Move to Done macro
+            Send("^+!0")
+        }
+    }
+    else if (sheet = "Recurring") {
+        SetKeyDelay(25, 25)
+        Send("^b{Right 5}^;{Left 5}")
+        SetKeyDelay(0, -1)
+    }
+    else {
+        Send("^d")
+    }
+} ; <C d> hotkey
+
+; Sort by Score descending.
+; I end up doing this a lot after marking items as done or at the start of each new day.
+; I recorded a macro in Google Sheets that does this when you press <C-A-S 2>.
+; This just makes <C s> trigger it instead.
+$^s:: {
+    sheet := activeSheet()	
+    MsgBox("Sheet: " sheet)
+	if (true) {
+		return
+	}
+
+    if (sheet = "Recurring") {
+        ; Trigger the Google Apps Script sort macro
+        Send("^+!1")
+    }
+    else {
+        ; Perform the standard save operation
+        Send("^s")
+    }
+}
+
+; Show info about all monitors.
+$^m:: {
+	monitor := activeMonitorName()
+	MsgBox("Monitor: " monitor)
+}
+
+
+#HotIf
 
 ; CONVERTED
 
