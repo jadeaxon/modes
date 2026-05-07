@@ -196,6 +196,25 @@ Run(HOME "\AHK\AutoCorrect2\Core\AutoCorrect2.exe")
 }
 */
 
+; Define hotstrings for common person tasks.
+; BUG: For some reason, any hotstring with s or w in it is not working.
+; I moved some of the hotstrings into RegExHostrings.ahk as a workaround.
+#HotIf WinActive("ahk_group PersonalKanban")
+:*c:Tbt::Big trash [rD1]{enter}
+:*c:Tlw::Laundry (whites) [rD1] {enter}
+:*c:Tld::Laundry (darks) [rD1]{enter}
+:*c:Tlm::Laundry (mfcs) [rD1]{enter}
+:*c:Tlo::Laundry (other) [rD1]{enter}
+:*c:Td::Dishes [rD1]{enter}
+:*c:Tg::Guitar [rRK1]{enter}
+:*c:TAh::Air out house [H1]{enter}
+:*c:Tce::Clean/examine 1 drawer [/1]{enter}
+:*c:Ttm::50m treadmill{enter}
+:*c:T2m::25m treadmill{enter}
+:*c:Tst::5m strength training{enter}
+:*c:Tbh::Bar hang [H1]^{enter}
+#HotIf
+
 
 ;===============================================================================
 ; Hotkeys

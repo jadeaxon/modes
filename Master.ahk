@@ -447,11 +447,6 @@ Return
 return
 #IfWinActive
 
-*/
-
-; CONVERTED
-
-
 ; Define hotstrings for common person tasks.
 ; BUG: For some reason, any hotstring with s or w in it is not working.
 ; I moved some of the hotstrings into RegExHostrings.ahk as a workaround.
@@ -477,24 +472,13 @@ return
 :*c:T8::GTD7 [rK1]{enter}
 :*c:Tk::kbs 101 [rH1]^{enter}0{enter}
 :*c:Tbh::Bar hang [H2]^{enter}
-:*c:T2::
-	t := 201
-	ts := 101
-	Send Elliptical [rH2]{enter}
-	Send {Left 5}
-	Sleep %t%
-	Send ^c
-	Sleep %t%
-	Send {Right 5}
-	Sleep %t%
-	Send ^V
-	Sleep %ts%
-	Send {enter}
-	Sleep %ts%
-	Send {enter}
-	Send Dishes [rD2]{enter}
-return
 
+*/
+
+; CONVERTED
+
+
+#IfWinActive ahk_group PersonalKanban
 ; Never paste formatting.  Otherwise column background colors get screwed up.
 $^v::
 	; The problem with this is now if you paste any multiline cell, it pastes it as multiple cells.
