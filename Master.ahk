@@ -797,12 +797,101 @@ speak(message) {
 	}
 }
 
+; NOTE: Not migrating these date bars hotstrings. Never use them.
+::<date-->::
+    FormatTime, monthDay,, d
+    FormatTime, month,, MMMM
+    FormatTime, weekDay,, dddd
+    FormatTime, year,, yyyy
 
-CONVERTED
+    monthDay := ordinal(monthDay)
+
+    minus := "-"
+    equals := "="
+    longBar := "-------------------------------------------------------------------------------------------------------------------------"
+
+
+    dateString = %weekday%`, %month% %monthDay%`, %year%
+
+    ; FormatTime, output,, dddd`, MMMM` d`, yyyy
+    SendInput %longBar%
+    SendInput {Enter}
+    SendInput %dateString%
+    SendInput {Enter}
+    SendInput %longBar%
+    SendInput {Enter}
+    SendInput {Enter}
+
+return
+
+
+::<date==>::
+    FormatTime, monthDay,, d
+    FormatTime, month,, MMMM
+    FormatTime, weekDay,, dddd
+    FormatTime, year,, yyyy
+
+    monthDay := ordinal(monthDay)
+
+    minus := "-"
+    equals := "="
+    longBar := "========================================================================================================================="
+
+    dateString = %weekday%`, %month% %monthDay%`, %year%
+
+    ; FormatTime, output,, dddd`, MMMM` d`, yyyy
+    SendInput %longBar%
+    SendInput {Enter}
+    SendInput %dateString%
+    SendInput {Enter}
+    SendInput %longBar%
+    SendInput {Enter}
+    SendInput {Enter}
+
+return
+
+
+; Do a date header for ymd=.
+::ymd=::
+	bar81 := "==============================================================================="
+	FormatTime, dateString,, yyyy-MM-dd
+
+    SendInput %bar81%
+    SendInput {Enter}
+    SendInput %dateString%
+    SendInput {Enter}
+    SendInput %bar81%
+    SendInput {Enter}
+    SendInput {Enter}
+
+return
+
+; NOTE: Not migrating Paste and Mouse Keys modes. Never use.
+;-------------------------------------------------------------------------------
+; <Window + v> => Paste mode.
+$#v::
+    ; SoundPlay %A_ScriptDir%\Sounds\Paste_Start.wav
+    ; Run C:\Users\Jade Axon\Desktop\AHK\Paste.ahk
+    Run %A_ScriptDir%\Paste.ahk
+return
+
+
+;-------------------------------------------------------------------------------
+; <Window + k> => Mouse keys mode.
+;
+; The arrow keys move the mouse.
+; <Ctrl + Up> => finer vertical rez
+; <Ctrl + Right> => finer horizontal rez
+; <Spacebar> => left click
+; etc.
+$#k::
+    ; SoundPlay C:\Users\Jade Axon\Desktop\AHK\Sounds\MouseKeys_Start.wav
+    SoundPlay %A_ScriptDir%\Sounds\MouseKeys_Start.wav
+    ; Run C:\Users\Jade Axon\Desktop\AHK\MouseKeys.ahk
+    Run %A_ScriptDir%\MouseKeys.ahk
+return
 
 */
-
-; CONVERTED (SKIP)
 
 #IfWinActive ahk_group PersonalKanban
 
@@ -873,8 +962,7 @@ $^d::
 			Send {Backspace}
 			; Send {Delete} ; First one doesn't always do it.
 			Sleep 201
-			SetKeyDelay, 11, -1 ; default
-			
+			SetKeyDelay, 11, -1 ; default	
 
 			; Copy completed tasks to progress text file using Vim.
 			; file = C:\Users\%A_UserName%\Dropbox\Organization\Progress\Home\Progress (Home).txt
@@ -943,46 +1031,15 @@ $^m::
 return
 
 
-
-
-
-
 ;===============================================================================
-; Submode Launching
-
-
+; Submodes
+;===============================================================================
 
 ;-------------------------------------------------------------------------------
-; <Window + d> => Debug mode.
+; <W d> => Debug mode.
 $#d::
     ; SoundPlay %A_ScriptDir%\Sounds\Debug_Start.wav
-    ; Run C:\Users\Jade Axon\Desktop\AHK\Debug.ahk
     Run %A_ScriptDir%\Debug.ahk
-return
-
-
-;-------------------------------------------------------------------------------
-; <Window + v> => Paste mode.
-$#v::
-    ; SoundPlay %A_ScriptDir%\Sounds\Paste_Start.wav
-    ; Run C:\Users\Jade Axon\Desktop\AHK\Paste.ahk
-    Run %A_ScriptDir%\Paste.ahk
-return
-
-
-;-------------------------------------------------------------------------------
-; <Window + k> => Mouse keys mode.
-;
-; The arrow keys move the mouse.
-; <Ctrl + Up> => finer vertical rez
-; <Ctrl + Right> => finer horizontal rez
-; <Spacebar> => left click
-; etc.
-$#k::
-    ; SoundPlay C:\Users\Jade Axon\Desktop\AHK\Sounds\MouseKeys_Start.wav
-    SoundPlay %A_ScriptDir%\Sounds\MouseKeys_Start.wav
-    ; Run C:\Users\Jade Axon\Desktop\AHK\MouseKeys.ahk
-    Run %A_ScriptDir%\MouseKeys.ahk
 return
 
 
@@ -1097,7 +1154,6 @@ Button_MouseJiggler:
 	Run %A_ScriptDir%\MouseJiggler.ahk
 return
 
-
 ; Cause (all) GUIs to be cancellable with the Esc key.  Sweetness!
 ; This block Launchy from closing by <Esc>.
 ; Esc::Gui Cancel
@@ -1106,86 +1162,11 @@ GuiEscape:
     Gui, Destroy
 return
 
-
 ; You can only define this label in one spot.
 GuiClose:
     Gui, Destroy
 return
 
-
-::<date-->::
-    FormatTime, monthDay,, d
-    FormatTime, month,, MMMM
-    FormatTime, weekDay,, dddd
-    FormatTime, year,, yyyy
-
-    monthDay := ordinal(monthDay)
-
-    minus := "-"
-    equals := "="
-    longBar := "-------------------------------------------------------------------------------------------------------------------------"
-
-
-    dateString = %weekday%`, %month% %monthDay%`, %year%
-
-    ; FormatTime, output,, dddd`, MMMM` d`, yyyy
-    SendInput %longBar%
-    SendInput {Enter}
-    SendInput %dateString%
-    SendInput {Enter}
-    SendInput %longBar%
-    SendInput {Enter}
-    SendInput {Enter}
-
-return
-
-
-::<date==>::
-    FormatTime, monthDay,, d
-    FormatTime, month,, MMMM
-    FormatTime, weekDay,, dddd
-    FormatTime, year,, yyyy
-
-    monthDay := ordinal(monthDay)
-
-    minus := "-"
-    equals := "="
-    longBar := "========================================================================================================================="
-
-    dateString = %weekday%`, %month% %monthDay%`, %year%
-
-    ; FormatTime, output,, dddd`, MMMM` d`, yyyy
-    SendInput %longBar%
-    SendInput {Enter}
-    SendInput %dateString%
-    SendInput {Enter}
-    SendInput %longBar%
-    SendInput {Enter}
-    SendInput {Enter}
-
-return
-
-
-; Do a date header for ymd=.
-::ymd=::
-	bar81 := "==============================================================================="
-	FormatTime, dateString,, yyyy-MM-dd
-
-    SendInput %bar81%
-    SendInput {Enter}
-    SendInput %dateString%
-    SendInput {Enter}
-    SendInput %bar81%
-    SendInput {Enter}
-    SendInput {Enter}
-
-return
-
-
-; CONVERTED (END SKIP)
-
-
-; CONVERTED
 
 ;-------------------------------------------------------------------------------
 ; <Ctrl + ESC> => Reload this script.
@@ -1207,7 +1188,7 @@ LControl & Escape::
     Reload
 
     ; This code can only be reached if reloading fails.
-    Sleep 1001
+    Sleep 1000
     MsgBox 5, , Script reloaded unsuccessful, open it for editing?
     IfMsgBox Yes, Edit
 return
