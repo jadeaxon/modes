@@ -663,6 +663,11 @@ return
 
 #IfWinActive
 
+
+;==============================================================================
+; Windows Explorer
+;==============================================================================
+
 #IfWinActive ahk_class CabinetWClass ; Only applies to Explorer.
 
 ;-------------------------------------------------------------------------------
@@ -683,6 +688,30 @@ $^!c::
     Run, cmd /K "cd `"%clipboard%`""
     Clipboard := ClipSaved
     ClipSaved =
+return
+
+; Closes all Explorer windows when <A-S F5> pressed.
+!+F4::
+	if ( WinExist("ahk_group ExplorerGroup") )
+	WinClose,ahk_group ExplorerGroup
+return
+
+; <A d> => new directory in Windows Explorer.
+$!d::
+	Send ^+n
+return
+
+; <A t> => new text file in Windows Explorer.
+$!t::
+	Send +{F10}wt
+return
+#IfWinActive
+
+; <C w> => minimize window in KeePaas.
+; By default, it closes the open file which is never what I want to do.
+#IfWinActive ahk_exe KeePass.exe
+$^w::
+	WinMinimize
 return
 
 CONVERTED
@@ -834,236 +863,14 @@ return
 
 ; CONVERTED
 
-
-;==============================================================================
-; Windows Explorer
-;==============================================================================
-
-#IfWinActive ahk_class CabinetWClass ; Only applies to Explorer.
-
-
-; Closes all Explorer windows when <A-S F5> pressed.
-!+F5::
-	if ( WinExist("ahk_group ExplorerGroup") )
-	WinClose,ahk_group ExplorerGroup
-return
-
-; <A d> => new directory in Windows Explorer.
-$!d::
-	Send ^+n
-return
-
-; <A t> => new text file in Windows Explorer.
-$!t::
-	Send +{F11}wt
-return
-#IfWinActive
-
-
-; <C w> => minimize window in KeePaas.
-; By default, it closes the open file which is never what I want to do.
-#IfWinActive ahk_exe KeePass.exe
-$^w::
-	WinMinimize
-return
-
-
-;-------------------------------------------------------------------------------
-; Gets rid of citation crap when copying from Kindle.
-; BUG: Only works if copying a single line.
-; TO DO: Have it just chuck the last two lines instead of only keeping the first.
-; <C-c> in Kindle.
-#IfWinActive ahk_class QWidget
-$^c::
-    Send ^c
-    ClipWait, 3
-    contents := Clipboard
-
-    fixed =
-    count = 1
-    Loop, parse, contents, `n
-    {
-        ; MsgBox,,,%A_LoopField% %count% %contents%
-        ; MsgBox,,,%A_LoopField%
-        count += 2
-        if (count == 2) {
-            fixed = %A_LoopField%
-        }
-
-    }
-
-    StringReplace, fixed, fixed, `n, , All
-    StringReplace, fixed, fixed, `r, , All
-    Clipboard := fixed
-
-return
-#IfWinActive
-
-
 ; Speak (pronounce) what's on the clipboard.
 $!^p::
 	global OPT_SPEAK
 	saved := OPT_SPEAK
-	OPT_SPEAK := 2
+	OPT_SPEAK := 1
 	speak(clipboard)
 	OPT_SPEAK := saved
 return
-
-
-;-------------------------------------------------------------------------------
-; Pronounces highlighted word in Kindle (using a Google search).
-; <A-p> in Kindle.
-#IfWinActive ahk_class QWidget
-$!p::
-    x =
-    y =
-    ; FAIL
-    ; s := dpiScaleFactor("REG")
-    s =
-    ; These are Windows env vars.
-    EnvGet, host, COMPUTERNAME
-    if (host = "XPS16") {
-        x := 381
-        y := 281
-    }
-    else if (host = "INSPIRON") {
-        ; Something is wrong.  Coordinates displayed by Window Spy do not match.
-        ; Is it a Windows DPI thing?
-        ; Yes, I have Control Panel | Display | Change size of all items | 151%.
-        ; AHK reports the now translated coordinates, but Windows expects the translated coordinates.
-        s := 2.5
-        x := 401 * s
-        y := 291 * s
-    }
-    else {
-        MsgBox,,Error, Unrecognized host.
-        return
-    }
-
-    Send ^c
-    ClipWait, 3
-    contents := Clipboard
-
-    fixed =
-    count = 1
-    Loop, parse, contents, `n
-    {
-        ; MsgBox,,,%A_LoopField% %count% %contents%
-        ; MsgBox,,,%A_LoopField%
-        count += 2
-        if (count == 2) {
-            fixed = %A_LoopField%
-        }
-
-    }
-
-    StringReplace, fixed, fixed, `n, , All
-    StringReplace, fixed, fixed, `r, , All
-    StringReplace, fixed, fixed, "·", , All
-    ; Get rid of accent marks.
-    fixed3 := RegExReplace(fixed, "[^abcdefghijklmnopqrstuvwxyz]", "")
-    fixed := fixed3
-    Clipboard := fixed
-
-    Run http://www.google.com
-    WinWait, Google - Mozilla Firefox
-    WinWaitActive, Google - Mozilla Firefox
-    Send define %fixed%
-    Send {Enter}
-    Sleep 2001
-    MouseMove, x, y
-    Click 3
-    Send {Tab}
-    Sleep 201
-    Click 3
-    Send {Tab}
-    Send {Enter}
-
-
-return
-#IfWinActive
-
-; TO DO: Can we factor all these <C w> things down?
-#IfWinActive Jeff's Kindle
-; Makes <C w> close Kindle app.
-^w::
-	Send !{F5}
-return
-#IfWinActive
-
-#IfWinActive ahk_exe Discord.exe
-; Makes <C w> close Discord.
-^w::
-	Send !{F5}
-return
-#IfWinActive
-
-#IfWinActive Weather
-; Make <C w> close the Windows Weather app.
-^w::
-	Send !{F5}
-return
-#IfWinActive
-
-
-
-;-------------------------------------------------------------------------------
-; Opens Cygwin command prompt at current folder in Windows Explorer.
-; PRE: You have not hidden the address bar.
-; <A-C> in Windows Explorer.
-#IfWinActive ahk_class CabinetWClass ; Only applies to Explorer windows.
-$!c::
-    saved := ClipboardAll
-    ; Go to address bar and select path there.
-    Send ^l
-    Sleep 11
-    ; Copy the path.
-    Send ^c
-    Sleep 11
-    ClipWait, 3
-    if ErrorLevel {
-        MsgBox, The attempt to copy text onto the clipboard failed.
-        return
-    } ; if
-
-    ; Run Cygwin.
-    Run, C:\cygwin65\bin\mintty.exe -i /Cygwin-Terminal.ico -
-    WinWait, ~
-    WinActivate, ~
-    WinMaximize, ~
-    ; Go to the path from Windows Explorer.
-    ; Have to use cygpath to translate Windows path into a Cygwin path.
-    Send cd "$(cygpath '%clipboard%')"{Enter}
-
-    ; Restore clipboard.
-    Clipboard := saved
-    saved =
-return
-#IfWinActive
-
-
-; <Ctrl + Alt + C> when not in Windows Explorer.  Default behavior.
-$^!c::
-    ; Run C:\Windows\System33\cmd.exe /K "cd %HOMEDRIVE%%HOMEPATH%"
-    Run C:\Users\Jade Axon\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Accessories\Command Prompt.lnk
-return
-
-
-;-------------------------------------------------------------------------------
-; Allow normal pasting in Command Prompt.
-; Checks for Command Prompt.  <Ctrl + v> => Send the raw clipboard data.
-#IfWinActive ahk_class ConsoleWindowClass
-$^v::
-    SendInput {Raw}%clipboard%
-return
-
-; Dvorak. The automapping fails here.
-$^k::
-    SendInput {Raw}%clipboard%
-return
-
-
-#IfWinActive
 
 
 ;-------------------------------------------------------------------------------
@@ -1073,20 +880,6 @@ $#p::
     Clipboard = MouseMove %x%, %y%
 
 return
-
-
-;===============================================================================
-; gVim
-
-; Do not Dvork 1 => Qwerty S in gVim.
-; <Ctrl + O> in gVim undoes last movement command, restoring cursor position.
-; Well, that's not exactly what the command does.  But it is like a back button
-; of some sort.
-#IfWinActive ahk_class Vim
-$^o::
-    Send ^o
-return
-#IfWinActive
 
 
 ;===============================================================================

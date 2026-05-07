@@ -395,6 +395,13 @@ $^w:: {
 }
 #Hotif
 
+; <C w> => minimize window in KeePaas.
+; By default, it closes the open file which is never what I want to do.
+#HotIf WinActive("ahk_exe KeePass.exe")
+$^w:: {
+	WinMinimize("A")
+}
+
 
 ;==============================================================================
 ; Vim (.ahk files)
@@ -576,7 +583,7 @@ RemoveToolTip() => ToolTip()
 
 ; Open command prompt at current folder in Explorer.
 ; <Ctrl + Alt + c> in Windows Explorer.
-#HotIf WinActive("ahk_class CabinetWClass")
+#HotIf WinActive("ahk_class CabinetWClass") || WinActive("ahk_class ExploreWClass")
 $^!c:: {
     ClipSaved := ClipboardAll()
 
@@ -597,6 +604,72 @@ $^!c:: {
     A_Clipboard := ClipSaved
     ClipSaved := "" ; Clear the buffer variable
 }
+
+; Closes all Explorer windows when <A-S F5> pressed.
+!+F4:: {
+	if ( WinExist("ahk_group ExplorerGroup") ) {
+		WinClose("ahk_group ExplorerGroup")
+	}
+}
+
+; <A d> => new directory in Windows Explorer.
+$!d:: {
+	Send("^+n")
+}
+
+/*
+Used to be easy in Windows 10.
+$!t:: {
+	Send("+{F10}wt")
+}
+*/
+
+; <A t> => new text file in Windows Explorer.
+!t:: {
+    ; Get the active Explorer window object
+    hwnd := WinExist("A")
+    activeTab := ""
+
+    try {
+        shellApp := ComObject("Shell.Application")
+        for window in shellApp.Windows {
+            if (window.hwnd == hwnd) {
+                ; Get the folder path from the window object
+                activeTab := window.Document.Folder.Self.Path
+                break
+            }
+        }
+
+        if (activeTab != "") {
+            ; Define the default name
+            filePath := activeTab "\New Text Document.txt"
+
+            ; Handle name collisions (New Text Document (2).txt, etc.)
+            count := 2
+            while FileExist(filePath) {
+                filePath := activeTab "\New Text Document (" count ").txt"
+                count++
+            }
+
+            ; Create the file
+            FileAppend("", filePath)
+
+            ; Tell Explorer to refresh and show the file
+            Send("{F5}")
+
+            ; Optional: Automatically start renaming the new file
+            ; We wait for the UI to update, then type the name to select it
+            Sleep(300)
+            SplitPath(filePath, &fileName)
+            Send(fileName)
+            Sleep(100)
+            Send("{F2}")
+        }
+    } 
+	catch as e {
+        ; Silently fail or log to your strategy status
+    }
+} ; <A t>
 
 #HotIf
 
