@@ -133,6 +133,23 @@ Run(HOME "\AHK\AutoCorrect2\Core\AutoCorrect2.exe")
     Send(output)
 }
 
+; This hotstring replaces "<date>" with the current date and time.
+:*:<date>:: {
+    ; FormatTime now returns the string directly as a function
+    monthDay := FormatTime(, "d")
+    month    := FormatTime(, "MMMM")
+    weekDay  := FormatTime(, "dddd")
+    year     := FormatTime(, "yyyy")
+
+    ; Call your ordinal function (make sure it's converted to v2 as well)
+    monthDay := Ordinal(monthDay)
+
+    ; Construct the string using standard expression syntax (concatenation)
+    output := weekDay ", " month " " monthDay ", " year
+
+    Send(output)
+}
+
 ; 9/11/2011 9:30 AM
 :*:<ts>:: {
     output := FormatTime(, "M/d/yyyy h:mm tt")
@@ -150,6 +167,11 @@ Run(HOME "\AHK\AutoCorrect2\Core\AutoCorrect2.exe")
 :*:<ymd->::
 {
 	output := FormatTime(, "yyyy-MM-dd")
+    Send(output)
+}
+
+:*:<ymd>:: {
+	output := FormatTime(, "yyyy/MM/dd")
     Send(output)
 }
 
@@ -421,6 +443,64 @@ $#p:: {
     A_Clipboard := Format("MouseMove({}, {})", x, y)
 }
 
+
+; <C-A w> => Show info for all windows.
+$^!w:: {
+    ; WinGetList returns a proper Array of HWNDs (Unique IDs)
+    ids := WinGetList(,, "Program Manager")
+
+    for this_id in ids {
+        ; Activate the window using the ID
+        try {
+            WinActivate(this_id)
+            this_class := WinGetClass(this_id)
+            this_title := WinGetTitle(this_id)
+
+            ; MsgBox syntax: MsgBox(Text, Title, Options)
+            ; Option 5 is 'Abort/Retry/Ignore' in v1, but 'Retry/Cancel' or 'Yes/No'
+            ; is handled differently in v2. We'll use "Yes/No" (Option 4).
+            result := MsgBox(
+				"Visiting All Windows`n" A_Index " of " ids.Length "`nahk_id " this_id .
+				"`nahk_class " this_class "`n" this_title "`n`nContinue?",, 4
+			)
+
+            if (result = "No")
+                break
+        } 
+		catch {
+            ; Skip windows that might have closed or are restricted (like some system trays)
+            continue
+        }
+    } ; next id
+}
+
+; <W-A y> => Open AHK Window Spy.
+#!y:: {
+    spyPath := A_ProgramFiles "\AutoHotkey\WindowSpy.ahk"
+    
+    if FileExist(spyPath) {
+        Run(spyPath)
+    } 
+	else {
+        MsgBox("Window Spy not found at:`n" spyPath)
+    }
+}
+
+; <C w> => Close AHK Window Spy.
+#HotIf WinActive("Window Spy ahk_class AutoHotkeyGUI")
+^w:: {
+    WinClose("A")
+}
+#HotIf
+
+; Make the Windows 11 settings window close via <C w>.
+#HotIf WinActive("Settings ahk_class ApplicationFrameWindow ahk_exe ApplicationFrameHost.exe")
+$^w:: {
+	WinClose("A")
+}
+#HotIf
+
+; END
 
 ;==============================================================================
 ; Vim (.ahk files)

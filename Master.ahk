@@ -730,10 +730,77 @@ $#p::
 
 return
 
-CONVERTED
 
 */
 
+/*
+NOTE: Decided not to migrate Navigation mode to AHK v2.
+Disable since Windows 11 uses <W n> for notifications.
+Also, I basically never use my navigation mode.
+;-------------------------------------------------------------------------------
+; <Window + n> => Navigation mode.
+$#n::
+    SoundPlay %A_ScriptDir%\Sounds\Navigation_Start.wav
+
+    ; NOTE: The Windows file assosciation for Open on .ahk files must be set to AutoHotKey.exe.
+    Run %A_ScriptDir%\Navigation.ahk
+return
+
+;-------------------------------------------------------------------------------
+; <Ctrl + Alt + w>
+; Show info for all windows.
+
+$^!w::
+    WinGet, id, list,,, Program Manager
+    Loop, %id% {
+        this_id := id%A_Index%
+        WinActivate, ahk_id %this_id%
+        WinGetClass, this_class, ahk_id %this_id%
+        WinGetTitle, this_title, ahk_id %this_id%
+        MsgBox, 5, , Visiting All Windows`n%a_index% of %id%`nahk_id %this_id%`nahk_class %this_class%`n%this_title%`n`nContinue?
+        IfMsgBox, NO, break
+    }
+return
+
+; This hotstring replaces "<date>" with the current date and time via the commands below.
+:*:<date>::
+    FormatTime, monthDay,, d
+    FormatTime, month,, MMMM
+    FormatTime, weekDay,, dddd
+    FormatTime, year,, yyyy
+
+    monthDay := ordinal(monthDay)
+
+    output = %weekday%`, %month% %monthDay%`, %year%
+
+    ; FormatTime, output,, dddd`, MMMM` d`, yyyy
+    SendInput %output%
+return
+
+; <W-A y> => AHK Window Spy
+$#!y::
+	if (FileExist("C:\Program Files\AutoHotkey\AU4_Spy.exe")) {
+		Run, C:\Program Files\AutoHotkey\AU4_Spy.exe
+	}
+	else if(FileExist("C:\Program Files\AutoHotkey\WindowSpy.ahk")) {
+		Run, C:\Program Files\AutoHotkey\WindowSpy.ahk
+	}
+return
+
+; converted
+; Speaks given message using computer-generated voice.
+speak(message) {
+	return
+	Global OPT_SPEAK	
+	if (OPT_SPEAK) {
+		ComObjCreate("SAPI.SpVoice").Speak(message)	
+	}
+}
+
+
+CONVERTED
+
+*/
 
 ; CONVERTED (SKIP)
 
@@ -875,9 +942,7 @@ $^m::
 	MsgBox,,, %activeMonitor%
 return
 
-; CONVERTED (END SKIP)
 
-; CONVERTED
 
 
 
@@ -886,18 +951,6 @@ return
 ; Submode Launching
 
 
-/*
-Disable since Windows 12 uses <W n> for notifications.
-Also, I basically never use my navigation mode.
-;-------------------------------------------------------------------------------
-; <Window + n> => Navigation mode.
-$#n::
-    SoundPlay %A_ScriptDir%\Sounds\Navigation_Start.wav
-
-    ; NOTE: The Windows file assosciation for Open on .ahk files must be set to AutoHotKey.exe.
-    Run %A_ScriptDir%\Navigation.ahk
-return
-*/
 
 ;-------------------------------------------------------------------------------
 ; <Window + d> => Debug mode.
@@ -934,97 +987,6 @@ return
 
 
 ;-------------------------------------------------------------------------------
-; <Ctrl + Alt + w>
-; Show info for all windows.
-
-$^!w::
-    ; Example #3: This will visit all windows on the entire system and display info about each of them:
-    WinGet, id, list,,, Program Manager
-    Loop, %id% {
-        this_id := id%A_Index%
-        WinActivate, ahk_id %this_id%
-        WinGetClass, this_class, ahk_id %this_id%
-        WinGetTitle, this_title, ahk_id %this_id%
-        MsgBox, 5, , Visiting All Windows`n%a_index% of %id%`nahk_id %this_id%`nahk_class %this_class%`n%this_title%`n`nContinue?
-        IfMsgBox, NO, break
-    }
-return
-
-
-
-
-;===============================================================================
-; SHORTCUTS
-
-
-;-------------------------------------------------------------------------------
-; <Window + M> => Do normal Window + M, but maximize Pidgin development chat if it exists.
-$#m::
-    EnvGet, host, COMPUTERNAME
-
-
-    Send #m
-
-    Sleep 151
-    ; WinMaximize, swdev, Pidgin
-    ; WinMaximize, (swdev), Pidgin
-
-    ; Mainly on my desktop at digEcor should this happen.
-    if (host != "XPS16") {
-        x := 381
-        y := 281
-
-        ; This is a hack until I put in code which detects which monitor each window is in.
-        ; WinMaximize, Ubuntu 14 64-bit - VMware Player
-        ; WinMaximize, XChat
-
-        ; For Outlook 2014.
-        ; WinMaximize, Inbox
-        ; WinMaximize, Calendar - Jeffrey.Anderson@uvu.edu - Outlook
-
-    }
-return
-
-
-;-------------------------------------------------------------------------------
-; Remapping for the Logitech LX9 Cordless Laser mouse on my Windows 7 workstation at digEcor.
-; Also remapped on my Razer Naga Hex on Windows 9 using the Razer Synapse software.
-
-; The back button on the mouse is mapped to <Ctrl + Shift + M>.
-; You can't assign <Window + M> directly, so I will remap.
-
-; In this case, we *do* want hotkey retriggering by Send because I have <Window + M> remapped
-; not to minimize development chat in P!
-; Unfortunately, it isn't retriggering for some other reason.  So, must factor out into a function.
-; Or just copy and paste.
-
-; <mouse back button> => <Ctrl + Shift + M> => <Window + M>
-$^+m::
-    Send #m
-    Sleep 151
-    ; WinMaximize, swdev, Pidgin
-    ; WinMaximize, (swdev), Pidgin
-
-    ; This is a hack until I put in code which detects which monitor each window is in.
-    ; Need to disable these in Brisbane since only have 2 monitor here.
-    WinMaximize, Ubuntu 14 64-bit - VMware Player
-    WinMaximize, XChat
-    ; For Outlook 2014.
-    WinMaximize, Inbox
-    WinMaximize, Calendar - Jeffrey.Anderson@uvu.edu - Outlook
-
-return
-
-
-;-------------------------------------------------------------------------------
-; <Ctrl + Alt + M> => <Window + M>
-; Doing this for Razer Synapse since I can't enter <Window + M> into their edit screen.
-$^!m::
-    Send #m
-return
-
-
-;-------------------------------------------------------------------------------
 ; <C-A j> => Jeff's GUI.
 ; <A-W m> => Modes GUI.
 
@@ -1034,14 +996,9 @@ $^!j::
 	Gui, +LastFoundExist
 	if WinExist() {
 		WinActivate ; Activate last found given no args.		
-		speak("Modes window")
+		;speak("Modes window")
 		return
 	}
-
-    ; Gui, Add, Button, gButton_HomeContexts w251 default, &Home Contexts
-    ; Gui, Add, Button, gButton_WorkContexts w251, &Work Contexts
-	; Gui, Add, Button, gButton_Agendas w251, &Agendas
-	; Gui, Add, Button, gButton_Recurring w251, &Recurring
 
 	; WARNING; The checkbox does not sync with the value of its out var on creation!
 	; Also, it seems like you need to put "checked" first in the options arg.
@@ -1056,7 +1013,7 @@ $^!j::
 	Gui, Add, Button, gButton_MouseJiggler w251, &Mouse Jiggler	
 	Gui, Show,, Modes
 	
-	speak("Modes window")
+	;speak("Modes window")
 
 return
 
@@ -1070,175 +1027,6 @@ OPT_SPEAK:
 	Gui, Submit, NoHide
 	; MsgBox,,, %OPT_SPEAK%
 return
-
-
-; TO DO: Factor button handlers into single "open all in given folder in single gVim" function.
-; TO DO: Verify works on XPS16.
-
-; Open all @ files in home contexts in a single gVim.
-Button_HomeContexts:
-	Gui, Destroy
-	; Run C:\Users\jadeaxon\Dropbox\Organization\To Do\Contexts\Home
-	Run G:\My Drive\Organization\To Do\Contexts\Home
-	Sleep 1001
-	Send #{Up}
-	Sleep 101
-	MouseMove 1451, 430
-	Click
-	Sleep 101
-	Send {PgUp}
-	Sleep 51
-	Send {PgUp}
-	Sleep 51
-	Send ^a
-	Sleep 501
-	Send +{F11}
-	Sleep 201
-
-	Send {Down}
-	Sleep 51
-	Send {Down}
-	Sleep 51
-	Send {Down}
-	Sleep 51
-	Send {Down}
-	Sleep 51
-	Send {Down}
-	Sleep 51
-	Send {Down}
-	Sleep 51
-
-	Send {Enter}
-	WinWait 501
-	WinActivate GVIM
-
-return
-
-
-; Open all @ files in work contexts in a single gVim.
-Button_WorkContexts:
-	Gui, Destroy
-	; Run C:\Users\jadeaxon\Dropbox\Organization\To Do\Contexts\Work
-	Run G:\My Drive\Organization\To Do\Contexts\Work
-	Sleep 1001
-	Send #{Up}
-	Sleep 101
-	MouseMove 1451, 430
-	Click
-	Sleep 101
-	Send {PgUp}
-	Sleep 51
-	Send {PgUp}
-	Sleep 51
-	Send ^a
-	Sleep 501
-	Send +{F11}
-	Sleep 201
-
-	Send {Down}
-	Sleep 51
-	Send {Down}
-	Sleep 51
-	Send {Down}
-	Sleep 51
-	Send {Down}
-	Sleep 51
-	Send {Down}
-	Sleep 51
-	Send {Down}
-	Sleep 51
-
-	Send {Enter}
-	WinWait 501
-	WinActivate GVIM
-
-return
-
-
-; Open all @ files in agendas in a single gVim.
-Button_Agendas:
-	Gui, Destroy
-	; Run C:\Users\jadeaxon\Dropbox\Organization\To Do\Agendas
-	Run G:\My Drive\Organization\To Do\Agendas
-	Sleep 1001
-	Send #{Up}
-	Sleep 101
-	MouseMove 1451, 430
-	Click
-	Sleep 101
-	Send {PgUp}
-	Sleep 51
-	Send {PgUp}
-	Sleep 51
-	Send ^a
-	Sleep 501
-	Send +{F11}
-	Sleep 201
-
-	Send {Down}
-	Sleep 51
-	Send {Down}
-	Sleep 51
-	Send {Down}
-	Sleep 51
-	Send {Down}
-	Sleep 51
-	Send {Down}
-	Sleep 51
-	Send {Down}
-	Sleep 51
-
-	Send {Enter}
-	WinWait 501
-	WinActivate GVIM
-
-return
-
-
-; Open all recurring tasks files in a single gVim.
-Button_Recurring:
-	Gui, Destroy
-	; Run C:\Users\jadeaxon\Dropbox\Organization\To Do\Recurring
-	Run G:\My Drive\Organization\To Do\Contexts\Recurring
-	Sleep 1001
-	Send #{Up}
-	Sleep 101
-	MouseMove 1451, 430
-	Click
-	Sleep 101
-	Send {PgUp}
-	Sleep 51
-	Send {PgUp}
-	Sleep 51
-	Send ^a
-	Sleep 501
-	Send +{F11}
-	Sleep 201
-
-	Send {Down}
-	Sleep 51
-	Send {Down}
-	Sleep 51
-	Send {Down}
-	Sleep 51
-	Send {Down}
-	Sleep 51
-	Send {Down}
-	Sleep 51
-	Send {Down}
-	Sleep 51
-	; The context menu pops up different in this folder, so need to go down 3 more.
-	Send {Down}
-	Sleep 51
-	Send {Down}
-	Sleep 51
-
-	Send {Enter}
-	WinWait 501
-	WinActivate GVIM
-
-return
-
 
 ; Updates current budget file.
 ; PRE: You've copied the expense amount to the clipboard.
@@ -1310,136 +1098,6 @@ Button_MouseJiggler:
 return
 
 
-;-------------------------------------------------------------------------------
-; <Ctrl + Alt + d> => Popup common tasks at digEcor.
-; I've disabled this so <C-A d> can be used for day mode (since no longer work at digEcor).
-
-; $^!d::
-Disabled:
-    Gui, Add, Button, gButton_ClockIn w151 default, Clock &In
-
-Gui, Add, Button, gButton_ClockOut w151, Clock &Out
-    Gui, Add, Button, gButton_TimeCard w151, &Time Card
-    Gui, Show,, digEcor
-
-return
-
-; TO DO: Modify these to wait for symbols.
-
-; TO DO: When A Plus' site is down, you can still access the timeclock here: https://www.swipeclock.com/sc/clock/webclock.asp
-
-; Clocks into digEcor (APlus) time clock.
-Button_ClockIn:
-    Gui, Destroy
-	Run https://clock.payrollservers.us/?wl=aplusbenefits.payrollservers.us#/clock/web/login
-	WinWait, WM Clock
-    WinActivate, WM Clock
-
-    ; Close RoboForm.
-    WinWait, AutoFill - RoboForm
-    WinActivate, AutoFill - RoboForm
-    WinWaitActive, AutoFill - RoboForm
-    Send !{F5}
-    Sleep 251
-    ; Reactivate because RoboForm steals focus.
-    WinActivate, WM Clock
-    WinWaitActive, WM Clock
-
-	password := property("aplus.timeclock.password")
-    Send {Tab}
-	Send janderson{Tab}
-    Send %password%{Tab}
-	Send {Enter}
-
-    ; In case another one pops back up.
-	Sleep 7001
-    IfWinActive, AutoFill - RoboForm
-    {
-        Send !{F5}
-    }
-
-	x := 601
-	y := 553
-	EnvGet, host, COMPUTERNAME
-	if (host = "JANDERSON-DT") {
-		x := 887
-		y := 617
-	}
-
-	MouseMove x, y
-	Sleep 1001
-	Click
-
-return
-
-
-; Clock out of digEcor (APlus) time clock.
-Button_ClockOut:
-    Gui, Destroy
-	Run https://clock.payrollservers.us/?wl=aplusbenefits.payrollservers.us#/clock/web/login
-	WinWait, WM Clock
-    WinActivate, WM Clock
-
-    ; Close RoboForm.
-    WinWait, AutoFill - RoboForm
-    WinActivate, AutoFill - RoboForm
-    WinWaitActive, AutoFill - RoboForm
-    Send !{F5}
-    Sleep 251
-    ; Reactivate because RoboForm steals focus.
-    WinActivate, WM Clock
-    WinWaitActive, WM Clock
-
-	password := property("aplus.timeclock.password")
-    Send {Tab}
-	Send janderson{Tab}
-    Send %password%{Tab}
-	Send {Enter}
-
-    ; In case another one pops back up.
-	Sleep 7001
-    IfWinActive, AutoFill - RoboForm
-    {
-        Send !{F5}
-    }
-
-	x := 771
-	y := 553
-	EnvGet, host, COMPUTERNAME
-	if (host = "JANDERSON-DT") {
-		x := 1046
-		y := 612
-	}
-	MouseMove x, y
-	Sleep 1001
-	Click
-
-return
-
-
-; Show the digEcor (APlus) time card for the current week.
-; TO DO: Fix.  New system broke this.
-; PRE: You are logged out of the "Employee Self Service Portal".
-Button_TimeCard:
-    Gui, Destroy
-    Run https://www.payrollservers.us/pg/Ess/TimeCard.aspx
-    ; TO DO: If already logged into portal, this alone will do the trick.
-
-	WinWait, Online Time and Attendance
-    WinActivate, Online Time and Attendance
-
-    Sleep 1001
-	password := property("aplus.timeclock.password")
-    Send {Tab}janderson{Tab}
-    Send %password%{Enter}
-
-	Sleep 1001
-	Send ^w
-	Run https://www.payrollservers.us/pg/Ess/TimeCard.aspx
-
-return
-
-
 ; Cause (all) GUIs to be cancellable with the Esc key.  Sweetness!
 ; This block Launchy from closing by <Esc>.
 ; Esc::Gui Cancel
@@ -1452,123 +1110,6 @@ return
 ; You can only define this label in one spot.
 GuiClose:
     Gui, Destroy
-return
-
-
-;-------------------------------------------------------------------------------
-; <Window + S> => Toggle ShortKeys.
-; A great example of how to automate tray icons regardless of their position.
-; Well, it still had issues.
-; Now just remaps to a shortcut key set inside ShortKeys.
-
-; <Window + S> => <Ctrl + Alt + S> => enable/disable ShortKeys
-$#s::
-    ; toggleShortKeys()
-    ; <Ctrl + Alt + s> - this is set inside ShortKeys to toggle being active
-    Send ^!s
-
-return
-
-
-
-;-------------------------------------------------------------------------------
-; <Ctrl + Space> => an abbreviation expansion activation that emits no character.
-;
-; This will emit <Space> <Backspace> so that ShortKeys abbreviations will expand,
-; but with no trailing space.  Useful at the end of sentences.
-
-; Unfortunately, this doesn't work.  Simply hitting <Ctrl> causes ShortKeys not to expand.
-; It's like it resets ShortKeys' memory.
-;~ $^Space::
-    ;~ Send {Space}
-    ;~ Sleep 1001
-    ;~ Send {Backspace}
-
-;~ return
-
-;~ ; This fails too.
-;~ $#Space::
-    ;~ Send {Space}
-    ;~ Sleep 1001
-    ;~ Send {Backspace}
-
-;~ return
-
-; This works but is somewhat timing sensitive to how long it takes you to release the shift key and how long it takes ShortKeys to expand abbreviation.
-; Well, this was an interesting idea, but it turn out to be annoying in practical use.
-; $+Space::
-;     Sleep 301 ; Give time for me to release the <Shift + Space> so <Shift> isn't held down while ShortKeys expands abbreviation.
-;     Send {Space}
-;     Sleep 301 ; Give time for ShortKeys to expand abbreviation.
-;     Send {Backspace}
-;
-; return
-
-
-
-
-;===============================================================================
-; SCREEN CAPTURE
-
-;-------------------------------------------------------------------------------
-; Use the Windovs snippnig tool.
-$^PRINTSCREEN::
-    Run snippingtool
-return
-
-
-;-------------------------------------------------------------------------------
-; Grab a screenshot of the active window and open it in Paint.
-; <Window + PrintScreen>
-$#PRINTSCREEN::
-    Send, !{PrintScreen}
-    Run, mspaint.exe
-    Sleep 1001
-    WinActivate, Untitled - Paint
-    WinWaitActive, Untitled - Paint
-    Send ^v
-return
-
-
-;===============================================================================
-; ABBREVIATION HOTSTRINGS
-
-
-; This hotstring replaces "<date>" with the current date and time via the commands below.
-::<date>::
-    FormatTime, monthDay,, d
-    FormatTime, month,, MMMM
-    FormatTime, weekDay,, dddd
-    FormatTime, year,, yyyy
-
-    monthDay := ordinal(monthDay)
-
-    output = %weekday%`, %month% %monthDay%`, %year%
-
-    ; FormatTime, output,, dddd`, MMMM` d`, yyyy
-    SendInput %output%
-return
-
-
-; <ymd> => 2013/07/27
-::<ymd>::
-    FormatTime, year,, yyyy
-    FormatTime, month,, MM
-    FormatTime, day,, dd
-
-    output = %year%/%month%/%day%
-    SendInput %output%
-return
-
-
-; <ymd-> => 2013-07-27
-::<ymd->::
-    FormatTime, year,, yyyy
-    FormatTime, month,, MM
-    FormatTime, day,, dd
-
-    output = %year%-%month%-%day%
-    SendInput %output%
 return
 
 
@@ -1641,144 +1182,10 @@ return
 return
 
 
+; CONVERTED (END SKIP)
 
 
-
-;==============================================================================
-; Toad
-;==============================================================================
-
-; Adds some extra password-enterting power to the Toad F6 shortcut key.
-; This deals with the table setup scripts that need the password twice.
-#IfWinActive fzjebt_setup.sql ahk_class TfrmMain ahk_exe Toad.exe
-$F6::
-    EnvGet, home, USERPROFILE
-	
-	; Goddamn DBAs can't set the paswords consistently.
-	FileRead, old_password, %home%\.ssh\old_toad_password.txt
-	old_password := Trim(old_password)
-	StringReplace, old_password, old_password, `n, , All
-	
-	FileRead, password, %home%\.ssh\toad_password.txt
-	password := Trim(password)
-	StringReplace, password, password, `n, , All
-	
-	Send {F6}
-	; This will time out in 4 seconds in which case ErrorLevel gets set to 1.
-	WinWaitActive, ahk_class TToadLogOnForm ahk_exe Toad.exe,,4
-	if ErrorLevel
-	{
-		;; MsgBox,, Timed out.
-		return
-	}
-	SendRaw %old_password%
-	Send {enter}
-	Sleep 1001	
-	
-	WinWaitActive, ahk_class TToadLogOnForm ahk_exe Toad.exe
-	; Goddamn password has a # in it!
-	SendRaw %password%
-	Send {enter}
-
-return
-#IfWinActive
-
-
-#IfWinActive codesep_table_setup.sql ahk_class TfrmMain ahk_exe Toad.exe
-$F6::
-    EnvGet, home, USERPROFILE
-	
-	FileRead, old_password, %home%\.ssh\old_toad_password.txt
-	old_password := Trim(old_password)
-	StringReplace, old_password, old_password, `n, , All
-	
-	Send {F6}
-	; This will time out in 4 seconds in which case ErrorLevel gets set to 1.
-	WinWaitActive, ahk_class TToadLogOnForm ahk_exe Toad.exe,,4
-	if ErrorLevel
-	{
-		;; MsgBox,, Timed out.
-		return
-	}
-	SendRaw %old_password%
-	Send {enter}
-	
-return
-#IfWinActive
-
-
-#IfWinActive fzjebt_table_setup.sql ahk_class TfrmMain ahk_exe Toad.exe
-$F6::
-    EnvGet, home, USERPROFILE
-	
-	FileRead, old_password, %home%\.ssh\old_toad_password.txt
-	old_password := Trim(old_password)
-	StringReplace, old_password, old_password, `n, , All
-
-	FileRead, password, %home%\.ssh\toad_password.txt
-	password := Trim(password)
-	StringReplace, password, password, `n, , All
-
-	Send {F6}
-	; This will time out in 4 seconds in which case ErrorLevel gets set to 1.
-	WinWaitActive, ahk_class TToadLogOnForm ahk_exe Toad.exe,,4
-	if ErrorLevel
-	{
-		;; MsgBox,, Timed out.
-		return
-	}
-
-	SendRaw %old_password%
-	Send {enter}
-	
-	Sleep 4001
-	
-	; This will time out in 4 seconds in which case ErrorLevel gets set to 1.
-	WinWaitActive, ahk_class TToadLogOnForm ahk_exe Toad.exe,,4
-	if ErrorLevel
-	{
-		;; MsgBox,, Timed out.
-		return
-	}
-	SendRaw %password%
-	Send {enter}
-	
-return
-#IfWinActive
-
-
-
-
-; <W-A w> => AHK Window Spy
-$#!w::
-	if (FileExist("C:\Program Files\AutoHotkey\AU4_Spy.exe")) {
-		Run, C:\Program Files\AutoHotkey\AU4_Spy.exe
-	}
-	else if(FileExist("C:\Program Files\AutoHotkey\WindowSpy.ahk")) {
-		Run, C:\Program Files\AutoHotkey\WindowSpy.ahk
-	}
-return
-
-; <C w> => close AHK Window Spy
-#IfWinActive ahk_exe AU4_Spy.exe
-$^w::
-	Send !{F5}
-return
-#IfWinActive
-
-#IfWinActive Window Spy
-$^w::
-	Send !{F5}
-return
-#IfWinActive
-
-; Make the Windows 11 settings window close via <C w>.
-#IfWinActive Settings ahk_class ApplicationFrameWindow ahk_exe ApplicationFrameHost.exe
-$^w::
-	Send !{F5}
-return
-#IfWinActive
-
+; CONVERTED
 
 ;-------------------------------------------------------------------------------
 ; <Ctrl + ESC> => Reload this script.
@@ -1796,7 +1203,7 @@ LControl & Escape::
 
     ; *65 is one of the system sounds.
     SoundPlay *65
-	speak("Reloading Modes")
+	; speak("Reloading Modes")
     Reload
 
     ; This code can only be reached if reloading fails.
@@ -1805,18 +1212,4 @@ LControl & Escape::
     IfMsgBox Yes, Edit
 return
 
-
-;==============================================================================
-; Functions
-;==============================================================================
-
-; converted
-; Speaks given message using computer-generated voice.
-speak(message) {
-	return
-	Global OPT_SPEAK	
-	if (OPT_SPEAK) {
-		ComObjCreate("SAPI.SpVoice").Speak(message)	
-	}
-}
 
