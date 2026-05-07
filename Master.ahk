@@ -585,6 +585,84 @@ return
 return
 #IfWinActive
 
+
+;==============================================================================
+; Chrome
+;==============================================================================
+
+#IfWinActive ahk_exe chrome.exe
+
+toggle_autoscroll:
+    ; Toggle the variable between true and false
+    toggled := !toggled
+    
+    if (toggled) {
+		MouseGetPos, mouse_x_start, mouse_y_start
+
+        ; Start sending the Down arrow every 1001ms (1 second)
+        SetTimer, SendDownKey, 751
+        ToolTip, Autoscroll ON
+        SetTimer, RemoveToolTip, -1999 ; Hide tooltip after 2 seconds
+    } 
+	else {
+        ; Stop the timer
+        SetTimer, SendDownKey, Off
+        ToolTip, % "Autoscroll OFF: toggled by hotkey"
+        SetTimer, RemoveToolTip, -1999
+    }
+return
+
+; I keep accidentally hitting <C s> to activate this.
+^s::
+    IfWinActive, YouTube ahk_exe chrome.exe
+    {
+		Gosub, toggle_autoscroll
+		return
+	}
+	Send, ^s
+
+return
+
+; Autoscroller mainly for YouTube.
+^+s::
+	; For some reason, putting the code in a function does not work.
+	Gosub, toggle_autoscroll
+return
+
+SendDownKey:
+	; Check current position
+    MouseGetPos, mouse_x, mouse_y
+    
+    ; Calculate distance moved
+    if (Abs(mouse_x - mouse_x_start) > 11 or Abs(mouse_y - mouse_y_start) > 10)
+    {
+        toggled := false
+        SetTimer, SendDownKey, Off
+        ToolTip, Autoscroll OFF: mouse moved
+        SetTimer, RemoveToolTip, -1999
+    }
+
+    ; Safety check: Only send the key if Chrome is still the active window
+    IfWinActive, ahk_exe chrome.exe
+    {
+        Send, {Down}
+    }
+    else
+    {
+        ; Stop if you switch away from Chrome to prevent mess-ups elsewhere
+        toggled := false
+        SetTimer, SendDownKey, Off
+        ToolTip, Autoscroll OFF: changed windows
+        SetTimer, RemoveToolTip, -1999
+    }
+return
+
+RemoveToolTip:
+    ToolTip
+return
+
+#IfWinActive
+
 CONVERTED
 
 */
@@ -733,183 +811,6 @@ return
 ; CONVERTED (END SKIP)
 
 ; CONVERTED
-
-
-;==============================================================================
-; Chrome
-;==============================================================================
-
-; This ensures the hotkey only works when Google Chrome is the active window
-#IfWinActive ahk_exe chrome.exe
-
-toggle_autoscroll:
-    ; Toggle the variable between true and false
-    toggled := !toggled
-    
-    if (toggled) {
-		MouseGetPos, mouse_x_start, mouse_y_start
-
-        ; Start sending the Down arrow every 1001ms (1 second)
-        SetTimer, SendDownKey, 751
-        ToolTip, Autoscroll ON
-        SetTimer, RemoveToolTip, -1999 ; Hide tooltip after 2 seconds
-    } 
-	else {
-        ; Stop the timer
-        SetTimer, SendDownKey, Off
-        ToolTip, % "Autoscroll OFF: toggled by hotkey"
-        SetTimer, RemoveToolTip, -1999
-    }
-return
-
-; I keep accidentally hitting <C s> to activate this.
-^s::
-    IfWinActive, YouTube ahk_exe chrome.exe
-    {
-		Gosub, toggle_autoscroll
-		return
-	}
-	Send, ^s
-
-return
-
-; Autoscroller mainly for YouTube.
-^+s::
-	; For some reason, putting the code in a function does not work.
-	Gosub, toggle_autoscroll
-return
-
-SendDownKey:
-	; Check current position
-    MouseGetPos, mouse_x, mouse_y
-    
-    ; Calculate distance moved
-    if (Abs(mouse_x - mouse_x_start) > 11 or Abs(mouse_y - mouse_y_start) > 10)
-    {
-        toggled := false
-        SetTimer, SendDownKey, Off
-        ToolTip, Autoscroll OFF: mouse moved
-        SetTimer, RemoveToolTip, -1999
-    }
-
-
-    ; Safety check: Only send the key if Chrome is still the active window
-    IfWinActive, ahk_exe chrome.exe
-    {
-        Send, {Down}
-    }
-    else
-    {
-        ; Stop if you switch away from Chrome to prevent mess-ups elsewhere
-        toggled := false
-        SetTimer, SendDownKey, Off
-        ToolTip, Autoscroll OFF: changed windows
-        SetTimer, RemoveToolTip, -1999
-    }
-return
-
-RemoveToolTip:
-    ToolTip
-return
-
-#IfWinActive
-
-
-;-------------------------------------------------------------------------------
-; Ableton Live
-
-/*
-Ableton Live
-*/
-
-#IfWinActive ahk_exe Ableton Live 13 Lite.exe
-
-;$^t::
-	;MsgBox,,, active
-;return
-
-; Remap shortcut to toggle browser for Programmer Dvorak.
-$^!(::
-	;FAIL: It's not working!
-	;MsgBox,,, active
-	;SendInput {Ctrl Down}{Alt Down}6{Ctrl Up}{Alt Up}
-	/*	
-	SendPlay {LCtrl down}
-	Sleep 51
-	SendPlay {LAlt down}
-	Sleep 51
-	SendPlay 6
-	Sleep 51
-	SendPlay {LAlt up}
-	SendPlay {LCtrl up}
-	Send {tab}
-	*/
-
-	/* This should work but doesn't!
-	Send {vkA3scO1D down}
-	Sleep 11
-	Send {vkA5sc038 down}
-	Sleep 11
-	Send {vk36sc006 down}
-	Sleep 11
-	Send {vk36sc006 up}
-	Sleep 11
-	Send {vkA5sc038 up}
-	Sleep 11
-	Send {vkA3scO1D up}
-	*/
-	; This is Live's other keyboard shortcut to toggle browser.
-	Send ^!{b}
-
-/*
-A3  01D	 	d	10.84	LControl       	
-A5  038	 	d	0.05	LAlt           	
-36  006	 	d	0.20	5              	
-36  006	 	u	0.08	5              	
-A5  038	 	u	0.34	LAlt           	
-A3  01D	 	u	0.01	LControl  
-*/
-return
-
-#IfWinActive
-
-;==============================================================================
-; Keyboard
-;==============================================================================
-
-
-;-------------------------------------------------------------------------------
-; Remap {Left} to my keyboard's left arrow.
-; {Left} => Numpad5 on this laptop for some reason.
-;
-; Without doing this, automating context menus doesn't work.
-/*
-VK65::
-    Send, {vk26sc14B}
-return
-
-; Remap {Down} to my keyboard's down arrow
-VK69::
-    Send, {vk29sc150}
-return
-*/
-
-; {vk28sc14D} => right arrow
-
-
-;-------------------------------------------------------------------------------
-; Make h => {Down} and l => {Up} in Sumatra PDF Reader
-; This could be a problem if I type something in a search field or whatnot.
-#IfWinActive ahk_class SUMATRA_PDF_FRAME
-$l::
-    Send {vk27sc148}
-return
-
-$h::
-    Send {vk29sc150}
-return
-
-#IfWinActive
 
 
 ;==============================================================================

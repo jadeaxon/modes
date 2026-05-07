@@ -489,6 +489,87 @@ $^d:: {
 #HotIf
 
 
+;==============================================================================
+; Chrome
+;==============================================================================
+
+#HotIf WinActive("ahk_exe chrome.exe")
+
+; I keep accidentally hitting <C s> to activate this.
+^s:: {
+    if WinActive("YouTube ahk_exe chrome.exe") {
+		toggle_autoscroll()
+	}
+	else {
+		Send("^s")
+	}
+}
+
+; Autoscroller mainly for YouTube.
+^+s:: {
+	toggle_autoscroll()
+}
+#HotIf
+
+autoscroll := false
+toggle_autoscroll() {
+	global autoscroll
+    global mouse_x_start, mouse_y_start ; Declare if these are used elsewhere
+
+    ; Toggle the variable
+	autoscroll := !autoscroll
+
+    if (autoscroll) {
+        ; MouseGetPos uses OutputVar references (&) in v2
+        MouseGetPos(&mouse_x_start, &mouse_y_start)
+
+        ; SetTimer uses a function name (or object) without quotes
+        SetTimer(SendDownKey, 750)
+        ToolTip("Autoscroll ON")
+        SetTimer(RemoveToolTip, -2000)
+    }
+    else {
+        ; Stop the timer
+        SetTimer(SendDownKey, 0) ; '0' or 'Off' stops the timer in v2
+        ToolTip("Autoscroll OFF: toggled by hotkey")
+        SetTimer(RemoveToolTip, -2000)
+    }
+}
+
+SendDownKey() {
+    ; Access the global variables from the main script/toggle function
+    global autoscroll, mouse_x_start, mouse_y_start
+	local mouse_has_moved
+
+    ; Check current position using VarRef (&)
+    MouseGetPos(&mouse_x, &mouse_y)
+
+    ; Calculate distance moved using standard expressions
+	mouse_has_moved := (Abs(mouse_x - mouse_x_start) > 10 || Abs(mouse_y - mouse_y_start) > 10)
+    if (mouse_has_moved) {
+        autoscroll := false
+        SetTimer(SendDownKey, 0) ; '0' stops the timer
+        ToolTip("Autoscroll OFF: mouse moved")
+        SetTimer(RemoveToolTip, -2000)
+        return
+    }
+
+    ; Safety check: Only send the key if Chrome is active
+    if WinActive("ahk_exe chrome.exe") {
+        Send("{Down}")
+    }
+    else {
+        ; Stop if you switch away from Chrome
+        autoscroll := false
+        SetTimer(SendDownKey, 0)
+        ToolTip("Autoscroll OFF: changed windows")
+        SetTimer(RemoveToolTip, -2000)
+    }
+}
+
+RemoveToolTip() => ToolTip()
+
+
 ; CONVERTED
 
 ^+h:: {
