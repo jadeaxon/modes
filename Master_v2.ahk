@@ -558,21 +558,26 @@ $^w:: {
 ; Outlook
 ;==============================================================================
 
-; Make tapping shift twice do a click.
-#HotIf WinActive("Inbox - Jeffrey Anderson - Outlook")
-~Shift Up:: {
-    if (A_PriorHotkey == A_ThisHotkey && A_TimeSincePriorHotkey < 401) {
-        Click()
-    }
+emailWindowActive() {
+	local active
+	active := WinActive("Inbox - Jeffrey Anderson - Outlook")
+	active := active || WinActive("Junk Email - Jeffrey Anderson - Outlook") 
+	active := active || WinActive("Junk - Jeffrey Anderson - Outlook")
+	return active
 }
-#HotIf
 
-#HotIf WinActive("Junk - Jeffrey Anderson - Outlook")
-~Shift Up:: {
-    if (A_PriorHotkey == A_ThisHotkey && A_TimeSincePriorHotkey < 401) {
+; Make tapping shift twice do a click.
+#HotIf emailWindowActive()
+~LShift Up:: {
+    if (A_PriorHotkey == A_ThisHotkey && A_TimeSincePriorHotkey < 400) {
         Click()
     }
 }
+
+RShift & Down:: {
+	Send("{Delete}")
+}
+
 #HotIf
 
 ; Makes <C w> close Outlook.
