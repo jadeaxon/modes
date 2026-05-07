@@ -291,6 +291,10 @@ XHotstring(":Z*:rxhs[(](.*?)[)]", (m, *) => (
 ; # => Win; ^ => Ctrl;  + => Shift; ! => Alt
 ; $ => Don't allow "Send" output to trigger.  Don't let hotkeys trigger other hotkeys.
 
+^+h:: {
+    MsgBox("Hello, AHK v2!")
+}
+
 ; Disable NumLock on Zenbook.
 ; Stops the touchpad numberpad from appearing on Zenbook.
 $NumLock:: {
@@ -1093,10 +1097,17 @@ $#d:: {
     Run("Debug_v2.ahk")
 }
 
+; #UseHook false
+LControl & Escape:: {
+    SoundPlay("*65") ; *65 is a system sound
+	speak("Reloading Modes")
+    Reload()
 
-; CONVERTED
-
-^+h:: {
-    MsgBox("Hello, AHK v2!")
+    ; This code only runs if Reload fails
+    Sleep(1000)
+    result := MsgBox("Script reloaded unsuccessful, open it for editing?",, "Y/N/C")
+    if (result = "Yes") {
+        Edit()
+    }
 }
 

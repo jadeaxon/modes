@@ -1167,9 +1167,6 @@ return
 
 CONVERTED
 
-*/
-
-
 ;-------------------------------------------------------------------------------
 ; <Ctrl + ESC> => Reload this script.
 ;
@@ -1195,5 +1192,9 @@ LControl & Escape::
     MsgBox 5, , Script reloaded unsuccessful, open it for editing?
     IfMsgBox Yes, Edit
 return
+
+
+
+*/
 
 
