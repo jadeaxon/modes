@@ -570,6 +570,37 @@ SendDownKey() {
 RemoveToolTip() => ToolTip()
 
 
+;==============================================================================
+; Windows Explorer
+;==============================================================================
+
+; Open command prompt at current folder in Explorer.
+; <Ctrl + Alt + c> in Windows Explorer.
+#HotIf WinActive("ahk_class CabinetWClass")
+$^!c:: {
+    ClipSaved := ClipboardAll()
+
+    A_Clipboard := "" ; Clear the clipboard
+    Send("!d")        ; Focus address bar
+    Sleep(50)         ; Slightly longer sleep for reliability
+    Send("^c")        ; Copy path
+
+    ; ClipWait(timeout) returns 0 if it times out
+    if !ClipWait(3) {
+        MsgBox("The attempt to copy text onto the clipboard failed.")
+        return
+    }
+
+    Run('cmd /K "cd /d "' A_Clipboard '"')
+
+    ; Restore the previous clipboard content
+    A_Clipboard := ClipSaved
+    ClipSaved := "" ; Clear the buffer variable
+}
+
+#HotIf
+
+
 ; CONVERTED
 
 ^+h:: {

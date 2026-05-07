@@ -663,6 +663,28 @@ return
 
 #IfWinActive
 
+#IfWinActive ahk_class CabinetWClass ; Only applies to Explorer.
+
+;-------------------------------------------------------------------------------
+; Open command prompt at current folder in Explorer.
+; <Ctrl + Alt + c> in Windows Explorer.
+; http://lifehacker.com/5306402/open-a-new-command-prompt-from-explorer-with-a-hotkey
+$^!c::
+    ClipSaved := ClipboardAll
+    Send !d
+    Sleep 11
+    Send ^c
+    ClipWait, 3
+    if ErrorLevel {
+        MsgBox, The attempt to copy text onto the clipboard failed.
+        return
+    } ; if
+
+    Run, cmd /K "cd `"%clipboard%`""
+    Clipboard := ClipSaved
+    ClipSaved =
+return
+
 CONVERTED
 
 */
@@ -817,26 +839,8 @@ return
 ; Windows Explorer
 ;==============================================================================
 
-;-------------------------------------------------------------------------------
-; Open command prompt at current folder in Explorer.
-; <Ctrl + Alt + c> in Windows Explorer.
-; http://lifehacker.com/5306402/open-a-new-command-prompt-from-explorer-with-a-hotkey
 #IfWinActive ahk_class CabinetWClass ; Only applies to Explorer.
-$^!c::
-    ClipSaved := ClipboardAll
-    Send !d
-    Sleep 11
-    Send ^c
-    ClipWait, 3
-    if ErrorLevel {
-        MsgBox, The attempt to copy text onto the clipboard failed.
-        return
-    } ; if
 
-    Run, cmd /K "cd `"%clipboard%`""
-    Clipboard := ClipSaved
-    ClipSaved =
-return
 
 ; Closes all Explorer windows when <A-S F5> pressed.
 !+F5::
@@ -847,7 +851,6 @@ return
 ; <A d> => new directory in Windows Explorer.
 $!d::
 	Send ^+n
-	; Send +{F11}wf
 return
 
 ; <A t> => new text file in Windows Explorer.
