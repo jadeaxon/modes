@@ -1181,7 +1181,7 @@ LControl & Escape::
 
 	; These should probably be reloaded after this reloads, but this may be good enough.
 	; Note that these do not get started if they aren't already running.
-	Run, %vUSERPROFILE%\projects\modes-private\Private.ahk /restart
+	; Run, %vUSERPROFILE%\projects\modes-private\Private.ahk /restart
 	Run, %vUSERPROFILE%\projects\modes\RegExHotstrings.ahk /restart
 
     ; *65 is one of the system sounds.

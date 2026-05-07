@@ -73,6 +73,7 @@ HOST := EnvGet("COMPUTERNAME")
 
 HOME := EnvGet("USERPROFILE")
 Run(HOME "\AHK\AutoCorrect2\Core\AutoCorrect2.exe")
+Run(HOME "\projects\modes-private\Private_v2.ahk /restart")
 
 
 ;===============================================================================
