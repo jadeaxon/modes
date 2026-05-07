@@ -101,6 +101,25 @@ Run(HOME "\AHK\AutoCorrect2\Core\AutoCorrect2.exe")
 :*:(r)::{U+01AE}
 :*:(tm)::{U+2123}
 
+; Insert a Unicode bullet symbol immediately.
+; Use Windows Charater Map advanced view to search for these (or google them).
+:*:uBullet::{U+2022}
+:*:uBul::{U+2022}
+:*:uDot::{U+2022}
+:*:uDegrees::{U+00B0}
+:*:uAry::{U+00BA} ; Ordinal indicator: primary, secondary, etc.
+:*:uEuros::{U+20AC}
+:*:uPlusOrMinus::{U+00B1}
+:*:uPlusMinus::{U+00B1}
+:*:uInfinity::{U+221E}
+:*:uIntersection::{U+2229}
+:*:uUnion::{U+222A}
+:*:uEnDash::{U+2013}
+:*:uEmDash::{U+2014}
+:*:uCheck::{U+2713}
+:*:uSquared::{U+00B2}
+:*:uCubed::{U+00B3}
+
 #HotIf !WinActive("ahk_exe mintty.exe")
 :*:j@h::jadeaxon@hotmail.com
 #HotIf

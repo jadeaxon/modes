@@ -86,26 +86,6 @@ Return
 :*cZ:TWa::Walmart [rD1]{enter}
 #IfWinActive
 
-; Now all the hotstrings starting with u don't work in Master.ahk.
-; Insert a Unicode bullet symbol immediately.
-; Use Windows Charater Map advanced view to search for these (or google them).
-:*:uBullet::{U+2022}
-:*:uBul::{U+2022}
-:*:uDot::{U+2022}
-:*:uDegrees::{U+00B0}
-:*:uAry::{U+00BA} ; Ordinal indicator: primary, secondary, etc.
-:*:uEuros::{U+20AC}
-:*:uPlusOrMinus::{U+00B1}
-:*:uPlusMinus::{U+00B1}
-:*:uInfinity::{U+221E}
-:*:uIntersection::{U+2229}
-:*:uUnion::{U+222A}
-:*:uEnDash::{U+2013}
-:*:uEmDash::{U+2014}
-:*:uCheck::{U+2713}
-:*:uSquared::{U+00B2}
-:*:uCubed::{U+00B3}
-
 
 JiraLink:
 	output := "https://uvu-it.atlassian.net/browse/" . $1 . "-" . $2
@@ -139,58 +119,7 @@ return
 
 VoiceReminderTimer:
 	COMObjCreate("SAPI.SpVoice").Speak(reminder)
-return
-	
-
-	
-
-
-/*
-Repeat:
-OutputVar := ""
-Loop %$3%
-	OutputVar := OutputVar . $1 . $2 . " "
-SendInput, {Raw}%OutputVar%
-Return
-
-Add:
-AddArray := StrSplit($1 ,"+")
-Total := 0
-Loop % AddArray.MaxIndex()
-{
-	If InStr(AddArray[A_Index],"-")
-	{
-		SubArray := StrSplit(AddArray[A_Index],"-")
-		SubTotal := SubArray[1]
-		Loop % SubArray.MaxIndex()-1
-		{
-			SubTotal := SubTotal - SubArray[A_Index+1]
-		}
-		AddArray[A_Index] := SubTotal
-	}
-	Total := Total + AddArray[A_Index]
-}
-
-SendInput, % Format("{:g}", Total)
-
-Return
-
-CapWord:
-  Stringupper, Cap, $1, T
-  Sendinput, %Cap%
-Return
-
-Label:
-  Stringupper, $2, $2
-  Sendinput, % "{raw}" $1 " " $2
-Return
-
-Percent:
-p := Round($1 / $2 * 100,1)
-Send, %p%`%
-Return
-*/
-
+return		
 
 
 /*
