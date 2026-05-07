@@ -81,6 +81,7 @@ Run(HOME "\projects\modes-private\Private_v2.ahk /restart")
 ;===============================================================================
 
 #Include "Library_v2.ahk"
+#Include <XHotstring>
 ;#Include "PL-SQL_v2.ahk"
 
 
@@ -263,6 +264,24 @@ Run(HOME "\projects\modes-private\Private_v2.ahk /restart")
 :*c:Tst::5m strength training{enter}
 :*c:Tbh::Bar hang [H1]^{enter}
 #HotIf
+
+;-------------------------------------------------------------------------------
+; Regex Hotstrings
+;-------------------------------------------------------------------------------
+
+; Typing hello(world) => Hello, world!
+XHotstring(":*:hello[(](.*?)[)]", (m, *) => Send("Hello, " m[1] "{!}"))
+
+; FAIL: Z option along with using SendText() causes hotstring to not retrigger itself.
+; You have to use the technique below to prevent retriggering.
+; You don't need to use X option since its kind of implicit we're executing code.
+; This makes it so when you type 'rxhs(<arg>)' it prints out the message.
+; The subgroup matches are captured in the m array.
+; XHotstring(":Z*:rxhs[(](.*?)[)]", (m, *) => SendText("rxhs() called with arg " m[1]))
+XHotstring(":Z*:rxhs[(](.*?)[)]", (m, *) => (
+    SendLevel(0), 
+    SendEvent("rxhs() called with arg " m[1])
+))
 
 
 ;===============================================================================
