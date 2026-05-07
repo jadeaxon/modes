@@ -1027,7 +1027,7 @@ $^!j::
     btnBudget := myGui.Add("Button", "w251", "&Budget")
     btnBudget.OnEvent("Click", Button_Budget)
 
-    btnJiggler := myGui.Add("Button", "w251", "Mouse &Jiggler")
+    btnJiggler := myGui.Add("Button", "w251", "&Mouse Jiggler")
     btnJiggler.OnEvent("Click", (*) => (myGui.Destroy(), Run(A_ScriptDir "\MouseJiggler_v2.ahk")))
 
     ; Escape key handling [cite: 17]

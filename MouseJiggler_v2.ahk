@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0
 
+#SingleInstance Force
+
 ; Automatically move mouse if connected to multiple monitors.
 ; They want to sleep to fast and don't always come back properly.
 
@@ -12,6 +14,10 @@ lastX := 0
 lastY := 0
 x := 0
 y := 0
+	
+ToolTip("Mouse jiggler ON")
+SetTimer(RemoveToolTip, -3000)
+RemoveToolTip() => ToolTip()
 
 ; Infinite loop for the jiggler
 Loop {
