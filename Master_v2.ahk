@@ -288,8 +288,9 @@ XHotstring(":*:t\((\d+), (.+?)\)", (m, *) => set_reminder(Number(m[1]), m[2]))
 
 set_reminder(minutes, what) {
 	local millis := minutes * 60 * 1000
-	SetTimer(() => MsgBox(what), -millis)
-	ToolTip("Reminder set for " minutes " minutes")
+	local suffix := (minutes == 1) ? "minute" : "minutes"
+	SetTimer(() => (SoundPlay("*64"), MsgBox(what)), -millis)
+	ToolTip("Reminder set for " . minutes . " " . suffix)
 	SetTimer(RemoveToolTip, -2000)
 }
 
