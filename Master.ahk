@@ -88,16 +88,13 @@ OPT_SPEAK := 1
 W_HOTKEY := "not set"
 
 ; Is the search dialog open in a Google Sheet?
-searchDialog := 1
+searchDialog := 0
 
 ; The color of a pixel.  In BGR hex format.
-color := 1
+color := 0
 
 ; Delay between keystrokes.
-delay := 31
-
-; Context menu position for Slack reminders.
-menuPosition := 1
+delay := 30
 
 EnvGet, vUserProfile, USERPROFILE
 
@@ -532,55 +529,7 @@ $^d::
 	hoveringOverDoneColumn := false
 	doneColumnSelected := false
 
-	if (host = "L16383") { ; Surface Pro 8
-		if (activeMonitor = "Surface Pro 9") { ; The laptop's screen.
-			; This is for running Surface without external monitors.
-			PixelGetColor, color, 2760, 446
-
-			; This position is on the bottom Kanban sheet tab.
-			; When a sheet is selected, the pixels other than the sheet name are white.
-			if (monitors = 2) {
-				; PixelGetColor, tabColor, 261, 1800
-				PixelGetColor, tabColor, 51, 1575
-			}
-			else { ; Multiple monitors.
-				PixelGetColor, tabColor, 131, 940
-			}
-		}
-		else if (activeMonitor = "LG UltraFine") { ; LG UltraFine
-			PixelGetColor, color, 1388, 224
-			PixelGetColor, tabColor, 131, 1420
-		}
-		else if (activeMonitor = "Dell") {
-			PixelGetColor, color, 1387, 223
-			PixelGetColor, tabColor, 131, 1380
-		}
-		else { ; Unknown monitor.
-			color := 1
-		}
-	}
-	else if (host = "Inspiron-VM") {
-		PixelGetColor, color, 1181, 230, RGB
-		PixelGetColor, tabColor, 131, 1030, RGB
-		headerY := 181
-		; headerColor := 0xE8EAEE
-	}
-	else if (host = "D309553A") { ; Lenovo ThinkCentre 910s
-		PixelGetColor, color, 1381, 230, RGB
-		PixelGetColor, tabColor, 131, 1140, RGB
-		headerY := 181
-	}
-	else if (host = "L17007") { ; Lenovo Thinkpad X1 Yoga
-		PixelGetColor, color, 1591, 140, RGB
-		PixelGetColor, tabColor, 176, 1110, RGB
-		; headerY := 231
-		headerY := 251
-		; doneSelected := 0xE8EAEE
-		doneSelected := 0xD5E3FF
-		doneSelected3 := 0xD3E3FD	
-		; activeTabColor := 0xE2E9F9
-	}
-	else if (host = "ZENBOOK") { ; ASUS Zenbook 15X OLED
+	if (host = "ZENBOOK") { ; ASUS Zenbook 15X OLED
 		headerY := 426
 		doneSelected := 0xD8E3FC
 	}
@@ -695,7 +644,7 @@ return
 
 ; Make it so Esc dismisses the search dialog if it is present.
 $^f::
-	searchDialog := 2
+	searchDialog := 1
 	Send ^f
 return
 
@@ -704,7 +653,7 @@ Esc::
 		Send ^f
 		Send {tab}{tab}
 		Send {enter}
-		searchDialog := 1
+		searchDialog := 0
 	}
 return
 
@@ -727,29 +676,9 @@ $^x::
 return
 
 
-; <A click> toggles between cut and paste.
-; All the normal modifier keys cause unwanted side behavior.
-/*
-Esc & LButton::
-	Click
-	Sleep 21
-	if (!kanbanCut) {
-		SendInput ^c
-		Sleep 51
-		SendInput {delete}
-		Sleep 51
-		SendInput {backspace}
-	}
-	else {
-		Send ^+v
-	}
-	kanbanCut := !kanbanCut
-return
-*/
-
 ; Make it so Esc dismisses the search dialog if it is present.
 $^f::
-	searchDialog := 2
+	searchDialog := 1
 	Send ^f
 return
 
@@ -758,30 +687,10 @@ Esc::
 		Send ^f
 		Send {tab}{tab}
 		Send {enter}
-		searchDialog := 1
+		searchDialog := 0
 	}
 return
 
-; <A p> => Transition to progress file from kanban.
-$!p::
-	; file = C:\Users\%A_UserName%\Dropbox\Organization\Progress\UVU\%A_YYYY%\Progress (UVU).txt
-	file = G:\My Drive\Organization\Progress\UVU\%A_YYYY%\Progress (UVU).txt
-	Run %file%
-return
-
-#IfWinActive
-
-
-#IfWinActive Inoreader ahk_class MozillaWindowClass
-$+Down::
-	; <S down> => mark as read.
-	Send m
-return
-
-$+Up::
-	; <S up> => star.
-	Send f
-return
 #IfWinActive
 
 
@@ -791,92 +700,6 @@ return
 $^w::
     WinClose, A
 return
-#IfWinActive
-
-
-; Trying to remap <C k> to <C v> for Programmer Dvorak causes problems
-; with PyCharm/WebStorm commit and pull shortcuts.
-; Vaio Laptop and Dell XPS 411.
-; A1  02A	 	d	0.03	Left Shift
-; 3D  152	 	d	0.02	Insert
-; 3D  152	 	u	0.09	Insert
-; A1  02A	 	u	0.14	Left Shift
-; $^k::
-    ; ; TO DO: This does not work on my Windows 8 64-bit workstation.
-    ; WinGetClass, class, A
-    ; if (class = "mintty") {
-        ; ; Apparently, {Insert} does not map to the insert key on my Vaio laptop.
-        ; ; Send {vkA1sc02A Down}{vk2Dsc152}{vkA0sc02A Up}
-        ; Send +{vk3Dsc152}
-    ; }
-    ; else { ; Not mintty.
-        ; Send ^v
-    ; }
-; 
-; 
-; return
-
-
-;-------------------------------------------------------------------------------
-; PyCharm
-#IfWinActive ahk_exe pycharm65.exe
-
-; Compensate for Programmer Dvorak weirdness.
-; What AHK sees as <A [>, PyCharm sees as <A 8>.  What I'm trying to press is <A 2>.
-; You'd need to press shift to get 3 in Programmer Dvorak, but that messes it up somehow.
-; ![:: -- Nope, AHK can't see this.
-$!sc004::
-	; The problem is, AHK has to use an alternate method of sending <A 3> since that combination
-	; actually is not possible in Programmer Dvorak.
-	; Since what it sends is not a key event, it can't trigger shortcut behavior.
-	; Send !3
-
-	; Watching its Keymap, PyCharm thinks you've hit <A 3> when you hit <A )> and emit that virtual key.
-	; WORKS!
-	Send !{vk33sc009}
-
-return
-
-#IfWinActive
-
-;-------------------------------------------------------------------------------
-; Make <Ctrl + V> paste into PuTTY windows.
-; Usually, <Ctrl + V> lets you insert the next character literally.  This is rarely used.
-; I've used it to define keymappings for bash via bind mainly.
-;
-; Strangely, a physical right click in the window automatically pastes, whereas AHK sending a right click
-; brings up a context menu.  Curious.
-;
-; TO DO: <Shift + Insert> also pastes, so probably more responsive to map to that.
-#IfWinActive ahk_class PuTTY
-$^v::
-    ; Send +{Insert}
-    ; On my laptop, {Insert} is not defined correctly in AHK.
-    ; On Windows 8 machine, it is the same.
-    Send +{vk3Dsc152}
-
-    ; Click Right
-    ; Sleep 11
-    ; Send {Down}
-    ; Sleep 11
-    ; Send {Enter}
-
-return
-
-#IfWinActive
-
-
-;-------------------------------------------------------------------------------
-; Make <Ctrl + W> close PuTTY windows (so your tabbed-browsing moves work everywhere).
-#IfWinActive ahk_class PuTTY
-$^w::
-    WinClose A
-    Sleep 21
-    Send {Enter} ; Dismiss confirm dialog.
-
-return
-
-
 #IfWinActive
 
 
@@ -891,37 +714,8 @@ return
 
 
 ;-------------------------------------------------------------------------------
-; <Alt + F2> => look up AutoHotkey docs (when we're editing .ahk files in Cygwin)
-; <A-W h> => ditto
-/*
-!#h::
-!F2::
-	; MsgBox,,, Triggered
-	GoSub, GetAutoHotkeyHelp
-return
-
-GetAutoHotkeyHelp:
-	topic := Clipboard
-	Run, https://www.autohotkey.com/docs/%topic%
-	speak("Autohotkey help")
-	Sleep 501
-	WinActivate, ahk_exe firefox.exe
-return
-*/
-
-;-------------------------------------------------------------------------------
 ; Make <Ctrl + W> close AHK help windows (so your tabbed-browsing moves work everywhere).
 #IfWinActive ahk_class HH Parent
-$^w::
-    WinClose A
-
-return
-#IfWinActive
-
-
-;-------------------------------------------------------------------------------
-; Make <Ctrl + W> close Pidgin windows (so your tabbed-browsing moves work everywhere).
-#IfWinActive ahk_class gdkWindowToplevel
 $^w::
     WinClose A
 
@@ -938,18 +732,6 @@ $^w::
 return
 #IfWinActive
 
-
-;-------------------------------------------------------------------------------
-; Make <Ctrl + V> paste into Cygwin/mintty windows.
-; Usually <Ctrl + V> lets you insert literal characters (like control characters).
-; You'll have to disable Master.ahk to get that back in the rare cases that you need it.
-; #IfWinActive ahk_class mintty
-; $^v::
-    ; Send +{Insert}
-;    Send +{vk3Dsc152}
-
-;return
-;#IfWinActive
 
 ;==============================================================================
 ; Firefox
