@@ -5,6 +5,9 @@
 ; FAIL: AHK v2 syntax highlighting does not work in Vim.
 #Requires AutoHotkey v2.0
 
+; FAIL: Makes it so we don't also trigger things like Windows Game Bar.
+; InstallKeybdHook()
+
 ; Warn about using uninitialized variables, etc.
 #Warn
 #Warn Unreachable, Off
@@ -1184,6 +1187,16 @@ $#d:: {
 	SetTimer(RemoveToolTip, -2000)
     Run("Debug_v2.ahk")
 }
+
+; FAIL: <A-W r>: conflicts with Windows Game Bar.
+; <C r> => Recurring Tasks mode 
+#HotIf WinActive("ahk_group PersonalKanban")
+$^r:: {
+	ToolTip("Recurring Tasks mode ON")
+	SetTimer(RemoveToolTip, -2000)
+	Run("Recurring_Tasks_v2.ahk")
+}
+#HotIf
 
 ; #UseHook false
 LControl & Escape:: {
