@@ -513,13 +513,31 @@ $^w:: {
 ; Outlook
 ;==============================================================================
 
-emailWindowActive() {
-	local active
-	active := WinActive("Inbox - Jeffrey Anderson - Outlook")
+junkMailWindowActive() {
+	local active := false
 	active := active || WinActive("Junk Email - Jeffrey Anderson - Outlook") 
 	active := active || WinActive("Junk - Jeffrey Anderson - Outlook")
 	return active
 }
+
+emailWindowActive() {
+	local active := false
+	active := active || WinActive("Inbox - Jeffrey Anderson - Outlook")
+	active := active || WinActive("Junk Email - Jeffrey Anderson - Outlook") 
+	active := active || WinActive("Junk - Jeffrey Anderson - Outlook")
+	return active
+}
+
+#HotIf junkMailWindowActive()
+d:: {
+	SendS("^a")
+	SendS("{delete}")
+}
+
+RShift & Down:: {
+	Send("{Delete}")
+}
+#HotIf
 
 ; Make tapping shift twice do a click.
 #HotIf emailWindowActive()
@@ -528,11 +546,6 @@ emailWindowActive() {
         Click()
     }
 }
-
-RShift & Down:: {
-	Send("{Delete}")
-}
-
 #HotIf
 
 ; Makes <C w> close Outlook.
