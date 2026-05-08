@@ -26,11 +26,40 @@ $+s:: {
 
 ; Do task now. Mark bold and move to Kanban sheet now column. Don't change last done date.
 $n:: {
-	A_Clipboard := ""
-	SendS("^c")
-	ClipWait(2)
+	value := get_raw_cell_value()
+	SendS("^b") ; bold
 	SendS("!{up}") ; move to Kanban sheet
+	move_to_cell("C1")
+	move_to_next_empty_cell()
+	SendS("^v")
+	Sleep(1000)
+	SendS("!{down}") ; move back to Recurring sheet
+}
 
+; Do this today. Mark date as done. Merge with the today cell.
+$t:: {
+	task := get_raw_cell_value()
+	SendS("^b") ; bold
+	SendS("!{up}") ; move to Kanban sheet
+	move_to_cell("C2")
+	today := get_raw_cell_value()
+	merged := merge_cells(today, task)
+	A_Clipboard := merged
+	Sleep(20)
+	SendS("^v")
+	Sleep(1000)
+	SendS("!{down}") ; move back to Recurring sheet
+}
+
+; Merge current cell with the one above it.
+$m:: {
+	value := get_raw_cell_value()
+	SendS("{up}")
+	value2 := get_raw_cell_value()
+	merged := merge_cells(value, value2)
+	A_Clipboard := merged
+	Sleep(20)
+	SendS("^v")
 }
 
 ; Defer recurring task for a day, a week, or a month.

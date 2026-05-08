@@ -155,6 +155,7 @@ move_to_cell(location) {
 }
 
 move_to_next_empty_cell() {
+	saved := A_Clipboard
 	; Find next empty cell.
 	Loop {
 		temp_value := get_cell_value()
@@ -165,12 +166,15 @@ move_to_next_empty_cell() {
 			break
 		}
 	} ; loop
+	A_Clipboard := saved
 }
 
 get_cell_value(clear := false) {
 	A_Clipboard := ""
 	SendS("^c")
 	ClipWait(2)
+	; I think we need to not exorcise the value when just doing copy/paste between cells.
+	; Nope, I was wrong. When searching for a blank, it went into an infinite loop.
 	value := Exorcise(A_Clipboard)
 	if (clear) {
 		Sleep(30)
@@ -178,6 +182,42 @@ get_cell_value(clear := false) {
 	}
 	return value
 }
+
+get_raw_cell_value() {
+	A_Clipboard := ""
+	SendS("^c")
+	ClipWait(2)
+	value := A_Clipboard
+	return value
+}
+
+; Prepare a raw cell to merge with another. 
+clean_cell_for_merge(raw_cell) {
+    ; 1. Remove the trailing newline Sheets always adds
+    cooked_cell := RTrim(raw_cell, "`r`n")
+    
+    ; 2. If the cell was multiline, Sheets wrapped it in quotes.
+    ; We check if it starts and ends with a quote.
+    if (SubStr(cooked_cell, 1, 1) = '"' && SubStr(cooked_cell, -1) = '"') {
+        ; Strip the outer quotes
+        cooked_cell := SubStr(cooked_cell, 2, -1)
+        ; Sheets doubles internal quotes (escaping). Change "" back to "
+        cooked_cell := StrReplace(cooked_cell, '""', '"')
+    }
+    return cooked_cell
+}
+
+merge_cells(raw_cell1, raw_cell2) {
+	clean_cell1 := clean_cell_for_merge(raw_cell1)
+	clean_cell2 := clean_cell_for_merge(raw_cell2)
+	merged_cell := clean_cell1 . "`n" . clean_cell2
+	; Quote any quotes in the merged cell content.
+	merged_cell := StrReplace(merged_cell, '"', '""')
+	; Wrap the whole thing in double quotes so it gets pasted as a single cell.
+	merged_cell := '"' . merged_cell . '"'
+	return merged_cell
+}
+
 
 
 ;===============================================================================
