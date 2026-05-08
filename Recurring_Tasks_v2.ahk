@@ -36,6 +36,37 @@ $n:: {
 	SendS("!{down}") ; move back to Recurring sheet
 }
 
+; Mark/toggle this task with 'FOR REAL: '.
+$f:: {
+    raw := get_raw_cell_value()
+    
+    ; 1. Clean the raw input (Remove Sheets' trailing newline and outer quotes)
+    cleanValue := clean_cell_for_merge(raw)
+    
+    ; 2. Logic to Toggle the prefix
+    if (SubStr(cleanValue, 1, 10) = "FOR REAL: ") {
+        finalValue := SubStr(cleanValue, 11) ; Remove the first 10 chars
+    } 
+	else {
+        finalValue := "FOR REAL: " . cleanValue
+    }
+
+    ; 3. Prepare for Sheets (The "Single-Cell" Protector)
+    ; If it contains a newline, we must wrap in quotes and escape internal quotes
+    if InStr(finalValue, "`n") {
+        finalValue := StrReplace(finalValue, '"', '""') ; Escape internal quotes
+        A_Clipboard := '"' . finalValue . '"'           ; Wrap the whole thing
+    } 
+	else {
+        A_Clipboard := finalValue
+    }
+
+    if ClipWait(2) {
+        Sleep(30) 
+        Send("^v")
+    }
+}
+
 ; Do this today. Mark date as done. Merge with the today cell.
 $t:: {
 	task := get_raw_cell_value()

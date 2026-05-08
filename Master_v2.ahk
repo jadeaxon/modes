@@ -892,7 +892,6 @@ $^s:: {
 	location := get_cell_location()
 	move_to_cell("A1")
 	value := get_cell_value()
-	move_to_cell(location)
 	if (value = "Task") {
 		sheet := "Recurring"
 	}
@@ -900,11 +899,15 @@ $^s:: {
     if (sheet = "Recurring") {
         ; Trigger the Google Apps Script sort macro
         Send("^+!1")
+		; Give time for sort to finish.
+		; Else later move_to_cell() call will be undone by what the sort does.
+		Sleep(3000)
     }
     else {
         ; Perform the standard save operation
         Send("^s")
     }
+	move_to_cell(location)
 }
 
 mark_recurring_task_done() {
