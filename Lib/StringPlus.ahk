@@ -16,8 +16,26 @@ class StringPlus {
 	; Shorter version of ToString().
 	str() => this.value
 
-    ; [] but with 0-based index.
-    __Item[index] => SubStr(this.value, index + 1, 1)
+    ; [] but with 0-based indexes. Also handles negative indexes.
+	; You can do s[0] := "whatever" -- you aren't limited to replacing a single character
+	__Item[s, l := 1] {
+        get {
+            ; Convert 0-based/negative to AHK 1-based
+            pos := (s < 0) ? s : s + 1
+            return SubStr(this.value, pos, l)
+        }
+        set {
+            ; 1. Calculate actual 1-based start position
+            ; If s is -1, it's the last char. If s is 0, it's the first.
+            startPos := (s < 0) ? (StrLen(this.value) + s + 1) : (s + 1)
+            
+            ; 2. Slice the string
+            left := SubStr(this.value, 1, startPos - 1)
+            right := SubStr(this.value, startPos + l)
+            
+            this.value := left . value . right
+        }
+    }
 
 	; Length.
     len() => StrLen(this.value)
@@ -120,6 +138,32 @@ class StringPlus {
 
     lstrip(chars := " `t`r`n") => StringPlus(LTrim(this.value, chars))
     rstrip(chars := " `t`r`n") => StringPlus(RTrim(this.value, chars))
+	
+	upper() => StringPlus(StrUpper(this.value))
+    lower() => StringPlus(StrLower(this.value))
+    title() => StringPlus(StrTitle(this.value))
+
+	removeprefix(prefix) {
+        if this.startswith(prefix)
+            return StringPlus(SubStr(this.value, StrLen(prefix) + 1))
+        return StringPlus(this.value)
+    }
+
+    removesuffix(suffix) {
+        if this.endswith(suffix)
+            return StringPlus(SubStr(this.value, 1, -StrLen(suffix)))
+        return StringPlus(this.value)
+    }
+
+	replace(old, new, limit := -1) {
+        return StringPlus(StrReplace(this.value, old, new, , limit))
+    }
+
+    find(sub, start := 1) {
+        pos := InStr(this.value, sub, , start)
+        return (pos - 1)
+    }
+
 
 
 } ; class StringPlus
