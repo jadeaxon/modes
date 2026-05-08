@@ -785,7 +785,7 @@ $^!c:: {
     Send("^c")        ; Copy path
 
     ; ClipWait(timeout) returns 0 if it times out
-    if !ClipWait(3) {
+    if !ClipWait(2) {
         MsgBox("The attempt to copy text onto the clipboard failed.")
         return
     }
@@ -897,22 +897,19 @@ $^d:: {
 
 	; Paste to blank cell.
 	A_Clipboard := value
-	ClipWait(1)
-	Send("^v")
-	Sleep(delay2)
+	ClipWait(2)
+	SendS("^+v")
 
 	; Go back to original cell.
 	move_to_cell(location)
 
 	; Move to first cell below original.
-	Send("{down}")
-	Sleep(delay)
+	SendS("{down}")
 	
 	move_to_next_empty_cell()
 	
 	; Get cell above empty cell.
-	Send("{Up}")
-	Sleep(delay)
+	SendS("{Up}")
 
 	value := get_cell_value(true)
 	
@@ -921,28 +918,28 @@ $^d:: {
 	
 	; Paste to original cell.
 	A_Clipboard := value
-	ClipWait(1)
-	Send("^v")
+	ClipWait(2)
+	SendS("^+v")
 } ; <C d> hotkey
 	
 get_cell_location() {
 	A_Clipboard := ""
-	Send("^j") ; go to name box (has cell name/location)
-	Sleep(delay)
-	Send("^c")
-	ClipWait(1)
+	SendS("^j") ; go to name box (has cell name/location)
+	Sleep(30)
+	SendS("^c")
+	ClipWait(2)
 	location := Exorcise(A_Clipboard)
-	Send("{enter}") ; return to cell
+	SendS("{enter}") ; return to cell
+	Sleep(30)
 	return location
 }
 
 move_to_cell(location) {
-	Send("^j")
-	Sleep(60)
-	Send(location)
+	SendS("^j")
 	Sleep(30)
-	Send("{enter}")
-	Sleep(delay)
+	SendS(location)
+	SendS("{enter}")
+	Sleep(30)
 }
 
 move_to_next_empty_cell() {
@@ -950,8 +947,7 @@ move_to_next_empty_cell() {
 	Loop {
 		temp_value := get_cell_value()
 		if (temp_value != "") {
-			Send("{Down}")
-			Sleep(30)
+			SendS("{Down}")
 		}
 		else { ; blank cell found
 			break
@@ -961,32 +957,31 @@ move_to_next_empty_cell() {
 
 get_cell_value(clear := false) {
 	A_Clipboard := ""
-	Send("^c")
-	ClipWait(1)
+	SendS("^c")
+	ClipWait(2)
 	value := Exorcise(A_Clipboard)
 	if (clear) {
 		Sleep(30)
-		Send("{backspace}")
-		Sleep(30)
+		SendS("{backspace}")
 	}
 	return value
 }
 
 write_to_progress_file() {
-	local file
-	; SetKeyDelay is now a function
-	SetKeyDelay(50, 50)
-	
+	local file	
 	; Combined Send for efficiency
-	Send("+{Down 6}")
-	Send("^c")
+	SendS("{Shift down}")
+	Loop 6 {
+		SendS("{Down}")
+	}
+	SendS("{Shift up}")
+	SendS("^c")
 	if !ClipWait(2) {
 		return ; Exit if clipboard copy fails
 	}
-	Sleep(100)
-	Send("{Backspace}")
-	Sleep(100)
-	SetKeyDelay(10, -1) ; reset to default values 
+	Sleep(50)
+	SendS("{Backspace}")
+	Sleep(50)
 
 	; File Path and Run
 	file := "G:\My Drive\Organization\Progress\Home\Progress (Home).txt"
@@ -995,14 +990,14 @@ write_to_progress_file() {
 	
 	SetTitleMatchMode(2)
 	if WinWaitActive("GVIM", , 3) {
-		Send("gg")
+		SendS("gg")
 		yearShort := A_Year - 2000
 		searchYear := (yearShort < 10 ? "0" : "") . yearShort
 		
-		Send("/" searchYear "-{Enter}")
-		Send("o^v{Enter}{Esc}")
-		Sleep(200)
-		Send("^s")
+		SendS("/" searchYear "-{Enter}")
+		SendS("o^v{Enter}{Esc}")
+		Sleep(150)
+		SendS("^s")
 	}
 }
 
@@ -1032,7 +1027,26 @@ $^s:: {
 }
 
 mark_recurring_task_done() {
-	MsgBox("not implemented yet")
+	;MsgBox("not implemented yet")
+	; Not sure why SetKeyDelay() doesn't work but sprinkling Sleep()s everywhere does.
+	; It only works when you are in SendEvent mode, which is not the default.
+	; SetKeyDelay(50, 50)
+	SendS("^b")
+	Loop 5 {
+		SendS("{right}")
+	}
+	SendS("^;")
+	Loop 5 {
+		SendS("{left}")
+	}
+}
+
+; Send and Sleep.
+delay := 30
+SendS(s) {
+	global delay
+	Send(s)
+	Sleep(delay)
 }
 
 #HotIf
@@ -1125,7 +1139,7 @@ Button_Budget(btn, *) {
 			SendEvent("W")
             Sleep(100)
 
-            if ClipWait(1) {
+            if ClipWait(2) {
 				remBudget := A_Clipboard
 				remBudget := Exorcise(remBudget)
 				remBudget := RegExReplace(remBudget, "[^\d\.-]")
