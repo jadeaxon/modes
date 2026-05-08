@@ -882,6 +882,12 @@ $^d:: {
 		return
 	}
 
+	if (InStr(location, "A") == 1) {
+		; We're in column A. Assume we're in the Recurring sheet.
+		mark_recurring_task_done()
+		return
+	}
+
 	value := get_cell_value(true)
 
 	; Move to top of Done column.
@@ -1023,6 +1029,10 @@ $^s:: {
         ; Perform the standard save operation
         Send("^s")
     }
+}
+
+mark_recurring_task_done() {
+	MsgBox("not implemented yet")
 }
 
 #HotIf
