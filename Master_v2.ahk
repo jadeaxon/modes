@@ -874,33 +874,15 @@ $!t:: {
 $^d:: {
 	local delay := 30
 	local delay2 := 60
-	A_Clipboard := ""
-	Send("^j") ; go to name box (has cell name/location)
-	Sleep(delay)
-	Send("^c")
-	ClipWait(1)
-	location := Exorcise(A_Clipboard)
-	Send("{enter}") ; return to cell
+
+	location := get_cell_location()
 
 	if (location = "E2") {
 		write_to_progress_file()
 		return
 	}
 
-	/*
-	column := SubStr(location, 1, 1)
-	column := Ord(column) - Ord("A")
-	column += 1
-	row := SubStr(location, 2, StrLen(location) - 1)
-	row := Number(row)
-	;MsgBox(Format("{} {} {}", location, row, column))
-	*/
-
-	A_Clipboard := ""
-	Send("^c")
-	ClipWait(1)
-	Send("{backspace}")
-	value := Exorcise(A_Clipboard)
+	value := get_cell_value(true)
 
 	; Move to top of Done column.
 	move_to_cell("E1")
@@ -925,12 +907,8 @@ $^d:: {
 	; Get cell above empty cell.
 	Send("{Up}")
 	Sleep(delay)
-	Send("^c")
-	ClipWait(1)
-	Sleep(delay)
-	Send("{backspace}")
-	Sleep(delay)
-	value := Exorcise(A_Clipboard)
+
+	value := get_cell_value(true)
 	
 	; Go back to original cell.
 	move_to_cell(location)
@@ -940,6 +918,17 @@ $^d:: {
 	ClipWait(1)
 	Send("^v")
 } ; <C d> hotkey
+	
+get_cell_location() {
+	A_Clipboard := ""
+	Send("^j") ; go to name box (has cell name/location)
+	Sleep(delay)
+	Send("^c")
+	ClipWait(1)
+	location := Exorcise(A_Clipboard)
+	Send("{enter}") ; return to cell
+	return location
+}
 
 move_to_cell(location) {
 	Send("^j")
@@ -953,10 +942,7 @@ move_to_cell(location) {
 move_to_next_empty_cell() {
 	; Find next empty cell.
 	Loop {
-		A_Clipboard := ""
-		Send("^c")
-		ClipWait(1)
-		temp_value := Exorcise(A_Clipboard)
+		temp_value := get_cell_value()
 		if (temp_value != "") {
 			Send("{Down}")
 			Sleep(30)
@@ -965,6 +951,19 @@ move_to_next_empty_cell() {
 			break
 		}
 	} ; loop
+}
+
+get_cell_value(clear := false) {
+	A_Clipboard := ""
+	Send("^c")
+	ClipWait(1)
+	value := Exorcise(A_Clipboard)
+	if (clear) {
+		Sleep(30)
+		Send("{backspace}")
+		Sleep(30)
+	}
+	return value
 }
 
 write_to_progress_file() {
@@ -1006,10 +1005,14 @@ write_to_progress_file() {
 ; I recorded a macro in Google Sheets that does this when you press <C-A-S 2>.
 ; This just makes <C s> trigger it instead.
 $^s:: {
-    sheet := activeSheet()	
-    MsgBox("Sheet: " sheet)
-	if (true) {
-		return
+	local sheet := "unknown"
+
+	location := get_cell_location()
+	move_to_cell("A1")
+	value := get_cell_value()
+	move_to_cell(location)
+	if (value = "Task") {
+		sheet := "Recurring"
 	}
 
     if (sheet = "Recurring") {
