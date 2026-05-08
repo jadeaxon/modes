@@ -872,6 +872,95 @@ $!t:: {
 
 #HotIf WinActive("ahk_group PersonalKanban")
 $^d:: {
+	local delay := 30
+	local delay2 := 60
+	A_Clipboard := ""
+	Send("^j") ; go to name box (has cell name/location)
+	Sleep(delay)
+	Send("^c")
+	ClipWait(1)
+	location := Exorcise(A_Clipboard)
+	Send("{enter}") ; return to cell
+	column := SubStr(location, 1, 1)
+	column := Ord(column) - Ord("A")
+	column += 1
+	row := SubStr(location, 2, StrLen(location) - 1)
+	row := Number(row)
+	;MsgBox(Format("{} {} {}", location, row, column))
+
+	A_Clipboard := ""
+	Send("^c")
+	ClipWait(1)
+	Send("{backspace}")
+	value := Exorcise(A_Clipboard)
+
+	; Move to top of Done column.
+	move_to_cell("E1")
+	
+	move_to_next_empty_cell()
+
+	; Paste to blank cell.
+	A_Clipboard := value
+	ClipWait(1)
+	Send("^v")
+	Sleep(delay2)
+
+	; Go back to original cell.
+	move_to_cell(location)
+
+	; Move to first cell below original.
+	Send("{down}")
+	Sleep(delay)
+	
+	move_to_next_empty_cell()
+	
+	; Get cell above empty cell.
+	Send("{Up}")
+	Sleep(delay)
+	Send("^c")
+	ClipWait(1)
+	Sleep(delay)
+	Send("{backspace}")
+	Sleep(delay)
+	value := Exorcise(A_Clipboard)
+	
+	; Go back to original cell.
+	move_to_cell(location)
+	
+	; Paste to original cell.
+	A_Clipboard := value
+	ClipWait(1)
+	Send("^v")
+} ; <C d> hotkey
+
+move_to_cell(location) {
+	Send("^j")
+	Sleep(60)
+	Send(location)
+	Sleep(30)
+	Send("{enter}")
+	Sleep(delay)
+}
+
+move_to_next_empty_cell() {
+	; Find next empty cell.
+	Loop {
+		A_Clipboard := ""
+		Send("^c")
+		ClipWait(1)
+		temp_value := Exorcise(A_Clipboard)
+		if (temp_value != "") {
+			Send("{Down}")
+			Sleep(30)
+		}
+		else { ; blank cell found
+			break
+		}
+	} ; loop
+}
+
+/*
+$^d:: {
 	global HOST
 	local file
     ; monitor := activeMonitorName()
@@ -960,6 +1049,7 @@ $^d:: {
         Send("^d")
     }
 } ; <C d> hotkey
+*/
 
 ; Sort by Score descending.
 ; I end up doing this a lot after marking items as done or at the start of each new day.
@@ -1132,10 +1222,13 @@ LControl & Escape:: {
     Reload()
 
     ; This code only runs if Reload fails
+	; Pointless. A system dialog comes up if there are reload problems.
+	/*
     Sleep(1000)
     result := MsgBox("Script reloaded unsuccessful, open it for editing?",, "Y/N/C")
     if (result = "Yes") {
         Edit()
     }
+	*/
 }
 
