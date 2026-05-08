@@ -1,5 +1,11 @@
 #Requires AutoHotkey v2.0
 
+HOME := EnvGet("USERPROFILE")
+HOST := EnvGet("COMPUTERNAME")
+delay := 30
+;vUserProfile := EnvGet("USERPROFILE")
+
+
 ;===============================================================================
 ; String
 ;===============================================================================
@@ -18,6 +24,33 @@ Exorcise(s) {
     return RegExReplace(s, "^[\s\x{00A0}]+|[\s\x{00A0}]+$")
 }
 
+;==============================================================================
+; Date and Time
+;==============================================================================
+
+/**
+ * AddDays(dateStr, d)
+ * @param dateStr - String in 'M/D/YYYY' format
+ * @param d - Number of days to add
+ */
+add_days(dateStr, d) {
+    ; 1. Split the string into [M, D, YYYY]
+    parts := StrSplit(dateStr, "/")
+
+    ; 2. Format into YYYYMMDD000000
+    ; We use Format() to ensure 5/8 becomes 0508 (adding the leading zeros AHK needs)
+    timestamp := Format("{:04}{:02}{:02}000000", parts[3], parts[1], parts[2])
+
+    ; 3. Add the days
+    newTimestamp := DateAdd(timestamp, d, "Days")
+
+    ; 4. Convert back to M/D/YYYY format
+    return FormatTime(newTimestamp, "M/d/yyyy")
+}
+
+
+
+
 ;===============================================================================
 ; Sleep
 ;===============================================================================
@@ -28,6 +61,18 @@ sleepRandomSeconds(min, max) {
 
 	sleepTime := Random(min, max)
     Sleep(sleepTime)
+}
+
+
+;==============================================================================
+; Keyboard
+;==============================================================================
+
+; Send and Sleep.
+SendS(s) {
+	global delay
+	Send(s)
+	Sleep(delay)
 }
 
 
@@ -44,6 +89,13 @@ randomlyMoveMouseTo(x, y, width, height) {
     MouseMove(randX, randY, mouseSpeed)
     
 }
+
+
+;==============================================================================
+; GUI
+;==============================================================================
+
+RemoveToolTip() => ToolTip()
 
 
 ;===============================================================================
@@ -75,6 +127,56 @@ exists(path) {
     }
     
     return exists_
+}
+
+
+;==============================================================================
+; Google Sheets
+;==============================================================================
+
+get_cell_location() {
+	A_Clipboard := ""
+	SendS("^j") ; go to name box (has cell name/location)
+	Sleep(30)
+	SendS("^c")
+	ClipWait(2)
+	location := Exorcise(A_Clipboard)
+	SendS("{enter}") ; return to cell
+	Sleep(30)
+	return location
+}
+
+move_to_cell(location) {
+	SendS("^j")
+	Sleep(30)
+	SendS(location)
+	SendS("{enter}")
+	Sleep(30)
+}
+
+move_to_next_empty_cell() {
+	; Find next empty cell.
+	Loop {
+		temp_value := get_cell_value()
+		if (temp_value != "") {
+			SendS("{Down}")
+		}
+		else { ; blank cell found
+			break
+		}
+	} ; loop
+}
+
+get_cell_value(clear := false) {
+	A_Clipboard := ""
+	SendS("^c")
+	ClipWait(2)
+	value := Exorcise(A_Clipboard)
+	if (clear) {
+		Sleep(30)
+		SendS("{backspace}")
+	}
+	return value
 }
 
 

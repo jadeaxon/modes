@@ -2,6 +2,8 @@
 
 #SingleInstance Force
 
+#Include <Library_v2>
+
 TraySetIcon(A_ScriptDir "\Icons\Recurring_Tasks_v2.ico")
 
 #HotIf WinActive("Personal Kanban ahk_class Chrome_WidgetWin_1")
@@ -20,6 +22,15 @@ $s:: {
 ; Skip dealing with this recurring task for the moment.
 $+s:: {
 	SendS("{up}")
+}
+
+; Do task now. Mark bold and move to Kanban sheet now column. Don't change last done date.
+$n:: {
+	A_Clipboard := ""
+	SendS("^c")
+	ClipWait(2)
+	SendS("!{up}") ; move to Kanban sheet
+
 }
 
 ; Defer recurring task for a day, a week, or a month.
@@ -59,6 +70,7 @@ $d:: {
 		SendS("{up}")
 	}
 } ; d hotkey
+#HotIf
 
 getTimeDeferred() {
     myGui := Gui("+AlwaysOnTop", "Defer Task")
@@ -85,38 +97,6 @@ getTimeDeferred() {
     return choice
 }
 
-
-/**
- * AddDays(dateStr, d)
- * @param dateStr - String in 'M/D/YYYY' format
- * @param d - Number of days to add
- */
-add_days(dateStr, d) {
-    ; 1. Split the string into [M, D, YYYY]
-    parts := StrSplit(dateStr, "/")
-
-    ; 2. Format into YYYYMMDD000000
-    ; We use Format() to ensure 5/8 becomes 0508 (adding the leading zeros AHK needs)
-    timestamp := Format("{:04}{:02}{:02}000000", parts[3], parts[1], parts[2])
-
-    ; 3. Add the days
-    newTimestamp := DateAdd(timestamp, d, "Days")
-
-    ; 4. Convert back to M/D/YYYY format
-    return FormatTime(newTimestamp, "M/d/yyyy")
-}
-
-
-; Send and Sleep.
-delay := 30
-SendS(s) {
-	global delay
-	Send(s)
-	Sleep(delay)
-}
-#HotIf
-
-RemoveToolTip() => ToolTip()
 
 ; Terminate this keystroke handler. End this mode.
 LControl & Escape:: {

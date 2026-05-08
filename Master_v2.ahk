@@ -12,11 +12,6 @@
 #Warn
 #Warn Unreachable, Off
 
-; #NoEnv is removed in v2 as it is the default behavior.
-
-; No longer used.
-; #Persistent 
-
 ; Only allow one instance of this script to run at a time.
 #SingleInstance Force
 
@@ -42,13 +37,6 @@ GroupAdd("PersonalKanban", "Personal Kanban ahk_class Chrome_WidgetWin_1")
 GroupAdd("WorkKanban", "Work Kanban ahk_class MozillaWindowClass")
 GroupAdd("WorkKanban", "Work Kanban ahk_class Chrome_WidgetWin_1")
 
-; Is mouse click locked down via CapsLock hotkey?
-; In v2, 'false' and 'true' are built-in keywords.
-mouseDownLock := false
-
-; Have we cut a kanban item to the clipboard?
-kanbanCut := false
-
 ; Are the left Control and Shift keys mapped to sending down/up keystrokes?
 ; Controlled by a checkbox in the Modes GUI windo (<C-A j>).
 OPT_LEFT_HAND_SCROLL := 0
@@ -56,36 +44,17 @@ OPT_LEFT_HAND_SCROLL := 0
 ; Speak when hotkeys/hotstrings are triggered?
 OPT_SPEAK := 1
 
-; The hotkey for pressing w.
-W_HOTKEY := "not set"
-
 ; Is the search dialog open in a Google Sheet?
 searchDialog := 0
-
-; The color of a pixel. In hex format. 
-; v2 uses 0x prefix for hex; v1 style "000000" strings should be 0x000000 numbers.
-; color := 0
-
-; Delay between keystrokes.
-delay := 30
 
 ; Context menu position for Slack reminders.
 menuPosition := 0
 
-vUserProfile := EnvGet("USERPROFILE")
-HOST := EnvGet("COMPUTERNAME")
-
-HOME := EnvGet("USERPROFILE")
-Run(HOME "\AHK\AutoCorrect2\Core\AutoCorrect2.exe")
-Run(HOME "\projects\modes-private\Private_v2.ahk /restart")
-
-
-;===============================================================================
-; Includes
-;===============================================================================
-
 #Include <Library_v2>
 #Include <XHotstring>
+
+Run(HOME "\AHK\AutoCorrect2\Core\AutoCorrect2.exe")
+Run(HOME "\projects\modes-private\Private_v2.ahk /restart")
 
 
 ;===============================================================================
@@ -93,7 +62,7 @@ Run(HOME "\projects\modes-private\Private_v2.ahk /restart")
 ;===============================================================================
 
 ; Make the hotstrings case-sensitive.
-#Hotstring c
+#Hotstring C
 
 ; These abbreviations expand in most Windows programs.
 ; They do not expand in Cygwin.
@@ -694,8 +663,6 @@ SendDownKey() {
     }
 }
 
-RemoveToolTip() => ToolTip()
-
 ; Move through YouTube videos using left hand.
 #HotIf (WinActive("YouTube ahk_exe chrome.exe") && IsMouseInVideoZone())
 a::Send("{Left}")
@@ -868,51 +835,6 @@ $^d:: {
 	SendS("^+v")
 } ; <C d> hotkey
 	
-get_cell_location() {
-	A_Clipboard := ""
-	SendS("^j") ; go to name box (has cell name/location)
-	Sleep(30)
-	SendS("^c")
-	ClipWait(2)
-	location := Exorcise(A_Clipboard)
-	SendS("{enter}") ; return to cell
-	Sleep(30)
-	return location
-}
-
-move_to_cell(location) {
-	SendS("^j")
-	Sleep(30)
-	SendS(location)
-	SendS("{enter}")
-	Sleep(30)
-}
-
-move_to_next_empty_cell() {
-	; Find next empty cell.
-	Loop {
-		temp_value := get_cell_value()
-		if (temp_value != "") {
-			SendS("{Down}")
-		}
-		else { ; blank cell found
-			break
-		}
-	} ; loop
-}
-
-get_cell_value(clear := false) {
-	A_Clipboard := ""
-	SendS("^c")
-	ClipWait(2)
-	value := Exorcise(A_Clipboard)
-	if (clear) {
-		Sleep(30)
-		SendS("{backspace}")
-	}
-	return value
-}
-
 write_to_progress_file() {
 	local file	
 	; Combined Send for efficiency
@@ -985,14 +907,6 @@ mark_recurring_task_done() {
 	Loop 5 {
 		SendS("{left}")
 	}
-}
-
-; Send and Sleep.
-delay := 30
-SendS(s) {
-	global delay
-	Send(s)
-	Sleep(delay)
 }
 
 #HotIf
