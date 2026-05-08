@@ -1131,15 +1131,15 @@ Button_Budget(btn, *) {
     
     if FileExist(budgetPath) {
         Run(budgetPath)
-        if WinWaitActive("ahk_exe gvim.exe",, 3) {
+        if WinWaitActive(A_YYYY " Budget ahk_exe gvim.exe",, 5) {
             ; Vim commands [cite: 15]
-            SendInput("{esc}{esc}gg/NEXT{enter}{up}")
+            SendS("{esc}{esc}gg/NEXT{enter}{up}")
             Sleep(100)
-			; SendEvent('"{+}yW') ; Copy line to clipboard in Vim
-			SendEvent('"')
-			SendEvent("{+}")
-			SendEvent("y")
-			SendEvent("W")
+			; Sends('"{+}yW') ; Copy line to clipboard in Vim
+			SendS('"')
+			SendS("{+}")
+			SendS("y")
+			SendS("W")
             Sleep(100)
 
             if ClipWait(2) {
@@ -1158,7 +1158,7 @@ Button_Budget(btn, *) {
                 out := RegExReplace(out, "(\d)(?=(?:\d{3})+(?:\.|$))", "$1,")
                 
                 formattedAmt := Format("{:.2f}", amount)
-                SendInput("o" out "{space}-$" formattedAmt "{space}")
+                SendS("o" out "{space}-$" formattedAmt "{space}")
             } ; wait for clipboard
         } ; gVim active
     } ; budget file exists
