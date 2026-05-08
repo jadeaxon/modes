@@ -231,24 +231,6 @@ Run(HOME "\projects\modes-private\Private_v2.ahk /restart")
     Send("{NumLock}")
 }
 
-; FAIL: Just does not work right. 
-; This should allow it to toggle capslock even if it is one.
-; Also, v1 Master.ahk hotkeys that use CapsLock should still work.
-/*
-:?i:<capslock>::
-{
-    ; Set the level higher than the v1 hotkey (usually level 0)
-    SendLevel(1) 
-    
-    ; This will now be ignored by other AHK scripts 
-    ; but seen by Windows to toggle the actual state
-    Send("{CapsLock}")
-    
-    ; Reset it just to be safe
-    SendLevel(0)
-}
-*/
-
 ; Define hotstrings for common person tasks.
 ; BUG: For some reason, any hotstring with s or w in it is not working.
 ; I moved some of the hotstrings into RegExHostrings.ahk as a workaround.
@@ -267,6 +249,8 @@ Run(HOME "\projects\modes-private\Private_v2.ahk /restart")
 :*c:Tst::5m strength training{enter}
 :*c:Tbh::Bar hang [H1]^{enter}
 #HotIf
+
+; END
 
 ;-------------------------------------------------------------------------------
 ; Regex Hotstrings
@@ -297,11 +281,6 @@ set_reminder(minutes, what) {
 	SetTimer(RemoveToolTip, -2000)
 }
 
-/*
-^+t:: {
-	set_reminder(1, "check reminder")
-}
-*/
 
 ;===============================================================================
 ; Hotkeys
@@ -338,42 +317,6 @@ $NumLock:: {
 }
 #HotIf
 
-; FAIL: Doesn't work. But, doesn't seem to be necessary anymore either.
-; Converts a Wikipedia page to readable/printable view.
-; Trigger: Alt+R (only when Firefox is on a Wikipedia page)
-/*
-#HotIf WinActive("Wikipedia - Mozilla Firefox ahk_class MozillaWindowClass")
-!r::
-{
-    A_Clipboard := "" ; Clear the clipboard
-    Send("^l")        ; Select URL in address bar
-    Sleep(200)
-    Send("^c")        ; Copy selection
-    
-    ; ClipWait returns 0 (false) if it times out after 2 seconds
-    if !ClipWait(2) {
-        return
-    }
-
-    ; Process the URL
-    ; Using RegExMatch to find the position of the subject
-    if (RegExMatch(A_Clipboard, "/wiki/(.*)", &match)) {
-        subject := match[1]
-        printableUrl := "http://en.wikipedia.org/w/index.php?title=" subject "&printable=yes"
-        
-        ; Put it back on the clipboard and navigate
-        A_Clipboard := printableUrl
-        if ClipWait(2) {
-            Send("^l")
-            Sleep(50)
-            Send("^v")
-            Send("{Enter}")
-        }
-    }
-}
-#HotIf
-*/
-
 ; WARNING: Having this on screws up normal typing.
 ; Alternate scrolling keys so you're not always using your right hand.
 ; Only enabled when OPT_LEFT_HAND_SCROLL = 1.
@@ -391,7 +334,7 @@ $LControl:: {
 ; Makes <C-A g> search selected text in Google.
 $^!g:: {
     A_Clipboard := "" ; Clear the clipboard
-    Send("^c")        ; Copy selected text
+    SendS("^c")        ; Copy selected text
 
     ; Wait up to 2 seconds for text to arrive
     if !ClipWait(2) {
