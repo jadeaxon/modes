@@ -4,10 +4,14 @@ class Window {
     /**
      * @param title The window title, class, or exe string to match.
      */
-    __New(title_matcher) {
-        this.title_matcher := title_matcher
+    __New(title_matcher, match_mode := 2) {
+        this._title_matcher := title_matcher
+		this._match_mode := match_mode
+
+		prev_match_mode := SetTitleMatchMode(match_mode)
+
         ; WinExist returns the unique ID (hWnd) of the first matching window
-        this.id := WinExist(title_matcher)
+		this.id := WinExist(title_matcher)
 		this._title := ""
 
         if !this.id {
@@ -17,12 +21,14 @@ class Window {
 		else {
 			this._title := WinGetTitle(this.id)
 		}
+		SetTitleMatchMode(prev_match_mode)
     }
 
 	rebind() {
+		prev_match_mode := SetTitleMatchMode(this._match_mode)
 		Loop {
-			WinWait(this.title_matcher,,.5)
-			this.id := WinExist(this.title_matcher)
+			WinWait(this._title_matcher,,.5)
+			this.id := WinExist(this._title_matcher)
 			if this.id
 				break
 			else
@@ -33,6 +39,7 @@ class Window {
 		this._title := WinGetTitle(this.id)
 		this.activate()
 		this.wait_active()
+		SetTitleMatchMode(prev_match_mode)
 	}
 
 	title() {
