@@ -24,6 +24,10 @@ assert_equal(s.str(), "upper case")
 s := s.upper()
 assert_equal(s.str(), "UPPER CASE")
 
+s := StringPlus("{} and {}")
+s2 := s.format("peanut butter", "jelly")
+assert_equal(s2.str(), "peanut butter and jelly")
+
 MsgBox("All tests passed!")
 ExitApp(0)
 

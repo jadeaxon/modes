@@ -185,4 +185,8 @@ class StringPlus {
         return (pos - 1)
     }
 
+	format(args*) {
+        return StringPlus(Format(this.value, args*))
+    }
+
 } ; class StringPlus
