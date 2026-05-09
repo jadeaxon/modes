@@ -12,11 +12,35 @@ TraySetIcon(A_ScriptDir "\Icons\Kanban_v2.ico")
 ; This hotkey only triggers when Google Sheets is the active window
 #HotIf WinActive("ahk_exe chrome.exe") or WinActive("ahk_exe msedge.exe") or WinActive("ahk_class MozillaWindowClass")
 
-; Adds a plus to the cell as a mark of progress.
-; +'s are in groups of 4.
-; If there's a ], the +'s start there.
-; If not, they go on their own line at the bottom.
+; o => Open the first URL found in the cell using the default browser.
+$*o:: {
+    OldClipboard := A_Clipboard
+    A_Clipboard := ""
+    
+    Send "^c"
+    if !ClipWait(0.5) {
+        Send "o" 
+        return
+    }
+    
+    RawText := A_Clipboard
+    
+    ; Clean up Sheets formatting
+    CleanText := RegExReplace(RawText, '^"|"$', "")
+    CleanText := StrReplace(CleanText, '""', '"')
+    
+    ; Using single quotes for the pattern makes literal double quotes much easier
+    if RegExMatch(CleanText, 'i)https?://[^\s"]+', &Match) {
+        URL := Match[0]
+        Run URL
+    }
+    
+    Sleep 100
+    A_Clipboard := OldClipboard
+}
 
+; + => Add a plus to the cell as a mark of progress.
+; +'s are in groups of 4. They go on the last line of the cell.
 $*+:: {
     OldClipboard := A_Clipboard
     A_Clipboard := ""
