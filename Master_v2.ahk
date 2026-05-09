@@ -53,7 +53,10 @@ menuPosition := 0
 #Include <Library_v2>
 #Include <XHotstring>
 
-Run(HOME "\AHK\AutoCorrect2\Core\AutoCorrect2.exe")
+; FAIL: I give up on this. It does too much dumb shit that I can't disable.
+; Even when I set options that should disable the dumb shit it is doing.
+; Run(HOME "\AHK\AutoCorrect2\Core\AutoCorrect2.exe")
+
 Run(HOME "\projects\modes-private\Private_v2.ahk /restart")
 
 
