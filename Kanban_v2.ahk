@@ -3,6 +3,8 @@
 #SingleInstance Force
 
 #Include <Library_v2>
+#Include <Window>
+#Include <StringPlus>
 
 TraySetIcon(A_ScriptDir "\Icons\Kanban_v2.ico")
 
@@ -34,7 +36,7 @@ h:: {
 ; Has to be at the start of a line. Runs just the first one found.
 ; Assumes the script is in tasks/ subdir.
 $*x:: {
-    OldClipboard := A_Clipboard
+    saved := A_Clipboard
     A_Clipboard := ""
     
     SendS("^c")
@@ -68,25 +70,25 @@ $*x:: {
     }
     
     Sleep 100
-    A_Clipboard := OldClipboard
-}
+    A_Clipboard := saved
+} ; x hotkey
 
 
 ; o => Open the first URL found in the cell using the default browser.
 $*o:: {
-    OldClipboard := A_Clipboard
+    saved := A_Clipboard
     A_Clipboard := ""
     
     Send "^c"
-    if !ClipWait(0.5) {
+    if !ClipWait(2) {
         Send "o" 
         return
     }
     
-    RawText := A_Clipboard
+    cell := A_Clipboard
     
     ; Clean up Sheets formatting
-    CleanText := RegExReplace(RawText, '^"|"$', "")
+    CleanText := RegExReplace(cell, '^"|"$', "")
     CleanText := StrReplace(CleanText, '""', '"')
 	
 	SendS("^v") ; so the cell copied dotted rectangle goes away
@@ -95,11 +97,18 @@ $*o:: {
     if RegExMatch(CleanText, 'i)https?://[^\s"]+', &Match) {
         URL := Match[0]
         Run URL
+		w := Window("ahk_exe firefox.exe")
+		w.rebind() ; waits for window to exist, activates, and waits until active
+		end_mode()
     }
+	else {
+		; See if there is a text file mentioned that we can open.
+		open_cell_text_file(cell)
+	}
     
     Sleep 100
-    A_Clipboard := OldClipboard
-}
+    A_Clipboard := saved
+} ; o hotkey
 
 ; + => Add a plus to the cell as a mark of progress.
 ; +'s are in groups of 4. They go on the last line of the cell.
@@ -146,18 +155,57 @@ $*+:: {
     Sleep 100
 	Send "{Up}"
     A_Clipboard := OldClipboard
-}
+} ; + hotkey
 
 
 #HotIf
 
+open_cell_text_file(cell) {
+    ; 1. Clean up Google Sheets wrapping and escaped quotes
+    clean := RegExReplace(cell, '^"|"$', "")
+    clean := StrReplace(clean, '""', '"')
+    
+    /** 
+     * 2. Regex Breakdown:
+     * m)      = Multiline mode (check every line in the cell)
+     * ^       = Start of the line
+     * (?:Review\s)? = Non-capturing group: Look for "Review " but don't "keep" it
+     * \K      = Forget everything matched so far (discards "Review " if found)
+     * .+?\.txt = Match everything greedily until the first .txt
+     */
+    if RegExMatch(clean, "m)^(?:Review\s)?\K.+?\.txt", &m) {
+        file := m[0]
+        ; MsgBox("File identified:`n" file, "File Found", 64)
+		SendS("!{space}") ; open Launchy
+		;SetKeyDelay(7, 7)
+		s := StringPlus(file)
+		s.removesuffix('.txt')
+		;SendEvent(s.str())
+		SendS(s.str())
+		SendS("{enter}")
+		w := Window("ahk_exe gvim.exe")
+		w.rebind() ; waits for window to exist, activates, and waits until active
+		Sleep(300)
+		SendS("/HERE")
+		Sends("{enter}")
+		end_mode()
+    } 
+	else {
+        ; MsgBox("No .txt file found in the selected cell.", "Not Found", 48)
+    }
+}
 
 ; Terminate this keystroke handler. End this mode.
 LControl & Escape:: {
+	end_mode()
+}
+
+end_mode() {
 	ToolTip("Kanban mode OFF")
 	Suspend(true)
 	SetTimer(RemoveToolTip, -2000)
 	Sleep(2000)
 	ExitApp
 }
+
 

@@ -96,14 +96,16 @@ class StringPlus {
                     
                     remaining := SubStr(remaining, pos + len)
                     count++
-                } else {
+                } 
+				else {
                     break
                 }
             }
             if (remaining != "")
                 result.Push(remaining)
                 
-        } else {
+        } 
+		else {
             ; Case 2: Literal delimiter split
             result := StrSplit(this.value, delimiter,, maxsplit + 1)
         }
@@ -136,34 +138,51 @@ class StringPlus {
         return StringPlus(Trim(this.value, chars))
     }
 
-    lstrip(chars := " `t`r`n") => StringPlus(LTrim(this.value, chars))
-    rstrip(chars := " `t`r`n") => StringPlus(RTrim(this.value, chars))
+    lstrip(chars := " `t`r`n") {
+		this.value := LTrim(this.value, chars)
+		return this
+	}
+
+    rstrip(chars := " `t`r`n") {
+		this.value := RTrim(this.value, chars)
+		return this
+	}
 	
-	upper() => StringPlus(StrUpper(this.value))
-    lower() => StringPlus(StrLower(this.value))
-    title() => StringPlus(StrTitle(this.value))
+	upper() {
+		this.value := StrUpper(this.value)
+		return this
+	}
+
+    lower() {
+		this.value := StrLower(this.value)
+		return this
+	}
+
+    title() {
+		this.value := StrTitle(this.value)
+		return this
+	}
 
 	removeprefix(prefix) {
         if this.startswith(prefix)
-            return StringPlus(SubStr(this.value, StrLen(prefix) + 1))
-        return StringPlus(this.value)
+            this.value := SubStr(this.value, StrLen(prefix) + 1)
+        return this
     }
 
     removesuffix(suffix) {
         if this.endswith(suffix)
-            return StringPlus(SubStr(this.value, 1, -StrLen(suffix)))
-        return StringPlus(this.value)
+            this.value := SubStr(this.value, 1, -StrLen(suffix))
+        return this
     }
 
 	replace(old, new, limit := -1) {
-        return StringPlus(StrReplace(this.value, old, new, , limit))
+        this.value := StrReplace(this.value, old, new, , limit)
+		return this
     }
 
     find(sub, start := 1) {
         pos := InStr(this.value, sub, , start)
         return (pos - 1)
     }
-
-
 
 } ; class StringPlus

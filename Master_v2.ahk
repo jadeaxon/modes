@@ -455,8 +455,8 @@ $^!w:: {
     } ; next id
 }
 
-; <W-A y> => Open AHK Window Spy.
-#!y:: {
+; <W y> => Open AHK Window Spy.
+#y:: {
     spyPath := A_ProgramFiles "\AutoHotkey\WindowSpy.ahk"
     
     if FileExist(spyPath) {
