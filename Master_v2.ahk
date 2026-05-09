@@ -797,6 +797,7 @@ $!t:: {
 ;==============================================================================
 
 #HotIf WinActive("ahk_group PersonalKanban")
+; <C d> => move to done; mark as done; write to progress file
 $^d:: {
 	local delay := 30
 	local delay2 := 60
@@ -882,12 +883,40 @@ write_to_progress_file() {
 	}
 }
 
+; In Scheduled sheet, set all the dates from current position back to a week from new.
+; Defer them all by a week.
+$^!d:: {
+	local sheet := get_sheet_name()
+
+	if (sheet = "Scheduled") {
+		orig_date := get_cell_value()
+		new_date := add_days(orig_date, 7)
+		A_Clipboard := ""
+		A_Clipboard := new_date
+		ClipWait(2)
+		Loop {
+			SendS("^+v")
+			Sleep(20)
+			SendS("{up}")
+			Sleep(20)
+			value := get_cell_value()
+			
+			A_Clipboard := new_date ; since get_cell_value() changes clipboard
+			if (value != orig_date) {
+				;MsgBox(Format("{} {}", value, orig_date))
+				break
+			}
+			Sleep(20)
+		}
+	}
+}
+
 ; Sort by Score descending.
 ; I end up doing this a lot after marking items as done or at the start of each new day.
 ; I recorded a macro in Google Sheets that does this when you press <C-A-S 2>.
 ; This just makes <C s> trigger it instead.
 $^s:: {
-	local sheet := "unknown"
+	local sheet := get_sheet_name()
 
 	location := get_cell_location()
 	move_to_cell("A1")

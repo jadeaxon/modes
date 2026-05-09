@@ -49,8 +49,6 @@ add_days(dateStr, d) {
 }
 
 
-
-
 ;===============================================================================
 ; Sleep
 ;===============================================================================
@@ -218,6 +216,25 @@ merge_cells(raw_cell1, raw_cell2) {
 	return merged_cell
 }
 
+; Get name of the active sheet.
+get_sheet_name() {
+	local sheet := "unknown"
+
+	location := get_cell_location()
+	move_to_cell("A1")
+	value := get_cell_value()
+	if (value = "Progressive Tasks [5]") {
+		sheet := "Kanban"
+	}
+	else if (value = "Task") {
+		sheet := "Recurring"
+	}
+	else if (value = "Date") {
+		sheet := "Scheduled"
+	}
+	move_to_cell(location)
+	return sheet
+}
 
 
 ;===============================================================================
