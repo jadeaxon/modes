@@ -8,7 +8,8 @@ class Window {
         this._title_matcher := title_matcher
 		this._match_mode := match_mode
 
-		prev_match_mode := SetTitleMatchMode(match_mode)
+		prev_match_mode := A_TitleMatchMode
+		SetTitleMatchMode(match_mode)
 
         ; WinExist returns the unique ID (hWnd) of the first matching window
 		this.id := WinExist(title_matcher)
@@ -25,7 +26,8 @@ class Window {
     }
 
 	rebind() {
-		prev_match_mode := SetTitleMatchMode(this._match_mode)
+		prev_match_mode := A_TitleMatchMode
+		SetTitleMatchMode(this._match_mode)
 		Loop {
 			WinWait(this._title_matcher,,.5)
 			this.id := WinExist(this._title_matcher)
