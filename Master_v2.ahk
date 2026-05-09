@@ -815,7 +815,7 @@ $^d:: {
 		return
 	}
 
-	value := get_cell_value(true)
+	value := get_raw_cell_value(true)
 
 	; Move to top of Done column.
 	move_to_cell("E1")
@@ -838,7 +838,7 @@ $^d:: {
 	; Get cell above empty cell.
 	SendS("{Up}")
 
-	value := get_cell_value(true)
+	value := get_raw_cell_value(true)
 	
 	; Go back to original cell.
 	move_to_cell(location)

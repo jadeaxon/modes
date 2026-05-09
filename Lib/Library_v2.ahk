@@ -181,11 +181,15 @@ get_cell_value(clear := false) {
 	return value
 }
 
-get_raw_cell_value() {
+get_raw_cell_value(clear := false) {
 	A_Clipboard := ""
 	SendS("^c")
 	ClipWait(2)
 	value := A_Clipboard
+	if (clear) {
+		Sleep(30)
+		SendS("{backspace}")
+	}
 	return value
 }
 
