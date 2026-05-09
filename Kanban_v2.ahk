@@ -12,6 +12,47 @@ TraySetIcon(A_ScriptDir "\Icons\Kanban_v2.ico")
 ; This hotkey only triggers when Google Sheets is the active window
 #HotIf WinActive("ahk_exe chrome.exe") or WinActive("ahk_exe msedge.exe") or WinActive("ahk_class MozillaWindowClass")
 
+; x => Execute the AHK script mentioned in the cell.
+; Has to be at the start of a line. Runs just the first one found.
+; Assumes the script is in tasks/ subdir.
+
+$*x:: {
+    OldClipboard := A_Clipboard
+    A_Clipboard := ""
+    
+    Send "^c"
+    if !ClipWait(2) {
+        Send "x" 
+        return
+    }
+    
+    RawText := A_Clipboard
+    
+    ; 1. Clean up Sheets formatting
+    CleanText := RegExReplace(RawText, '^"|"$', "")
+    CleanText := StrReplace(CleanText, '""', '"')
+    
+    ; 2. Find the first .ahk file at the start of any line
+    ; m) enables multiline mode so ^ matches the start of lines within the cell
+    if RegExMatch(CleanText, 'm)^[^\s""]+\.ahk', &Match) {
+        FileName := Match[0]
+
+        ; Construct the full path: [Main Script Dir]\tasks\[Filename]
+        TargetFile := A_ScriptDir "\tasks\" FileName
+        
+        if FileExist(TargetFile) {
+            Run TargetFile
+        } 
+		else {
+            MsgBox("File not found:`n" TargetFile, "Error", 16)
+        }
+    }
+    
+    Sleep 100
+    A_Clipboard := OldClipboard
+}
+
+
 ; o => Open the first URL found in the cell using the default browser.
 $*o:: {
     OldClipboard := A_Clipboard
