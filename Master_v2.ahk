@@ -485,6 +485,11 @@ $^w:: {
 ^!Up::change_brightness(1)
 ^!Down::change_brightness(-1)
 
+#HotIf WinActive("NOOK ahk_exe firefox.exe")
+Up::Send("{left}")
+Down::Send("{right}")
+#HotIF
+
 ; END
 
 ;==============================================================================
