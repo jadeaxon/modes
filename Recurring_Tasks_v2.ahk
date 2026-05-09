@@ -7,6 +7,20 @@
 TraySetIcon(A_ScriptDir "\Icons\Recurring_Tasks_v2.ico")
 
 #HotIf WinActive("Personal Kanban ahk_class Chrome_WidgetWin_1")
+
+$h:: {
+	message := "h => help`n"
+	message .= "<C Esc> => exit submode`n"
+	message .= "f => toggle 'FOR REAL: ' prefix`n"
+	message .= "s => skip task; mark it done today`n"
+	message .= "d => defer task; choose 1 day, 1 week, or 1 month`n"
+	message .= "S => skip task; do nothing and move up to next task`n"
+	message .= "n => do task now; copy to kanban Now column`n"
+	message .= "t => do task today; append to kanban today cell`n"
+
+	MsgBox(message)
+}
+
 ; Skip recurring task. Mark it "done" as of today.
 $s:: {
 	Loop 5 {
