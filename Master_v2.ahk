@@ -1098,6 +1098,13 @@ $^r:: {
 	SetTimer(RemoveToolTip, -2000)
 	Run("Recurring_Tasks_v2.ahk")
 }
+
+$^m:: {
+	ToolTip("Kanban mode ON")
+	SetTimer(RemoveToolTip, -2000)
+	Run("Kanban_v2.ahk")
+
+}
 #HotIf
 
 ; #UseHook false
