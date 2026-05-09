@@ -20,7 +20,7 @@ $*x:: {
     OldClipboard := A_Clipboard
     A_Clipboard := ""
     
-    Send "^c"
+    SendS("^c")
     if !ClipWait(2) {
         Send "x" 
         return
@@ -31,6 +31,8 @@ $*x:: {
     ; 1. Clean up Sheets formatting
     CleanText := RegExReplace(RawText, '^"|"$', "")
     CleanText := StrReplace(CleanText, '""', '"')
+	
+	SendS("^v") ; so the cell copied dotted rectangle goes away
     
     ; 2. Find the first .ahk file at the start of any line
     ; m) enables multiline mode so ^ matches the start of lines within the cell
@@ -69,6 +71,8 @@ $*o:: {
     ; Clean up Sheets formatting
     CleanText := RegExReplace(RawText, '^"|"$', "")
     CleanText := StrReplace(CleanText, '""', '"')
+	
+	SendS("^v") ; so the cell copied dotted rectangle goes away
     
     ; Using single quotes for the pattern makes literal double quotes much easier
     if RegExMatch(CleanText, 'i)https?://[^\s"]+', &Match) {
