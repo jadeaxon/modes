@@ -397,6 +397,32 @@ activeSheet() {
     return active_sheet
 }
 
+change_brightness(amount) {
+    local current := get_brightness()
+    local brightness := current + amount
+    
+    if (brightness > 100)
+        brightness := 100
+    else if (brightness < 0)
+        brightness := 0
+        
+    set_brightness(brightness)
+}
+
+get_brightness() {
+	local property
+    for property in ComObjGet("winmgmts:\\.\root\WMI").ExecQuery("SELECT * FROM WmiMonitorBrightness")
+        return property.CurrentBrightness
+    return 50 ; fallback
+}
+
+set_brightness(brightness) {
+	local property
+    for property in ComObjGet("winmgmts:\\.\root\WMI").ExecQuery("SELECT * FROM WmiMonitorBrightnessMethods")
+        property.WmiSetBrightness(0, brightness)
+}
+
+
 ;===============================================================================
 ; Sound
 ;===============================================================================

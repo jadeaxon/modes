@@ -481,6 +481,10 @@ $^w:: {
 }
 #HotIf
 
+; <C-A Up/Down> increment/decrement brightness by 1.
+^!Up::change_brightness(1)
+^!Down::change_brightness(-1)
+
 ; END
 
 ;==============================================================================
