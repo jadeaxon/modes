@@ -18,7 +18,7 @@ TraySetIcon(A_ScriptDir "\Icons\Kanban_v2.ico")
 $h:: {
 	message := "h => help`n"
 	message .= "<C Esc> => exit submode`n"
-	message .= "o => open first URL in cell`n"
+	message .= "o => open first URL or .txt file mentioned in cell`n"
 	message .= "x => execute first AHK script mentioned in cell`n"
 	message .= "+ => mark progress by adding a +`n"
 
