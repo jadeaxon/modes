@@ -12,10 +12,27 @@ TraySetIcon(A_ScriptDir "\Icons\Kanban_v2.ico")
 ; This hotkey only triggers when Google Sheets is the active window
 #HotIf WinActive("ahk_exe chrome.exe") or WinActive("ahk_exe msedge.exe") or WinActive("ahk_class MozillaWindowClass")
 
+; Show help message.
+$h:: {
+	message := "h => help`n"
+	message .= "<C Esc> => exit submode`n"
+	message .= "o => open first URL in cell`n"
+	message .= "x => execute first AHK script mentioned in cell`n"
+	message .= "+ => mark progress by adding a +`n"
+
+	MsgBox(message)
+}
+
+; Make h close the help message box.
+#HotIf WinActive("ahk_class #32770")
+h:: {
+    WinClose("A")
+}
+#HotIf
+
 ; x => Execute the AHK script mentioned in the cell.
 ; Has to be at the start of a line. Runs just the first one found.
 ; Assumes the script is in tasks/ subdir.
-
 $*x:: {
     OldClipboard := A_Clipboard
     A_Clipboard := ""

@@ -21,6 +21,13 @@ $h:: {
 	MsgBox(message)
 }
 
+; Make h close the help message box.
+#HotIf WinActive("ahk_class #32770")
+h:: {
+    WinClose("A")
+}
+#HotIf
+
 ; Skip recurring task. Mark it "done" as of today.
 $s:: {
 	Loop 5 {
