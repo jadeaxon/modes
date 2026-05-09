@@ -6,8 +6,14 @@
 
 TraySetIcon(A_ScriptDir "\Icons\Recurring_Tasks_v2.ico")
 
-#HotIf WinActive("Personal Kanban ahk_class Chrome_WidgetWin_1")
+; Make h close the help message box.
+#HotIf WinActive("ahk_class #32770")
+h:: {
+    WinClose("A")
+}
+#HotIf
 
+#HotIf WinActive("Personal Kanban ahk_class Chrome_WidgetWin_1")
 $h:: {
 	message := "h => help`n"
 	message .= "<C Esc> => exit submode`n"
@@ -21,21 +27,17 @@ $h:: {
 	MsgBox(message)
 }
 
-; Make h close the help message box.
-#HotIf WinActive("ahk_class #32770")
-h:: {
-    WinClose("A")
-}
-#HotIf
-
 ; Skip recurring task. Mark it "done" as of today.
 $s:: {
 	Loop 5 {
 		SendS("{right}")
+		Sleep(10)
 	}
 	SendS("^;")
+	Sleep(10)
 	Loop 5 {
 		SendS("{left}")
+		Sleep(10)
 	}
 	SendS("{up}")
 }
@@ -55,6 +57,7 @@ $n:: {
 	SendS("^v")
 	Sleep(1000)
 	SendS("!{down}") ; move back to Recurring sheet
+	SendS("{up}")
 }
 
 ; Mark/toggle this task with 'FOR REAL: '.
@@ -101,6 +104,7 @@ $t:: {
 	SendS("^v")
 	Sleep(1000)
 	SendS("!{down}") ; move back to Recurring sheet
+	Sends("{up}")
 }
 
 ; Merge current cell with the one above it.
@@ -130,6 +134,7 @@ $d:: {
 	}
 	WinActivate("ahk_id " . savedHwnd)
 	WinWaitActive("ahk_id " . savedHwnd)
+	Sleep(20)
 
 	if (days) {
 		Loop 5 {
@@ -144,7 +149,8 @@ $d:: {
 		A_Clipboard := ""
 		A_Clipboard := date
 		ClipWait(2)
-		SendS("^v")
+		SendS("^+v")
+		Sleep(20)
 		Loop 5 {
 			SendS("{left}")
 		}
@@ -171,11 +177,12 @@ getTimeDeferred() {
     while (WinExist("ahk_id " myGui.Hwnd) && DllCall("IsWindowVisible", "Ptr", myGui.Hwnd))
         Sleep(50)
 
-	choice := StrReplace(choice, "&")
-	choice := StrReplace(choice, "?")
-	choice := StrLower(choice)
+	choice_made := choice ; else these alter button text removing accelerator keys
+	choice_made := StrReplace(choice_made, "&")
+	choice_made := StrReplace(choice_made, "?")
+	choice_made := StrLower(choice_made)
 	myGui.Destroy()
-    return choice
+    return choice_made
 }
 
 
