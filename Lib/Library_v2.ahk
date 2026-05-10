@@ -3,7 +3,6 @@
 HOME := EnvGet("USERPROFILE")
 HOST := EnvGet("COMPUTERNAME")
 delay := 30
-;vUserProfile := EnvGet("USERPROFILE")
 
 
 ;===============================================================================
@@ -238,6 +237,106 @@ get_sheet_name() {
 	}
 	move_to_cell(location)
 	return sheet
+}
+
+delete_first_cell_line(cell) {
+    ; Check if the string is empty or has no content
+    if (cell == "")
+        return ""
+
+    ; Look for the first newline (supports `\r\n` or just `\n`)
+    ; Pos is the position of the first `\n` character
+    if (i := InStr(cell, "`n")) {
+        ; Return everything starting from the character after the newline
+        ; return SubStr(cell, i + 1)
+        return SubStr(cell, i)
+    }
+
+    ; If no newline was found, it means there was only one line.
+    ; Python's logic would return an empty string here.
+    return ""
+}
+
+/**
+ * Cleans Google Sheet cell text.
+ * 1. Removes a trailing double-quote if present.
+ * 2. Consolidates 2+ empty lines into a single empty line.
+ */
+clean_merged_cell(cell) {
+	; 1. Clean the internal data first
+	val := Trim(cell, " `t`n`r")
+	val := RegExReplace(val, '^"|"$') ; Remove existing wrapping quotes
+	val := RegExReplace(val, "\R{3,}", "`r`n`r`n")
+	
+	; 2. Escape any INTERNAL double quotes by doubling them
+	; This is required so Sheets doesn't think the string ends early
+	val := StrReplace(val, '"', '""')
+
+	val := RegExReplace(val, '"+$', "")
+
+	; 3. Wrap the WHOLE thing in quotes to force it into one cell
+	return '"' . val . '"'
+}
+
+advance_one_day() {
+	; move to C2
+	move_to_cell("C2")
+	; cut it
+	cell_C2 := get_raw_cell_value(true)
+	; delete first line
+	modified_cell_C2 := delete_first_cell_line(cell_C2)
+	; move to B2
+	SendS("{left}")
+	; cut it
+	cell_B2 := get_raw_cell_value(true)
+	; merge(B2, modified C2)
+	merged := merge_cells(cell_B2, modified_cell_C2)
+	clean := clean_merged_cell(merged)
+	A_Clipboard := clean
+	; paste merged to C2
+	SendS("{right}")
+	Sleep(30)
+	SendS("^+v")
+	Sleep(100)
+	; cut B3:B8
+	A_Clipboard := ""
+	move_to_cell("B3")
+	SendS("{shift down}")
+	SendS("{down}")
+	SendS("{down}")
+	SendS("{down}")
+	SendS("{down}")
+	SendS("{down}")
+	SendS("{shift up}")
+	SendS("^c")
+	SendS("{backspace}")
+	; paste to B2:B7
+	move_to_cell("B2")
+	Sleep(30)
+	SendS("^+v")
+	Sleep(100)
+	; add day header to C8 (like THU: 8th)
+	move_to_cell("B8")
+	value := new_cell_header()
+	A_Clipboard := value
+	SendS("^+v")
+	Sleep(100)
+	move_to_cell("C2")
+}
+
+/**
+ * Returns a week from tomorrow's date formatted as "DAY: Dth" (no leading zero).
+ */
+new_cell_header() {
+    day := DateAdd(A_Now, 8, "Days")
+    
+    ; "ddd" = Abbreviated day (Sun)
+    ; "d"   = Day of month WITHOUT leading zero (9)
+    DDD := StrUpper(FormatTime(day, "ddd"))
+    day_num  := FormatTime(day, "d")
+  
+	ordinal_day := ordinal(day_num)
+    return DDD ": " ordinal_day
 }
 
 

@@ -21,6 +21,7 @@ $h:: {
 	message .= "o => open first URL or .txt file mentioned in cell`n"
 	message .= "x => execute first AHK script mentioned in cell`n"
 	message .= "+ => mark progress by adding a +`n"
+	message .= "a => advance kanban forward one day`n"
 
 	MsgBox(message)
 }
@@ -143,7 +144,8 @@ $*+:: {
         Sleep 50
         SendText Addition
         Send "{Enter}"
-    } else {
+    } 
+	else {
         ; No pluses found: create a new line at the bottom
         Send "{F2}{End}"
         Sleep 50
@@ -157,12 +159,19 @@ $*+:: {
     A_Clipboard := OldClipboard
 } ; + hotkey
 
+; Advance kanban one day forward.
+$a:: {
+	advance_one_day()
+}
 
 #HotIf
 
+; WARNING: Do not try to migrate this to Library_v2.ahk.
 open_cell_text_file(cell) {
+	local file := ""
+	local s := ""
     ; 1. Clean up Google Sheets wrapping and escaped quotes
-    clean := RegExReplace(cell, '^"|"$', "")
+    local clean := RegExReplace(cell, '^"|"$', "")
     clean := StrReplace(clean, '""', '"')
     
     /** 
@@ -194,6 +203,7 @@ open_cell_text_file(cell) {
         ; MsgBox("No .txt file found in the selected cell.", "Not Found", 48)
     }
 }
+
 
 ; Terminate this keystroke handler. End this mode.
 LControl & Escape:: {

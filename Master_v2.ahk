@@ -756,6 +756,7 @@ $!t:: {
 
 ; <A t> => new text file in Windows Explorer.
 !t:: {
+	local window
     ; Get the active Explorer window object
     hwnd := WinExist("A")
     activeTab := ""
