@@ -211,7 +211,7 @@ Run(HOME "\projects\modes-private\Private_v2.ahk /restart")
 :*c:Tlw::Laundry (whites) [rD1] {enter}
 :*c:Tld::Laundry (darks) [rD1]{enter}
 :*c:Tlm::Laundry (mfcs) [rD1]{enter}
-:*c:Tlo::Laundry (other) [rD1]{enter}
+:*c:Tlo::Laundry (other) [rD1]^{enter}
 :*c:Td::Dishes [rD1]{enter}
 :*c:Tg::Guitar [rRK1]{enter}
 :*c:TAh::Air out house [H1]{enter}
