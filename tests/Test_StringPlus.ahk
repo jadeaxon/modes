@@ -28,7 +28,16 @@ s := StringPlus("{} and {}")
 s2 := s.format("peanut butter", "jelly")
 assert_equal(s2.str(), "peanut butter and jelly")
 
+item := "pizza"
+price := 4.2975
+s := StringPlus("The {item} costs ${price:.2f}.")
+s2 := s.interpolate()
+assert_equal(s2.str(), "The pizza costs $4.30.")
+item := "yogurt"
+price := "1.2933"
+s2 := s.interpolate()
+assert_equal(s2.str(), "The yogurt costs $1.29.")
+
 MsgBox("All tests passed!")
 ExitApp(0)
-
 

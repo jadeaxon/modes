@@ -189,4 +189,32 @@ class StringPlus {
         return StringPlus(Format(this.value, args*))
     }
 
+	interpolate() {
+		local str_ := this.value
+		pos := 1
+		; Loop while we find a pattern: {var} or {var:format}
+		while (pos := RegExMatch(str_, "{([^:}]+)(?::([^}]+))?}", &m, pos)) {
+			varName := m[1]
+			fmtSpec := m[2]
+			
+			; Resolve the variable value
+			try {
+				value := %varName%
+				; Apply Format() if a specifier exists
+				replacement := (fmtSpec != "") ? Format("{1:" fmtSpec "}", value) : value
+			} catch {
+				; If variable doesn't exist, skip this match and move on
+				pos += m.Len
+				continue
+			}
+			
+			; Replace the {match} with the resolved value
+			str_ := StrReplace(str_, m[0], replacement, , , 1)
+			
+			; Update position for the next search
+			pos += StrLen(replacement)
+		}
+		return StringPlus(str_)
+	}
+
 } ; class StringPlus
