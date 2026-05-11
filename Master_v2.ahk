@@ -740,6 +740,22 @@ $^d:: {
 ^s::toggle_autoscroll()
 #HotIf
 
+; WARNING: This is the ONLY mechanism that worked in Chrome.
+; Make jumping to 1st pinned tab work.
+#HotIf WinActive("ahk_exe chrome.exe")
+$^SC002:: {
+	; SC002 is the physical scan code for the '1' key.
+    ; 0x31 is the Virtual Key for the '1' key.
+    ; We send it 'Down' and 'Up' while the Hook handles the Ctrl state.
+    
+    SendEvent("{Blind}{vk31 down}")
+    Sleep(40)
+    SendEvent("{Blind}{vk31 up}")
+    
+    Sleep(50)
+    Send("{F5}")
+}
+
 autoscroll := false
 autoscrolled := "" ; the autoscrolled window
 toggle_autoscroll() {
@@ -1127,6 +1143,9 @@ $*^SC00A::
  
     return
 }
+
+#HotIf
+
 
 ;==============================================================================
 ; Modes Window
