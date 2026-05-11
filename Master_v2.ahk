@@ -674,6 +674,10 @@ $^d:: {
 :*:;;:: {
 	Send("{AppsKey}d")
 }
+
+; Remap Programmer Dvork to normal numbers.
+; This jumps to pinned tab #1.
+^&::Send("^1{F5}")
 #HotIf
 
 
@@ -681,37 +685,24 @@ $^d:: {
 ; Chrome
 ;==============================================================================
 
-#HotIf WinActive("YouTube ahk_exe chrome.exe")
-
-; I keep accidentally hitting <C s> to activate this.
-/*
-^s:: {
-    if WinActive("YouTube ahk_exe chrome.exe") {
-		toggle_autoscroll()
-	}
-	else {
-		Send("^s")
-	}
-}
-*/
-
 ; Autoscroller for YouTube.
-^s::
-^+s:: 
-{
-	toggle_autoscroll()
-}
+#HotIf WinActive("YouTube ahk_exe chrome.exe") || WinActive("Google News ahk_exe firefox.exe")
+^s::toggle_autoscroll()
 #HotIf
 
 autoscroll := false
+autoscrolled := "" ; the autoscrolled window
 toggle_autoscroll() {
 	global autoscroll
+	global autoscrolled
     global mouse_x_start, mouse_y_start ; Declare if these are used elsewhere
 
     ; Toggle the variable
 	autoscroll := !autoscroll
 
     if (autoscroll) {
+		autoscrolled := WinExist("A")
+
         ; MouseGetPos uses OutputVar references (&) in v2
         MouseGetPos(&mouse_x_start, &mouse_y_start)
 
@@ -730,7 +721,7 @@ toggle_autoscroll() {
 
 SendDownKey() {
     ; Access the global variables from the main script/toggle function
-    global autoscroll, mouse_x_start, mouse_y_start
+    global autoscroll, autoscrolled, mouse_x_start, mouse_y_start
 	local mouse_has_moved
 
     ; Check current position using VarRef (&)
@@ -747,7 +738,7 @@ SendDownKey() {
     }
 
     ; Safety check: Only send the key if Chrome is active
-    if WinActive("ahk_exe chrome.exe") {
+    if WinActive("ahk_id " . autoscrolled) {
         Send("{Down}")
     }
     else {
