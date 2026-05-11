@@ -328,7 +328,6 @@ $^!g:: {
     Run("https://www.google.com/search?hl=en&q=" . query)
 }
 
-
 #HotIf WinActive("ahk_group PersonalKanban")
 ; <A p> => Transition to progress file from kanban.
 $!p:: {
@@ -427,7 +426,6 @@ $#p:: {
     A_Clipboard := Format("MouseMove({}, {})", x, y)
 }
 
-
 ; <C-A w> => Show info for all windows.
 $^!w:: {
     ; WinGetList returns a proper Array of HWNDs (Unique IDs)
@@ -498,6 +496,11 @@ Up & Right:: {
 }
 ~Up::return
 
+
+;------------------------------------------------------------------------------
+; Opener Popup
+;------------------------------------------------------------------------------
+
 ; <C-S o> => open a popup window to open common directories.
 opener_id := ""
 ^+o:: {
@@ -511,6 +514,7 @@ opener_id := ""
     ui.Add("Button", "w200", "&Downloads").OnEvent("Click", (*) => opener(A_MyDocuments . "\..\Downloads"))
     ui.Add("Button", "w200", "&Screenshots").OnEvent("Click", (*) => opener(A_MyDocuments . "\..\Pictures\Screenshots"))
     ui.Add("Button", "w200", "&Google Drive").OnEvent("Click", (*) => opener("G:\My Drive"))
+    ui.Add("Button", "w200", "&Exercise Routine").OnEvent("Click", (*) => open_exercise_routine())
     ;ui.Add("Button", "w200", "&Documents").OnEvent("Click", (*) => opener(A_MyDocuments))
     ;ui.Add("Button", "w200", "&Desktop").OnEvent("Click", (*) => opener(A_Desktop))
     
@@ -520,6 +524,7 @@ opener_id := ""
     ui.Show()
 }
 
+; Helper function for opener popup.
 opener(path) {
 	global opener_id
     if DirExist(path) {
@@ -534,6 +539,51 @@ opener(path) {
         MsgBox("Directory does not exist: " . path, "Error", "Icon!")
     }
 }
+
+; Helper function for opener popup.
+open_exercise_routine() {
+	global opener_id
+    BaseDir := "G:\My Drive\Organization\To Do\Checklists\Exercise Routine"
+    LatestDate := ""
+    
+    ; 1. Find the newest YYYY-MM-DD folder using StrCompare to avoid math errors
+    Loop Files, BaseDir "\*", "D" {
+        if (RegExMatch(A_LoopFileName, "^\d{4}-\d{2}-\d{2}$")) {
+            if (LatestDate == "" || StrCompare(A_LoopFileName, LatestDate) > 0) {
+                LatestDate := A_LoopFileName
+            }
+        }
+    }
+
+    if (LatestDate == "") {
+        MsgBox("No date-formatted folders found.")
+        return
+    }
+
+    ; 3. Perform your custom mapping (1=Sun -> 7, others shift down)
+    CustomDayNum := (A_WDay = 1) ? 7 : A_WDay - 1
+    
+    ; 4. Get the full name (e.g., Monday)
+    DayName := FormatTime(, "dddd")
+    
+    ; 5. Construct the filename
+    DayFileName := "@" . CustomDayNum . " " . DayName . ".txt"
+    FilePath := BaseDir . "\" . LatestDate . "\" . DayFileName
+
+    if FileExist(FilePath) {
+        Run(FilePath)
+    } 
+	else {
+        MsgBox("File not found:`n" . FilePath)
+    }
+
+	; Close the GUI after a selection is made
+	if WinExist("ahk_id " . opener_id) {
+		WinClose("ahk_id " . opener_id)
+		opener_id := ""
+	}
+} ; open_exercise_routine()
+
 
 ;------------------------------------------------------------------------------
 ; CapsLock
