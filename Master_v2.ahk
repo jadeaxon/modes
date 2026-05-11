@@ -535,6 +535,35 @@ opener(path) {
     }
 }
 
+;------------------------------------------------------------------------------
+; CapsLock
+;------------------------------------------------------------------------------
+
+SetCapsLockState("AlwaysOff")
+CapsLock & c::MsgBox("CapsLock is always off.")
+CapsLock & LShift::Click()
+
+#HotIf GetKeyState("Ctrl")
+CapsLock & LShift::Click("Right")
+#HotIf
+
+; How much to move the mouse.
+mouse_delta := 300
+
+CapsLock & Up::MouseMove(0, -mouse_delta, 5, "R")
+CapsLock & Down::MouseMove(0, mouse_delta, 5, "R")
+CapsLock & Left::MouseMove(-mouse_delta, 0, 5, "R")
+CapsLock & Right::MouseMove(mouse_delta, 0, 5, "R")
+CapsLock & RShift:: {
+	global mouse_delta
+	if mouse_delta = 300
+		mouse_delta := 50
+	else if mouse_delta = 50
+		mouse_delta := 10
+	else
+		mouse_delta := 300
+}
+
 ; END
 
 ;==============================================================================
