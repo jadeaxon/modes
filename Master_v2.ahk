@@ -707,19 +707,19 @@ toggle_autoscroll() {
         MouseGetPos(&mouse_x_start, &mouse_y_start)
 
         ; SetTimer uses a function name (or object) without quotes
-        SetTimer(SendDownKey, 750)
+        SetTimer(scroll_down, 150)
         ToolTip("Autoscroll ON")
         SetTimer(RemoveToolTip, -2000)
     }
     else {
         ; Stop the timer
-        SetTimer(SendDownKey, 0) ; '0' or 'Off' stops the timer in v2
+        SetTimer(scroll_down, 0) ; '0' or 'Off' stops the timer in v2
         ToolTip("Autoscroll OFF: toggled by hotkey")
         SetTimer(RemoveToolTip, -2000)
     }
 }
 
-SendDownKey() {
+scroll_down() {
     ; Access the global variables from the main script/toggle function
     global autoscroll, autoscrolled, mouse_x_start, mouse_y_start
 	local mouse_has_moved
@@ -731,22 +731,51 @@ SendDownKey() {
 	mouse_has_moved := (Abs(mouse_x - mouse_x_start) > 10 || Abs(mouse_y - mouse_y_start) > 10)
     if (mouse_has_moved) {
         autoscroll := false
-        SetTimer(SendDownKey, 0) ; '0' stops the timer
+        SetTimer(scroll_down, 0) ; '0' stops the timer
         ToolTip("Autoscroll OFF: mouse moved")
         SetTimer(RemoveToolTip, -2000)
         return
     }
 
-    ; Safety check: Only send the key if Chrome is active
     if WinActive("ahk_id " . autoscrolled) {
-        Send("{Down}")
+        ; Send("{WheelDown}")
+		; Do minimum mouse wheel scroll.
+		; SendMessage(0x115, 1, 0, , "A")	
+		touchpad_drag_up()
     }
     else {
         ; Stop if you switch away from Chrome
         autoscroll := false
-        SetTimer(SendDownKey, 0)
+        SetTimer(scroll_down, 0)
         ToolTip("Autoscroll OFF: changed windows")
         SetTimer(RemoveToolTip, -2000)
+    }
+}
+
+touchpad_drag_up() {
+	; global autoscrolled
+
+	; The standard mouse wheel 'notch' is 120.
+    ; Touchpads send much smaller values (like 10 or 20) for smoothness.
+    delta := -2  ; Change this to adjust "smoothness" (lower is smoother)
+    speed := 25 ; Delay in ms (lower is faster)
+
+    Loop 10 {
+		 ; Get mouse position relative to the screen
+        CoordMode "Mouse", "Screen"
+        MouseGetPos(&x, &y, &hWnd)
+        
+        ; WM_MOUSEWHEEL = 0x020A
+        ; wParam: High word is delta, low word is modifiers (0)
+        wParam := (delta << 16)
+        
+        ; lParam: High word is Y, low word is X (packed coordinates)
+        lParam := (y << 16) | (x & 0xFFFF)
+        
+        ; Send directly to the window under the mouse (hWnd)
+        PostMessage(0x020A, wParam, lParam, , "ahk_id " hWnd)
+        
+        Sleep(speed) ; Small delay to mimic touchpad frequency
     }
 }
 
