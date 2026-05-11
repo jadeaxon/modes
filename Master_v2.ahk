@@ -1108,8 +1108,25 @@ mark_recurring_task_done() {
 	}
 }
 
-#HotIf
-
+; <C +> => insert row above
+; Using the ScanCode for the '9' key (SC00A) to ensure the layout doesn't matter
+; The * prefix allows it to work even if other modifiers are held
+$*^SC00A::
+{
+    SendS "{Blind}{9 up}" ; Force Chrome to think '9' was released immediately
+    SendS "{Esc}"
+    SendS "+{Space}"
+	; Brittle context menu item counting.
+    SendS "+{F10}"
+	SendS "{Home}"
+	Loop 5 {
+		SendS "{Down}"
+	}
+	SendS "{Enter}"
+	SendS "{Left}" ; clear selection
+ 
+    return
+}
 
 ;==============================================================================
 ; Modes Window
