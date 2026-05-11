@@ -5,23 +5,26 @@ TraySetIcon(A_ScriptDir "\Icons\Debug_v2.ico")
 ; Use mouse coordinates relative to the active window.
 CoordMode("Mouse", "Window")
 
-; This gives you details on what keystrokes have been pressed recently.
-; Including scan codes and virtual key numbers.
-k:: {
-	KeyHistory()
+$h:: {
+	message := "h => help`n"
+	message .= "<C Esc> => exit submode`n"
+	message .= "H => open AHK help for word at cursor`n"
+	message .= "k => show keystroke history`n"
+	message .= "p => report mouse position`n"
+
+	MsgBox(message)
 }
 
-; Report mouse position.
-p:: {
-	local x
-	local y
-	MouseGetPos(&x, &y) 
-	Msgbox(Format("The mouse is at window coordinates {} {}.", x, y)) 
+; Make h close the help message box.
+#HotIf WinActive("ahk_class #32770")
+h:: {
+    WinClose("A")
 }
-
+#HotIf
 
 ; Open AHK help docs for the word under the mouse.
-h::	{
+; BUG: Doesn't work in Cygwin Vim. Does work in gVim.
++h:: {
     Click(2) ; Double-click to select the word
     A_Clipboard := "" ; Clear clipboard for ClipWait
     Send("^c")
@@ -54,6 +57,21 @@ h::	{
 	else {
         MsgBox("Help file not found at:`n" helpPath)
     }
+}
+
+
+; This gives you details on what keystrokes have been pressed recently.
+; Including scan codes and virtual key numbers.
+k:: {
+	KeyHistory()
+}
+
+; Report mouse position.
+p:: {
+	local x
+	local y
+	MouseGetPos(&x, &y) 
+	Msgbox(Format("The mouse is at window coordinates {} {}.", x, y)) 
 }
 
 RemoveToolTip() => ToolTip()
