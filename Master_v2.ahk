@@ -498,6 +498,43 @@ Up & Right:: {
 }
 ~Up::return
 
+; <C-S o> => open a popup window to open common directories.
+opener_id := ""
+^+o:: {
+	global opener_id
+    ui := Gui("+AlwaysOnTop", "Opener")
+	opener_id := ui.hwnd
+    ui.SetFont("s10", "Segoe UI")
+    
+    ; Add buttons for common directories
+    ui.Add("Button", "w200", "&Home").OnEvent("Click", (*) => opener(HOME))
+    ui.Add("Button", "w200", "&Downloads").OnEvent("Click", (*) => opener(A_MyDocuments . "\..\Downloads"))
+    ui.Add("Button", "w200", "&Screenshots").OnEvent("Click", (*) => opener(A_MyDocuments . "\..\Pictures\Screenshots"))
+    ui.Add("Button", "w200", "&Google Drive").OnEvent("Click", (*) => opener("G:\My Drive"))
+    ;ui.Add("Button", "w200", "&Documents").OnEvent("Click", (*) => opener(A_MyDocuments))
+    ;ui.Add("Button", "w200", "&Desktop").OnEvent("Click", (*) => opener(A_Desktop))
+    
+	ui.OnEvent("Escape", (uio) => uio.Destroy())
+    ui.OnEvent("Close", (uio) => uio.Destroy())
+    
+    ui.Show()
+}
+
+opener(path) {
+	global opener_id
+    if DirExist(path) {
+        Run(path)
+        ; Close the GUI after a selection is made
+        if WinExist("ahk_id " . opener_id) {
+            WinClose("ahk_id " . opener_id)
+			opener_id := ""
+		}
+    } 
+	else {
+        MsgBox("Directory does not exist: " . path, "Error", "Icon!")
+    }
+}
+
 ; END
 
 ;==============================================================================
