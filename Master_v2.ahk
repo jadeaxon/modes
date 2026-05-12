@@ -660,6 +660,13 @@ $^d:: {
 ; Chrome
 ;==============================================================================
 
+#HotIf WinActive("ahk_exe chrome.exe")
+; Have ;; delete bookmark you are hovering over.
+:*:;;:: {
+	Send("{AppsKey}d")
+}
+#HotIf
+
 ; Autoscroller for YouTube.
 #HotIf WinActive("YouTube ahk_exe chrome.exe") || WinActive("Google News ahk_exe firefox.exe")
 ^s::toggle_autoscroll()
