@@ -13,6 +13,7 @@ open_opener() {
     ui.Add("Button", "w200", "&Directories").OnEvent("Click", (*) => open_directory_opener())
     ui.Add("Button", "w200", "&Files").OnEvent("Click", (*) => open_file_opener())
     ui.Add("Button", "w200", "&Apps").OnEvent("Click", (*) => open_app_opener())
+    ui.Add("Button", "w200", "&Settings").OnEvent("Click", (*) => open_settings_opener())
     
 	ui.OnEvent("Escape", (uio) => uio.Destroy())
     ui.OnEvent("Close", (uio) => uio.Destroy())
@@ -47,7 +48,7 @@ open_file_opener() {
 	global opener_child_id
 	
 	GuiFromHwnd(opener_id).Hide()
-    ui := Gui("+AlwaysOnTop", "Directory Opener")
+    ui := Gui("+AlwaysOnTop", "File Opener")
 	opener_child_id := ui.hwnd
     ui.SetFont("s10", "Segoe UI")
     
@@ -64,7 +65,7 @@ open_app_opener() {
 	global opener_child_id
 
 	GuiFromHwnd(opener_id).Hide()
-    ui := Gui("+AlwaysOnTop", "Directory Opener")
+    ui := Gui("+AlwaysOnTop", "App Opener")
 	opener_child_id := ui.hwnd
     ui.SetFont("s10", "Segoe UI")
     
@@ -72,6 +73,24 @@ open_app_opener() {
     ui.Add("Button", "w200", "&Chrome").OnEvent("Click", (*) => open("chrome.exe"))
     ui.Add("Button", "w200", "&Outlook").OnEvent("Click", (*) => open("olk.exe"))
     ui.Add("Button", "w200", "&Kindle").OnEvent("Click", (*) => open("Kindle.exe"))
+    
+	ui.OnEvent("Escape", (uio) => uio.Destroy())
+    ui.OnEvent("Close", (uio) => uio.Destroy())
+    
+    ui.Show()
+}
+
+open_settings_opener() {
+	global opener_id
+	global opener_child_id
+
+	GuiFromHwnd(opener_id).Hide()
+    ui := Gui("+AlwaysOnTop", "Settings Opener")
+	opener_child_id := ui.hwnd
+    ui.SetFont("s10", "Segoe UI")
+   
+	env_vars := "rundll32.exe sysdm.cpl,EditEnvironmentVariables"
+    ui.Add("Button", "w200", "&Environment Variables").OnEvent("Click", (*) => open(env_vars))
     
 	ui.OnEvent("Escape", (uio) => uio.Destroy())
     ui.OnEvent("Close", (uio) => uio.Destroy())
@@ -90,22 +109,32 @@ on_system_path(file) {
 }
 
 
-; Helper function for directory opener popup.
+; Helper function for the various opener popups.
 open(path) {
+	parts := StrSplit(path, A_Space)
+	command := parts[1]
 	close_opener()
     if DirExist(path) {
         Run(path)
 	}
-	else if on_system_path(path) {
+	else if on_system_path(command) {
 		if WinExist("ahk_exe " path) {
 			WinActivate("ahk_exe " path)
 		}
 		else {
-			Run(path,,, "Max")
+			if parts.length > 1 {
+				; When you pass a command with args to Run, it changes how Run interprets its args.
+				command := path
+				Run(command)
+			}
+			else {
+				; Single app executable. Run maximized.
+				Run(command,,, "Max")
+			}
 		}
     } 
 	else {
-        MsgBox("Path does not exist: " . path, "Error", "Icon!")
+        MsgBox("Can't open/run path/command: " . path, "Error", "Icon!")
     }
 }
 
