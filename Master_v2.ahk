@@ -1153,6 +1153,7 @@ $*^SC00A::
 
 ; <C-A j> => Jeff's GUI.
 ; <A-W m> => Modes GUI.
+#SuspendExempt
 $!#m::
 $^!j::
 {
@@ -1184,6 +1185,14 @@ $^!j::
 
     btnJiggler := myGui.Add("Button", "w251", "&Mouse Jiggler")
     btnJiggler.OnEvent("Click", (*) => (myGui.Destroy(), Run(A_ScriptDir "\MouseJiggler_v2.ahk")))
+	
+	if A_IsSuspended
+		label := "Un&suspend Hotkeys"
+	else
+		label := "&Suspend Hotkeys"
+
+	btnSuspend := myGui.Add("Button", "w251", label)
+    btnSuspend.OnEvent("Click", toggle_suspend_hotkeys)
 
     ; Escape key handling [cite: 17]
     myGui.OnEvent("Escape", (guiObj) => guiObj.Destroy())
@@ -1191,6 +1200,13 @@ $^!j::
 
     myGui.Show()
 }
+#SuspendExempt False
+
+toggle_suspend_hotkeys(btn, *) {
+	btn.Gui.Destroy()
+	Suspend(-1)
+}
+
 
 UpdateOptSpeak(ctrl, *) {
 	global OPT_SPEAK := ctrl.Value
