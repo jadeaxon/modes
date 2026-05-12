@@ -742,6 +742,23 @@ $^d:: {
 ; Autoscroller for YouTube.
 #HotIf WinActive("YouTube ahk_exe chrome.exe") || WinActive("Google News ahk_exe firefox.exe")
 ^s::toggle_autoscroll()
+
+$Down:: {
+	global autoscroller
+	if autoscroller.on
+		autoscroller.delay += 1
+	else
+		Send("{Down}")
+}
+
+$Up:: {
+	global autoscroller
+	if autoscroller.on
+		autoscroller.delay -= 1
+	else
+		Send("{Up}")
+}
+		
 #HotIf
 
 ; WARNING: This is the ONLY mechanism that worked in Chrome.
@@ -759,19 +776,19 @@ $^SC002:: {
     Sleep(50)
     Send("{F5}")
 }
+#HotIf
 
-autoscroll := false
-autoscrolled := "" ; the autoscrolled window
+autoscroller := {on: false, window: "", delay: 25}
+
 toggle_autoscroll() {
-	global autoscroll
-	global autoscrolled
+	global autoscroller
     global mouse_x_start, mouse_y_start ; Declare if these are used elsewhere
 
     ; Toggle the variable
-	autoscroll := !autoscroll
+	autoscroller.on := !autoscroller.on
 
-    if (autoscroll) {
-		autoscrolled := WinExist("A")
+    if (autoscroller.on) {
+		autoscroller.window := WinExist("A")
 
         ; MouseGetPos uses OutputVar references (&) in v2
         MouseGetPos(&mouse_x_start, &mouse_y_start)
@@ -791,7 +808,8 @@ toggle_autoscroll() {
 
 scroll_down() {
     ; Access the global variables from the main script/toggle function
-    global autoscroll, autoscrolled, mouse_x_start, mouse_y_start
+    global autoscroller
+	global mouse_x_start, mouse_y_start
 	local mouse_has_moved
 
     ; Check current position using VarRef (&)
@@ -800,22 +818,19 @@ scroll_down() {
     ; Calculate distance moved using standard expressions
 	mouse_has_moved := (Abs(mouse_x - mouse_x_start) > 10 || Abs(mouse_y - mouse_y_start) > 10)
     if (mouse_has_moved) {
-        autoscroll := false
+        autoscroller.on := false
         SetTimer(scroll_down, 0) ; '0' stops the timer
         ToolTip("Autoscroll OFF: mouse moved")
         SetTimer(RemoveToolTip, -2000)
         return
     }
 
-    if WinActive("ahk_id " . autoscrolled) {
-        ; Send("{WheelDown}")
-		; Do minimum mouse wheel scroll.
-		; SendMessage(0x115, 1, 0, , "A")	
+    if WinActive("ahk_id " . autoscroller.window) {
 		touchpad_drag_up()
     }
     else {
         ; Stop if you switch away from Chrome
-        autoscroll := false
+        autoscroller.on := false
         SetTimer(scroll_down, 0)
         ToolTip("Autoscroll OFF: changed windows")
         SetTimer(RemoveToolTip, -2000)
@@ -823,12 +838,11 @@ scroll_down() {
 }
 
 touchpad_drag_up() {
-	; global autoscrolled
+	global autoscroller
 
 	; The standard mouse wheel 'notch' is 120.
     ; Touchpads send much smaller values (like 10 or 20) for smoothness.
     delta := -2  ; Change this to adjust "smoothness" (lower is smoother)
-    speed := 25 ; Delay in ms (lower is faster)
 
     Loop 10 {
 		 ; Get mouse position relative to the screen
@@ -845,7 +859,7 @@ touchpad_drag_up() {
         ; Send directly to the window under the mouse (hWnd)
         PostMessage(0x020A, wParam, lParam, , "ahk_id " hWnd)
         
-        Sleep(speed) ; Small delay to mimic touchpad frequency
+        Sleep(autoscroller.delay) ; Small delay to mimic touchpad frequency
     }
 }
 
