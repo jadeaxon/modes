@@ -98,7 +98,7 @@ $t:: {
 	SendS("!{up}") ; move to Kanban sheet
 	move_to_cell("C2")
 	today := get_raw_cell_value()
-	merged := merge_cells(today, task)
+	merged := merge_cells(today, task, true)
 	A_Clipboard := merged
 	Sleep(20)
 	SendS("^v")

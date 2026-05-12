@@ -208,10 +208,13 @@ clean_cell_for_merge(raw_cell) {
     return cooked_cell
 }
 
-merge_cells(raw_cell1, raw_cell2) {
+merge_cells(raw_cell1, raw_cell2, add_blank_line := false) {
 	clean_cell1 := clean_cell_for_merge(raw_cell1)
 	clean_cell2 := clean_cell_for_merge(raw_cell2)
-	merged_cell := clean_cell1 . "`n" . clean_cell2
+	if add_blank_line
+		merged_cell := clean_cell1 . "`n`n" . clean_cell2
+	else
+		merged_cell := clean_cell1 . "`n" . clean_cell2
 	; Quote any quotes in the merged cell content.
 	merged_cell := StrReplace(merged_cell, '"', '""')
 	; Wrap the whole thing in double quotes so it gets pasted as a single cell.

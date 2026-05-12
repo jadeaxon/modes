@@ -1114,10 +1114,6 @@ $^s:: {
 }
 
 mark_recurring_task_done() {
-	;MsgBox("not implemented yet")
-	; Not sure why SetKeyDelay() doesn't work but sprinkling Sleep()s everywhere does.
-	; It only works when you are in SendEvent mode, which is not the default.
-	; SetKeyDelay(50, 50)
 	SendS("^b")
 	Loop 5 {
 		SendS("{right}")
@@ -1131,8 +1127,7 @@ mark_recurring_task_done() {
 ; <C +> => insert row above
 ; Using the ScanCode for the '9' key (SC00A) to ensure the layout doesn't matter
 ; The * prefix allows it to work even if other modifiers are held
-$*^SC00A::
-{
+$*^SC00A:: {
     SendS "{Blind}{9 up}" ; Force Chrome to think '9' was released immediately
     SendS "{Esc}"
     SendS "+{Space}"
