@@ -566,6 +566,55 @@ CapsLock & RShift:: {
 }
 #HotIf
 
+; Togglele borderless fullscreen for gVim.
+#HotIf WinActive("ahk_class Vim")
+F11:: {
+    static isFull := false
+	static trayID := 0
+	static startID := 0
+
+	; Capture IDs once if they haven't been stored yet
+    if !trayID {
+        trayID := WinExist("ahk_class Shell_TrayWnd")
+        startID := WinExist("ahk_class Button") ; The Start button
+    }
+
+    if !isFull {
+		; Toggle to fullscreen.
+		if trayID
+            WinHide(trayID)
+        if startID
+            WinHide(startID)
+
+		SendS(":set guioptions-=m")
+		SendS("{enter}")
+		SendS(":set showtabline=0")
+		SendS("{enter}")
+        
+		WinSetStyle("-0xC00000", "A") ; Remove title bar (WS_CAPTION)
+        WinRestore("A")
+		WinMaximize("A")
+        isFull := true
+    } 
+	else {
+		if trayID
+            WinShow(trayID)
+        if startID
+            WinShow(startID)
+
+        isFull := false
+		SendS(":set guioptions{+}=m")
+		SendS("{enter}")
+		SendS(":set showtabline=2")
+		SendS("{enter}")
+
+        WinSetStyle("+0xC00000", "A") ; Restore title bar
+        WinMaximize("A")
+    }
+}
+#HotIf
+
+
 
 ;==============================================================================
 ; Outlook
