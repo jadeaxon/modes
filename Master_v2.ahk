@@ -5,6 +5,9 @@
 ; FAIL: AHK v2 syntax highlighting does not work in Vim.
 #Requires AutoHotkey v2.0
 
+; We'll set the suspended icon ourself.
+A_IconSuspended := true
+
 ; FAIL: Makes it so we don't also trigger things like Windows Game Bar.
 ; InstallKeybdHook()
 
@@ -21,6 +24,7 @@ SetTitleMatchMode 2
 ; Set the Tray Icon
 ; v2 uses A_ScriptDir without percent signs in expressions.
 TraySetIcon(A_ScriptDir "\Icons\Master_v2.ico")
+; TraySetIcon(A_ScriptDir "\Icons\Master_v2-Suspended.ico")
 
 ; Coordinate mode for Mouse
 ; In v2, the target (Mouse) and relative-to (Window/Screen) are strings.
@@ -1204,9 +1208,14 @@ $^!j::
 
 toggle_suspend_hotkeys(btn, *) {
 	btn.Gui.Destroy()
+	; Have to set this *before* toggling suspend status.
+	; You have to pass the 3rd arg to prevent AHK from meddling with your icon selection.
+	if A_IsSuspended
+		TraySetIcon(A_ScriptDir "\Icons\Master_v2.ico",,1)
+	else
+		TraySetIcon(A_ScriptDir "\Icons\Master_v2-Suspended.ico",,1)
 	Suspend(-1)
 }
-
 
 UpdateOptSpeak(ctrl, *) {
 	global OPT_SPEAK := ctrl.Value
