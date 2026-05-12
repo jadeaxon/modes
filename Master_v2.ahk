@@ -55,6 +55,7 @@ searchDialog := 0
 menuPosition := 0
 
 #Include <Library_v2>
+#Include <Opener>
 #Include <XHotstring>
 
 ; FAIL: I give up on this. It does too much dumb shit that I can't disable.
@@ -506,87 +507,7 @@ Up & Right:: {
 ;------------------------------------------------------------------------------
 
 ; <C-S o> => open a popup window to open common directories.
-opener_id := ""
-^+o:: {
-	global opener_id
-    ui := Gui("+AlwaysOnTop", "Opener")
-	opener_id := ui.hwnd
-    ui.SetFont("s10", "Segoe UI")
-    
-    ; Add buttons for common directories
-    ui.Add("Button", "w200", "&Home").OnEvent("Click", (*) => opener(HOME))
-    ui.Add("Button", "w200", "&Downloads").OnEvent("Click", (*) => opener(A_MyDocuments . "\..\Downloads"))
-    ui.Add("Button", "w200", "&Screenshots").OnEvent("Click", (*) => opener(A_MyDocuments . "\..\Pictures\Screenshots"))
-    ui.Add("Button", "w200", "&Google Drive").OnEvent("Click", (*) => opener("G:\My Drive"))
-    ui.Add("Button", "w200", "&Exercise Routine").OnEvent("Click", (*) => open_exercise_routine())
-    ;ui.Add("Button", "w200", "&Documents").OnEvent("Click", (*) => opener(A_MyDocuments))
-    ;ui.Add("Button", "w200", "&Desktop").OnEvent("Click", (*) => opener(A_Desktop))
-    
-	ui.OnEvent("Escape", (uio) => uio.Destroy())
-    ui.OnEvent("Close", (uio) => uio.Destroy())
-    
-    ui.Show()
-}
-
-; Helper function for opener popup.
-opener(path) {
-	global opener_id
-    if DirExist(path) {
-        Run(path)
-        ; Close the GUI after a selection is made
-        if WinExist("ahk_id " . opener_id) {
-            WinClose("ahk_id " . opener_id)
-			opener_id := ""
-		}
-    } 
-	else {
-        MsgBox("Directory does not exist: " . path, "Error", "Icon!")
-    }
-}
-
-; Helper function for opener popup.
-open_exercise_routine() {
-	global opener_id
-    BaseDir := "G:\My Drive\Organization\To Do\Checklists\Exercise Routine"
-    LatestDate := ""
-    
-    ; 1. Find the newest YYYY-MM-DD folder using StrCompare to avoid math errors
-    Loop Files, BaseDir "\*", "D" {
-        if (RegExMatch(A_LoopFileName, "^\d{4}-\d{2}-\d{2}$")) {
-            if (LatestDate == "" || StrCompare(A_LoopFileName, LatestDate) > 0) {
-                LatestDate := A_LoopFileName
-            }
-        }
-    }
-
-    if (LatestDate == "") {
-        MsgBox("No date-formatted folders found.")
-        return
-    }
-
-    ; 3. Perform your custom mapping (1=Sun -> 7, others shift down)
-    CustomDayNum := (A_WDay = 1) ? 7 : A_WDay - 1
-    
-    ; 4. Get the full name (e.g., Monday)
-    DayName := FormatTime(, "dddd")
-    
-    ; 5. Construct the filename
-    DayFileName := "@" . CustomDayNum . " " . DayName . ".txt"
-    FilePath := BaseDir . "\" . LatestDate . "\" . DayFileName
-
-    if FileExist(FilePath) {
-        Run(FilePath)
-    } 
-	else {
-        MsgBox("File not found:`n" . FilePath)
-    }
-
-	; Close the GUI after a selection is made
-	if WinExist("ahk_id " . opener_id) {
-		WinClose("ahk_id " . opener_id)
-		opener_id := ""
-	}
-} ; open_exercise_routine()
+^+o::open_opener()
 
 
 ;------------------------------------------------------------------------------
