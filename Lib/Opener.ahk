@@ -92,20 +92,10 @@ on_system_path(file) {
 
 ; Helper function for directory opener popup.
 open(path) {
-	global opener_id
-	global opener_child_id
-
-    if DirExist(path)
+	close_opener()
+    if DirExist(path) {
         Run(path)
-        ; Close the GUI after a selection is made
-        if WinExist("ahk_id " . opener_child_id) {
-            WinClose("ahk_id " . opener_child_id)
-			opener_child_id := ""
-		}
-        if WinExist("ahk_id " . opener_id) {
-            WinClose("ahk_id " . opener_id)
-			opener_id := ""
-		}
+	}
 	else if on_system_path(path) {
 		if WinExist("ahk_exe " path) {
 			WinActivate("ahk_exe " path)
@@ -121,7 +111,6 @@ open(path) {
 
 ; Helper function for opener popup.
 open_exercise_routine() {
-	global opener_id
     BaseDir := "G:\My Drive\Organization\To Do\Checklists\Exercise Routine"
     LatestDate := ""
     
@@ -155,11 +144,23 @@ open_exercise_routine() {
 	else {
         MsgBox("File not found:`n" . FilePath)
     }
+	close_opener()
 
-	; Close the GUI after a selection is made
+} ; open_exercise_routine()
+
+close_opener() {
+	global opener_id
+	global opener_child_id
+
+	; Close the GUI after a selection is made.
+	if WinExist("ahk_id " . opener_child_id) {
+		WinClose("ahk_id " . opener_child_id)
+		opener_child_id := ""
+	}
 	if WinExist("ahk_id " . opener_id) {
 		WinClose("ahk_id " . opener_id)
 		opener_id := ""
 	}
-} ; open_exercise_routine()
+}
+
 

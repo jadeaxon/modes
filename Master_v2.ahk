@@ -279,10 +279,6 @@ $NumLock:: {
 	Send("{NumLock}")
 }
 
-; Make is so that <Window + Space> does not switch input languages.  This is causing me to nearly die
-; in Path of Exile.
-#space::return
-
 ; By default, <C Down> sends End.  This is not what I want in Firefox.
 #HotIf WinActive("ahk_class MozillaWindowClass")
 ^Down:: {
@@ -506,8 +502,12 @@ Up & Right:: {
 ; Opener Popup
 ;------------------------------------------------------------------------------
 
-; <C-S o> => open a popup window to open common directories.
+; <W Space> and <C-S o> => open a popup window to open various things.
 ^+o::open_opener()
+#Space::open_opener()
+
+; Make is so that <W + Space> does not switch input languages. 
+; #Space::return
 
 
 ;------------------------------------------------------------------------------
