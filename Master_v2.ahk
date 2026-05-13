@@ -34,13 +34,6 @@ CoordMode "Mouse", "Window" ; "Relative" in v1 is "Window" in v2
 GroupAdd("ExplorerGroup", "ahk_class CabinetWClass")
 GroupAdd("ExplorerGroup", "ahk_class ExploreWClass")
 
-; Let kanban hotkeys/hotstrings work with Firefox and Chrome.
-GroupAdd("PersonalKanban", "Personal Kanban ahk_class MozillaWindowClass")
-GroupAdd("PersonalKanban", "Personal Kanban ahk_class Chrome_WidgetWin_1")
-
-GroupAdd("WorkKanban", "Work Kanban ahk_class MozillaWindowClass")
-GroupAdd("WorkKanban", "Work Kanban ahk_class Chrome_WidgetWin_1")
-
 ; Are the left Control and Shift keys mapped to sending down/up keystrokes?
 ; Controlled by a checkbox in the Modes GUI windo (<C-A j>).
 OPT_LEFT_HAND_SCROLL := 0
@@ -211,7 +204,7 @@ Run(HOME "\projects\modes-private\Private_v2.ahk /restart")
 ; Define hotstrings for common person tasks.
 ; BUG: For some reason, any hotstring with s or w in it is not working.
 ; I moved some of the hotstrings into RegExHostrings.ahk as a workaround.
-#HotIf WinActive("ahk_group PersonalKanban")
+#HotIf WinActive("Personal Kanban ahk_exe chrome.exe")
 :*c:Tbt::Big trash [rD1]{enter}
 :*c:Tlw::Laundry (whites) [rD1] {enter}
 :*c:Tld::Laundry (darks) [rD1]{enter}
@@ -223,8 +216,9 @@ Run(HOME "\projects\modes-private\Private_v2.ahk /restart")
 :*c:Tce::Clean/examine 1 drawer [/1]{enter}
 :*c:Ttm::50m treadmill{enter}
 :*c:T2m::25m treadmill{enter}
-:*c:Tst::5m strength training{enter}
+:*c:Tst::7.5m strength training{enter}
 :*c:Tbh::Bar hang [H1]^{enter}
+:*c:u*::⭐
 #HotIf
 
 ; END
@@ -329,7 +323,7 @@ $^!g:: {
     Run("https://www.google.com/search?hl=en&q=" . query)
 }
 
-#HotIf WinActive("ahk_group PersonalKanban")
+#HotIf WinActive("Personal Kanban ahk_exe chrome.exe")
 ; <A p> => Transition to progress file from kanban.
 $!p:: {
 	local file
@@ -613,7 +607,6 @@ F11:: {
     }
 }
 #HotIf
-
 
 
 ;==============================================================================
@@ -961,7 +954,7 @@ $!t:: {
 ; Personal Kanban
 ;==============================================================================
 
-#HotIf WinActive("ahk_group PersonalKanban")
+#HotIf WinActive("Personal Kanban ahk_exe chrome.exe")
 ; <C d> => move to done; mark as done; write to progress file
 $^d:: {
 	local delay := 30
@@ -1293,7 +1286,7 @@ $#d:: {
 
 ; FAIL: <A-W r>: conflicts with Windows Game Bar.
 ; <C r> => Recurring Tasks mode 
-#HotIf WinActive("ahk_group PersonalKanban")
+#HotIf WinActive("Personal Kanban ahk_exe chrome.exe")
 $^r:: {
 	ToolTip("Recurring Tasks mode ON")
 	SetTimer(RemoveToolTip, -2000)
