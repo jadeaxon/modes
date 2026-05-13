@@ -533,6 +533,11 @@ CapsLock & RShift:: {
 		mouse_delta := 300
 }
 
+; Make the emoji chooser popup dismiss by Esc.
+#HotIf WinActive("ahk_class ApplicationFrameWindow ahk_exe explorer.exe")
+Esc::WinClose("A")
+#HotIf
+
 ; END
 
 ;==============================================================================
