@@ -415,6 +415,7 @@ $^w:: {
 ; <W p> => Copy a relative MouseMove(x, y) at current mouse location.
 ; <W p> usually opens a screen to let you select a projector, which is useless to me.
 $#p:: {
+	CoordMode "Mouse", "Screen"
 	local x
 	local y
     MouseGetPos(&x, &y)
@@ -534,7 +535,7 @@ CapsLock & RShift:: {
 }
 
 ; Make the emoji chooser popup dismiss by Esc.
-#HotIf WinActive("ahk_class ApplicationFrameWindow ahk_exe explorer.exe")
+#HotIf WinExist("ahk_class ApplicationFrameWindow ahk_exe explorer.exe")
 Esc::WinClose("A")
 #HotIf
 

@@ -102,9 +102,12 @@ $*o:: {
 		w.rebind() ; waits for window to exist, activates, and waits until active
 		end_mode()
     }
-	else {
+	else if RegExMatch(CleanText, '[.]txt', &Match) {
 		; See if there is a text file mentioned that we can open.
 		open_cell_text_file(cell)
+	}
+	else if RegExMatch(CleanText, '🎵', &Match) {
+		open_cell_song(cell)
 	}
     
     Sleep 100
@@ -204,6 +207,53 @@ open_cell_text_file(cell) {
     }
 }
 
+; Open song in Amazon Music. Very brittle.
+open_cell_song(cell) {
+    ; 1. Get the first line only
+    first_line := StrSplit(cell, "`n")[1]
+    first_line := StrSplit(first_line, "`r")[1]
+    
+    ; 2. Extract text up to [ or 🎵
+    ; RegEx: Match everything from start until it hits [ or 🎵 or end of line
+    if RegExMatch(first_line, "^[^\[🎵]+", &match_obj) {
+        clean_query := Trim(match_obj[0])
+        
+        ; 3. Open or Switch to Amazon Music
+        if WinExist("ahk_exe Amazon Music.exe") {
+            WinActivate("ahk_exe Amazon Music.exe")
+        }
+        else {
+			; Just open the damn thing via Windows launcher.
+			SendS("{LWin Down}")
+			SendS("{LWin Up}")
+			Sleep(500)
+			SendS("Amazon Music")
+			SendS("{enter}")
+            if !WinWaitActive("ahk_exe Amazon Music.exe", , 20) {
+                return
+            }
+			Sleep(3000)
+        }
+        
+        Sleep(500)
+        Send("!/") ; <A /> goes to search field 
+        Sleep(200)
+		; Clear previous search	
+		SendS("{Shift Down}")
+		SendS("{Home}")
+		SendS("{Backspace}")
+		SendS("{Shift Up}")
+        
+        A_Clipboard := clean_query
+        Send("^v")
+        Sleep(100)
+        Send("{Enter}")
+		Sleep(2000)
+		MouseMove(161, 705) ; play button of first song in search results
+		Click()
+		end_mode()
+    }
+}
 
 ; Terminate this keystroke handler. End this mode.
 LControl & Escape:: {
