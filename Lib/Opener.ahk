@@ -5,6 +5,13 @@ opener_child_id := ""
 
 open_opener() {
 	global opener_id
+
+	opener_id := WinExist("Opener ahk_exe AutoHotkey64.exe")
+	if opener_id {
+		close_opener()
+		return
+	}
+	
     ui := Gui("+AlwaysOnTop", "Opener")
 	opener_id := ui.hwnd
     ui.SetFont("s10", "Segoe UI")
