@@ -854,14 +854,35 @@ touchpad_drag_up() {
 }
 
 ; Move through YouTube videos using left hand.
+; Works with YouTube Playback Speed Control extension.
+; Can't use +Right and +Left since YouTube seems to intercept them early.
+; You have to put the * so hotkey triggers even if modifiers held.
+; Then the "P" arg so the physical state of the Shift key is checked.
+/*
+$+a::Send("{Numpad0}")
+$+o::Send("{Numpad1}")
+*/
 #HotIf (WinActive("YouTube ahk_exe chrome.exe") && IsMouseInVideoZone())
-a::Send("{Left}")
-o::Send("{Right}")
+*$a:: {
+	if GetKeyState("Shift", "P")
+		Send("-")
+	else
+		Send("{Left}")
+}
+
+*$o:: {
+	if GetKeyState("Shift", "P")
+		Send("{NumpadAdd}")
+	else
+		Send("{Right}")
+}
+
 $^l:: {
     MouseGetPos(&mouseX, &mouseY)
 	MouseMove(mouseX, 130) ; Zenbook address bar location
 	Send("^l") ; move keyboard focus to address bar
 }
+
 #HotIf
 
 IsMouseInVideoZone() {
