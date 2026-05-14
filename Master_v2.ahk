@@ -1304,6 +1304,13 @@ $#d:: {
     Run("Debug_v2.ahk")
 }
 
+; <W-A s> => Shorthand mode.
+$#!s:: {
+	ToolTip("Shorthand mode ON")
+	SetTimer(RemoveToolTip, -2000)
+    Run("Shorthand_v2.ahk")
+}
+
 ; FAIL: <A-W r>: conflicts with Windows Game Bar.
 ; <C r> => Recurring Tasks mode 
 #HotIf WinActive("Personal Kanban ahk_exe chrome.exe")
