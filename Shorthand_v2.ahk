@@ -4,10 +4,47 @@
 
 TraySetIcon(A_ScriptDir "\Icons\Shorthand_v2.ico")
 
-#Hotstring C
+/*
+A - action
+B - able, ible
+C - cise, ence, erence
+G - ing, thing
+H - ight
+M - ment
+mT - mission
+N - ness
+S - ous
+T - tion, sion
+V - ive
+VN - iveness
+X - trans, cross
+Y - ity, ary
+Z - ization
+
+t= - test
+_ - under
+; - semi
+, - com, comm, con
+/ - lean or slash
+\ - back
+- - less
+-N - lessness
++ - ful
++N - fulness
+* - multi
+8 - ate
+
+*/
+
+; These should only affect the hotstrings in this file.
+; Make them all case-sensitive. Use space as the only trigger character.
+#Hotstring C ?0 Z
+#Hotstring EndChars `s
 
 ::+::more
 ::-::less
+::_::under
+::^::over
 ::!::not
 ::b::be
 ::c::can
@@ -22,6 +59,7 @@ TraySetIcon(A_ScriptDir "\Icons\Shorthand_v2.ico")
 ::s::some
 ::t::the
 ::u::you
+::v::very
 ::w::with
 ::AA::A
 ::A::action
@@ -41,7 +79,10 @@ TraySetIcon(A_ScriptDir "\Icons\Shorthand_v2.ico")
 ::hv!::have not
 ::un-::unless
 ::fr::from
+::afr::away from
+::tw::toward
 ::af::after
+::ab::about
 ::b4::before
 ::w2::want to
 ::b+::better
@@ -69,9 +110,43 @@ TraySetIcon(A_ScriptDir "\Icons\Shorthand_v2.ico")
 ::s1::someone
 ::a1::anyone
 ::n1::no one
-::bB2::be able to
-::reA::reaction
 ::fA::faction
+::gG::going
+::gG2::going to
+::t=::test
+::,C::concise
+::,curC::concurence
+::,qC::consequence
+::,qV::consequtive
+::,t=::contest
+::,fluC::confluence
+::,trast::contrast
+::,trastG::constrasting
+::,venT::convention
+::?::think
+::?G::thinking
+::?+::thoughtful
+::?+N::thoughtfulness
+::^?G::overthinking
+::_takeG::undertaking
+::thank+::thankful
+::thank+y::thankfully
+::/G::leaning
+::c/::clean
+::c/s::cleans
+::c/d::cleaned
+::c/r::cleaner
+::c/G::cleaning
+
+; Looks like & acts as a separator, so these don't work.
+; Even settting options that should make these work, they don't.
+::_st&::understand
+::_st&G::understanding
+::st&G::standing
+
+::t=M::testament
+::reA::reaction
+::bB2::be able to
 ::frA::fraction
 ::trA::traction
 ::inA::inaction
