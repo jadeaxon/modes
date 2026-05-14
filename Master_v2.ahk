@@ -700,7 +700,20 @@ $^d:: {
 
 ; Remap Programmer Dvork to normal numbers.
 ; This jumps to pinned tab #1.
-^&::Send("^1{F5}")
+; This simpler one used to work until I made this new one from Chrome.
+; ^&::Send("^1{F5}")
+$^SC002:: {
+	; SC002 is the physical scan code for the '1' key.
+    ; 0x31 is the Virtual Key for the '1' key.
+    ; We send it 'Down' and 'Up' while the Hook handles the Ctrl state.
+    
+    SendEvent("{Blind}{vk31 down}")
+    Sleep(40)
+    SendEvent("{Blind}{vk31 up}")
+    
+    Sleep(50)
+    Send("{F5}")
+}
 #HotIf
 
 
@@ -716,7 +729,15 @@ $^d:: {
 #HotIf
 
 ; Autoscroller for YouTube.
-#HotIf WinActive("YouTube ahk_exe chrome.exe") || WinActive("Google News ahk_exe firefox.exe")
+autoscrollable_window_active() {
+	return false || 
+	WinActive("YouTube ahk_exe chrome.exe") || 
+	WinActive("Google News ahk_exe firefox.exe") ||
+	WinActive("Facebook ahk_exe firefox.exe")
+
+}
+
+#HotIf autoscrollable_window_active()
 ^s::toggle_autoscroll()
 
 $Down:: {
