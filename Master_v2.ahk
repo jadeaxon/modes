@@ -466,16 +466,14 @@ $^!w:: {
 
 ; <C w> => Close AHK Window Spy.
 #HotIf WinActive("Window Spy ahk_class AutoHotkeyGUI")
-^w:: {
-    WinClose("A")
-}
+^w::WinClose("A")
+Esc::WinClose("A")
 #HotIf
 
 ; Make the Windows 11 settings window close via <C w>.
 #HotIf WinActive("Settings ahk_class ApplicationFrameWindow ahk_exe ApplicationFrameHost.exe")
-$^w:: {
-	WinClose("A")
-}
+^w::WinClose("A")
+Esc::WinClose("A")
 #HotIf
 
 ; <C-A Up/Down> increment/decrement brightness by 1.
@@ -485,12 +483,7 @@ $^w:: {
 #HotIf WinActive("NOOK ahk_exe firefox.exe")
 Up::Send("{left}")
 Down::Send("{right}")
-#HotIF
-
-Up & Right:: {
-	Click()
-}
-~Up::return
+#HotIf
 
 
 ;------------------------------------------------------------------------------
