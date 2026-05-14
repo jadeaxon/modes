@@ -38,39 +38,26 @@ _ - under
 
 ; These should only affect the hotstrings in this file.
 ; Make them all case-sensitive. Use space as the only trigger character.
-#Hotstring C ?0 Z
+#Hotstring C Z
 #Hotstring EndChars `s
 
-::+::more
-::-::less
-::_::under
-::^::over
-::!::not
-::b::be
-::c::can
-::d::do
-::f::for
-::i::is
-::l::like
-::m::me
-::n::and
-::o::of
-::r::are
-::s::some
-::t::the
-::u::you
-::v::very
-::w::with
-::AA::A
-::A::action
-::B::able
-::G::thing
-::aa::and
+; WARNING: You have to define longer hotstrings before shorter ones.
+; Otherwise AHK will prioritize expanding the shorter one since defined first.
+::iv!::I haven't
+::ivb::I've been
+::iv!b::I haven't been 
+::ur::you're
+::ur!::you're not
 ::m+::many 
 ::tt::that
 ::ts::this
 ::tn::than
 ::tm::them
+::ty::they
+::tyr::they're
+::tyr!::they're not
+::wer::we're
+::wer!::we're not
 ::ct::can't
 ::c!::cannot
 ::hv::have
@@ -78,12 +65,15 @@ _ - under
 ::hvt::haven't 
 ::hv!::have not
 ::un-::unless
+::ut::until
 ::fr::from
 ::afr::away from
 ::tw::toward
 ::af::after
 ::ab::about
 ::b4::before
+::2d::today
+::2m::tomorrow
 ::w2::want to
 ::b+::better
 ::un::under
@@ -103,6 +93,7 @@ _ - under
 ::eG::everything
 ::sG::something
 ::uv::you've
+::uvb::you've been
 ::sth::something
 ::sthe::something else
 ::nG::nothing
@@ -123,11 +114,16 @@ _ - under
 ::,trast::contrast
 ::,trastG::constrasting
 ::,venT::convention
-::?::think
-::?G::thinking
-::?+::thoughtful
-::?+N::thoughtfulness
-::^?G::overthinking
+::?::question
+::?s::questions
+::?d::questioned
+::?G::questioning
+::?B::questionable
+::t?::think
+::t?G::thinking
+::t?+::thoughtful
+::t?+N::thoughtfulness
+::^t?G::overthinking
 ::_takeG::undertaking
 ::thank+::thankful
 ::thank+y::thankfully
@@ -137,13 +133,9 @@ _ - under
 ::c/d::cleaned
 ::c/r::cleaner
 ::c/G::cleaning
-
-; Looks like & acts as a separator, so these don't work.
-; Even settting options that should make these work, they don't.
 ::_st&::understand
 ::_st&G::understanding
 ::st&G::standing
-
 ::t=M::testament
 ::reA::reaction
 ::bB2::be able to
@@ -204,14 +196,6 @@ _ - under
 ::qw::how
 ::qwe::however
 ::qwm::how many
-::?::what
-::?o::who
-::?n::when
-::?r::where
-::?e::whatever
-::?oe::whoever
-::?ne::whenever
-::?re::wherever
 ::Inet::internet
 ::INl::international
 ::IA::interaction
@@ -227,6 +211,43 @@ _ - under
 ::rH::right
 ::flH::flight
 ::flH-::flightless
+::Xform::Send("transform")
+::XformT::transformation
+::Xl8::translate
+::Xl8T::translation
+::XG::crossing
+::XportaT::transportation
+::XportG::transporting
+::+::more
+::-::less
+::_::under
+::^::over
+::!::not
+::b::be
+::c::can
+::d::do
+::f::for
+::i::is
+::l::like
+::m::me
+::n::and
+::o::of
+::r::are
+::s::some
+::t::the
+::u::you
+::v::very
+::w::with
+::AA::A
+::A::action
+::B::able
+::G::thing
+::aa::and
+::im::I'm
+:?:im!::I'm not
+::iv::I've
+
+; END
 
 RemoveToolTip() => ToolTip()
 
