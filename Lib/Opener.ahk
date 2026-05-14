@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0
 
+#Include <StringPlus>
+
 opener_id := ""
 opener_child_id := ""
 
@@ -20,6 +22,7 @@ open_opener() {
     ui.Add("Button", "w200", "&Directories").OnEvent("Click", (*) => open_directory_opener())
     ui.Add("Button", "w200", "&Files").OnEvent("Click", (*) => open_file_opener())
     ui.Add("Button", "w200", "&Apps").OnEvent("Click", (*) => open_app_opener())
+    ui.Add("Button", "w200", "&URLs").OnEvent("Click", (*) => open_url_opener())
     ui.Add("Button", "w200", "&Settings").OnEvent("Click", (*) => open_settings_opener())
     
 	ui.OnEvent("Escape", (uio) => uio.Destroy())
@@ -87,6 +90,24 @@ open_app_opener() {
     ui.Show()
 }
 
+open_url_opener() {
+	global opener_id
+	global opener_child_id
+
+	GuiFromHwnd(opener_id).Hide()
+    ui := Gui("+AlwaysOnTop", "App Opener")
+	opener_child_id := ui.hwnd
+    ui.SetFont("s10", "Segoe UI")
+    
+    ui.Add("Button", "w200", "&Amazon").OnEvent("Click", (*) => open("https://www.amazon.com"))
+    ui.Add("Button", "w200", "&Facebook").OnEvent("Click", (*) => open("https://www.facebook.com"))
+    
+	ui.OnEvent("Escape", (uio) => uio.Destroy())
+    ui.OnEvent("Close", (uio) => uio.Destroy())
+    
+    ui.Show()
+}
+
 open_settings_opener() {
 	global opener_id
 	global opener_child_id
@@ -118,7 +139,8 @@ on_system_path(file) {
 
 ; Helper function for the various opener popups.
 open(path) {
-	parts := StrSplit(path, A_Space)
+	s := StringPlus(path)
+	parts := s.split()
 	command := parts[1]
 	close_opener()
     if DirExist(path) {
@@ -134,9 +156,14 @@ open(path) {
 				command := path
 				Run(command)
 			}
+			else if s.startswith("https://") {
+				url := path
+				Run(url)
+			}
 			else {
 				; Single app executable. Run maximized.
-				Run(command,,, "Max")
+				app := path
+				Run(app,,, "Max")
 			}
 		}
     } 
