@@ -918,6 +918,12 @@ IsMouseInVideoZone() {
     return (mouseY > (A_ScreenHeight * threshold))
 }
 
+#HotIf WinActive("Google ahk_exe chrome.exe")
+; <C /> => do a new Google search; clear current search
+$^/::Send("^k")
+#HotIf
+
+; END
 
 ;==============================================================================
 ; Windows Explorer
