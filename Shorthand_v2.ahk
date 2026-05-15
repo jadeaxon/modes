@@ -13,13 +13,14 @@ H - ight
 M - ment
 mT - mission
 N - ness
-S - ous
+S - ous, ious
 T - tion, sion
 V - ive
 VN - iveness
 X - trans, cross
 Y - ity, ary
-Z - ization
+Z - ize
+ZT - ization
 
 t= - test
 _ - under
@@ -70,6 +71,8 @@ _ - under
 ::creaT::creation
 ::naTlZ::nationalize
 ::retrA::retraction
+::realZT::realization
+::realZ::realize
 ::sud!h::should not have
 ::sudth::shouldn't
 ::wudl2::would like to

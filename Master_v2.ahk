@@ -579,6 +579,7 @@ F11:: {
         if startID
             WinHide(startID)
 
+		SendS("^n") ; make sure not in input mode
 		SendS(":set guioptions-=m")
 		SendS("{enter}")
 		SendS(":set showtabline=0")
@@ -596,6 +597,7 @@ F11:: {
             WinShow(startID)
 
         isFull := false
+		SendS("^n") ; make sure not in input mode
 		SendS(":set guioptions{+}=m")
 		SendS("{enter}")
 		SendS(":set showtabline=2")

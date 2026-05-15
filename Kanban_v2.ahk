@@ -199,7 +199,7 @@ open_cell_text_file(cell) {
 		w.rebind() ; waits for window to exist, activates, and waits until active
 		Sleep(300)
 		SendS("/HERE")
-		Sends("{enter}")
+		SendS("{enter}")
 		SendLevel(1) ; Allows F11 to trigger as hotkey causing Vim to go fullscreen.
 		SendS("{F11}")
 		end_mode()
