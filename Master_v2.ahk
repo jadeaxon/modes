@@ -691,11 +691,25 @@ $^d:: {
 	Send("!{Enter}") ; Submit dialog.
 }
 
-; Let's try having ;; delete the bookmark.
-:*:;;:: {
-	SendS("{AppsKey}")
-	Sleep(400)
-	SendS("d")
+
+; Pressing ;; deletes bookmark hovered over.
+; Had to do extra gymnastics to avoid a ding sound being made since the ; keystrokes
+; can be seen by the menu if just using a hotstring causing it to think you are using
+; an invalid accelerator key.
+$;:: {
+	MouseGetPos(,, &hovered_window_id)
+	hovered_class := WinGetClass(hovered_window_id)
+	if hovered_class != "MozillaDropShadowWindowClass" {
+		SendText(";")
+	}
+	else {
+		; Check if the prior hotkey was also ';' and pressed less than 300ms ago
+		if (A_PriorHotkey = "$;" and A_TimeSincePriorHotkey < 300) {
+			Send("{AppsKey}")
+			Sleep(100)
+			Send("d")
+		}
+	}
 }
 
 ; Remap Programmer Dvork to normal numbers.
@@ -721,12 +735,16 @@ $^SC002:: {
 ; Chrome
 ;==============================================================================
 
+/*
 #HotIf WinActive("ahk_exe chrome.exe")
 ; Have ;; delete bookmark you are hovering over.
 :*:;;:: {
-	Send("{AppsKey}d")
+	SendS("{AppsKey}")
+	Sleep(400)
+	SendS("d")
 }
 #HotIf
+*/
 
 ; Autoscroller for YouTube.
 autoscrollable_window_active() {
@@ -1358,7 +1376,7 @@ $^m:: {
 
 ; #UseHook false
 LControl & Escape:: {
-    SoundPlay("*65") ; *65 is a system sound
+    ; SoundPlay("*65") ; *65 is a system sound
 	speak("Reloading Modes")
     Reload()
 
