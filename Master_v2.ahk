@@ -356,13 +356,16 @@ $^f:: {
 	Send("^f")
 }
 
-Esc:: {
+$Esc:: {
 	global searchDialog
 	if (searchDialog) {
 		Send("^f")
 		Send("{tab}{tab}")
 		Send("{enter}")
 		searchDialog := 0
+	}
+	else {
+		Send("{Esc}")
 	}
 }
 #Hotif
