@@ -218,7 +218,8 @@ Run(HOME "\projects\modes-private\Private_v2.ahk /restart")
 :*c:T2m::25m treadmill{enter}
 :*c:Tst::7.5m strength training{enter}
 :*c:Tbh::Bar hang [H1]^{enter}
-:*c:u*::⭐
+:*c:u*::⭐ ; star
+:*c:uD::💁 ; to mark task that could be delegated
 #HotIf
 
 ; END
