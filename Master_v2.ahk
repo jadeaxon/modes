@@ -693,7 +693,9 @@ $^d:: {
 
 ; Let's try having ;; delete the bookmark.
 :*:;;:: {
-	Send("{AppsKey}d")
+	SendS("{AppsKey}")
+	Sleep(400)
+	SendS("d")
 }
 
 ; Remap Programmer Dvork to normal numbers.
