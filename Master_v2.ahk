@@ -908,6 +908,8 @@ $+o::Send("{Numpad1}")
 *$a:: {
 	if GetKeyState("Shift", "P")
 		Send("-")
+	else if GetKeyState("Control", "P")
+		Send("^{Left}")
 	else
 		Send("{Left}")
 }
@@ -915,6 +917,8 @@ $+o::Send("{Numpad1}")
 *$o:: {
 	if GetKeyState("Shift", "P")
 		Send("{NumpadAdd}")
+	else if GetKeyState("Control", "P")
+		Send("^{Right}")
 	else
 		Send("{Right}")
 }
