@@ -102,7 +102,7 @@ Run(HOME "\projects\modes-private\Private_v2.ahk /restart")
 :*:j@g::jadeaxon@gmail.com
 :*:je@g::java.emitter@gmail.com
 :*:jr@u::jeffrey.anderson@uvu.edu
-:*:2@u::10845493@uvu.edu
+:*:1@u::10845493@uvu.edu
 :*:j@u::jeff.anderson@uvu.edu
 :*:my.uvid::10845494
 :*:my.pidm::658226
@@ -221,6 +221,11 @@ Run(HOME "\projects\modes-private\Private_v2.ahk /restart")
 :*c:u*::⭐ ; star
 :*c:uD::💁 ; to mark task that could be delegated
 #HotIf
+
+:*X:/.dt::Send(A_Desktop)
+:*X:/.dl::Send(HOME "\Downloads")
+:*X:/.ss::Send(HOME "\Pictures\Screenshots")
+:*X:/.G::Send("G:\My Drive")
 
 ; END
 
