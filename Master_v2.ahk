@@ -736,7 +736,6 @@ $^SC002:: {
 ; Chrome
 ;==============================================================================
 
-/*
 #HotIf WinActive("ahk_exe chrome.exe")
 ; Have ;; delete bookmark you are hovering over.
 :*:;;:: {
@@ -745,12 +744,12 @@ $^SC002:: {
 	SendS("d")
 }
 #HotIf
-*/
 
 ; Autoscroller for YouTube.
 autoscrollable_window_active() {
 	return false || 
 	WinActive("YouTube ahk_exe chrome.exe") || 
+	WinActive("Google News ahk_exe chrome.exe") ||
 	WinActive("Google News ahk_exe firefox.exe") ||
 	WinActive("Facebook ahk_exe firefox.exe")
 
@@ -791,6 +790,12 @@ $^SC002:: {
     
     Sleep(50)
     Send("{F5}")
+}
+
+; Refresh next tab when you move to it.
+$^Tab:: {
+	SendS("^{Tab}")
+	SendS("{F5}")
 }
 #HotIf
 
