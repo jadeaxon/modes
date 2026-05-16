@@ -768,10 +768,14 @@ $Down:: {
 
 $Up:: {
 	global autoscroller
-	if autoscroller.on
+	if autoscroller.on {
 		autoscroller.delay -= 1
-	else
+		if autoscroller.delay = 0
+			autoscroller.delay := 1
+	}
+	else {
 		Send("{Up}")
+	}
 }
 		
 #HotIf
@@ -815,7 +819,7 @@ toggle_autoscroll() {
         MouseGetPos(&mouse_x_start, &mouse_y_start)
 
         ; SetTimer uses a function name (or object) without quotes
-        SetTimer(scroll_down, 150)
+        SetTimer(scroll_down, 50)
         ToolTip("Autoscroll ON")
         SetTimer(RemoveToolTip, -2000)
     }
@@ -863,9 +867,11 @@ touchpad_drag_up() {
 
 	; The standard mouse wheel 'notch' is 120.
     ; Touchpads send much smaller values (like 10 or 20) for smoothness.
-    delta := -2  ; Change this to adjust "smoothness" (lower is smoother)
+    delta := -3  ; Change this to adjust "smoothness" (lower is smoother)
 
-    Loop 10 {
+	loops := (50 // autoscroller.delay) + 1
+
+    Loop loops {
 		 ; Get mouse position relative to the screen
         CoordMode "Mouse", "Screen"
         MouseGetPos(&x, &y, &hWnd)
