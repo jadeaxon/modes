@@ -227,6 +227,13 @@ Run(HOME "\projects\modes-private\Private_v2.ahk /restart")
 :*X:/.ss::Send(HOME "\Pictures\Screenshots")
 :*X:/.G::Send("G:\My Drive")
 
+#HotIf WinActive("Alexa ahk_exe firefox.exe")
+:*:a.td::Set the bedroom lights to daylight with 100% brightness.`n
+:*:a.ts::Set the bedroom lights to sunset with 35% brightness.`n
+:*:a.ld::Set the lamp to daylight with 100% brightness.`n
+:*:a.ls::Set the lamp to sunset with 35% brightness.`n
+#HotIf
+
 ; END
 
 ;-------------------------------------------------------------------------------
