@@ -109,6 +109,9 @@ $*o:: {
 	else if RegExMatch(CleanText, '🎵', &Match) {
 		open_cell_song(cell)
 	}
+	else if RegExMatch(CleanText, '[GC]:\\', &Match) {
+		open_cell_directory(cell)
+	}
     
     Sleep 100
     A_Clipboard := saved
@@ -255,6 +258,18 @@ open_cell_song(cell) {
 		Click()
 		end_mode()
     }
+}
+
+open_cell_directory(cell) {
+	local dir := ""
+    local clean := RegExReplace(cell, '^"|"$', "")
+    clean := StrReplace(clean, '""', '"')
+    
+    if RegExMatch(clean, "m)^[GC]:\\.*$", &m) {
+        dir := m[0]
+		Run(dir)
+		end_mode()
+    } 
 }
 
 ; Terminate this keystroke handler. End this mode.
