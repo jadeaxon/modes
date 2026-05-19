@@ -669,7 +669,7 @@ RShift & Down:: {
 #HotIf WinActive("Inbox ahk_exe olk.exe") && A_Cursor = "Arrow"
 d:: {
 	Click("right") ; select message under mouse w/o opening it
-	Sleep(50)
+	Sleep(200)
 	SendS("{Esc}")
 	SendS("^q") ; mark as read
 	SendS("{delete}")
@@ -677,7 +677,7 @@ d:: {
 
 w:: {
 	Click("right") ; select message under mouse w/o opening it
-	Sleep(50)
+	Sleep(200)
 	SendS("{Esc}")
 	SendS("^+5") ; move to @Waiting (via quick step)
 }
